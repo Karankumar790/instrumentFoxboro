@@ -34,7 +34,7 @@ function Header() {
             borderRadius={10}
           >
             <Autocomplete
-            sx={{borderRadius: 10}}
+              sx={{ borderRadius: 10 }}
               options={top100Films.map((option) => option.title)}
               renderInput={(params) => <TextField {...params} label="Search" />}
             />
@@ -44,7 +44,14 @@ function Header() {
           <Button variant="contained">Login/SignUp</Button>
         </Grid2>
       </Grid2>
-      <Grid2
+      <Grid2 bgcolor={"red"} display="flex">
+        <Grid2 size={{lg:"2"}}>Automation</Grid2>
+        <Grid2 size={{lg:"2"}}>E-Store</Grid2> 
+        <Grid2 size={{lg:"2"}}>Software</Grid2>  
+        <Grid2 size={{lg:"2"}}>Support</Grid2>
+        <Grid2 size={{lg:"2"}}>Service</Grid2>
+      </Grid2>
+      {/* <Grid2
         container
         display="flex"
         justifyContent="center"
@@ -62,7 +69,7 @@ function Header() {
 
         </Grid2>
         <Grid2 size={{ lg: 2 }}></Grid2>
-      </Grid2>
+      </Grid2> */}
     </>
   );
 }
