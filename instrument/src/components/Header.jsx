@@ -28,10 +28,11 @@ function Header() {
   ];
 
   const indus = [
-    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Findustry&psig=AOvVaw36YT81VMQ_D4Gaz15YwpYM&ust=1738649937041000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKi-hO7tposDFQAAAAAdAAAAABAE",
-    "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Findustrial&psig=AOvVaw36YT81VMQ_D4Gaz15YwpYM&ust=1738649937041000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKi-hO7tposDFQAAAAAdAAAAABAJ",
-    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcorporatefinanceinstitute.com%2Fresources%2Feconomics%2Findustry%2F&psig=AOvVaw36YT81VMQ_D4Gaz15YwpYM&ust=1738649937041000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKi-hO7tposDFQAAAAAdAAAAABAT",
-    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fdepositphotos.com%2Fphotos%2Findustrial.html&psig=AOvVaw36YT81VMQ_D4Gaz15YwpYM&ust=1738649937041000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKi-hO7tposDFQAAAAAdAAAAABAd"
+    "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
+    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
+    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
+    "https://www.beckhoff.com/media/pictures/tiles/products/ipc/ipc_webp_85.webp",
+      
   ]
   const top100Films = [];
   return (
@@ -117,8 +118,8 @@ function Header() {
             </Grid2>
           ))}
         </Grid2>
-        <Grid2 container spacing={2}>
-          {/* <Typography></Typography> */}
+          <Typography variant="h4"> Industrial software</Typography>
+        <Grid2 container spacing={2} mt={1}>
           {indus.map((src, index) => (
             <Grid2 size={{ lg: 3, md: 3, sm: 6, xs: 12 }} border={'1px solid black'} key={index}>
               <Card>
