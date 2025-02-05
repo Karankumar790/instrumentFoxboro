@@ -1,8 +1,9 @@
-import Header from "./components/Header.jsx";
+import React from "react";
+import Content from "./pages/content.jsx"
 function App() {
   return (
     <>
-      <Header />
+      <Content/>
     </>
   );
 }
