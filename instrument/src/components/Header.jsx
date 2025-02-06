@@ -32,7 +32,7 @@ function Header() {
           <img src={logo} height={"50vh"} width={"200px"} />
         </Grid2>
         <Grid2 size={{ lg: 6 }}>
-          <Typography variant="h5">Industrial Automation company</Typography>
+          <Typography variant="h5">Industrial Automation Company</Typography>
         </Grid2>
         <Grid2 size={{ lg: 3 }}>
           <Stack
