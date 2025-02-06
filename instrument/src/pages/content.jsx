@@ -161,9 +161,33 @@ function content() {
                 </Grid2>
               ))}
             </Grid2>
+
+            <Grid2 display="flex" m={1} flexDirection="row" gap={2}>
+              <Grid2 size={{ lg: 8 }}>
+                <img
+                  src="https://www.beckhoff.com/media/pictures/cards/news/scheugenpflug-application-report-teaser_webp_85.webp"
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  alt=""
+                />
+              </Grid2>
+              <Grid2 size={{ lg: 4 }}>
+                <img
+                  src="https://www.beckhoff.com/media/pictures/cards/news/layer-seven-application-teaser_webp_85.webp"
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  alt=""
+                />
+              </Grid2>
+            </Grid2>
           </Grid2>
         </Grid2>
-        <Grid2></Grid2>
       </PageContainer>
     </>
   );
