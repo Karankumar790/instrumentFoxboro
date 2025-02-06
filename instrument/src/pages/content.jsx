@@ -11,6 +11,9 @@ import React, { useState } from "react";
 import PageContainer from "../components/HOC/PageContainer";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import Footer from "../components/Footer/Footer";
+import { Link } from "react-router-dom";
+import product from "./product";
 
 function content() {
   const [open, setOpen] = useState(false);
@@ -38,7 +41,7 @@ function content() {
   ];
   return (
     <>
-      <PageContainer showheader="true" showfooter="true">
+      <PageContainer showheader="true">
         <Grid2
           container
           display="flex"
@@ -46,15 +49,19 @@ function content() {
           mt={1}
         >
           <Grid2 mr={2} display={"flex"} alignItems={"center"}>
+            <Button variant="inherit" >
             <ArrowBackIosIcon sx={{ fontSize: "50px" }} />
+            </Button>
           </Grid2>
           <Grid2 size={{ lg: 7 }} >
-            <Box display="flex" justifyContent="center">
+            <Box display="flex" justifyContent="center" height={"53.3vh"}>
               <img src="https://www.beckhoff.com/media/pictures/stages/news/distributed-drive-technology-stage-lowres_webp_85.webp" />
             </Box>
           </Grid2>
           <Grid2 ml={3}  display={"flex"} alignItems={"center"}>
+          <Button variant="inherit" >
             <ArrowForwardIosIcon sx={{ fontSize: "50px" }} />
+            </Button>
           </Grid2>
         </Grid2>
         <Grid2 container display="flex" justifyContent="center" m={1}>
@@ -65,7 +72,7 @@ function content() {
             // border={"1px solid black"}
           >
             <Box>
-              <Typography variant="h4">Industrial Automation </Typography>
+              <Typography variant="h4" mt={3}>Industrial Automation </Typography>
             </Box>
             {/* <Grid2 container spacing={2}>
               {images.map((src, index) => (
@@ -90,6 +97,7 @@ function content() {
                   key={index}
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                 >
+                  <Link to="/product" style={{textDecoration:"none"}}>
                   <Card>
                     <CardMedia
                       component="img"
@@ -104,6 +112,7 @@ function content() {
                     >
                       Automation
                     </Typography>
+                    
                     <Typography
                       variant="body2"
                       sx={{ paddingLeft: "8px", paddingRight: "8px" }}
@@ -140,10 +149,11 @@ function content() {
                       </Typography>
                     </Collapse>
                   </Card>
+                  </Link>
                 </Grid2>
               ))}
             </Grid2>
-            <Typography variant="h4"> Industrial software</Typography>
+            <Typography variant="h4" mt={3}> Industrial software</Typography>
             <Grid2 container spacing={2} mt={1}>
               {indus.map((src, index) => (
                 <Grid2
@@ -162,6 +172,7 @@ function content() {
               ))}
             </Grid2>
 
+              <Typography variant="h4" mt={3}>Engineering Services</Typography>
             <Grid2 display="flex" m={1} flexDirection="row" gap={2}>
               <Grid2 size={{ lg: 8 }}>
                 <img
@@ -188,6 +199,7 @@ function content() {
             </Grid2>
           </Grid2>
         </Grid2>
+     <Footer/>
       </PageContainer>
     </>
   );

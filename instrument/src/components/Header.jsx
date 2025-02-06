@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import logo from "../../public/assets/foxlogo.png";
 function Header() {
-  const item = ["Automation", "E-Store", "Software", "Support", "Support"];
+  const item = ["Automation", "E-Store", "Software", "Support", "Service"];
   // const arr = [{"automation":"http://localhost"},{"E-Store":"http://localhost"},{"Software":"http://localhost"},{"Support":"http://localhost"},{"Support":"http://localhost"}]
   const label = { inputProps: { "aria-label": "Join Foxboro" } };
   const top100Films = [];

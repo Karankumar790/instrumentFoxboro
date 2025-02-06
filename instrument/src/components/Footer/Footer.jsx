@@ -16,6 +16,9 @@ function Footer() {
           </Typography>
         </Grid2>
       </Grid2>
+      {/* <Grid2 container sx={{ display: "flex", justifyContent: "center", background: "#8c99ac", p:0.8  }} >
+       
+      </Grid2> */}
     </div>
   )
 }
