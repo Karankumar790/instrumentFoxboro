@@ -4,13 +4,13 @@ import {
   Card,
   CardMedia,
   Collapse,
-  Grid,
   Grid2,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import PageContainer from "../components/HOC/PageContainer";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 function content() {
   const [open, setOpen] = useState(false);
@@ -39,22 +39,31 @@ function content() {
   return (
     <>
       <PageContainer showheader="true" showfooter="true">
+        <Grid2
+          container
+          display="flex"
+          justifyContent="center"
+          mt={1}
+        >
+          <Grid2 mr={2} display={"flex"} alignItems={"center"}>
+            <ArrowBackIosIcon sx={{ fontSize: "50px" }} />
+          </Grid2>
+          <Grid2 size={{ lg: 7 }} >
+            <Box display="flex" justifyContent="center">
+              <img src="https://www.beckhoff.com/media/pictures/stages/news/distributed-drive-technology-stage-lowres_webp_85.webp" />
+            </Box>
+          </Grid2>
+          <Grid2 ml={3}  display={"flex"} alignItems={"center"}>
+            <ArrowForwardIosIcon sx={{ fontSize: "50px" }} />
+          </Grid2>
+        </Grid2>
         <Grid2 container display="flex" justifyContent="center" m={1}>
           <Grid2
             size={{ lg: 7 }}
             p={0}
             overflow="hidden"
             // border={"1px solid black"}
-            
           >
-            <Grid2 container bgcolor={"black"}>
-            <Box display="flex" justifyContent="center">
-              <img src="https://www.beckhoff.com/media/pictures/stages/news/distributed-drive-technology-stage-lowres_webp_85.webp" />
-            </Box>
-            </Grid2>
-              <NavigateNextIcon sx={{ fontSize: "90px" }} />
-            
-
             <Box>
               <Typography variant="h4">Industrial Automation </Typography>
             </Box>
@@ -76,14 +85,17 @@ function content() {
             </Grid2> */}
             <Grid2 container spacing={2}>
               {images.map((src, index) => (
-                <Grid2 bgcolor={'yellow'} key={index} size={{ lg: 3, md: 3, sm: 6, xs: 12 }}>
+                <Grid2
+                  bgcolor={"yellow"}
+                  key={index}
+                  size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
+                >
                   <Card>
                     <CardMedia
                       component="img"
-                      style={{ height: "30vh", width: "40vh" }}
+                      style={{ height: "30vh", width: "40vh",backgroundColor:"#97b5f7" }}
                       image={src}
                       alt={`Image ${index}`}
-                      
                     />
                     <Typography
                       variant="h6"
@@ -142,7 +154,7 @@ function content() {
                   <Card>
                     <CardMedia
                       component="img"
-                      style={{ height: "30vh", width: "40vh" }}
+                      style={{ height: "30vh", width: "40vh" ,backgroundColor:"#97b5f7"}}
                       image={src}
                     />
                   </Card>
