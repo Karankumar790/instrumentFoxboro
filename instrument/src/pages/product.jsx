@@ -44,7 +44,8 @@ function product() {
                   style={{
                     height: "30vh",
                     width: "40vh",
-                    backgroundColor: "#97b5f7",
+                    // backgroundColor: "#97b5f7",
+                    background: 'linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ',
                   }}
                   image={src}
                   alt={`Image ${index}`}
