@@ -111,7 +111,7 @@ function content() {
                   key={index}
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                 >
-                  <Link to="/product" style={{ textDecoration: "none" }}>
+                  <Link to="/products" style={{ textDecoration: "none" }}>
                     <Card>
                       <CardMedia
                         component="img"

@@ -13,7 +13,7 @@ import PageContainer from "../components/HOC/PageContainer";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 
-function product() {
+function oneclickproduct() {
   const [open, setOpen] = useState(false);
 
   const handleToggle = () => {
@@ -47,16 +47,16 @@ function product() {
             mb={4}
             // border={"1px solid black"}
           >
-            <Box mb={2} >
-              <Typography variant="h5" mt={2} fontWeight={"bold"} >
+            {/* <Box display={"flex"} justifyContent={"center"} >
+              <Typography variant="h4" mt={2} fontWeight={"bold"} >
                 Foxboro Product Line
               </Typography>
-            </Box>
-            {/* <Box>
+            </Box> */}
+            <Box>
               <Typography variant="h5" mt={2} mb={2} fontWeight={"bold"}>
                 Industrial Automation
               </Typography>
-            </Box> */}
+            </Box>
 
             <Grid2 container spacing={3}>
               {images.map((src, index) => (
@@ -65,7 +65,7 @@ function product() {
                   key={index}
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                 >
-                  <Link to="/product" style={{ textDecoration: "none" }}>
+                  {/* <Link to="/products" style={{ textDecoration: "none" }}> */}
                     <Card>
                       <CardMedia
                         component="img"
@@ -131,7 +131,7 @@ function product() {
                         </Typography>
                       </Collapse>
                     </Card>
-                  </Link>
+                  {/* </Link> */}
                 </Grid2>
               ))}
             </Grid2>
@@ -142,4 +142,4 @@ function product() {
     </div>
   );
 }
-export default product;
+export default oneclickproduct;

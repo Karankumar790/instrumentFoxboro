@@ -4,6 +4,7 @@ import Product from "./pages/product.jsx";
 import Software from "./pages/software.jsx";
 import Estore from "./pages/estore.jsx";
 import Support from "./pages/support.jsx";
+import OneProduct from "./pages/oneclickproduct.jsx";
 import { Route, Routes } from "react-router-dom";
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <Route path="/software" element={<Software />} />
         <Route path="/estore" element={<Estore />} />
         <Route path="/support" element={<Support />} />
+        <Route path="/products" element={<OneProduct />} />
+      
         
       </Routes>
     </>
