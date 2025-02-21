@@ -30,7 +30,7 @@ function Footer() {
 
   return (
     <Box sx={{ bgcolor: "darkblue", p: 2 }}>
-      <Grid2 container spacing={5}>
+      <Grid2 container spacing={5} ml={12}>
         {/* Corporate Office */}
         <Grid2 size={{ lg: 2.4 }} > 
           <Box >

@@ -24,7 +24,8 @@ import MarkunreadIcon from "@mui/icons-material/Markunread";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import EngineeringIcon from '@mui/icons-material/Engineering';
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import { Link } from "react-router-dom";
 
 function Header() {
   const item = [
@@ -33,7 +34,29 @@ function Header() {
     { text: "foxboroinstrument@gmail.com", icon: <MarkunreadIcon /> },
     { text: "9:00am-5:30pm (Monday to Saturday)", icon: <AccessTimeIcon /> },
   ];
-  const arr = ["automation", "Product", "Services", "Software", "E-Store","support"];
+  // const arr = ["Product", "Software", "Services", "E-Store", "Support"];
+  const arr = [
+    {
+      text: "Product",
+      Link: "/product",
+    },
+    {
+      text: "Software",
+      Link: "/software",
+    },
+    {
+      text: "Services",
+      Link: "/services",
+    },
+    {
+      text: "E-Store",
+      Link: "/estore",
+    },
+    {
+      text: "Support",
+      Link: "/support",
+    },
+  ];
   const label = { inputProps: { "aria-label": "Join Foxboro" } };
   const top100Films = [];
   return (
@@ -91,12 +114,14 @@ function Header() {
       >
         <Grid2 size={{ lg: 4 }} display={"flex"} gap={3}>
           <Grid2 size={{ lg: 3 }} ml={2}>
+          <Link to="/" style={{ textDecoration: "none" }}>
             <img
               src={logo}
               height={"100%"}
               width={"100%"}
               style={{ objectFit: "contain" }}
             />
+          </Link>
           </Grid2>
           <Typography
             ml={6}
@@ -114,17 +139,35 @@ function Header() {
             justifyContent={"space-between"}
             width={"65vw"}
           >
+            {/* <Box flexDirection={"row"} display={"flex"} gap={5} ml={4}>
+              {arr.map((value, index) => (
+                <Stack direction="row" alignItems="center" key={index}>
+                  <Button sx={{ color: "white" }} ml={1}>
+                    <Typography>{value} <a href={value.Link}></a></Typography>
+                  </Button>
+                </Stack>
+              ))}
+            </Box> */}
             <Box flexDirection={"row"} display={"flex"} gap={5} ml={4}>
               {arr.map((value, index) => (
                 <Stack direction="row" alignItems="center" key={index}>
                   <Button sx={{ color: "white" }} ml={1}>
-                    <Typography>{value}</Typography>
+                    {/* If there's a Link (non-empty), use the React Router Link component */}
+                    {value.Link ? (
+                      <Link to={value.Link} style={{ color: "white", textDecoration: "none" }}> 
+                        <Typography>{value.text}</Typography>
+                      </Link>
+                    ) : (
+                      <Typography>{value.text}</Typography>
+                    )}
                   </Button>
                 </Stack>
               ))}
             </Box>
             <Box>
-              <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Typography
+                sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              >
                 <EngineeringIcon sx={{ color: "white" }} />
                 Work At Foxboro
               </Typography>

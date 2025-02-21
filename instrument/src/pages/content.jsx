@@ -99,7 +99,7 @@ function content() {
             // border={"1px solid black"}
           >
             <Box>
-              <Typography variant="h5" mt={2} mb={2} fontWeight={"bold"}>
+              <Typography variant="h5" mt={3} mb={2} fontWeight={"bold"}>
                 Industrial Automation
               </Typography>
             </Box>
@@ -255,11 +255,11 @@ function content() {
                 </Grid2>
               ))}
             </Grid2>
-            <Grid2 display={"flex"} mt={2} mb={2} gap={"50%"} >
+            <Grid2 display={"flex"} mt={3} mb={2} gap={"50%"} >
               <Typography variant="h5" fontWeight={"bold"}>Engineering Services</Typography>
               <Typography variant="h5" fontWeight={"bold"}>New Product Line</Typography>
             </Grid2>
-            <Grid2 display="flex" flexDirection="row" gap={2} mb={4}>
+            <Grid2 display="flex" flexDirection="row" gap={2} mb={3}>
               <Grid2 size={{ lg: 8 }}>
                 {/* <img
                   src="https://www.beckhoff.com/media/pictures/cards/news/scheugenpflug-application-report-teaser_webp_85.webp"
@@ -270,7 +270,7 @@ function content() {
                   }}
                   alt=""
                 /> */}
-                <Box position="relative" width="100%" height="100%">
+                <Box position="relative" width="100%" height="90%">
                   <img
                     src="https://www.beckhoff.com/media/pictures/cards/news/scheugenpflug-application-report-teaser_webp_85.webp"
                     style={{
@@ -314,7 +314,7 @@ function content() {
                 <Card
                   sx={{
                     width: "100%",
-                    height: "100%",
+                    height: "90%",
                     display: "flex",
                     flexDirection: "column",
                   }}
