@@ -257,7 +257,7 @@ function content() {
             </Grid2>
             <Grid2 display={"flex"} mt={3} mb={2} gap={"50%"} >
               <Typography variant="h5" fontWeight={"bold"}>Engineering Services</Typography>
-              <Typography variant="h5" fontWeight={"bold"}>New Product Line</Typography>
+              <Typography variant="h5" fontWeight={"bold"}>New Arrival</Typography>
             </Grid2>
             <Grid2 display="flex" flexDirection="row" gap={2} mb={3}>
               <Grid2 size={{ lg: 8 }}>

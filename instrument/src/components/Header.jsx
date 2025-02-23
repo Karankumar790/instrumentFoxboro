@@ -46,7 +46,7 @@ function Header() {
     },
     {
       text: "Services",
-      Link: "/services",
+      Link: "/service",
     },
     {
       text: "E-Store",
@@ -169,7 +169,7 @@ function Header() {
                 sx={{ display: "flex", alignItems: "center", gap: 1 }}
               >
                 <EngineeringIcon sx={{ color: "white" }} />
-                Work At Foxboro
+                Join Foxboro
               </Typography>
             </Box>
           </Stack>

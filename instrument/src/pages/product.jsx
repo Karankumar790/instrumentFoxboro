@@ -6,6 +6,8 @@ import {
   CardMedia,
   Collapse,
   Grid2,
+  Pagination,
+  Stack,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -134,9 +136,12 @@ function product() {
                   </Link>
                 </Grid2>
               ))}
-            </Grid2>
           </Grid2>
+          <Stack spacing={1} alignItems={"end"} mt={2}>
+              <Pagination count={5} variant="outlined" shape="rounded" />
+            </Stack>
         </Grid2>
+            </Grid2>
         <Footer />
       </PageContainer>
     </div>
