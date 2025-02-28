@@ -23,7 +23,7 @@ function App() {
     { path: '/product', element: <Product /> },
     { path: '/estore', element: <Estore /> },
     { path: '/support', element: <Support /> },
-    { path: '/oneclickproduct', element: <Oneclickproduct /> },
+    { path: '/products', element: <Oneclickproduct /> },
     { path: '/service', element: <Service /> },
     { path: '/software', element: <Software /> },
 
