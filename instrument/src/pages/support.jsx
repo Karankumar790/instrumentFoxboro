@@ -1,247 +1,135 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
+// import Header from '../Component/Header'
+// import MainFooter from '../Component/MainFooter'
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import CallIcon from "@mui/icons-material/Call";
-import EmailIcon from "@mui/icons-material/Email";
-import PersonIcon from "@mui/icons-material/Person";
-import {
-  Container,
-  Typography,
-  TextField,
-  Button,
-  Grid2,
-  Box,
-  Paper,
-} from "@mui/material";
+import L from "leaflet";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CallIcon from '@mui/icons-material/Call';
+import EmailIcon from '@mui/icons-material/Email';
+import PersonIcon from '@mui/icons-material/Person';
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png",
+    iconUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png",
+    shadowUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png",
+});
 
 function Support() {
-  const [currentPosition, setCurrentPosition] = useState([51.505, -0.09]); // Default to London coordinates
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setCurrentPosition([latitude, longitude]);
-        },
-        (error) => {
-          console.error("Error fetching location:", error);
+    const [currentPosition, setCurrentPosition] = useState([51.505, -0.09]); // Default to London coordinates
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setCurrentPosition([latitude, longitude]);
+                },
+                (error) => {
+                    console.error("Error fetching location:", error);
+                }
+            );
+        } else {
+            console.error("Geolocation is not supported by this browser.");
         }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  }, []);
+    }, []);
 
-  return (
-    <div>
-      <Box
-        sx={{
-          height: "48vh",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "black",
-        }}
-      >
-        <Typography variant="h3" sx={{ fontWeight: "bold", color: "white" }}>
-          <span style={{ color: "#FFB300" }}>Support</span>{" "}
-          <span>Us</span>
-        </Typography>
-        <Typography variant="h6" sx={{ color: "white", marginTop: 2 }}>
-          <span style={{ color: "#FFB300" }}>Home →</span>{" "}
-          <span>Support Us</span>
-        </Typography>
-      </Box>
-
-      <Container
-        sx={{
-          height: "auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          paddingTop: 4,
-        }}
-      >
-        <Box
-          sx={{
-            height: "64px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
-          <Typography variant="h4" sx={{ fontWeight: "bold", color: "white" }}>
-            WORK WITH THE LEADING IOT COMPANY
-          </Typography>
-          <Typography variant="body1" sx={{ fontWeight: "500", color: "white" }}>
-            If you are looking to transform the world with IoT, connect with us
-            today.
-          </Typography>
-        </Box>
-
-        <Box sx={{ display: "flex", justifyContent: "center", marginTop: 4 }}>
-          <Paper
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: 4,
-              padding: 4,
-              width: "80%",
-              borderRadius: "10px",
-              backgroundColor: "#111111",
-            }}
-          >
-            <Grid2 container spacing={4} sx={{ width: "100%" }}>
-              {/* Contact Form */}
-              <Grid2 item xs={12} md={6}>
-                <Typography
-                  variant="h4"
-                  sx={{ fontWeight: "bold", color: "white" }}
-                >
-                  Contact <span style={{ color: "#FFB300" }}>Us</span>
-                </Typography>
-                <TextField
-                  label="Name"
-                  variant="outlined"
-                  fullWidth
-                  sx={{ backgroundColor: "#202020", marginTop: 2 }}
-                  InputProps={{ style: { color: "white" } }}
-                />
-                <TextField
-                  label="Email Address"
-                  variant="outlined"
-                  fullWidth
-                  sx={{ backgroundColor: "#202020", marginTop: 2 }}
-                  InputProps={{ style: { color: "white" } }}
-                />
-                <TextField
-                  label="Subject"
-                  variant="outlined"
-                  fullWidth
-                  sx={{ backgroundColor: "#202020", marginTop: 2 }}
-                  InputProps={{ style: { color: "white" } }}
-                />
-                <TextField
-                  label="Mobile No."
-                  variant="outlined"
-                  fullWidth
-                  sx={{ backgroundColor: "#202020", marginTop: 2 }}
-                  InputProps={{ style: { color: "white" } }}
-                />
-                <TextField
-                  label="Message"
-                  variant="outlined"
-                  fullWidth
-                  multiline
-                  rows={4}
-                  sx={{ backgroundColor: "#202020", marginTop: 2 }}
-                  InputProps={{ style: { color: "white" } }}
-                />
-                <Button
-                  variant="contained"
-                  sx={{
-                    marginTop: 2,
-                    width: "100%",
-                    backgroundColor: "#FFB300",
-                    color: "black",
-                    "&:hover": { backgroundColor: "#FF9800" },
-                  }}
-                >
-                  Submit
-                </Button>
-              </Grid2>
-
-              {/* Map */}
-              <Grid2 item xs={12} md={6}>
-                <Box
-                  sx={{
-                    height: "400px",
-                    maxWidth: "100%",
-                    borderRadius: "10px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <MapContainer
-                    center={currentPosition}
-                    zoom={13}
-                    style={{ height: "100%", width: "100%" }}
-                  >
-                    <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    />
-                    <Marker position={currentPosition}>
-                      <Popup>You are here!</Popup>
-                    </Marker>
-                  </MapContainer>
-                </Box>
-
-                {/* Contact Info */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: 2,
-                  }}
-                >
-                  <Typography variant="h5" sx={{ color: "white" }}>
-                    Address
-                  </Typography>
-                  <Typography variant="h5" sx={{ color: "white" }}>
-                    Contact Us
-                  </Typography>
-                  <Typography variant="h5" sx={{ color: "white" }}>
-                    Working hours
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: 2,
-                  }}
-                >
-                  <Box sx={{ display: "flex", gap: 1 }}>
-                    <LocationOnIcon sx={{ color: "white" }} />
-                    <Typography variant="body1" sx={{ color: "white" }}>
-                      <span>118, Sumadha Building</span>
-                      <br />
-                      <span>RDC, Raj Nagar</span>
-                      <br />
-                      <span>Ghaziabad</span>
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", gap: 1 }}>
-                    <Typography variant="body1" sx={{ color: "white" }}>
-                      <CallIcon sx={{ color: "white" }} /> +91 9898029829
-                      <br />
-                      <EmailIcon sx={{ color: "white" }} /> foxboro@gmail.com
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", gap: 1 }}>
-                    <PersonIcon sx={{ color: "white" }} />
-                    <Typography variant="body1" sx={{ color: "white" }}>
-                      Monday-Saturday: 9:30 AM – 6:30 PM
-                      <br />
-                      Saturday: Closed at 6:00 PM
-                      <br />
-                      Sunday: Closed
-                    </Typography>
-                  </Box>
-                </Box>
-              </Grid2>
-            </Grid2>
-          </Paper>
-        </Box>
-      </Container>
-    </div>
-  );
+    return (
+        <div>
+            {/* <Header /> */}
+            <div className='h-48 w-full flex flex-col justify-center items-center  bg-black'>
+                <p className="text-6xl font-semibold">
+                    <span className="text-yellow-400">Support</span> <span className="text-white">Us</span>
+                </p>
+                <p className='text-1xl space-x-5'>
+                    <span className='text-yellow-400'>Home →</span>
+                    <span className='text-white '>Support Us</span>
+                </p>
+            </div>
+            <div className='h-screen flex flex-col justify-center '>
+                <div className='h-64  w-full flex flex-col justify-center items-center gap-3'>
+                    <p className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold'>
+                        WORK WITH THE LEADING IOT COMPANY
+                    </p>
+                    <p className='text-sm sm:text-base md:text-lg lg:text-xl font-medium'>
+                        If you are looking to transform the world with IoT, Connect with us Today.
+                    </p>
+                </div>
+                <div className=' h-full w-full flex justify-center  '>
+                    {/* <div className='h-32 w-44 bg-yellow-400'></div> */}
+                    <div className='h-3/4 w-3/5 flex border rounded-lg border-gray-950 bg-[#111111] p-4 gap-10'>
+                        <div className='w-1/2 flex flex-col gap-2'>
+                            <p className="text-5xl font-semibold">
+                                <span className="text-white">Contact</span> <span className=" text-yellow-400">Us</span>
+                            </p>
+                            <p className='text-white'>Name</p>
+                            <input type="text" placeholder='Name' className='border border-gray-700 bg-[#202020] text-white text-xl rounded-lg p-1' />
+                            <p className='text-white'>Email Address</p>
+                            <input type="email" placeholder='Email Address' className='border border-gray-700 bg-[#202020] text-white text-xl rounded-lg p-1' />
+                            <p className='text-white'>Subject</p>
+                            <input type="email" placeholder='Subject' className='border border-gray-700 bg-[#202020] text-white text-xl rounded-lg p-1' />
+                            <p className='text-white'>Mobile No.</p>
+                            <input type="email" placeholder='Enter Your Contact Number' className='border border-gray-700 bg-[#202020] text-white text-xl rounded-lg p-1' />
+                            <p className='text-white'>Message</p>
+                            <textarea type="email" placeholder='Enter Your Contact Number' rows={4} className='border border-gray-700 bg-[#202020] text-white text-xl rounded-lg p-1' />
+                            <button className='w-full bg-yellow-500 hover:bg-yellow-700 text-black font-bold p-2 rounded-md'>Submit</button>
+                        </div>
+                        <div className='w-1/2'>
+                            <div className='h-96 max-w-xl rounded-3xl'>
+                                <MapContainer
+                                    center={currentPosition}
+                                    zoom={13}
+                                    style={{ height: "100%", width: "100%" }}
+                                >
+                                    <TileLayer
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    />
+                                    <Marker position={currentPosition}>
+                                        <Popup>You are here!</Popup>
+                                    </Marker>
+                                </MapContainer>
+                            </div>
+                            <div className='flex justify-between'>
+                                <p className='text-3xl text-white'>Address</p>
+                                <p className='text-3xl text-white'>Contact Us</p>
+                                <p className='text-3xl text-white'>Working hours</p>
+                            </div>
+                            <div className='flex justify-between mt-2'>
+                                <div className='flex gap-1'>
+                                    <LocationOnIcon className='text-white' />
+                                    <p className='flex flex-col'>
+                                        <span className='text-white'>118,sumadha</span>
+                                        <span className='text-white'>building</span>
+                                        <span className='text-white'>RDC,Raj Nagar</span>
+                                        <span className='text-white'>Ghaziabad</span>
+                                    </p>
+                                </div>
+                                <div className='flex gap-1'>
+                                    <p className='flex flex-col'>
+                                        <span className='text-white'><CallIcon /> +91 9898029829</span>
+                                        <span className='text-white'><EmailIcon /> foxboro@gmail.com</span>
+                                    </p>
+                                </div>
+                                <div className='flex gap-1'>
+                                    <PersonIcon className='text-white' />
+                                    <p className='flex flex-col'>
+                                        <span className='text-white'>Monday-Saturday</span>
+                                        <span className='text-white'>9:30 AM – 6:30 PM</span>
+                                        <span className='text-white'>Saturday : Closed at 6:PM</span>
+                                        <span className='text-white'>Sunday : Closed</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* <MainFooter /> */}
+        </div>
+    )
 }
 
-export default Support;
+export default Support
