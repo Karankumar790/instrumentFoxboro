@@ -73,7 +73,7 @@ function service() {
       <Grid2
         container
         sx={{
-          height: "83.8vh",
+          height: "84.2vh",
           backgroundImage: `url(${Services})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
