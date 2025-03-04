@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
 import DynamicTable from './Components/DynamicTable'
 import { columns, rows } from './Components/TableData';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const style = {
   position: "absolute",
@@ -17,8 +18,6 @@ const style = {
   p: 4,
   borderRadius: 2,
 };
-
-
 
 
 
@@ -38,19 +37,28 @@ function automation() {
   };
 
   return (
-    <div>
+    <div className='space-y-3'>
       <div className='flex justify-between '>
-        <p className=' text-2xl font-semibold'>Automation </p>
-        <button onClick={handleOpen} className='text-xl font-semibold'>Add Category +</button>
+        <p className=' text-2xl font-bold'>Automation </p>
+        <button onClick={handleOpen} className='text-xl font-semibold p-2 rounded-lg bg-green-800 text-white'>Add Category +</button>
       </div>
 
-      <DynamicTable columns={columns} rows={rows} />
+      <DynamicTable rows={rows}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]} />
 
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
         <Box sx={style}>
-          <Typography id="modal-title" variant="h6">
-            Add New Category
-          </Typography>
+          <Box display='flex' justifyContent='space-between'>
+            <Typography id="modal-title" variant="h6">
+              Add New Category
+            </Typography>
+            <Button onClick={handleClose}>
+              <ClearIcon className='text-black text-lg' />
+            </Button>
+          </Box>
+
 
 
           {/* Name Field */}
@@ -66,14 +74,32 @@ function automation() {
 
           {/* Image Upload */}
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 2 }}>
-            {image && (
-              <img
-                src={image}
-                alt="Preview"
-                style={{ width: "100%", maxHeight: 200, objectFit: "cover", borderRadius: 8, marginBottom: 10 }}
-              />
-            )}
-            
+            <Box
+              sx={{
+                width: "100%",
+                maxHeight: 200,
+                height: 200, // Fixed height to reserve space
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#f0f0f0", // Light gray background for visibility
+                borderRadius: 8,
+                marginBottom: 2,
+              }}
+            >
+              {image ? (
+                <img
+                  src={image}
+                  alt="Preview"
+                  style={{ width: "100%", maxHeight: "100%", objectFit: "cover", borderRadius: 8 }}
+                />
+              ) : (
+                <Typography variant="body2" color="textSecondary">
+                  No Image Selected
+                </Typography>
+              )}
+            </Box>
+
             <Box sx={{
 
               width: '100%',

@@ -15,13 +15,9 @@ import {
 import logo from "../../public/assets/foxlogo.png";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import XIcon from "@mui/icons-material/X";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import MarkunreadIcon from "@mui/icons-material/Markunread";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import EngineeringIcon from "@mui/icons-material/Engineering";
@@ -29,10 +25,10 @@ import { Link } from "react-router-dom";
 
 function Header() {
   const item = [
-    { text: "+91 88104 74728", icon: <PhoneInTalkIcon /> },
-    { text: "+91 94578893231", icon: <WhatsAppIcon /> },
+    { text: "+91 94578893231", icon: <PhoneInTalkIcon /> },
+    { text: "+91 88104 74728", icon: <WhatsAppIcon /> },
+    { text: "+91 9457889232", icon: <WhatsAppIcon /> },
     { text: "foxboroinstrument@gmail.com", icon: <MarkunreadIcon /> },
-    { text: "9:00am-5:30pm (Monday to Saturday)", icon: <AccessTimeIcon /> },
   ];
   // const arr = ["Product", "Software", "Services", "E-Store", "Support"];
   const arr = [
