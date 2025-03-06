@@ -103,10 +103,10 @@ function oneclickproduct() {
                       sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                     >
                       We deliver Panels and Industrial PCs for every application
-                      with the latest technology for all performance classes.
+                      with the latest technology for all performance classes  We deliver Panels class.
                     </Typography>
 
-                    <Button
+                    {/* <Button
                       onClick={handleToggle}
                       sx={{
                         marginLeft: "8px",
@@ -115,9 +115,9 @@ function oneclickproduct() {
                       }}
                     >
                       {open ? "Show Less" : "Learn More"}
-                    </Button>
+                    </Button> */}
 
-                    <Collapse in={open}>
+                    {/* <Collapse in={open}>
                       <Typography
                         variant="body2"
                         sx={{
@@ -130,7 +130,7 @@ function oneclickproduct() {
                         More" is clicked. You can put a detailed description of
                         the image here.
                       </Typography>
-                    </Collapse>
+                    </Collapse> */}
                   </Card>
                   {/* </Link> */}
                 </Grid2>

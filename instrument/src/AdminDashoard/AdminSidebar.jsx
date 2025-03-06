@@ -13,9 +13,9 @@ export default function AdminSidebar() {
       <nav className="flex flex-col p-4 space-y-2">
         <NavItem to="/admin/automation" icon={<FaCogs />} label="Automation" />
         <NavItem to="/admin/adminProduct" icon={<FaBox />} label="Products" />
-        <NavItem to="/admin/adminService" icon={<FaTools />} label="Services" />
-        <NavItem to="/admin/siteSetting" icon={<FaSlidersH />} label="Settings" />
         <NavItem to="/admin/adminsoftware" icon={<FaLaptopCode />} label="Software" />
+        <NavItem to="/admin/adminService" icon={<FaTools />} label="Enquire" />
+        <NavItem to="/admin/siteSetting" icon={<FaSlidersH />} label="Settings" />
       </nav>
     </div>
   );
