@@ -19,8 +19,8 @@ import { Link } from "react-router-dom";
 function Header() {
   const item = [
     { text: "+91 94578893231", icon: <PhoneInTalkIcon /> },
+    { text: "+91 9457889232", icon: <PhoneInTalkIcon /> },
     { text: "+91 88104 74728", icon: <WhatsAppIcon /> },
-    { text: "+91 9457889232", icon: <WhatsAppIcon /> },
     { text: "foxboroinstrument@gmail.com", icon: <MarkunreadIcon /> },
   ];
   // const arr = ["Product", "Software", "Services", "E-Store", "Support"];
