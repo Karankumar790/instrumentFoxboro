@@ -112,8 +112,8 @@ function content() {
                   key={index}
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                 >
-                  <Link to="/products" style={{ textDecoration: "none" }}>
                     <Card>
+                      <Link to="/products" style={{ textDecoration: "none" }}>
                       <CardMedia
                         component="img"
                         // sx={{objectFit:"cover",objectPosition:'center'}}
@@ -134,7 +134,8 @@ function content() {
                           e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
                         }}
                         alt={`Image ${index}`}
-                      />
+                        />
+                        </Link>
                       <Typography
                         variant="h6"
                         gutterBottom
@@ -145,6 +146,7 @@ function content() {
 
                       <Typography
                         variant="body2"
+                        mb={2}
                         sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                       >
                         We deliver Panels and Industrial PCs for every
@@ -152,7 +154,7 @@ function content() {
                         performance classes.
                       </Typography>
 
-                      <Button
+                      {/* <Button
                         onClick={handleToggle}
                         sx={{
                           marginLeft: "8px",
@@ -161,9 +163,9 @@ function content() {
                         }}
                       >
                         {open ? "Show Less" : "Learn More"}
-                      </Button>
+                      </Button> */}
 
-                      <Collapse in={open}>
+                      {/* <Collapse in={open}>
                         <Typography
                           variant="body2"
                           sx={{
@@ -176,9 +178,8 @@ function content() {
                           More" is clicked. You can put a detailed description
                           of the image here.
                         </Typography>
-                      </Collapse>
+                      </Collapse> */}
                     </Card>
-                  </Link>
                 </Grid2>
               ))}
             </Grid2>
@@ -221,13 +222,14 @@ function content() {
 
                     <Typography
                       variant="body2"
+                      mb={2}
                       sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                     >
                       We deliver Panels and Industrial PCs for every application
                       with the latest technology for all performance classes.
                     </Typography>
 
-                    <Button
+                    {/* <Button
                       onClick={handleToggle}
                       sx={{
                         marginLeft: "8px",
@@ -236,9 +238,9 @@ function content() {
                       }}
                     >
                       {open ? "Show Less" : "Learn More"}
-                    </Button>
+                    </Button> */}
 
-                    <Collapse in={open}>
+                    {/* <Collapse in={open}>
                       <Typography
                         variant="body2"
                         sx={{
@@ -251,14 +253,14 @@ function content() {
                         More" is clicked. You can put a detailed description of
                         the image here.
                       </Typography>
-                    </Collapse>
+                    </Collapse> */}
                   </Card>
                 </Grid2>
               ))}
             </Grid2>
-            <Grid2 display={"flex"} mt={3} mb={2} gap={"50%"} >
-              <Typography variant="h5" fontWeight={"bold"}>Engineering Services</Typography>
-              <Typography variant="h5" fontWeight={"bold"}>New Arrival</Typography>
+            <Grid2 display={"flex"} mt={3} mb={2} gap={"55%"} >
+              <Typography variant="h5" fontWeight={"bold"}>Runing Project</Typography>
+              <Typography variant="h5" fontWeight={"bold"}>New Product</Typography>
             </Grid2>
             <Grid2 display="flex" flexDirection="row" gap={2} mb={3}>
               <Grid2 size={{ lg: 8 }}>

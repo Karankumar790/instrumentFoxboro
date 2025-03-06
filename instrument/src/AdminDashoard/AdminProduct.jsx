@@ -29,28 +29,26 @@ function Peoduct() {
   };
 
   const fields = [
-    { name: 'categoryName', label: 'Category Name' },
+    { name: 'ProductName', label: 'Product Name' },
     { name: 'shortDesc', label: 'Short Description', multiline: true, rows: 4 },
     { name: 'longDesc', label: 'Long Description', multiline: true, rows: 4 },
     // You can add more dynamic fields here
   ];
 
   return (
-    <div>
-      <div>
-        <div className='flex justify-between '>
-          <p className=' text-2xl font-semibold'>Product </p>
-          <button onClick={handleOpen} className='text-xl font-semibold'>Add Item +</button>
-        </div>
-        <DynanmicTable rows={productRows} columns={productcolumns} />
-        <DynamicModal
-          open={open}
-          handleClose={handleClose}
-          title="Add New Category"
-          fields={fields}
-          onSave={handleSave}
-        />
+    <div className='space-y-3'>
+      <div className='flex justify-between '>
+        <p className=' text-2xl font-bold'>Product </p>
+        <button onClick={handleOpen} className='text-xl font-semibold p-2 rounded-lg text-white bg-green-700'>Add Item +</button>
       </div>
+      <DynanmicTable rows={productRows} columns={productcolumns} />
+      <DynamicModal
+        open={open}
+        handleClose={handleClose}
+        title="Add New Category"
+        fields={fields}
+        onSave={handleSave}
+      />
     </div>
   )
 }
