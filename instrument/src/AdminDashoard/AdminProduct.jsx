@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DynanmicTable from './Components/DynamicTable'
-import { productRows, productcolumns } from "./Components/TableData";
+import { productRows, productColumns } from "./Components/TableData";
 import DynamicModal from './Components/Modal/DynamicModal';
 
 
@@ -41,7 +41,7 @@ function Peoduct() {
         <p className=' text-2xl font-bold'>Product </p>
         <button onClick={handleOpen} className='text-xl font-semibold p-2 rounded-lg text-white bg-green-700'>Add Item +</button>
       </div>
-      <DynanmicTable rows={productRows} columns={productcolumns} />
+      <DynanmicTable rows={productRows} columns={productColumns} />
       <DynamicModal
         open={open}
         handleClose={handleClose}
