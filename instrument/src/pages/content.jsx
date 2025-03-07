@@ -295,12 +295,16 @@ function content() {
                         backgroundColor: "rgba(237, 231, 231, 0.7)",
                         padding: "5px 10px",
                         borderRadius: "5px",
+                        background:
+                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                          transition: "transform 0.3s ease-in-out",
                       }}
                     >
                       <Typography
                         variant="h6"
                         color="black"
                         fontWeight={"bold"}
+                       
                       >
                         PC-based control for all-electric blow molding machines
                       </Typography>
@@ -319,6 +323,7 @@ function content() {
                     width: "100%",
                     height: "90%",
                     display: "flex",
+                    
                     flexDirection: "column",
                   }}
                 >
@@ -338,7 +343,10 @@ function content() {
                   <CardContent
                     sx={{
                       flexGrow: 1,
-                      backgroundColor: "rgba(237, 231, 231, 0.7)",
+                      // backgroundColor: "rgba(237, 231, 231, 0.7)",
+                      background:
+                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                          transition: "transform 0.3s ease-in-out",
                     }}
                   >
                     <Typography
