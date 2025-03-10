@@ -31,6 +31,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 function AdminTable({ columns = [], rows = [] }) {
+
+  const safeRows = Array.isArray(rows) ? rows : [];
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -42,7 +45,7 @@ function AdminTable({ columns = [], rows = [] }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {safeRows.map((row, index) => (
             <StyledTableRow key={index}>
               {columns.map((column) => (
                 <StyledTableCell key={column.field}>{row[column.field]}</StyledTableCell> // ✅ Fixed

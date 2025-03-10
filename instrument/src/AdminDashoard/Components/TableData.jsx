@@ -1,45 +1,67 @@
 import React, { useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../Category/CategorySlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
 
 const TableData = () => {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state.category);
+  const { categories, loading, error } = useSelector((state) => state.category);
 
   useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
+    if (!categories || categories.length === 0) {
+      dispatch(fetchCategories());
+    }
+  }, [dispatch, categories]);
+  
 
-  const rows = categories.map((category) => ({
-    id: category.id,  // Ensure each row has a unique 'id'
-    name: category.categoryName,
-    calories: category.categoryImage,
-    fat: category.shortDescription,
-    carbs: category.longDescription,
-    actions: (
-      <div style={{ display: "flex", gap: "10px" }}>
-        <FontAwesomeIcon icon={faEye} />
-        <FontAwesomeIcon icon={faPen} />
-        <FontAwesomeIcon icon={faTrash} />
-      </div>
-    ),
-  }));
+  if (loading) return <p>Loading categories...</p>;
+  if (error) return <p>Error: {error}</p>;
 
-  const columns = [
-    { field: "name", headerName: "Name", width: 150 },
-    { field: "calories", headerName: "Image", width: 150 },
-    { field: "fat", headerName: "Short Description", width: 200 },
-    { field: "carbs", headerName: "Long Description", width: 200 },
-    { field: "actions", headerName: "Actions", width: 300 },
-  ];
-
-  console.log("Rows:", rows);   // Debugging
-  console.log("Columns:", columns); // Debugging
-
-  return { rows, columns };
+  return (
+    <div style={{ height: 400, width: "100%" }}>
+      <h2>Category Table</h2>
+      {/* <DataGrid rows={generateRows(categories)} columns={columns} pageSize={5} /> */}
+    </div>
+  );
 };
+
+// Function to generate rows dynamically
+export const generateRows = (categories = []) =>
+  Array.isArray(categories)
+    ? categories.map((category) => ({
+        name: category.categoryName,
+        image: category.categoryImage,
+        shortDesc: category.shortDescription,
+        longDesc: category.longDescription,
+        actions: (
+          <div style={{ display: "flex", gap: "10px" }}>
+            <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer" }} />
+            <FontAwesomeIcon icon={faPen} style={{ cursor: "pointer" }} />
+            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} />
+          </div>
+        ),
+      }))
+    : [];
+
+
+// Export columns separately
+export const generateColumns = [
+  { field: "name", headerName: "Name", width: 150 },
+  {
+    field: "image",
+    headerName: "Image",
+    width: 150,
+    renderCell: (params) => <img src={params.value} alt="Category" width="50" height="50" />,
+  },
+  { field: "shortDesc", headerName: "Short Description", width: 200 },
+  { field: "longDesc", headerName: "Long Description", width: 200 },
+  { field: "actions", headerName: "Actions", width: 150 },
+];
+
+
+
+
 
 // Product Table Data
 const createDatas = (name, last, hash, cabs, nuts) => ({
@@ -78,4 +100,4 @@ export const productColumns = [
 ];
 
 // Export components and data
-export default { TableData, productRows, productColumns };
+export default { TableData, productRows, productColumns,generateRows,generateColumns };

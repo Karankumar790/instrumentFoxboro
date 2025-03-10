@@ -1,36 +1,49 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import OTPModal from './OTPModal';
-import Header from '../components/Header';
-import Footer from '../components/Footer/Footer';
+import OTPModal from '../Login/OTPModal';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer/Footer';
 
 const SignUpPage = () => {
     const [openModal, setOpenModal] = useState(false);
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        password: '',
-        confirmPassword: ''
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+        avatar: "",
     });
 
+    // Handle input change
     const handleInputChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
+    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        setOpenModal(true);  // Open modal after form submission
+        // You can handle API call here
+        console.log("Form submitted with data: ", formData);
+    };
+
+    // Handle file change for avatar
+    const handleAvatarChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFormData((prevData) => ({ ...prevData, avatar: URL.createObjectURL(file) }));
+        }
     };
 
     return (
         <>
             <div className="bg-cover  bg-[url('/login.jpg')] w-full h-full">
-                <Header/>
+                <Header />
                 <div className="flex justify-center items-center h-screen bg-gray-100">
                     <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
-                    <h2 className="text-2xl font-semibold mb-6 text-center ">Foxboro Instruments</h2>
+                        <h2 className="text-2xl font-semibold mb-6 text-center ">Foxboro Instruments</h2>
                         <h2 className="text-2xl font-semibold mb-6 ">Sign Up</h2>
                         <form onSubmit={handleSubmit}>
                             <TextField
@@ -75,15 +88,14 @@ const SignUpPage = () => {
                                 onChange={handleInputChange}
                             />
                             <TextField
-                                label="confirmpassword"
                                 variant="outlined"
-                                type="password"
+                                type="file"
                                 fullWidth
                                 margin="normal"
                                 name="confirmPassword"
                                 size='small'
-                                value={formData.confirmPassword}
-                                onChange={handleInputChange}
+                                value={formData.avatar}
+                                onChange={handleAvatarChange}
                             />
                             <Button type="submit" variant="contained" color="primary" fullWidth>
                                 Submit
@@ -93,7 +105,7 @@ const SignUpPage = () => {
                     {/* OTP Modal */}
                     <OTPModal open={openModal} onClose={() => setOpenModal(false)} />
                 </div>
-                <Footer/>
+                <Footer />
             </div>
         </>
     );
