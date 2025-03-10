@@ -34,11 +34,11 @@ function Footer() {
         {/* Corporate Office */}
         <Grid2 size={{ lg: 2.4 }} > 
           <Box >
-            <Typography variant="h5" color="white">Corporate Office</Typography>
-            <Typography color="white">Address:118, Sundaram Building Ansal Complex RDC Raj Nagar</Typography>
-            <Typography color="white">City&Country:Ghaziabad, India</Typography>
-            <Typography color="white">Phone:+91-9457889231/32/34</Typography>
-            <Typography color="white">Email:Admin@foxboroinstrument.com</Typography>
+            <Typography variant="h5" color="white">REGISTERED Office</Typography>
+            <Typography color="white">118, Sundaram Building Ansal Complex </Typography>
+            <Typography color="white">Raj Nagar District Center, Ghaziabad </Typography>
+            <Typography color="white">Uttar Pradesh India, Zip code 201001</Typography>
+            <Typography color="white">Email:admin@foxboroinstrument.com</Typography>
           </Box>
         </Grid2>
 
@@ -70,12 +70,11 @@ function Footer() {
         {/* Customer Support */}
         <Grid2 size={{ lg: 2.4 }}>
           <Box>
-            <Typography variant="h5" color="white">Customer Support</Typography>
-            <Typography color="white">Tel 1: +91-9457889231</Typography>
-            <Typography color="white">Tel 2: +91-9457889232</Typography>
-            <Typography color="white">Tel 3: +91-9457889234</Typography>
-            <Typography color="white">Timing: (9:00AM to 5:30PM)</Typography>
-            <Typography color="white">Email: foxboroinstrument@gmail.com</Typography>
+            <Typography variant="h5" color="white">Customer Support </Typography>
+            <Typography color="white">Tel 1: +91-9457889231 (Sales)</Typography>
+            <Typography color="white">Tel 2: +91-9457889232 (Engineering) </Typography>
+            <Typography color="white">Tel 3: +91-9457889234 (Service)</Typography>
+            <Typography color="white">Email: support@foxboroinstrument.com</Typography>
           </Box>
         </Grid2>
 

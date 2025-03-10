@@ -100,6 +100,7 @@ function product() {
 
                       <Typography
                         variant="body2"
+                        mb={2}
                         sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                       >
                         We deliver Panels and Industrial PCs for every
@@ -107,7 +108,7 @@ function product() {
                         performance classes.
                       </Typography>
 
-                      <Button
+                      {/* <Button
                         onClick={handleToggle}
                         sx={{
                           marginLeft: "8px",
@@ -131,7 +132,7 @@ function product() {
                           More" is clicked. You can put a detailed description
                           of the image here.
                         </Typography>
-                      </Collapse>
+                      </Collapse> */}
                     </Card>
                   </Link>
                 </Grid2>
