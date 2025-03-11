@@ -1,17 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { USER_URL } from "../../api/Client";
-import { useState } from "react";
 
 export const loginUser = createAsyncThunk('auth/loginUser', async (userData, { rejectWithValue }) => {
     try {
         const { data } = await axios.post(`${USER_URL}/login`, userData)
-        console.log(data,"data of login api")
         return data
     } catch (error) {
        return rejectWithValue(error.response?.data?.message || "Login Failed")
     }
 })
+
+export const otpLogin = async (otp,email) => {
+    try {
+        const response = await axios.post(`${USER_URL}/verifyLoginOtp`, { otp,email });
+        return response.data;
+    } catch (error) {
+        return error.message
+    }
+
+}
 
 const authSlice = createSlice({
     name:"auth",

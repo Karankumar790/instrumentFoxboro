@@ -45,7 +45,7 @@ function Header() {
     },
 
     {
-      text: "Services ",
+      text: "Service Locator",
       Link: "/service",
     },
 

@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import OTPModal from '../Login/OTPModal';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { otpSignUp, register } from './SignUpSlice';
 
 const SignUpPage = () => {
+    const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
+    const { loading, error, message } = useSelector((state) => state.signUp)
     const [formData, setFormData] = useState({
-        name: "",
+        username: "",
         email: "",
         phone: "",
         password: "",
-        confirmPassword: "",
-        avatar: "",
+        avatar: null,
     });
 
     // Handle input change
@@ -25,17 +28,56 @@ const SignUpPage = () => {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        // You can handle API call here
-        console.log("Form submitted with data: ", formData);
+
+        // Create a FormData object
+        const formDataToSend = new FormData();
+        formDataToSend.append("username", formData.username);
+        formDataToSend.append("email", formData.email);
+        formDataToSend.append("phone", formData.phone);
+        formDataToSend.append("password", formData.password);
+
+        if (formData.avatar) {
+            formDataToSend.append("avatar", formData.avatar); // Append the file correctly
+        }
+        console.log(register(formDataToSend), "token from register api")
+        dispatch(register(formDataToSend)).then((action) => {
+            if (action.meta.requestStatus === 'fulfilled') {
+                console.log(action.payload, "Response Data from API");
+                console.log(action.payload.user, "User Data");
+                
+
+                const token = action.payload.user; // Extract user data
+                setOpenModal(true); // Open modal after successful registration
+            }
+        });
     };
 
-    // Handle file change for avatar
+
     const handleAvatarChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setFormData((prevData) => ({ ...prevData, avatar: URL.createObjectURL(file) }));
+            setFormData((prevData) => ({ ...prevData, avatar: file })); // Store the file object
         }
     };
+
+    const [openModals, setOpenModals] = useState(false);
+    const token = "your-token-here"; // Example token after signup
+
+    const handleSignupOtpSubmit = async (otp, token) => {
+        try {
+            console.log(otp, "otp:::", token)
+            const response = await otpSignUp({ otp }, token);
+            if (response.success) {
+                alert("OTP Verified! Account created.");
+                setOpenModals(false);
+            } else {
+                alert("OTP verification failed.");
+            }
+        } catch (error) {
+            alert("Error verifying OTP.");
+        }
+    };
+
 
     return (
         <>
@@ -51,9 +93,9 @@ const SignUpPage = () => {
                                 variant="outlined"
                                 fullWidth
                                 margin="normal"
-                                name="name"
+                                name="username"
                                 size='small'
-                                value={formData.name}
+                                value={formData.username}
                                 onChange={handleInputChange}
                             />
                             <TextField
@@ -92,21 +134,26 @@ const SignUpPage = () => {
                                 type="file"
                                 fullWidth
                                 margin="normal"
-                                name="confirmPassword"
+                                name="avatar"
                                 size='small'
-                                value={formData.avatar}
+                                accept="image/*"
                                 onChange={handleAvatarChange}
                             />
-                            <Button type="submit" variant="contained" color="primary" fullWidth>
-                                Submit
+                            <Button type="submit" variant="contained" color="primary" fullWidth >
+                                {loading ? "logging in" : "login"}
                             </Button>
+                            {error && <p className="text-red-500 text-center">{error}</p>}
+
+                            {/* Success Message */}
+                            {message && <p className="text-green-500 text-center">{message}</p>}
                         </form>
                     </div>
-                    {/* OTP Modal */}
-                    <OTPModal open={openModal} onClose={() => setOpenModal(false)} />
                 </div>
                 <Footer />
             </div>
+            {/* OTP Modal */}
+            <OTPModal open={openModal} onClose={() => setOpenModal(false)} token onOtpSubmit={handleSignupOtpSubmit} />
+
         </>
     );
 };
