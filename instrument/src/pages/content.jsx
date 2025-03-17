@@ -14,7 +14,8 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Footer from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
-import product from "./product";
+// import product from "./product";
+
 
 ("https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp");
 ("https://www.beckhoff.com/media/pictures/stages/news/produktneuheiten-sps-2024-stage-lowres_webp_85.webp");
@@ -111,8 +112,8 @@ function content() {
                   key={index}
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                 >
-                  <Link to="/products" style={{ textDecoration: "none" }}>
                     <Card>
+                      <Link to="/products" style={{ textDecoration: "none" }}>
                       <CardMedia
                         component="img"
                         // sx={{objectFit:"cover",objectPosition:'center'}}
@@ -133,7 +134,8 @@ function content() {
                           e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
                         }}
                         alt={`Image ${index}`}
-                      />
+                        />
+                        </Link>
                       <Typography
                         variant="h6"
                         gutterBottom
@@ -144,6 +146,7 @@ function content() {
 
                       <Typography
                         variant="body2"
+                        mb={2}
                         sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                       >
                         We deliver Panels and Industrial PCs for every
@@ -151,7 +154,7 @@ function content() {
                         performance classes.
                       </Typography>
 
-                      <Button
+                      {/* <Button
                         onClick={handleToggle}
                         sx={{
                           marginLeft: "8px",
@@ -160,9 +163,9 @@ function content() {
                         }}
                       >
                         {open ? "Show Less" : "Learn More"}
-                      </Button>
+                      </Button> */}
 
-                      <Collapse in={open}>
+                      {/* <Collapse in={open}>
                         <Typography
                           variant="body2"
                           sx={{
@@ -175,9 +178,8 @@ function content() {
                           More" is clicked. You can put a detailed description
                           of the image here.
                         </Typography>
-                      </Collapse>
+                      </Collapse> */}
                     </Card>
-                  </Link>
                 </Grid2>
               ))}
             </Grid2>
@@ -220,13 +222,14 @@ function content() {
 
                     <Typography
                       variant="body2"
+                      mb={2}
                       sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                     >
                       We deliver Panels and Industrial PCs for every application
                       with the latest technology for all performance classes.
                     </Typography>
 
-                    <Button
+                    {/* <Button
                       onClick={handleToggle}
                       sx={{
                         marginLeft: "8px",
@@ -235,9 +238,9 @@ function content() {
                       }}
                     >
                       {open ? "Show Less" : "Learn More"}
-                    </Button>
+                    </Button> */}
 
-                    <Collapse in={open}>
+                    {/* <Collapse in={open}>
                       <Typography
                         variant="body2"
                         sx={{
@@ -250,14 +253,14 @@ function content() {
                         More" is clicked. You can put a detailed description of
                         the image here.
                       </Typography>
-                    </Collapse>
+                    </Collapse> */}
                   </Card>
                 </Grid2>
               ))}
             </Grid2>
-            <Grid2 display={"flex"} mt={3} mb={2} gap={"50%"} >
-              <Typography variant="h5" fontWeight={"bold"}>Engineering Services</Typography>
-              <Typography variant="h5" fontWeight={"bold"}>New Arrival</Typography>
+            <Grid2 display={"flex"} mt={3} mb={2} gap={"55%"} >
+              <Typography variant="h5" fontWeight={"bold"}>Runing Projects</Typography>
+              <Typography variant="h5" fontWeight={"bold"}>New Products</Typography>
             </Grid2>
             <Grid2 display="flex" flexDirection="row" gap={2} mb={3}>
               <Grid2 size={{ lg: 8 }}>
@@ -292,12 +295,16 @@ function content() {
                         backgroundColor: "rgba(237, 231, 231, 0.7)",
                         padding: "5px 10px",
                         borderRadius: "5px",
+                        background:
+                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                          transition: "transform 0.3s ease-in-out",
                       }}
                     >
                       <Typography
                         variant="h6"
                         color="black"
                         fontWeight={"bold"}
+                       
                       >
                         PC-based control for all-electric blow molding machines
                       </Typography>
@@ -316,6 +323,7 @@ function content() {
                     width: "100%",
                     height: "90%",
                     display: "flex",
+                    
                     flexDirection: "column",
                   }}
                 >
@@ -335,7 +343,10 @@ function content() {
                   <CardContent
                     sx={{
                       flexGrow: 1,
-                      backgroundColor: "rgba(237, 231, 231, 0.7)",
+                      // backgroundColor: "rgba(237, 231, 231, 0.7)",
+                      background:
+                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                          transition: "transform 0.3s ease-in-out",
                     }}
                   >
                     <Typography

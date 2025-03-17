@@ -1,27 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Autocomplete,
   Box,
   Button,
-  Card,
-  CardMedia,
-  Checkbox,
-  colors,
   Grid2,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import logo from "../../public/assets/foxlogo.png";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import XIcon from "@mui/icons-material/X";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import MarkunreadIcon from "@mui/icons-material/Markunread";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import EngineeringIcon from "@mui/icons-material/Engineering";
@@ -29,34 +18,61 @@ import { Link } from "react-router-dom";
 
 function Header() {
   const item = [
-    { text: "+91 88104 74728", icon: <PhoneInTalkIcon /> },
-    { text: "+91 94578893231", icon: <WhatsAppIcon /> },
+    { text: "+91 94578893231", icon: <PhoneInTalkIcon /> },
+    { text: "+91 9457889232", icon: <PhoneInTalkIcon /> },
+    { text: "+91 88104 74728", icon: <WhatsAppIcon /> },
     { text: "foxboroinstrument@gmail.com", icon: <MarkunreadIcon /> },
-    { text: "9:00am-5:30pm (Monday to Saturday)", icon: <AccessTimeIcon /> },
   ];
   // const arr = ["Product", "Software", "Services", "E-Store", "Support"];
   const arr = [
     {
-      text: "Product",
+      text: "Automation",
       Link: "/product",
+    },
+
+    {
+      text: "Fox  IoT",
+      Link: "/hardware"
     },
     {
       text: "Software",
       Link: "/software",
     },
-    {
-      text: "Services",
-      Link: "/service",
-    },
+
     {
       text: "E-Store",
       Link: "/estore",
     },
+
     {
-      text: "Support",
+      text: "Service Locator",
+      Link: "/service",
+    },
+
+    // {
+    //   text: "Support",
+    //   Link: "/support",
+    // },
+
+    {
+      text: "Free Job Search",
       Link: "/support",
     },
   ];
+
+  const [isBlinking, setIsBlinking] = useState(true);
+
+  useEffect(() => {
+    const toggleBlink = () => {
+      setIsBlinking((prev) => !prev);
+    };
+
+    const intervalId = setInterval(toggleBlink, 1000); // Toggle every 500ms
+
+    // Cleanup on unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
   const label = { inputProps: { "aria-label": "Join Foxboro" } };
   const top100Films = [];
   return (
@@ -76,44 +92,49 @@ function Header() {
           alignItems={"center"}
           px={2}
         >
-          <Stack direction="row" gap={9} width={"100%"} ml={"8%"}>
+          <Stack direction="row" gap={9} width={"100%"} ml={"3%"}>
             {item.map((value, index) => (
               <Stack direction="row" alignItems="center" key={index}>
                 {value.icon}
                 <Typography ml={1}>{value.text}</Typography>
               </Stack>
             ))}
+            <button className="bg-blue-700 border rounded-md text-white p-2 pl-4 pr-4">
+              <span className={isBlinking ? "opacity-100" : "opacity-0"}>
+                <p className="#FFFF00"> Engineering Consulting - Book Appointment</p>
+              </span>
+            </button>
           </Stack>
           <Stack display={"flex"} flexDirection={"row"} mr={6}>
             <Button>
-              <InstagramIcon style={{ color: "white", fontSize: "30px" }} />
+              <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
             </Button>
             <Button>
-              <FacebookIcon style={{ color: "white", fontSize: "30px" }} />
+              <FacebookIcon style={{ color: "blue", fontSize: "30px" }} />
             </Button>
             <Button>
-              <YouTubeIcon style={{ color: "white", fontSize: "39px" }} />
+              <YouTubeIcon style={{ color: "red", fontSize: "39px" }} />
             </Button>
           </Stack>
           <Button
-            sx={{ bgcolor: "#eccf40", color: "black", width: "7vw", ml: 3 }}
+            sx={{ bgcolor: "pink", color: "black", width: "7vw", ml: 3, fontWeight: '300' }}
             variant="contained"
+
           >
-            Login
+            <Link to='/login' >Login</Link>
           </Button>
         </Grid2>
       </Grid2>
       <Grid2
         container
         display="flex"
-        justifyContent="space-between"
+        gap={5}
         alignItems="center"
         color="white"
         bgcolor={"#2b313b"}
         p={1.5}
       >
-        <Grid2 size={{ lg: 4 }} display={"flex"} gap={3}>
-          <Grid2 size={{ lg: 3 }} ml={2}>
+        <Grid2 size={{ lg: 1 }} display={"flex"}  >
           <Link to="/" style={{ textDecoration: "none" }}>
             <img
               src={logo}
@@ -122,22 +143,13 @@ function Header() {
               style={{ objectFit: "contain" }}
             />
           </Link>
-          </Grid2>
-          <Typography
-            ml={6}
-            variant="h5"
-            display={"flex"}
-            alignItems={"center"}
-          >
-            Foxboro Instrument Company
-          </Typography>
         </Grid2>
-        <Grid2 size={{ lg: 8 }}>
+        <Grid2 size={{ lg: 10 }} >
           <Stack
             display={"flex"}
             flexDirection={"row"}
             justifyContent={"space-between"}
-            width={"65vw"}
+            width={"88vw"}
           >
             {/* <Box flexDirection={"row"} display={"flex"} gap={5} ml={4}>
               {arr.map((value, index) => (
@@ -154,7 +166,7 @@ function Header() {
                   <Button sx={{ color: "white" }} ml={1}>
                     {/* If there's a Link (non-empty), use the React Router Link component */}
                     {value.Link ? (
-                      <Link to={value.Link} style={{ color: "white", textDecoration: "none" }}> 
+                      <Link to={value.Link} style={{ color: "white", textDecoration: "none" }}>
                         <Typography>{value.text}</Typography>
                       </Link>
                     ) : (
@@ -163,13 +175,15 @@ function Header() {
                   </Button>
                 </Stack>
               ))}
+
             </Box>
-            <Box>
+            <Box display={'flex'} gap={2} mr={3}>
+
               <Typography
                 sx={{ display: "flex", alignItems: "center", gap: 1 }}
               >
                 <EngineeringIcon sx={{ color: "white" }} />
-                Join Foxboro
+                Work @Foxboro
               </Typography>
             </Box>
           </Stack>
