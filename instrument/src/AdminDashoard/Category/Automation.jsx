@@ -29,7 +29,7 @@ function Automation({ open: isOpen, handleClose: onClose }) {
 
   const dispatch = useDispatch();
   const { loading, error, success } = useSelector((state) => state.category);
-  const token = Cookies.get('token');
+  const token = localStorage.getItem('token'); // Get token from localStorage
 
   const { rows, columns } = CategoryTableData;
 
