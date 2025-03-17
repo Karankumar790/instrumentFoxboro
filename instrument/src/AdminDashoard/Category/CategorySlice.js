@@ -13,7 +13,13 @@ export const fetchCategories = createAsyncThunk('category/fetchCategories', asyn
 
 export const addCategory = createAsyncThunk('category/addCategory', async (categoryData, { rejectWithValue }) => {
   try {
-    const { data } = await axios.post(`${API_URL}/category`, categoryData);
+    const { data } = await axios.post(`${API_URL}/category`, categoryData, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      }
+    });
+
     return data;
   } catch (error) {
     return rejectWithValue(error.response?.message || 'Error adding category');

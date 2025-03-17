@@ -107,7 +107,7 @@ function login() {
                                     />
                                     <span className="ml-2">Remember Me</span>
                                 </label>
-                                <Link to="/ForgotPwd" className="text-sm text-blue-600 hover:underline">
+                                <Link to="/forget" className="text-sm text-blue-600 hover:underline">
                                     Forgot Password?
                                 </Link>
                             </div>

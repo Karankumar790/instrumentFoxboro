@@ -7,7 +7,6 @@ import { USER_URL } from "../../api/Client";
 export const register = createAsyncThunk('auth/register', async (userData, { rejectWithValue }) => {
     try {
         const { data } = await axios.post(`${USER_URL}/register`, userData)
-        console.log(data.user, "data for token")
         return data
     } catch (error) {
         return rejectWithValue(error.response?.data?.message || "SignUp Failed")

@@ -93,7 +93,7 @@ const OTPModal = ({ open, onClose, email }) => {
       } else {
         // If email exists, call otpLogin
         response = await otpLogin(otp, email);
-        handleResponse(response, '/', '/login'); // Success - Redirect to home, failure - login
+        handleResponse(response, '/admin', '/login'); // Success - Redirect to home, failure - login
       }
   
     } catch (error) {
