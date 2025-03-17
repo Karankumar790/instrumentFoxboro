@@ -1,24 +1,9 @@
 import React, { useState } from "react";
 import { Button, TextField, Box } from "@mui/material";
 import Modal from "@mui/material/Modal";
-import OTPModal from "./OTPModal";
-import Header from "../components/Header";
-import Footer from "../components/Footer/Footer";
-import { styled } from "@mui/material/styles";
-// import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+import OTPModal from "../Login/OTPModal";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer/Footer";
 
 const SignUpPage = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -28,33 +13,31 @@ const SignUpPage = () => {
     phone: "",
     password: "",
     confirmPassword: "",
-    Avtar: "",
+    avatar: "",
   });
 
-  // Handle text input changes
+  // Handle input change
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Handle file input changes
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    console.log(file,"file receiving!")
-    if (file) {
-      setFormData({ ...formData, avatar: file });
-    }
-  }
-  console.log("Form Data Submitted:");
-  console.log("Name:", formData.name);
-  console.log("Email:", formData.email);
-  console.log("Phone:", formData.phone);
-  console.log("Password:", formData.password);
-  console.log("Confirm Password:", formData.confirmPassword);
-
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    setOpenModal(true); // Open modal after form submission
+    // You can handle API call here
+    console.log("Form submitted with data: ", formData);
+  };
+
+  // Handle file change for avatar
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prevData) => ({
+        ...prevData,
+        avatar: URL.createObjectURL(file),
+      }));
+    }
   };
 
   return (
@@ -110,29 +93,15 @@ const SignUpPage = () => {
                 onChange={handleInputChange}
               />
               <TextField
-                label="confirmpassword"
                 variant="outlined"
-                type="password"
+                type="file"
                 fullWidth
                 margin="normal"
                 name="confirmPassword"
                 size="small"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
+                value={formData.avatar}
+                onChange={handleAvatarChange}
               />
-              <Button
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-                fullWidth
-                sx={{mb:"10px"}}
-              >
-                Photo Upload
-                  <VisuallyHiddenInput type="file" accept="image/*" onChange={handleFileChange} />
-               
-              </Button>
               <Button
                 type="submit"
                 variant="contained"
@@ -144,10 +113,10 @@ const SignUpPage = () => {
             </form>
           </div>
           {/* OTP Modal */}
-          <OTPModal open={openModal} onClose={() => setOpenModal(false)} />
         </div>
         <Footer />
       </div>
+      <OTPModal open={openModal} onClose={() => setOpenModal(false)} />
     </>
   );
 };

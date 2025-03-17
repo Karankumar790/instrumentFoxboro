@@ -7,7 +7,7 @@ import DynamicTable from '../Components/DynamicTable';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategory } from './CategorySlice';
-import CategoryTableData from "../Components/TableData";
+import CategoryTableData, { generateColumns, generateRows } from "../Components/TableData";
 
 const style = {
   position: 'absolute',
@@ -210,6 +210,8 @@ function Automation({ open: isOpen, handleClose: onClose }) {
           {snackbar.message}
         </Alert>
       </Snackbar>
+
+      <DynamicTable rows={generateRows} columns={generateColumns}/>
     </div>
   );
 }
