@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -7,7 +8,7 @@ import DynamicTable from '../Components/DynamicTable';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategory } from './CategorySlice';
-import CategoryTableData from "../Components/TableData";
+import CategoryTableData, { generateColumns, generateRows } from "../Components/TableData";
 
 const style = {
   position: 'absolute',
@@ -28,14 +29,14 @@ function Automation({ open: isOpen, handleClose: onClose }) {
 
   const dispatch = useDispatch();
   const { loading, error, success } = useSelector((state) => state.category);
-
+  const token = Cookies.get('token');
 
   const { rows, columns } = CategoryTableData;
 
   const [categoryData, setCategoryData] = useState({
     categoryName: '',
-    shortDescription: '',
-    longDescription: '',
+    // shortDescription: '',
+    description: '',
     categoryImage: null,
   });
 
@@ -59,8 +60,8 @@ function Automation({ open: isOpen, handleClose: onClose }) {
   // Validate fields before submitting
   const validateForm = () => {
     if (!categoryData.categoryName.trim()) return 'Category Name is required.';
-    if (!categoryData.shortDescription.trim()) return 'Short Description is required.';
-    if (!categoryData.longDescription.trim()) return 'Long Description is required.';
+    // if (!categoryData.shortDescription.trim()) return 'Short Description is required.';
+    if (!categoryData.description.trim()) return 'Long Description is required.';
     if (!categoryData.categoryImage) return 'Category Image is required.';
     return null;
   };
@@ -75,8 +76,8 @@ function Automation({ open: isOpen, handleClose: onClose }) {
 
     const formData = new FormData();
     formData.append('categoryName', categoryData.categoryName);
-    formData.append('shortDescription', categoryData.shortDescription);
-    formData.append('longDescription', categoryData.longDescription);
+    // formData.append('shortDescription', categoryData.shortDescription);
+    formData.append('longDescription', categoryData.description);
     formData.append('categoryImage', categoryData.categoryImage);
 
     // Debugging: Check FormData before dispatching
@@ -84,10 +85,10 @@ function Automation({ open: isOpen, handleClose: onClose }) {
       console.log(key, value);
     }
 
-    dispatch(addCategory(formData))
+    dispatch(addCategory(formData,token))
       .then(() => {
         setSnackbar({ open: true, message: 'Category added successfully!', severity: 'success' });
-        setCategoryData({ categoryName: '', shortDescription: '', longDescription: '', categoryImage: null });
+        setCategoryData({ categoryName: '',  description: '', categoryImage: null });
         setImage(null);
         handleClose();
       })
@@ -147,12 +148,12 @@ function Automation({ open: isOpen, handleClose: onClose }) {
           {/* Long Description */}
           <TextField
             label="Description"
-            name="longDescription"
+            name="description"
             fullWidth
             multiline
             rows={4}
             margin="normal"
-            value={categoryData.longDescription}
+            value={categoryData.description}
             onChange={handleChange}
           />
 
@@ -210,6 +211,8 @@ function Automation({ open: isOpen, handleClose: onClose }) {
           {snackbar.message}
         </Alert>
       </Snackbar>
+
+      <DynamicTable rows={generateRows} columns={generateColumns}/>
     </div>
   );
 }

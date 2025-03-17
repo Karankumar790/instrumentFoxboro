@@ -31,7 +31,7 @@ function Header() {
     },
 
     {
-      text: "Product",
+      text: "Fox  IoT",
       Link: "/hardware"
     },
     {
@@ -45,7 +45,7 @@ function Header() {
     },
 
     {
-      text: "Services Network",
+      text: "Service Locator",
       Link: "/service",
     },
 
@@ -55,7 +55,7 @@ function Header() {
     // },
 
     {
-      text: "Free Recuritment",
+      text: "Free Job Search",
       Link: "/support",
     },
   ];
@@ -99,9 +99,9 @@ function Header() {
                 <Typography ml={1}>{value.text}</Typography>
               </Stack>
             ))}
-            <button className="bg-blue-700 border rounded-md text-white p-2">
+            <button className="bg-blue-700 border rounded-md text-white p-2 pl-4 pr-4">
               <span className={isBlinking ? "opacity-100" : "opacity-0"}>
-                <p className="#FFFF00">Free Engineering Consulting - Book Appointment</p>
+                <p className="#FFFF00"> Engineering Consulting - Book Appointment</p>
               </span>
             </button>
           </Stack>

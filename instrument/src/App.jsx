@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 
-const Login = lazy(() => import("./AuthCycle/login.jsx"))
-const SignUp = lazy(() => import("./AuthCycle/signUp.jsx"))
-const Forget = lazy(() => import("./AuthCycle/forget.jsx"))
+const Login = lazy(() => import("./AuthCycle/Login/login.jsx"))
+const SignUp = lazy(() => import("./AuthCycle/SignUp/signUp.jsx"))
+const Forget = lazy(() => import("./AuthCycle/Forget/forget.jsx"))
 const Product = lazy(() => import("./pages/product.jsx"))
 const Content = lazy(() => import("./pages/content.jsx"))
 const AdminLayout = lazy(() => import("./AdminDashoard/AdminLayout.jsx"))
