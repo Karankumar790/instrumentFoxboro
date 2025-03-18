@@ -17,47 +17,29 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
-// export const addCategory = createAsyncThunk('category/addCategory', async (categoryData, { rejectWithValue }) => {
-//   try {
-//     const { data } = await axios.post(`${API_URL}/category`, categoryData, {
-//       headers: {
-//         "Authorization": `Bearer ${token}`,
-//         'Content-Type': 'multipart/form-data',
-//       }
-//     });
-
-//     return data;
-//   } catch (error) {
-//     return rejectWithValue(error.response?.message || 'Error adding category');
-//   }
-// });
-
 export const addCategory = createAsyncThunk(
-  "category/addCategory",
-  async (categoryData, { rejectWithValue }) => {
+  'category/addCategory',
+  async ({ categoryData, token }, { rejectWithValue }) => {
+    console.log(token, "token auth");  // Debugging: Check if the token exists
+
     try {
-      // Get the token from cookies
-      const token = Cookies.get("token");
-      console.log("token fro cookies", authToken);
-
-      if (!token) {
-        return rejectWithValue("Token not found"); // Handle case when token is not available
-      }
-
       const { data } = await axios.post(`${API_URL}/category`, categoryData, {
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        }
       });
 
+      console.log("API Response:", data);  // Debugging: Check API response
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.message || "Error adding category"
-      );
+      console.error("API Error:", error.response);  // Debugging: Log error details
+      return rejectWithValue(error.response?.data?.message || "Error adding category");
     }
   }
 );
+
+
 const categorySlice = createSlice({
   name: "category",
   initialState: { categories: [], loading: false, error: null, success: false },
