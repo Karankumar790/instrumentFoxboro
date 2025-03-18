@@ -11,20 +11,28 @@ export const fetchCategories = createAsyncThunk('category/fetchCategories', asyn
   }
 });
 
-export const addCategory = createAsyncThunk('category/addCategory', async (categoryData, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.post(`${API_URL}/category`, categoryData, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
-      }
-    });
+export const addCategory = createAsyncThunk(
+  'category/addCategory',
+  async ({ categoryData, token }, { rejectWithValue }) => {
+    console.log(token, "token auth");  // Debugging: Check if the token exists
 
-    return data;
-  } catch (error) {
-    return rejectWithValue(error.response?.message || 'Error adding category');
+    try {
+      const { data } = await axios.post(`${API_URL}/category`, categoryData, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        }
+      });
+
+      console.log("API Response:", data);  // Debugging: Check API response
+      return data;
+    } catch (error) {
+      console.error("API Error:", error.response);  // Debugging: Log error details
+      return rejectWithValue(error.response?.data?.message || "Error adding category");
+    }
   }
-});
+);
+
 
 const categorySlice = createSlice({
   name: 'category',

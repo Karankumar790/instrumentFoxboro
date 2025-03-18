@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -29,7 +29,6 @@ function Automation({ open: isOpen, handleClose: onClose }) {
 
   const dispatch = useDispatch();
   const { loading, error, success } = useSelector((state) => state.category);
-  const token = localStorage.getItem('token'); // Get token from localStorage
 
   const { rows, columns } = CategoryTableData;
 
@@ -66,36 +65,48 @@ function Automation({ open: isOpen, handleClose: onClose }) {
     return null;
   };
 
+  // const token = localStorage.getItem('token');
+
+  const checkAuthToken = () => {
+    const authToken = Cookies.get("authToken");
+    console.log(authToken,"//////////////////")
+    if (authToken) {
+      localStorage.setItem("authToken", authToken);
+    }
+  };
+  
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
+  
+
   // Handle form submission
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const errorMessage = validateForm();
     if (errorMessage) {
       setSnackbar({ open: true, message: errorMessage, severity: 'error' });
       return;
     }
-
+  
     const formData = new FormData();
     formData.append('categoryName', categoryData.categoryName);
-    // formData.append('shortDescription', categoryData.shortDescription);
     formData.append('longDescription', categoryData.description);
     formData.append('categoryImage', categoryData.categoryImage);
-
-    // Debugging: Check FormData before dispatching
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
+  
+    const token = localStorage.getItem('authToken');  
+    console.log(token, "token auth");  // Debugging: Check if the token exists
+  
+    try {
+      await dispatch(addCategory({ categoryData: formData, token })).unwrap();
+      setSnackbar({ open: true, message: 'Category added successfully!', severity: 'success' });
+      setCategoryData({ categoryName: '', description: '', categoryImage: null });
+      setImage(null);
+      handleClose();
+    } catch (error) {
+      setSnackbar({ open: true, message: error || 'Failed to add category.', severity: 'error' });
     }
-
-    dispatch(addCategory(formData,token))
-      .then(() => {
-        setSnackbar({ open: true, message: 'Category added successfully!', severity: 'success' });
-        setCategoryData({ categoryName: '',  description: '', categoryImage: null });
-        setImage(null);
-        handleClose();
-      })
-      .catch(() => {
-        setSnackbar({ open: true, message: 'Failed to add category.', severity: 'error' });
-      });
   };
+  
 
 
   return (
@@ -168,7 +179,7 @@ function Automation({ open: isOpen, handleClose: onClose }) {
                 alignItems: 'center',
                 // backgroundColor: '#f0f0f0',
                 borderRadius: 2,
-                border : "1px solid grey",
+                border: "1px solid grey",
                 marginBottom: 2,
               }}
             >
@@ -212,7 +223,7 @@ function Automation({ open: isOpen, handleClose: onClose }) {
         </Alert>
       </Snackbar>
 
-      <DynamicTable rows={generateRows} columns={generateColumns}/>
+      <DynamicTable rows={generateRows} columns={generateColumns} />
     </div>
   );
 }
