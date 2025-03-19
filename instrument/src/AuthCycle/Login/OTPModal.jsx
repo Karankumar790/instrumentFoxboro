@@ -1,110 +1,58 @@
 import React, { useState } from 'react';
 import { Modal, Button, Box } from '@mui/material';
 import OTPInput from 'react-otp-input';
-import { otpSignUp } from '../SignUp/SignUpSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { otpLogin } from './loginSlice';
+import { otpSignUp } from '../SignUp/SignUpSlice';
 
 const OTPModal = ({ open, onClose, email }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const { token } = useSelector((state) => state.signUp);
-  const navigate = useNavigate();
-
-  // const handleSubmitOtp = async () => {
-  //   setLoading(true);
-  //   setError('');
-  //   setMessage('');
-  //   let response;
-  //   if (!email) {
-  //     try {
-  //        response = otpSignUp(otp, token);
-  //       if (response?.success) {
-  //         alert(`${response.message}`);
-  //         setOtp('');
-  //         onClose(false);
-  //         navigate('/login')
-  //       } else {
-  //         alert(`${response.message}`);
-  //         setOtp('');
-  //         onClose(false);
-  //       }
-  //     } catch (error) {
-  //       setOtp('');
-  //       open(false);
-  //       alert(`${response.message}`);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }else{
-  //     try {
-  //       const response = otpLogin(otp,email);
-  //       if (response?.success) {
-  //         alert(`${response.message}`);
-  //         setOtp('');
-  //         onClose(false);
-  //         navigate('/')
-  //       } else {
-  //         alert(`${response.message}`);
-  //         setOtp('');
-  //         onClose(false);
-  //       }
-  //     } catch (error) {
-  //       setOtp('');
-  //       open(false);
-  //       alert(`${response.message}`);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-
-  // };
 
   const handleSubmitOtp = async () => {
     setLoading(true);
     setError('');
     setMessage('');
-  
-    const handleResponse = (response, successRedirect, failureRedirect) => {
-      if (response?.success) {
-        alert(`${response.message}`);
-        setOtp('');
-        onClose(false);
-        navigate(successRedirect); // Redirect on success
-      } else {
-        alert(`${response.message}`);
-        setOtp('');
-        onClose(false);
-        navigate(failureRedirect); // Redirect or do something else on failure
-      }
-    };
-  
+
     try {
       let response;
-  
-      // Choose the function based on email presence
+
       if (!email) {
         // If no email, call otpSignUp
-        response = await otpSignUp(otp, token);
-        handleResponse(response, '/login', '/'); // Success - Redirect to login, failure - home
+        response = await dispatch(otpSignUp({ otp, token })).unwrap();
+        handleResponse(response, '/login', '/');
       } else {
         // If email exists, call otpLogin
-        response = await otpLogin(otp, email);
-        handleResponse(response, '/admin', '/login'); // Success - Redirect to home, failure - login
+        response = await dispatch(otpLogin({ otp, email })).unwrap();
+        handleResponse(response, '/admin', '/login');
       }
-  
     } catch (error) {
       setOtp('');
       onClose(false);
-      alert("Error processing OTP");
+      setError(error.message || "Error processing OTP");
+      alert(error.message || "Error processing OTP");
     } finally {
       setLoading(false);
     }
   };
-  
+
+  const handleResponse = (response, successRedirect, failureRedirect) => {
+    if (response?.success) {
+      setOtp('');
+      onClose(false);
+      navigate(successRedirect);
+    } else {
+      setOtp('');
+      onClose(false);
+      navigate(failureRedirect);
+    }
+  };
 
   const style = {
     position: 'absolute',

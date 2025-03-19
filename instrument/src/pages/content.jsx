@@ -14,6 +14,8 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Footer from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
+import { fetchCategories } from "../AdminDashoard/Category/CategorySlice";
+import { useDispatch, useSelector } from "react-redux";
 // import product from "./product";
 
 
@@ -23,7 +25,8 @@ import { Link } from "react-router-dom";
   "https://www.beckhoff.com/media/pictures/stages/news/twincat-plc-plus-plus-starting-page-stage-lowres_webp_85.webp";
 function content() {
   const [open, setOpen] = useState(false);
-
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.category.categories);
   const handleToggle = () => {
     setOpen(!open);
   };
@@ -66,18 +69,28 @@ function content() {
     const interval = setInterval(handleNext, 3000); // Change image every 3 seconds
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
+
+
+
+
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   return (
     <>
       <PageContainer showheader="true">
         <Grid2 container display="flex" justifyContent="center" mt={1}>
+
           <Grid2 mr={2} display={"flex"} alignItems={"center"}>
             {/* <Button variant="inherit" onClick={handlePrevious}> */}
             {/* <ArrowBackIosIcon sx={{ fontSize: "50px" }} /> */}
             {/* </Button> */}
           </Grid2>
           <Grid2 size={{ lg: 9 }}>
+
             <Box display="flex" justifyContent="center" height="45vh">
               <img
                 src={images_animation[currentIndex]}
@@ -97,7 +110,7 @@ function content() {
             size={{ lg: 9 }}
             p={0}
             overflow="hidden"
-            // border={"1px solid black"}
+          // border={"1px solid black"}
           >
             <Box>
               <Typography variant="h5" mt={3} mb={2} fontWeight={"bold"}>
@@ -106,82 +119,52 @@ function content() {
             </Box>
 
             <Grid2 container spacing={3}>
-              {images.map((src, index) => (
-                <Grid2
-                  bgcolor={"yellow"}
-                  key={index}
-                  size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
-                >
+              {Array.isArray(categories) && categories.length > 0 ? (
+                categories.map((category, index) => (
+                  <Grid2
+                    bgcolor={"yellow"}
+                    key={index}
+                    size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
+                  >
                     <Card>
                       <Link to="/products" style={{ textDecoration: "none" }}>
-                      <CardMedia
-                        component="img"
-                        // sx={{objectFit:"cover",objectPosition:'center'}}
-                        style={{
-                          height: "30vh",
-                          width: "40vh",
-                          objectFit: "cover",
-                          objectPosition: "left",
-                          background:
-                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
-                          transition: "transform 0.3s ease-in-out",
-                        }}
-                        image={src}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = "scale(1.1)"; // Scales the image when hovered
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
-                        }}
-                        alt={`Image ${index}`}
+                        <CardMedia
+                          component="img"
+                          style={{
+                            height: "30vh",
+                            width: "40vh",
+                            objectFit: "cover",
+                            objectPosition: "left",
+                            background:
+                              "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                            transition: "transform 0.3s ease-in-out",
+                          }}
+                          image={category.categoryImage} // Use correct image property
+                          alt={`Image ${index}`}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "scale(1.1)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "scale(1)";
+                          }}
                         />
-                        </Link>
-                      <Typography
-                        variant="h6"
-                        gutterBottom
-                        sx={{ padding: "8px" }}
-                      >
-                        Automation
+                      </Link>
+                      <Typography variant="h6" gutterBottom sx={{ padding: "8px" }}>
+                        {category.categoryName} {/* Display the actual category name */}
                       </Typography>
-
                       <Typography
                         variant="body2"
                         mb={2}
                         sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                       >
-                        We deliver Panels and Industrial PCs for every
-                        application with the latest technology for all
-                        performance classes.
+                        {category.shortDescription || "No description available."}
                       </Typography>
-
-                      {/* <Button
-                        onClick={handleToggle}
-                        sx={{
-                          marginLeft: "8px",
-                          marginBottom: "8px",
-                          color: "red",
-                        }}
-                      >
-                        {open ? "Show Less" : "Learn More"}
-                      </Button> */}
-
-                      {/* <Collapse in={open}>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            paddingLeft: "8px",
-                            paddingRight: "8px",
-                            paddingBottom: "8px",
-                          }}
-                        >
-                          This is the additional text that appears when "Learn
-                          More" is clicked. You can put a detailed description
-                          of the image here.
-                        </Typography>
-                      </Collapse> */}
                     </Card>
-                </Grid2>
-              ))}
+                  </Grid2>
+                ))
+              ) : (
+                <div>No categories available</div>
+              )}
             </Grid2>
             <Typography variant="h5" mt={3} mb={2} fontWeight={"bold"}>
               Industrial Software
@@ -296,15 +279,15 @@ function content() {
                         padding: "5px 10px",
                         borderRadius: "5px",
                         background:
-                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
-                          transition: "transform 0.3s ease-in-out",
+                          "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                        transition: "transform 0.3s ease-in-out",
                       }}
                     >
                       <Typography
                         variant="h6"
                         color="black"
                         fontWeight={"bold"}
-                       
+
                       >
                         PC-based control for all-electric blow molding machines
                       </Typography>
@@ -323,7 +306,7 @@ function content() {
                     width: "100%",
                     height: "90%",
                     display: "flex",
-                    
+
                     flexDirection: "column",
                   }}
                 >
@@ -345,14 +328,14 @@ function content() {
                       flexGrow: 1,
                       // backgroundColor: "rgba(237, 231, 231, 0.7)",
                       background:
-                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
-                          transition: "transform 0.3s ease-in-out",
+                        "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                      transition: "transform 0.3s ease-in-out",
                     }}
                   >
                     <Typography
                       variant="h6"
                       color="black"
-                      // sx={{ fontWeight: "bold" }}
+                    // sx={{ fontWeight: "bold" }}
                     >
                       <Typography
                         variant="h6"

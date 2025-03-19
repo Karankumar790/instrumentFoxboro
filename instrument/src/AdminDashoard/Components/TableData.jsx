@@ -9,95 +9,98 @@ const TableData = () => {
   const { categories, loading, error } = useSelector((state) => state.category);
 
   useEffect(() => {
-    if (!categories || categories.length === 0) {
-      dispatch(fetchCategories());
-    }
-  }, [dispatch, categories]);
-  
+    const fetchData = async () => {
+      console.log('Fetching categories...');
+      try {
+        const response = await dispatch(fetchCategories()).unwrap();
+        console.log('Categories fetched:', response);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+
+
 
   if (loading) return <p>Loading categories...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  return (
-    <div style={{ height: 400, width: "100%" }}>
-      <h2>Category Table</h2>
-      {/* <DataGrid rows={generateRows(categories)} columns={columns} pageSize={5} /> */}
-    </div>
-  );
+  return <div>Table Component</div>; // Placeholder UI
 };
 
-// Function to generate rows dynamically
+// ✅ Move Exports Outside Component
 export const generateRows = (categories = []) =>
-  Array.isArray(categories)
-    ? categories.map((category) => ({
-        name: category.categoryName,
-        image: category.categoryImage,
-        shortDesc: category.shortDescription,
-        longDesc: category.longDescription,
-        actions: (
-          <div style={{ display: "flex", gap: "10px" }}>
-            <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer" }} />
-            <FontAwesomeIcon icon={faPen} style={{ cursor: "pointer" }} />
-            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} />
-          </div>
-        ),
-      }))
-    : [];
+  categories.map((category, index) => ({
+    id: index + 1, // Ensuring unique ID for DataGrid
+    image: <div className="w-32 h-32 "><img src={category.categoryImage} alt="Category Image" className="h-full w-full object-cover" /></div>,
+    name: category.categoryName,
+    description:
+      category.shortDescription ||
+      category.longDescription ||
+      category.description ||
+      "No description",
+    actions: (
+      <div style={{ display: "flex", gap: "10px" }}>
+        <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer" }} />
+        <FontAwesomeIcon icon={faPen} style={{ cursor: "pointer" }} />
+        <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} />
+      </div>
+    ),
+  }));
 
-
-// Export columns separately
-export const generateColumns = [
-  { field: "name", headerName: "Name", width: 150 },
+export const generateColumns = () => [
   {
     field: "image",
     headerName: "Image",
     width: 150,
-    renderCell: (params) => <img src={params.value} alt="Category" width="50" height="50" />,
+    renderCell: (params) => (
+      <img src={params.value} alt="Category" width="50" height="50" style={{ borderRadius: "5px" }} />
+    ),
   },
-  { field: "shortDesc", headerName: "Short Description", width: 200 },
-  { field: "longDesc", headerName: "Long Description", width: 200 },
+  { field: "name", headerName: "Name", width: 150 },
+  { field: "description", headerName: "Description", width: 200 },
   { field: "actions", headerName: "Actions", width: 150 },
 ];
 
 
-
-
-
-// Product Table Data
-const createDatas = (name, last, hash, cabs, nuts) => ({
+// ✅ Product Table Data
+const createDatas = (name, last, hash, cabs) => ({
   name,
   last,
   hash,
   cabs,
   actions: (
     <div style={{ display: "flex", gap: "30px" }}>
-      <FontAwesomeIcon icon={faEye} /> {/* View icon */}
-      <FontAwesomeIcon icon={faPen} /> {/* Edit icon */}
-      <FontAwesomeIcon icon={faTrash} /> {/* Delete icon */}
+      <FontAwesomeIcon icon={faEye} />
+      <FontAwesomeIcon icon={faPen} />
+      <FontAwesomeIcon icon={faTrash} />
     </div>
   ),
 });
 
- export const productRows = [
-  createDatas("PLC", 23, 43, 45, 90),
-  createDatas("BPLC", 43, 30, 64, 78),
-  createDatas("HPLC", 89, 73, 95, 34),
-  createDatas("TPLC", 23, 90, 45, 56),
-  createDatas("GPLC", 21, 53, 95, 78),
+export const productRows = [
+  createDatas("PLC", 23, 43, 45),
+  createDatas("BPLC", 43, 30, 64),
+  createDatas("HPLC", 89, 73, 95),
+  createDatas("TPLC", 23, 90, 45),
+  createDatas("GPLC", 21, 53, 95),
 ];
 
 export const productColumns = [
-  { field: "name", headerName: "Image" },
-  { field: "last", headerName: "Product Name" },
-  { field: "hash", headerName: "Long Description" },
-  { field: "cabs", headerName: "Short Description" },
+  { field: "name", headerName: "Name", width: 150 },
+  { field: "last", headerName: "Product Name", width: 150 },
+  { field: "hash", headerName: "Long Description", width: 200 },
+  { field: "cabs", headerName: "Short Description", width: 200 },
   {
     field: "actions",
-    headerName: "View", // Header for the combined icons
+    headerName: "Actions",
     width: 200,
     renderCell: (params) => params.value, // Render the combined icons
   },
 ];
 
-// Export components and data
-export default { TableData, productRows, productColumns,generateRows,generateColumns };
+// ✅ Export Correctly
+export default TableData;
