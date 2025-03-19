@@ -16,6 +16,8 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
+
+
 const token = localStorage.getItem("authToken");
 console.log("Stored Token:", token);
 
