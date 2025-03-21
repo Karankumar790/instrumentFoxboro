@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../Category/CategorySlice";
+import { deleteCategory, fetchCategories } from "../Category/CategorySlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
 
@@ -22,17 +22,25 @@ const TableData = () => {
     fetchData();
   }, [dispatch]);
 
-
+  const handleDelete = async (categoryId) => {
+    try {
+      await dispatch(deleteCategory(categoryId)).unwrap();
+      console.log("Category deleted successfully");
+    } catch (error) {
+      console.error("Error deleting category:", error);
+    }
+  };
 
 
   if (loading) return <p>Loading categories...</p>;
   if (error) return <p>Error: {error}</p>;
 
+
   return <div>Table Component</div>; // Placeholder UI
 };
 
 // ✅ Move Exports Outside Component
-export const generateRows = (categories = []) =>
+export const generateRows = (categories = [],handleDelete) =>
   categories.map((category, index) => ({
     id: index + 1, // Ensuring unique ID for DataGrid
     image: <div className="w-32 h-32 "><img src={category.categoryImage} alt="Category Image" className="h-full w-full object-cover" /></div>,
@@ -46,7 +54,7 @@ export const generateRows = (categories = []) =>
       <div style={{ display: "flex", gap: "10px" }}>
         <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer" }} />
         <FontAwesomeIcon icon={faPen} style={{ cursor: "pointer" }} />
-        <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} />
+        <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} onClick={() => handleDelete(category._id)}  />
       </div>
     ),
   }));

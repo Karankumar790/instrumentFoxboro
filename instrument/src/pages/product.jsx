@@ -10,13 +10,14 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageContainer from "../components/HOC/PageContainer";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 
 function product() {
   const [open, setOpen] = useState(false);
+ 
 
   const handleToggle = () => {
     setOpen(!open);
@@ -39,6 +40,10 @@ function product() {
     "https://www.beckhoff.com/media/pictures/tiles/products/motion/motion_webp_85.webp",
     "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
   ];
+
+
+ 
+
   return (
     <div>
       <PageContainer showheader="true">
