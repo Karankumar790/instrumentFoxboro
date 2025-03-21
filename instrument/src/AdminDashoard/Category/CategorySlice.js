@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_URL } from "../../api/Client";
+import Cookies from "js-cookie"; // Import js-cookie to handle cookies
 
 export const fetchCategories = createAsyncThunk(
   "category/fetchCategories",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`${API_URL}/getAllCategories`);
+
       return data.data;
     } catch (error) {
       return rejectWithValue(
@@ -15,7 +17,6 @@ export const fetchCategories = createAsyncThunk(
     }
   }
 );
-
 
 
 const token = localStorage.getItem("authToken");
