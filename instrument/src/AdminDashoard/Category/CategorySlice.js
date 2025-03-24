@@ -49,16 +49,10 @@ export const deleteCategory = createAsyncThunk(
   async (categoryId, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
-        `${API_URL}/category?categoryId=${categoryId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `${API_URL}/category?categoryId=${categoryId}` // Use query parameter
       );
-
       console.log("Delete API Response:", data);
-      return categoryId; // Returning ID to remove from state
+      return data.data._id; // Return the deleted category ID
     } catch (error) {
       console.error("Delete API Error:", error.response);
       return rejectWithValue(
@@ -67,6 +61,7 @@ export const deleteCategory = createAsyncThunk(
     }
   }
 );
+
 
 const categorySlice = createSlice({
   name: "category",
@@ -104,11 +99,14 @@ const categorySlice = createSlice({
         state.error = null;
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
-        state.loading = false;
+        console.log("Redux: Deleting category with ID:", action.payload); // Debug log
+      
         state.categories = state.categories.filter(
-          (category) => category._id !== action.payload
+          (category) => category._id !== action.payload // Ensure category is removed
         );
-      })
+      
+        console.log("Updated categories list:", state.categories); // Debug log
+      })     
       .addCase(deleteCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;

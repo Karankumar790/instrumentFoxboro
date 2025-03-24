@@ -66,6 +66,12 @@ function content() {
     dispatch(fetchCategories());
   }, [dispatch]);
 
+  const limitWords = (text, wordLimit = 10) => {
+    if (!text) return "No description available.";
+    const words = text.split(" ");
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+  };
+
   return (
     <>
       <PageContainer showheader="true">
@@ -144,7 +150,7 @@ function content() {
                         mb={2}
                         sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                       >
-                        {category.shortDescription || "No description available."}
+                       {limitWords(category.description)}
                       </Typography>
                     </Card>
                   </Grid2>
