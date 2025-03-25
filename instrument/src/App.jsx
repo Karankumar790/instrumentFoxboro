@@ -39,7 +39,7 @@ function App() {
       path: "/admin",
       element: <AdminLayout />,
       children: [
-        { path: "categoryProduct", element: <CategoryProduct /> },
+        { path: "categoryProduct/:categoryId", element: <CategoryProduct /> },
         { path: "automation", element: <Automation /> },
         { path: "adminProduct", element: <AdminProduct /> },
         { path: "adminService", element: <AdminService /> },

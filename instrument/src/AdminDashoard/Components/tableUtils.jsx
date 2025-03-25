@@ -22,7 +22,7 @@ export const generateRows = (categories = [], handleOpenModal, handleDelete) => 
       "No description available.",
     actions: (
       <div style={{ display: "flex", gap: "10px" }}>
-        <Link to='/admin/categoryProduct'>
+        <Link to={`/admin/categoryProduct/${category._id}`}>
           <button style={{ background: "none", border: "none", cursor: "pointer" }}>
             <FontAwesomeIcon icon={faEye} />
           </button>
