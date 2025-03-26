@@ -30,10 +30,10 @@ function login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(loginUser(formData));
-        setFormData({
-            email: "",
-            password: "",
-        })
+        // setFormData({
+        //     email: "",
+        //     password: "",
+        // })
     }
 
     if (message && !otpModalOpen) {
@@ -107,7 +107,7 @@ function login() {
                                     />
                                     <span className="ml-2">Remember Me</span>
                                 </label>
-                                <Link to="/ForgotPwd" className="text-sm text-blue-600 hover:underline">
+                                <Link to="/forget" className="text-sm text-blue-600 hover:underline">
                                     Forgot Password?
                                 </Link>
                             </div>
@@ -145,7 +145,7 @@ function login() {
             </div>
 
             {/* OTP Modal */}
-            <OTPModal open={otpModalOpen} onClose={() => setOtpModalOpen(false)} />
+            <OTPModal open={otpModalOpen} onClose={() => setOtpModalOpen(false)} email={formData.email} />
         </>
     )
 }
