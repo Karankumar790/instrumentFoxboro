@@ -1,17 +1,13 @@
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
-  Collapse,
   Grid2,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import PageContainer from "../components/HOC/PageContainer";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Footer from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
 import { fetchCategories } from "../AdminDashoard/Category/CategorySlice";
@@ -30,16 +26,7 @@ function content() {
     setOpen(!open);
   };
 
-  const images = [
-    "https://www.beckhoff.com/media/pictures/tiles/products/ipc/ipc_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/i-o/io_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/motion/motion_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/vision/vision_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/vision/vision_webp_85.webp",
-  ];
+ 
 
   const indus = [
     "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
@@ -77,6 +64,12 @@ function content() {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+
+  const limitWords = (text, wordLimit = 10) => {
+    if (!text) return "No description available.";
+    const words = text.split(" ");
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+  };
 
   return (
     <>
@@ -122,7 +115,7 @@ function content() {
                     size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                   >
                     <Card>
-                      <Link to="/products" style={{ textDecoration: "none" }}>
+                      <Link to={`/products/${category._id}`} style={{ textDecoration: "none" }}>
                         <CardMedia
                           component="img"
                           style={{
@@ -152,7 +145,7 @@ function content() {
                         mb={2}
                         sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                       >
-                        {category.shortDescription || "No description available."}
+                       {limitWords(category.description)}
                       </Typography>
                     </Card>
                   </Grid2>

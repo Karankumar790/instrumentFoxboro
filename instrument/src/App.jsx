@@ -8,6 +8,7 @@ const Product = lazy(() => import("./pages/product.jsx"))
 const Content = lazy(() => import("./pages/content.jsx"))
 const AdminLayout = lazy(() => import("./AdminDashoard/AdminLayout.jsx"))
 const Automation = lazy(() => import("./AdminDashoard/Category/Automation.jsx"))
+const CategoryProduct = lazy(() => import("./AdminDashoard/Category/CategoryProduct.jsx"))
 const AdminProduct = lazy(() => import("./AdminDashoard/AdminProduct.jsx"))
 const AdminService = lazy(() => import("./AdminDashoard/AdminService.jsx"))
 const SiteSetting = lazy(() => import("./AdminDashoard/SiteSetting.jsx"))
@@ -26,7 +27,7 @@ function App() {
     { path: '/product', element: <Product /> },
     { path: '/estore', element: <Estore /> },
     { path: '/support', element: <Support /> },
-    { path: '/products', element: <Oneclickproduct /> },
+    { path: '/products/:categoryId', element: <Oneclickproduct /> },
     { path: '/service', element: <Service /> },
     { path: '/software', element: <Software /> },
     { path: '/hardware', element: <Hardware /> },
@@ -38,6 +39,7 @@ function App() {
       path: "/admin",
       element: <AdminLayout />,
       children: [
+        { path: "categoryProduct/:categoryId", element: <CategoryProduct /> },
         { path: "automation", element: <Automation /> },
         { path: "adminProduct", element: <AdminProduct /> },
         { path: "adminService", element: <AdminService /> },

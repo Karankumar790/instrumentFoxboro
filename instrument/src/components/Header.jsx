@@ -27,12 +27,12 @@ function Header() {
   const arr = [
     {
       text: "Automation",
-      Link: "/product",
+      Link: "/",
     },
 
     {
-      text: "Fox  IoT",
-      Link: "/hardware"
+      text: "Product",
+      Link: "/product"
     },
     {
       text: "Software",
@@ -45,7 +45,7 @@ function Header() {
     },
 
     {
-      text: "Service Locator",
+      text: "Services ",
       Link: "/service",
     },
 
@@ -55,7 +55,7 @@ function Header() {
     // },
 
     {
-      text: "Free Job Search",
+      text: "Contact Us",
       Link: "/support",
     },
   ];
@@ -99,9 +99,9 @@ function Header() {
                 <Typography ml={1}>{value.text}</Typography>
               </Stack>
             ))}
-            <button className="bg-blue-700 border rounded-md text-white p-2 pl-4 pr-4">
+            <button className="bg-blue-900 border rounded-md text-white p-2 pl-4 pr-4">
               <span className={isBlinking ? "opacity-100" : "opacity-0"}>
-                <p className="#FFFF00"> Engineering Consulting - Book Appointment</p>
+                <p className="#FFFF00"> Engineering Consultancy - Book Appointment</p>
               </span>
             </button>
           </Stack>

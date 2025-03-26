@@ -2,15 +2,15 @@ import React from "react";
 import { Box, Grid2, Typography, Link } from "@mui/material";
 
 function Footer() {
-  
+
 
   return (
-    <Box sx={{ bgcolor: "darkblue", p: 2 }}>
-      <Grid2 container spacing={5} ml={12}>
+    <Box sx={{ bgcolor: "#2b313b", p: 2 }}>
+      <Grid2 container spacing={5} ml={12}  sx={{display:'flex',justifyContent:'space-between'}}>
         {/* Corporate Office */}
-        <Grid2 size={{ lg: 2.4 }} > 
+        <Grid2 size={{ lg: 2.4 }} >
           <Box >
-            <Typography variant="h5" color="white">REGISTERED Office</Typography>
+            <Typography variant="h5" color="white">Registered Office</Typography>
             <Typography color="white">118, Sundaram Building Ansal Complex </Typography>
             <Typography color="white">Raj Nagar District Center, Ghaziabad </Typography>
             <Typography color="white">Uttar Pradesh India, Zip code 201001</Typography>
@@ -18,30 +18,6 @@ function Footer() {
           </Box>
         </Grid2>
 
-        {/* Manufacturing Unit */}
-        <Grid2 size={{ lg: 2.4 }}>
-          <Box>
-            <Typography variant="h5" color="white">Manufacturing Unit</Typography>
-            <Typography color="white">Address1</Typography>
-            <Typography color="white">City&Country</Typography>
-            <Typography color="white">Phone</Typography>
-            <Typography color="white">Email</Typography>
-          </Box>
-        </Grid2>
-
-        {/* Tax IDs & Certification */}
-        <Grid2 size={{ lg: 2.4 }}>
-          <Box>
-            <Typography variant="h5" color="white">Tax IDs</Typography>
-            <Typography color="white">GST:09AGLPV3098E</Typography>
-            <Typography color="white">GST2:</Typography>
-            <Typography color="white">GST3:</Typography>
-            <Typography variant="h6" color="white" >Certification</Typography>
-            <Link href={""} color="white" underline="hover">
-              View Certificate
-            </Link>
-          </Box>
-        </Grid2>
 
         {/* Customer Support */}
         <Grid2 size={{ lg: 2.4 }}>
@@ -54,11 +30,38 @@ function Footer() {
           </Box>
         </Grid2>
 
+        <Grid2 size={{ lg: 2.4 }}>
+          <Box>
+          <Typography variant="h5" color="white">Useful Website </Typography>
+          <Typography color="white">
+              <a href="https://www.foxboroinstrument.com" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
+              www.foxboroinstrument.com (Automation)
+              </a>
+            </Typography>
+            <Typography color="white">
+              <a href="https://www.foxboroinstrument.online" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
+                www.foxboroinstrument.co.in (E-Store)
+              </a>
+            </Typography>
+            <Typography color="white">
+              <a href="https://www.foxboro.in" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
+              www.foxboro.in (Industrial IoT Systems)
+              </a>
+            </Typography>
+            <Typography color="white">
+              <a href="https://www.foxboroinstrument.co.in" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
+                www.foxboroinstrument.co.in (Freeware)
+              </a>
+            </Typography>
+
+          </Box>
+        </Grid2>
+
         {/* Help & Policies */}
         <Grid2 size={{ lg: 2.4 }}>
           <Box>
             <Typography variant="h5" color="white">Need Help?</Typography>
-            <Typography color="white">Contact Us</Typography>
+            {/* <Typography color="white">Contact Us</Typography> */}
             <Typography color="white">Privacy Policy</Typography>
             <Typography color="white">Refund and Return</Typography>
             <Typography color="white">Terms & Conditions</Typography>
