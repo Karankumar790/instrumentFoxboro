@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   Grid2,
+  Menu,
+  MenuItem,
   Stack,
   Typography,
 } from "@mui/material";
@@ -14,6 +16,7 @@ import MarkunreadIcon from "@mui/icons-material/Markunread";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import EngineeringIcon from "@mui/icons-material/Engineering";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -25,40 +28,30 @@ function Header() {
   ];
   // const arr = ["Product", "Software", "Services", "E-Store", "Support"];
   const arr = [
-    {
-      text: "Automation",
-      Link: "/product",
-    },
-
-    {
-      text: "Fox  IoT",
-      Link: "/hardware"
-    },
-    {
-      text: "Software",
-      Link: "/software",
-    },
-
-    {
-      text: "E-Store",
-      Link: "/estore",
-    },
-
-    {
-      text: "Service Locator",
-      Link: "/service",
-    },
-
-    // {
-    //   text: "Support",
-    //   Link: "/support",
-    // },
-
-    {
-      text: "Free Job Search",
-      Link: "/support",
-    },
+    { text: "Automation", Link: "/" },
+    { text: "Product", Link: "/product" },
+    { text: "Software", Link: "/software" },
+    { text: "Services", Link: null }, // Dropdown
+    { text: "E-Store", Link: "/estore" },
+    { text: "Contact Us", Link: "/support" },
   ];
+
+  const serviceOptions = [
+    { text: "Generate Quotion", Link: "/service" },
+    { text: "Upload Purchase Order", Link: "/poGenerator" },
+    { text: "Track Service Status", Link: "/poGenerator" },
+  ]
+
+  const [serviceMenu, setServiceMenu] = useState(null);
+
+  const handleServiceClick = (event) => {
+    event.stopPropagation(); // Prevent event bubbling
+    setServiceMenu(event.currentTarget);
+  };
+
+  const handleCloseServiceMenu = () => {
+    setServiceMenu(null);
+  };
 
   const [isBlinking, setIsBlinking] = useState(true);
 
@@ -99,9 +92,9 @@ function Header() {
                 <Typography ml={1}>{value.text}</Typography>
               </Stack>
             ))}
-            <button className="bg-blue-700 border rounded-md text-white p-2 pl-4 pr-4">
+            <button className="bg-blue-900 border rounded-md text-white p-2 pl-4 pr-4">
               <span className={isBlinking ? "opacity-100" : "opacity-0"}>
-                <p className="#FFFF00"> Engineering Consulting - Book Appointment</p>
+                <p className="#FFFF00"> Engineering Consultancy - Book Appointment</p>
               </span>
             </button>
           </Stack>
@@ -160,22 +153,41 @@ function Header() {
                 </Stack>
               ))}
             </Box> */}
-            <Box flexDirection={"row"} display={"flex"} gap={5} ml={4}>
+            <Box flexDirection="row" display="flex" gap={5} ml={4}>
               {arr.map((value, index) => (
                 <Stack direction="row" alignItems="center" key={index}>
-                  <Button sx={{ color: "white" }} ml={1}>
-                    {/* If there's a Link (non-empty), use the React Router Link component */}
-                    {value.Link ? (
-                      <Link to={value.Link} style={{ color: "white", textDecoration: "none" }}>
+                  {value.text === "Services" ? (
+                    <>
+                      <Button
+                        sx={{ color: "white" }}
+                        endIcon={<KeyboardArrowDownIcon />}
+                        onClick={handleServiceClick}
+                      >
+                        <Typography>{value.text}</Typography>
+                      </Button>
+                      <Menu
+                        anchorEl={serviceMenu}
+                        open={Boolean(serviceMenu)}
+                        onClose={handleCloseServiceMenu}
+                      >
+                        {serviceOptions.map((option, idx) => (
+                          <MenuItem key={idx} onClick={handleCloseServiceMenu}>
+                            <Link to={option.Link} className="text-gray-700 hover:text-blue-600 w-full block">
+                              {option.text}
+                            </Link>
+                          </MenuItem>
+                        ))}
+                      </Menu>
+                    </>
+                  ) : (
+                    <Button sx={{ color: "white" }}>
+                      <Link to={value.Link} className="text-white no-underline">
                         <Typography>{value.text}</Typography>
                       </Link>
-                    ) : (
-                      <Typography>{value.text}</Typography>
-                    )}
-                  </Button>
+                    </Button>
+                  )}
                 </Stack>
               ))}
-
             </Box>
             <Box display={'flex'} gap={2} mr={3}>
 

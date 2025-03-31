@@ -229,11 +229,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button, TextField, Snackbar, Alert } from "@mui/material";
-import DynamicTable from "../Components/DynamicTable";
+import AdminTable from "../Components/AdminTable";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch, useSelector } from "react-redux";
 import { addCategory } from "./CategorySlice";
-import { generateColumns, generateRows } from "../Components/TableData"; // ✅ Correct imports
+import { generateColumns, generateRows } from "../Components/tableUtils"; // ✅ Correct imports
 
 const style = {
   position: "absolute",
@@ -332,7 +332,7 @@ function Automation({ open: isOpen, handleClose: onClose }) {
       </div>
 
       {/* ✅ Pass Correct Data to DynamicTable */}
-      <DynamicTable rows={generateRows(categories)} columns={generateColumns()} pageSize={5} />
+      <AdminTable rows={generateRows(categories)} columns={generateColumns()} pageSize={5} />
 
       <Modal open={isModalOpen} onClose={handleClose} aria-labelledby="modal-title">
         <Box sx={style}>

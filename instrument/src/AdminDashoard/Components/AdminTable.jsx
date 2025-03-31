@@ -32,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-function AdminTable({ columns = [], rows = [] }) {
+function AdminTable({ columns = [], rows = [], handleOpenModal, handleDelete }) {
   const dispatch = useDispatch();
   const safeRows = Array.isArray(rows) ? rows : [];
   useEffect(() => {
@@ -48,6 +48,10 @@ function AdminTable({ columns = [], rows = [] }) {
   
     fetchData();
   }, [dispatch]);
+
+
+  
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
