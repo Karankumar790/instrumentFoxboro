@@ -14,10 +14,12 @@ import React, { useEffect, useState } from "react";
 import PageContainer from "../components/HOC/PageContainer";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
+import { getFoxboroProduct } from "./product";
 
 function product() {
+  const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
- 
+
 
   const handleToggle = () => {
     setOpen(!open);
@@ -41,8 +43,21 @@ function product() {
     "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
   ];
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await getFoxboroProduct();
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    }
+    fetchProduct();
+  },[])
 
- 
+
+
+
 
   return (
     <div>
@@ -52,7 +67,7 @@ function product() {
             size={{ lg: 9 }}
             overflow="hidden"
             mb={4}
-            // border={"1px solid black"}
+          // border={"1px solid black"}
           >
             <Box mb={2} >
               <Typography variant="h5" mt={2} fontWeight={"bold"} >
@@ -66,10 +81,10 @@ function product() {
             </Box> */}
 
             <Grid2 container spacing={3}>
-              {images.map((src, index) => (
+              {products.map((product, index) => (
                 <Grid2
                   bgcolor={"yellow"}
-                  key={index}
+                  key={product.id}
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                 >
                   <Link to="/product" style={{ textDecoration: "none" }}>
@@ -86,7 +101,7 @@ function product() {
                             "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
                           transition: "transform 0.3s ease-in-out",
                         }}
-                        image={src}
+                        image={product.image}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.transform = "scale(1.1)"; // Scales the image when hovered
                         }}
@@ -100,7 +115,7 @@ function product() {
                         gutterBottom
                         sx={{ padding: "8px" }}
                       >
-                        Automation
+                        {product.name}
                       </Typography>
 
                       <Typography
@@ -108,9 +123,7 @@ function product() {
                         mb={2}
                         sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                       >
-                        We deliver Panels and Industrial PCs for every
-                        application with the latest technology for all
-                        performance classes.
+                        {product.description}
                       </Typography>
 
                       {/* <Button
@@ -142,12 +155,12 @@ function product() {
                   </Link>
                 </Grid2>
               ))}
-          </Grid2>
-          <Stack spacing={1} alignItems={"end"} mt={2}>
+            </Grid2>
+            <Stack spacing={1} alignItems={"end"} mt={2}>
               <Pagination count={5} variant="outlined" shape="rounded" />
             </Stack>
+          </Grid2>
         </Grid2>
-            </Grid2>
         <Footer />
       </PageContainer>
     </div>

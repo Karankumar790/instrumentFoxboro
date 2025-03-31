@@ -34,7 +34,7 @@ export const deleteProduct = createAsyncThunk(
                     Authorization: `Bearer ${token}`,
                 },
             });
-            return { productId };
+            return {response, productId };
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message || "Error deleting product"

@@ -6,6 +6,7 @@ import authReducer from "../AuthCycle/Login/loginSlice";
 import signUpReducer from "../AuthCycle/SignUp/SignUpSlice";
 import authForgetReducer from "../AuthCycle/Forget/forgetSlice";
 import productByCategory from "../AdminDashoard/Category/CategoryProductSlice"
+import AdminFoxboroProduct from "../AdminDashoard/AdminProduct/AdminProductSlice"
 
 // Configuration for Redux Persist
 const persistConfig = {
@@ -25,6 +26,7 @@ export const store = configureStore({
     signUp: signUpReducer,
     authForget: authForgetReducer,
     product:productByCategory,
+    foxLineProduct:AdminFoxboroProduct,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

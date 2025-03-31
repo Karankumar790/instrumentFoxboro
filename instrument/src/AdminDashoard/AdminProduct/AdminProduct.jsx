@@ -1,19 +1,8 @@
 import { Box, Button, IconButton, Modal, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import ClearIcon from "@mui/icons-material/Clear";
-
-
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 600,
-//   bgcolor: 'background.paper',
-//   borderRadius: '12px',
-//   boxShadow: 24,
-//   p: 4,
-// };
+import { useDispatch } from "react-redux";
+import { addFoxProduct } from './AdminProductSlice';
 
 
 const Modalstyle = {
@@ -63,12 +52,20 @@ const rows = [
 ];
 
 
-function Peoduct() {
+function Product() {
 
   const [image, setImage] = useState(null);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [product, setProduct] = useState({
+    name: "",
+    description: "",
+  })
+
+  const handleChange = (e) => {
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  }
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -76,6 +73,33 @@ function Peoduct() {
       setImage(file); // Save the selected image to state
     }
   };
+
+  const dispatch = useDispatch();
+
+  // const handleSubmit = async () => {
+  //   const formData = new FormData(); // Ensure FormData is initialized here
+  //   formData.append("name", product.name);
+  //   formData.append("description", product.description);
+  //   formData.append("image", image);
+  //   console.log(formData,"form data.....")
+  //   console.log(product.name,"product name")
+  //   dispatch(addFoxProduct({ proData: formData })); // Use formData correctly
+  // };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("name", product.name);
+    formData.append("description", product.description);
+    formData.append("foxboroProductImage", image);
+
+    dispatch(addFoxProduct({ proData: formData }));
+    setProduct({
+      name: "",
+      description: "",
+      foxboroProductImage:null,
+    })
+  };
+
 
   return (
     <div className='space-y-3'>
@@ -129,25 +153,28 @@ function Peoduct() {
           </div>
 
           <div className='space-y-5'>
-            <input type="text" placeholder='Name' className='border rounded w-full p-2  border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500' />
+            <input type="text" placeholder='Name' className='border rounded w-full p-2  border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500' value={product.name} onChange={handleChange} name='name' />
             <textarea
               rows={3}
               placeholder='Description'
+              name='description'
               className='w-full p-3 rounded-lg border  border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 '
+              value={product.description}
+              onChange={handleChange}
             />
             <div className="w-full h-56 border border-gray-300 rounded-lg flex justify-center items-center">
-        {image ? (
-          <img
-            src={typeof image === "string" ? image : URL.createObjectURL(image)}
-            alt="Preview"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <Typography variant="body2" color="textSecondary">
-            No Image Selected
-          </Typography>
-        )}
-      </div>
+              {image ? (
+                <img
+                  src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                  alt="Preview"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <Typography variant="body2" color="textSecondary">
+                  No Image Selected
+                </Typography>
+              )}
+            </div>
 
             <Button
               variant="contained"
@@ -164,7 +191,7 @@ function Peoduct() {
               />
             </Button>
 
-            <button className="w-full bg-blue-600 hover:bg-blue-700 p-2 text-white rounded-lg font-semibold transition-colors">
+            <button className="w-full bg-blue-600 hover:bg-blue-700 p-2 text-white rounded-lg font-semibold transition-colors" type='submit' onClick={handleSubmit}>
               Submit
             </button>
           </div>
@@ -176,4 +203,4 @@ function Peoduct() {
   )
 }
 
-export default Peoduct
+export default Product
