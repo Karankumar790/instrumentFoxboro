@@ -58,6 +58,51 @@ function service() {
     //   Value: "",
     // },
   ];
+
+  const partners = [
+    {
+      companyName: "Company Name 1",
+      contactPerson: "John Doe",
+      telephone: "+1 234 567 890",
+      mobile: "+1 987 654 321",
+      email: "john@example.com",
+      location: "123 Main St, New York, NY",
+    },
+    {
+      companyName: "Company Name 2",
+      contactPerson: "Jane Smith",
+      telephone: "+1 345 678 901",
+      mobile: "+1 876 543 210",
+      email: "jane@example.com",
+      location: "456 Oak Ave, Los Angeles, CA",
+    },
+    {
+      companyName: "Company Name 3",
+      contactPerson: "Robert Johnson",
+      telephone: "+1 555 678 901",
+      mobile: "+1 999 543 210",
+      email: "robert@example.com",
+      location: "789 Pine St, Chicago, IL",
+    },
+    {
+      companyName: "Company Name 4",
+      contactPerson: "Emily Davis",
+      telephone: "+1 444 678 901",
+      mobile: "+1 888 543 210",
+      email: "emily@example.com",
+      location: "321 Maple Ave, Houston, TX",
+    },
+    {
+      companyName: "Company Name 5",
+      contactPerson: "Michael Brown",
+      telephone: "+1 333 678 901",
+      mobile: "+1 777 543 210",
+      email: "michael@example.com",
+      location: "654 Birch Rd, San Francisco, CA",
+    },
+  ];
+
+
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -74,24 +119,21 @@ function service() {
         container
         sx={{
           height: "84.2vh",
-          backgroundImage: `url(${Services})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          // backgroundImage: `url(${Services})`,
+          // backgroundSize: "cover",
+          // backgroundPosition: "center",
+          display: "flex",
+          justifyContent: "space-evenly",
+          marginTop:"20px"
         }}
       >
-        <Grid2
-          size={{ lg: 12 }}
-          mr={2}
-          display={"flex"}
-          // justifyContent={""}
-          alignItems={"center"}
-        >
+
+        <Grid2 size={{ lg: 4 }} >
           <Card
             sx={{
               borderRadius: "25px",
-              height: "71vh",
-              ml: "55%",
-              width: "55%",
+              height: "83vh",
+              width: "100%",
             }}
             borderRadius={2}
             p={2}
@@ -106,59 +148,34 @@ function service() {
               Customer Details
             </Typography> */}
             <Grid2 container p={1} display={"flex"} flexDirection={"row"}>
-              <Grid2 size={{ lg: 6 }}>
-                {customer.map((value, index) => (
-                  <Typography
-                    gap={8}
-                    m={1}
-                    variant="h6"
-                    key={index}
-                    display={"flex"}
-                    justifyContent={"space-between"}
-                  >
-                    {value.Text}
-
-                    <TextField
-                      key={index}
-                      size="small"
-                      label={value.Value}
-                      variant="outlined"
-                      value={value.Value}
-                    />
-                  </Typography>
-                ))}
-              </Grid2>
-
-              <Grid2 size={{ lg: 5 }} ml={8}>
-                {Details.map((value, index) => (
-                  <Typography
-                    variant="h6"
-                    m={1}
-                    key={index}
-                    display={"flex"}
-                    justifyContent={"space-between"}
-                  >
-                    {value.Text}
-                    <TextField
-                      key={index}
-                      size="small"
-                      label={value.Value}
-                      variant="outlined"
-                      value={value.Value}
-                    />
-                  </Typography>
+              <Grid2 container spacing={2}>
+                {[...customer, ...Details].map((value, index) => (
+                  <Grid2 item xs={12} md={6} key={index}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                      <Typography variant="h6" sx={{ minWidth: "150px" }}>
+                        {value.Text}
+                      </Typography>
+                      <TextField
+                        sx={{ minWidth: "390px" }}
+                        size="small"
+                        variant="outlined"
+                        value={value.Value}
+                        fullWidth
+                      />
+                    </div>
+                  </Grid2>
                 ))}
               </Grid2>
               <Grid2 ml={1}>
-                <Typography  variant="h6">Problem</Typography>
-                <Box sx={{ width: 815, maxWidth: "100%", height:"150px" }}>
-                  <TextField fullWidth   sx={{ height: "150px" }}
-      multiline
-      rows={5}  />
+                <Typography variant="h6">Problem</Typography>
+                <Box sx={{ width: "100%", height: "150px" }}>
+                  <TextField fullWidth sx={{ height: "150px", width: "550px" }}
+                    multiline
+                    rows={5} />
                 </Box>
               </Grid2>
-              <Grid2 size={{ lg: 12 }} display={"flex"}>
-                <Box m={1}>
+              {/* <Grid2 size={{ lg: 12 }} display={"flex"}>
+                <Box width={"100%"} m={1}>
                   <Button
                     sx={{ width: "100%" }}
                     component="label"
@@ -190,7 +207,7 @@ function service() {
                     />
                   </Button>
                 </Box>
-                <Box m={1}>
+                <Box width={"100%"} m={1} mr={3}>
                   <Button
                     sx={{ width: "100%" }}
                     component="label"
@@ -222,8 +239,24 @@ function service() {
                     />
                   </Button>
                 </Box>
+              </Grid2> */}
+
+              <Grid2 size={{ lg: 12 }}>
+                <div className="flex gap-4 mt-3">
+                  <input type="radio" className="size-5" />
+                  <p className="text-lg font-semibold">Remote Maintenace Rs. 8000/service</p>
+                </div>
+                <div className="flex gap-4">
+                  <input type="radio" className="size-5"  />
+                  <p className="text-lg font-semibold">Onsite Maintenance Rs. 35000/service</p>
+                </div>
+                <div className="flex gap-4">
+                  <input type="radio" className="size-5"  />
+                  <p className="text-lg font-semibold">Standby Stay During Audits Rs. 25000/day</p>
+                </div>
               </Grid2>
-              <Box m={1} width={"100%"}  display={"flex"} justifyContent={"end"}>
+
+              <Box m={1} mr={3} width={"100%"} display={"flex"} justifyContent={"end"}>
                 <Button
                   sx={{ width: "15%", bgcolor: "orange" }}
                   variant="contained"
@@ -233,6 +266,61 @@ function service() {
               </Box>
             </Grid2>
           </Card>
+        </Grid2>
+
+        <Grid2 size={{ lg: 5 }} >
+          <div className="h-[83vh] flex flex-col border rounded-lg overflow-hidden">
+            {/* Sticky Header */}
+            <div className="bg-white sticky top-0 z-10 p-4 border-b flex justify-between items-center">
+              <p className="font-bold">SERVICE PARTNERS</p>
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  placeholder="Country"
+                  className="p-2 border rounded"
+                />
+                <input
+                  type="text"
+                  placeholder="State"
+                  className="p-2 border rounded"
+                />
+              </div>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-6">
+              {partners.map((partner, index) => (
+                <div key={index} className="p-4 rounded-lg">
+                  <p className="font-bold mb-2">{partner.companyName}</p>
+                  <div className="grid grid-cols-2 gap-4 mb-2">
+                    <div className="flex gap-3">
+                      <p className="text-sm text-gray-500">Contact Person:</p>
+                      <p>{partner.contactPerson}</p>
+                    </div>
+                    <div className="flex gap-3">
+                      <p className="text-sm text-gray-500">Telephone:</p>
+                      <p>{partner.telephone}</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 mb-2">
+                    <div className="flex gap-3">
+                      <p className="text-sm text-gray-500">Mobile:</p>
+                      <p>{partner.mobile}</p>
+                    </div>
+                    <div className="flex gap-3">
+                      <p className="text-sm text-gray-500">Email:</p>
+                      <p>{partner.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <p className="text-sm text-gray-500">Location:</p>
+                    <p>{partner.location}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
         </Grid2>
         {/* <Grid2 size={{ lg: 2.7 }} mt={5}>
           <Typography variant="h5" fontWeight={"bold"}>
