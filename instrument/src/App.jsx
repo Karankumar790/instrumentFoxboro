@@ -19,7 +19,7 @@ const Oneclickproduct = lazy(() => import("./pages/oneclickproduct.jsx"))
 const Service = lazy(() => import("./pages/service.jsx"))
 const Software = lazy(() => import("./pages/software.jsx"))
 const Hardware = lazy(() => import("./pages/Hardware.jsx"))
-
+    
 function App() {
 
   const route = useRoutes([
