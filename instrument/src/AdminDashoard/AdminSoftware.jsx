@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ClearIcon from '@mui/icons-material/Clear';
 import Backdrop from '@mui/material/Backdrop';
-import { addSoftware, deleteSoftware, getSoftware } from './SoftwareSlice';
+import { addSoftware, deleteSoftware, getSoftware, upadateSoftware } from './SoftwareSlice';
 
 const ModalStyle = {
   position: 'absolute',
@@ -26,28 +26,16 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-
-
-function software() {
+function Software() { // Changed to PascalCase
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const [image, setImage] = useState(null);
-  const [softwareName, setSoftwareName] = useState("");
-  const [description, setDescription] = useState("");
-
+  const [formData, setFormData] = useState({
+    softwareName: "",
+    description: ""
+  });
+  const [editingSoftware, setEditingSoftware] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const dispatch = useDispatch();
   const { data: softwareData = [], loading, error } = useSelector(state => state.software);
 
@@ -58,53 +46,103 @@ function software() {
     }
   };
 
+  const handleOpen = (software = null) => {
+    if (software) {
+      // Edit mode
+      setEditingSoftware(software);
+      setFormData({
+        softwareName: software.softwareName || "",
+        description: software.description || ""
+      });
+      setImage(software.softwareImage || null);
+    } else {
+      // Add mode
+      setEditingSoftware(null);
+      setFormData({
+        softwareName: "",
+        description: ""
+      });
+      setImage(null);
+    }
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+    setEditingSoftware(null);
+    setFormData({
+      softwareName: "",
+      description: ""
+    });
+    setImage(null);
+  };
 
-
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async () => {
-    console.log("Submit button clicked!"); // Debugging log
-    const formData = new FormData();
-    formData.append("softwareName", softwareName);
-    formData.append("description", description);
+    if (!formData.softwareName || !formData.description) {
+      alert("Please fill all required fields");
+      return;
+    }
 
-    if (image instanceof File) {
-      formData.append("softwareImage", image);
+    setIsSubmitting(true);
+    const submitFormData = new FormData();
+    submitFormData.append("softwareName", formData.softwareName);
+    submitFormData.append("description", formData.description);
+
+    // Only append image if it's a new file (not existing URL string)
+    if (image && !(typeof image === "string")) {
+      submitFormData.append("softwareImage", image);
     }
 
     try {
-      const result = await dispatch(addSoftware(formData));
+      if (editingSoftware) {
+        // Update existing software
+        await dispatch(upadateSoftware({
+          softwareId: editingSoftware._id,
+          formData: submitFormData
+        })).unwrap();
+      } else {
+        // Add new software
+        await dispatch(addSoftware(submitFormData)).unwrap();
+      }
+      
+      // Refresh the list
+      await dispatch(getSoftware());
+      handleClose();
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsSubmitting(false);
     }
+  };
 
-    handleClose();
+  const handleDelete = async (softwareId) => {
+     
+      try {
+        await dispatch(deleteSoftware(softwareId));
+        dispatch(getSoftware()); // Refresh the list
+      } catch (error) {
+        console.error("Error deleting software:", error);
+      }
+    
   };
 
   useEffect(() => {
     dispatch(getSoftware());
   }, [dispatch]);
 
-  const hadleDelete = async (softwareId) => {
-    try {
-      await dispatch(deleteSoftware(softwareId))
-
-      dispatch(getSoftware());
-    } catch (error) {
-      console.error("Error deleting software:", error);
-      return error
-    }
-  }
-
-
-
-
-
   return (
     <div className='p-5'>
       <div className='flex justify-between mb-4'>
         <h2 className='text-2xl font-bold'>Software Management</h2>
-        <Button variant='contained' color='primary' onClick={handleOpen} >
+        <Button variant='contained' color='primary' onClick={() => handleOpen()}>
           Add Software
         </Button>
       </div>
@@ -120,48 +158,62 @@ function software() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {softwareData?.map((software,index) => (
-              <TableRow key={index}>
-                {/* <TableCell>
-                  <img src={software.softwareImage} alt={software.softwareName} className='w-16 h-16 object-contain'  />
-                </TableCell> */}
-                <TableCell>{
-                  <div className='w-24 h-20'>
-                    <img src={software.softwareImage} alt="" className='w-full h-full object-cover' />
-                  </div>
-                  }</TableCell>
-                <TableCell>{software.softwareName}</TableCell>
-                <TableCell>{software.description}</TableCell>
-                <TableCell>
-                  <IconButton color='primary'>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton color='error' onClick={()=> hadleDelete(software._id) }>
-                    <DeleteIcon />
-                  </IconButton>
+            {softwareData?.length > 0 ? (
+              softwareData?.map((software) => (
+                <TableRow key={software?._id}>
+                  <TableCell>
+                    <div className='w-24 h-20'>
+                      {software?.softwareImage ? (
+                        <img
+                          src={software?.softwareImage}
+                          alt={software?.softwareName}
+                          className='w-full h-full object-cover'
+                        />
+                      ) : (
+                        <Typography variant="body2">No Image</Typography>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell>{software?.softwareName}</TableCell>
+                  <TableCell>{software?.description}</TableCell>
+                  <TableCell>
+                    <IconButton 
+                      color='primary' 
+                      onClick={() => handleOpen(software)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton 
+                      color='error' 
+                      onClick={() => handleDelete(software?._id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={4} align="center">
+                  {loading ? 'Loading...' : 'No software found'}
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
 
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
         open={open}
         onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-          },
-        }}
       >
         <Box sx={ModalStyle}>
           <div className='flex justify-between'>
-            <h2 className='text-xl font-semibold'>Add Software</h2>
+            <h2 className='text-xl font-semibold'>
+              {editingSoftware ? 'Edit Software' : 'Add Software'}
+            </h2>
             <IconButton onClick={handleClose}>
               <ClearIcon />
             </IconButton>
@@ -169,23 +221,25 @@ function software() {
           <div className='space-y-4 mt-4'>
             <input
               type='text'
+              name="softwareName"
               placeholder='Software Name'
               className='w-full p-2 border rounded'
-              value={softwareName}
-              onChange={(e) => setSoftwareName(e.target.value)}
+              value={formData.softwareName}
+              onChange={handleInputChange}
             />
             <textarea
+              name="description"
               placeholder='Description'
               rows={3}
               className='w-full p-2 border rounded'
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={formData.description}
+              onChange={handleInputChange}
             />
 
             <div className='w-full h-36 border rounded-lg flex items-center justify-center overflow-hidden bg-gray-100'>
               {image ? (
                 <img
-                  src={URL.createObjectURL(image)}
+                  src={typeof image === "string" ? image : URL.createObjectURL(image)}
                   alt='preview'
                   className='h-full w-full object-cover'
                 />
@@ -193,21 +247,27 @@ function software() {
                 <Typography variant="body2" color="textSecondary">
                   No Image Selected
                 </Typography>
-              )
-              }
+              )}
             </div>
 
             <Button
               variant='contained'
               component="label"
               fullWidth
-              className="mt-4 bg-blue-600 hover:bg-blue-700">
+              className="mt-4 bg-blue-600 hover:bg-blue-700"
+            >
               Upload Image
               <input type='file' accept='image/*' hidden onChange={handleImage} />
             </Button>
 
-            <Button variant='contained' color='primary' fullWidth onClick={handleSubmit} >
-              Submit
+            <Button 
+              variant='contained' 
+              color='primary' 
+              fullWidth 
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Processing...' : editingSoftware ? 'Update' : 'Submit'}
             </Button>
           </div>
         </Box>
@@ -216,4 +276,4 @@ function software() {
   );
 }
 
-export default software;
+export default Software;
