@@ -50,21 +50,21 @@ function PoGenerator() {
                         </div>
 
                         {/* List Items */}
-                        <div className="overflow-y-auto h-[calc(83vh-180px)] pr-2">
+                        <div className="flex flex-wrap overflow-y-auto h-[calc(83vh-180px)] pr-2">
                             {arr.map((item, index) => (
                                 <div
-                                    key={index}
-                                    className="flex border-b pb-2 items-center h-20 px-3 hover:bg-gray-50 transition-colors gap-4"
-                                >
-                                    <p className="text-lg font-medium text-gray-600 ">{item.label}:</p>
-                                    <p className="text-lg font-semibold text-gray-900">{item.value}</p>
-                                </div>
+                                key={index}
+                                className="flex border-b pb-2 items-center h-20 px-3 hover:bg-gray-50 transition-colors gap-4 w-1/2" // Added w-1/2 for 2 items per row
+                              >
+                                <p className="text-lg font-medium text-gray-600">{item.label}:</p>
+                                <p className="text-lg font-semibold text-gray-900">{item.value}</p>
+                              </div>
                             ))}
                         </div>
 
                         {/* Submit Button */}
                         <div className='flex justify-end items-center h-20 border-t pt-4'>
-                            <button className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-medium transition-colors'>
+                            <button className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-medium transition-colors mr-14'>
                                 Submit
                             </button>
                         </div>
