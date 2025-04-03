@@ -99,7 +99,6 @@ const categorySlice = createSlice({
         state.error = null;
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
-        console.log("Redux: Deleting category with ID:", action.payload); // Debug log
       
         state.categories = state.categories.filter(
           (category) => category._id !== action.payload // Ensure category is removed
