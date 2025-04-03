@@ -1,106 +1,106 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_URL } from "../api/Client";
 
-const API_URL = "https://foxboro-backend-1-ux3d.onrender.com/api/v1/admin/foxboroSoftware";
 
-// Fetch software list
-export const getSoftwareList = createAsyncThunk(
-  "software/getSoftwareList",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(API_URL);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
 
-// Add new software
+const token = localStorage.getItem("authToken");
+
 export const addSoftware = createAsyncThunk(
   "software/addSoftware",
-  async ({ formData }, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(API_URL, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await axios.post(`${API_URL}/foxboroSoftware`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        }
+      })
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data?.message || "Error adding "
+      )
     }
   }
-);
+)
 
-// Update software
-export const updateSoftware = createAsyncThunk(
-  "software/updateSoftware",
-  async ({ softwareId, formData }, { rejectWithValue }) => {
+export const getSoftware = createAsyncThunk(
+  "software/getSoftware",
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${API_URL}/${softwareId}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await axios.get(`${API_URL}/foxboroSoftware`);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data?.message
+      )
     }
   }
-);
+)
 
-// Delete software
 export const deleteSoftware = createAsyncThunk(
   "software/deleteSoftware",
   async (softwareId, { rejectWithValue }) => {
     try {
-      await axios.delete(`${API_URL}/${softwareId}`);
-      return softwareId;
+      const response = await axios.delete(`${API_URL}/foxboroSoftware?softwareId=${softwareId}`);
+      return response.data._id;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data?.message || "Error deleting category"
+      );
     }
   }
-);
+)
 
 const softwareSlice = createSlice({
   name: "software",
-  initialState: {
-    softwareList: [],
-    loading: false,
-    error: null,
-  },
-  reducers: {},
+  initialState: { data: [], loading: false, error: null, success: false },
   extraReducers: (builder) => {
     builder
-      // Fetch software
-      .addCase(getSoftwareList.pending, (state) => {
+      .addCase(addSoftware.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
-      .addCase(getSoftwareList.fulfilled, (state, action) => {
+      .addCase(addSoftware.fulfilled, (state, action) => {
         state.loading = false;
-        state.softwareList = action.payload.data;
+        state.data.push(action.payload.data);
+        state.success = true;
       })
-      .addCase(getSoftwareList.rejected, (state, action) => {
+      .addCase(addSoftware.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.success = false;
+      })
+      .addCase(getSoftware.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getSoftware.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload.data || action.payload;
+        state.success = true;
+      })
+      .addCase(getSoftware.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.success = false;
+      })
+      .addCase(deleteSoftware.pending,(state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteSoftware.fulfilled,(state,action) => {
+        state.loading = false;
+        state.data = state.data.filter(
+          (software) => software._id !== action.payload
+        ) 
+      })
+      .addCase(deleteSoftware.rejected,(state,action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      // Add software
-      .addCase(addSoftware.fulfilled, (state, action) => {
-        state.softwareList.push(action.payload.data);
-      })
-      // Update software
-      .addCase(updateSoftware.fulfilled, (state, action) => {
-        const index = state.softwareList.findIndex(
-          (item) => item._id === action.payload.data._id
-        );
-        if (index !== -1) {
-          state.softwareList[index] = action.payload.data;
-        }
-      })
-      // Delete software
-      .addCase(deleteSoftware.fulfilled, (state, action) => {
-        state.softwareList = state.softwareList.filter(
-          (item) => item._id !== action.payload
-        );
-      });
-  },
-});
+  }
+})
 
 export default softwareSlice.reducer;

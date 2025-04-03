@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Headers from '../components/Header';
 import Footer from '../components/Footer/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSoftware } from '../AdminDashoard/SoftwareSlice';
 
 const Software = () => {
+
+  const dispatch = useDispatch();
+  const { data: softwareData = [], loading, error } = useSelector(state => state.software);
+
   const products = [
     {
       name: 'RTMS',
@@ -30,6 +36,11 @@ const Software = () => {
     },
   ];
 
+  useEffect(()=>{
+    dispatch(getSoftware())
+  },[dispatch])
+
+
   return (
     <div className='min-h-screen flex flex-col'>
       <Headers />
@@ -39,13 +50,13 @@ const Software = () => {
           <p className='text-xl mb-8'>Help your sales team be more productive with tools they'd love.</p>
           
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {products.map((product, index) => (
+            {softwareData.map((product, index) => (
               <div key={index} className='bg-gray-100 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow'>
                 <div className='flex items-center mb-4'>
                   <div className='w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4'>
-                    <span className='font-bold'>{product.name.charAt(0)}</span>
+                    <span className='font-bold'>{product.softwareName.charAt(0)}</span>
                   </div>
-                  <h2 className='text-xl font-semibold'>{product.name}</h2>
+                  <h2 className='text-xl font-semibold'>{product.softwareName}</h2>
                 </div>
                 <p className='text-gray-600 mb-6'>{product.description}</p>
                 <button className='text-blue-600 font-semibold hover:text-blue-800 transition-colors'>

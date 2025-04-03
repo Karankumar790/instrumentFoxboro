@@ -46,7 +46,7 @@ export const deleteProduct = createAsyncThunk(
     "foxboro/deleteProduct",
     async (productId, { rejectWithValue }) => {
         try {
-            await axios.delete(`${API_URL}/foxboroProduct/${productId}`, {
+            await axios.delete(`${API_URL}/foxboroProduct?productId=${productId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
