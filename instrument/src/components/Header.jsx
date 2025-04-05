@@ -32,14 +32,14 @@ function Header() {
     { text: "Product", Link: "/product" },
     { text: "Software", Link: "/software" },
     { text: "Services", Link: null }, // Dropdown
-    { text: "E-Store", Link: "/estore" },
+    // { text: "E-Store", Link: "/estore" },
     { text: "Contact Us", Link: "/support" },
   ];
 
   const serviceOptions = [
-    { text: "Generate Quotion", Link: "/service" },
-    { text: "Upload Purchase Order", Link: "/poGenerator" },
-    { text: "Track Service Status", Link: "/poGenerator" },
+    { text: "Get Estimate", Link: "/service" },
+    { text: "Upload Order", Link: "/poGenerator" },
+    { text: "Track Service", Link: "/poGenerator" },
   ]
 
   const [serviceMenu, setServiceMenu] = useState(null);
@@ -72,6 +72,7 @@ function Header() {
     <>
       <Grid2
         display={"flex"}
+        justifyContent={"center"}
         bgcolor={"#3C9040"}
         height={"6vh"}
         color="white"
@@ -80,54 +81,54 @@ function Header() {
         <Grid2
           display={"flex"}
           flexDirection={"row"}
-          justifyContent={"space-between"}
-          width={"100%"}
-          alignItems={"center"}
-          px={2}
+          width={"76%"}
+          gap={11}
         >
-          <Stack direction="row" gap={9} width={"100%"} ml={"3%"}>
+          <Stack direction="row" width={"70%"}  gap={5}  >
             {item.map((value, index) => (
               <Stack direction="row" alignItems="center" key={index}>
                 {value.icon}
                 <Typography ml={1}>{value.text}</Typography>
               </Stack>
             ))}
-            <button className="bg-blue-900 border rounded-md text-white p-2 pl-4 pr-4">
+            {/* <button className="bg-blue-900 border rounded-md text-white p-2 pl-4 pr-4">
               <span className={isBlinking ? "opacity-100" : "opacity-0"}>
                 <p className="#FFFF00"> Engineering Consultancy - Book Appointment</p>
               </span>
-            </button>
+            </button> */}
           </Stack>
-          <Stack display={"flex"} flexDirection={"row"} mr={6}>
-            <Button>
-              <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
+          <Grid2 className='flex w-96'>
+            <Stack display={"flex"} flexDirection={"row"} mr={3}>
+              <Button>
+                <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
+              </Button>
+              <Button>
+                <FacebookIcon style={{ color: "blue", fontSize: "30px" }} />
+              </Button>
+              <Button>
+                <YouTubeIcon style={{ color: "red", fontSize: "39px" }} />
+              </Button>
+            </Stack>
+            <Button
+              sx={{ bgcolor: "pink", color: "black", width: "7vw", fontWeight: '300' }}
+              variant="contained"
+            >
+              <Link to='/login' >Login</Link>
             </Button>
-            <Button>
-              <FacebookIcon style={{ color: "blue", fontSize: "30px" }} />
-            </Button>
-            <Button>
-              <YouTubeIcon style={{ color: "red", fontSize: "39px" }} />
-            </Button>
-          </Stack>
-          <Button
-            sx={{ bgcolor: "pink", color: "black", width: "7vw", ml: 3, fontWeight: '300' }}
-            variant="contained"
-
-          >
-            <Link to='/login' >Login</Link>
-          </Button>
+          </Grid2>
         </Grid2>
       </Grid2>
       <Grid2
         container
         display="flex"
-        gap={5}
+        gap={1}
         alignItems="center"
         color="white"
         bgcolor={"#2b313b"}
         p={1.5}
+        pl={27}
       >
-        <Grid2 size={{ lg: 1 }} display={"flex"}  >
+        <Grid2 size={{ lg: 1 }} className=' ml-6' display={"flex"}  >
           <Link to="/" style={{ textDecoration: "none" }}>
             <img
               src={logo}
@@ -142,7 +143,7 @@ function Header() {
             display={"flex"}
             flexDirection={"row"}
             justifyContent={"space-between"}
-            width={"88vw"}
+            width={"67.5vw"}
           >
             {/* <Box flexDirection={"row"} display={"flex"} gap={5} ml={4}>
               {arr.map((value, index) => (

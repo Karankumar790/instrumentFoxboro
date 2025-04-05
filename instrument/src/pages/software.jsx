@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Headers from '../components/Header';
 import Footer from '../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSoftware } from '../AdminDashoard/SoftwareSlice';
+import { getSoftware } from '../AdminDashoard/AdminSoftware/SoftwareSlice';
 
 const Software = () => {
 
@@ -46,7 +46,7 @@ const Software = () => {
       <Headers />
       <div className=' py-12 flex-grow'>
         <div className='container mx-auto px-4'>
-          <h1 className='text-4xl font-bold mb-2'>Software</h1>
+          <h1 className='text-4xl font-bold mb-2'>Industrial Software</h1>
           <p className='text-xl mb-8'>Help your sales team be more productive with tools they'd love.</p>
           
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>

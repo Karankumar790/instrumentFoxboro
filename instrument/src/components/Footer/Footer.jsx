@@ -50,7 +50,7 @@ function Footer() {
             </Typography>
             <Typography color="white">
               <a href="https://www.foxboroinstrument.co.in" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-                www.foxboroinstrument.co.in (Freeware)
+                www.foxboroinstrument.co.in (Service)
               </a>
             </Typography>
 

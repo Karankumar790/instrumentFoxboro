@@ -11,8 +11,10 @@ const Automation = lazy(() => import("./AdminDashoard/Category/Automation.jsx"))
 const CategoryProduct = lazy(() => import("./AdminDashoard/Category/CategoryProduct.jsx"))
 const AdminProduct = lazy(() => import("./AdminDashoard/AdminProduct/AdminProduct.jsx"))
 const AdminService = lazy(() => import("./AdminDashoard/AdminService.jsx"))
-const SiteSetting = lazy(() => import("./AdminDashoard/SiteSetting.jsx"))
-const AdminSoftware = lazy(() => import("./AdminDashoard/AdminSoftware.jsx"))
+const AdminHeader = lazy(() => import("./AdminDashoard/SiteSetting/AdminHeader.jsx"))
+const AdminBanner = lazy(() => import("./AdminDashoard/SiteSetting/AdminBanner.jsx"))
+const AdminFooter = lazy(() => import("./AdminDashoard/SiteSetting/AdminFooter.jsx"))
+const AdminSoftware = lazy(() => import("./AdminDashoard/AdminSoftware/AdminSoftware.jsx"))
 const Estore = lazy(() => import("./pages/estore.jsx"))
 const Support = lazy(() => import("./pages/support.jsx"))
 const Oneclickproduct = lazy(() => import("./pages/oneclickproduct.jsx"))
@@ -45,7 +47,9 @@ function App() {
         { path: "automation", element: <Automation /> },
         { path: "adminProduct", element: <AdminProduct /> },
         { path: "adminService", element: <AdminService /> },
-        { path: "siteSetting", element: <SiteSetting /> },
+        { path: "adminHeader", element: <AdminHeader /> },
+        { path: "adminBanner", element: <AdminBanner /> },
+        { path: "adminFooter", element: <AdminFooter /> },
         { path: "adminSoftware", element: <AdminSoftware /> },
 
       ]
