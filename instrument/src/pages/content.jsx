@@ -238,7 +238,7 @@ function content() {
               ))}
             </Grid2>
             <Grid2 display={"flex"} mt={3} mb={2} gap={"55%"} >
-              <Typography variant="h5" fontWeight={"bold"}>On going Projects</Typography>
+              <Typography variant="h5" fontWeight={"bold"}>Ongoing Projects</Typography>
               <Typography variant="h5" fontWeight={"bold"}>News Update</Typography>
             </Grid2>
             <Grid2 display="flex" flexDirection="row" gap={2} mb={3}>

@@ -3,12 +3,15 @@ import axios from "axios";
 import { API_URL } from "../../api/Client";
 import Cookies from "js-cookie"; // Import js-cookie to handle cookies
 
+
+
+const token = localStorage.getItem("authToken");
+
 export const fetchCategories = createAsyncThunk(
   "category/fetchCategories",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`${API_URL}/getAllCategories`);
-
       return data.data;
     } catch (error) {
       return rejectWithValue(
@@ -19,7 +22,6 @@ export const fetchCategories = createAsyncThunk(
 );
 
 
-const token = localStorage.getItem("authToken");
 console.log("Stored Token:", token);
 
 export const addCategory = createAsyncThunk(
@@ -49,9 +51,12 @@ export const deleteCategory = createAsyncThunk(
   async (categoryId, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
-        `${API_URL}/category?categoryId=${categoryId}` // Use query parameter
+        `${API_URL}/category?categoryId=${categoryId}`,{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
       );
-      console.log("Delete API Response:", data);
       return data.data._id; // Return the deleted category ID
     } catch (error) {
       console.error("Delete API Error:", error.response);
@@ -61,6 +66,27 @@ export const deleteCategory = createAsyncThunk(
     }
   }
 );
+
+export const updateCategory = createAsyncThunk(
+  "category/updateCategory",
+  async({updateCategoryId,formData}, {rejectWithValue}) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await axios.put(`${API_URL}/category?categoryId=${updateCategoryId}`, formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      )
+      return response.data
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Error updating product"
+      );
+    }
+  }
+)
 
 
 const categorySlice = createSlice({
@@ -109,7 +135,22 @@ const categorySlice = createSlice({
       .addCase(deleteCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(updateCategory.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(updateCategory.fulfilled, (state,action) => {
+        state.loading = false;
+        state.categories = state.categories.map(catogory =>
+          catogory._id === action.payload.categories._id ? action.payload.categories.data : catogory
+        )
+        state.success = true;
+      })
+      .addCase(updateCategory.rejected, (state,action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      })
   },
 });
 

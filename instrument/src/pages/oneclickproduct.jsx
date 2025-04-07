@@ -54,9 +54,9 @@ function oneclickproduct() {
   
 
   return (
-    <div>
-     <PageContainer showheader="true">
-        <Grid2 container display="flex" justifyContent="center">
+    <div className="min-h-screen flex flex-col">
+     <PageContainer showheader="true" className="flex flex-1 flex-col">
+        <Grid2 container display="flex" justifyContent="center" className="flex-1">
           <Grid2 size={{ lg: 9 }} overflow="hidden" mb={4}>
             <Box>
               <Typography variant="h5" mt={2} mb={2} fontWeight={"bold"}>

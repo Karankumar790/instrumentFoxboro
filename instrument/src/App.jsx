@@ -22,6 +22,7 @@ const Service = lazy(() => import("./pages/service.jsx"))
 const PoGenerator = lazy(() => import("./pages/PoGenerator.jsx"))
 const Software = lazy(() => import("./pages/software.jsx"))
 const Hardware = lazy(() => import("./pages/Hardware.jsx"))
+const TrackService = lazy(() => import("./pages/TrackService.jsx"))
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
     { path: '/login', element: <Login /> },
     { path: '/signUp', element: <SignUp /> },
     { path: '/forget', element: <Forget /> },
+    { path: '/trackService', element: <TrackService /> },
 
     {
       path: "/admin",

@@ -170,14 +170,14 @@ function Software() { // Changed to PascalCase
             </TableRow>
           </TableHead>
           <TableBody>
-            {softwareData?.map((soft) => (
-              <StyledTableRow key={soft?._id}>
+            {softwareData?.map((software) => (
+              <StyledTableRow key={software?._id}>
                 <StyledTableCell>
                   <div className='w-24 h-20'>
-                    {soft?.softwareImage ? (
+                    {software?.softwareImage ? (
                       <img
-                        src={soft?.softwareImage || "/fallback.png"}
-                        alt={soft?.softwareName || "N/A"}
+                        src={software?.softwareImage || "/fallback.png"}
+                        alt={software?.softwareName || "N/A"}
                         className='w-full h-full object-cover'
                       />
                     ) : (
@@ -185,18 +185,18 @@ function Software() { // Changed to PascalCase
                     )}
                   </div>
                 </StyledTableCell>
-                <StyledTableCell>{soft?.softwareName || "N/A"}</StyledTableCell>
-                <StyledTableCell>{soft?.description || "N/A"}</StyledTableCell>
+                <StyledTableCell>{software?.softwareName || "N/A"}</StyledTableCell>
+                <StyledTableCell>{software?.description || "N/A"}</StyledTableCell>
                 <StyledTableCell>
                   <IconButton
                     color='primary'
-                    onClick={() => handleOpen(soft)}
+                    onClick={() => handleOpen(software)}
                   >
                     <EditIcon />
                   </IconButton>
                   <IconButton
                     color='error'
-                    onClick={() => handleDelete(soft?._id)}
+                    onClick={() => handleDelete(software?._id)}
                   >
                     <DeleteIcon />
                   </IconButton>

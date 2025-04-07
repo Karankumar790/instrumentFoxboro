@@ -39,7 +39,7 @@ function Header() {
   const serviceOptions = [
     { text: "Get Estimate", Link: "/service" },
     { text: "Upload Order", Link: "/poGenerator" },
-    { text: "Track Service", Link: "/poGenerator" },
+    { text: "Track Service", Link: "/trackService" },
   ]
 
   const [serviceMenu, setServiceMenu] = useState(null);
