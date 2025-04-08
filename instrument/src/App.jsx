@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const Login = lazy(() => import("./AuthCycle/Login/login.jsx"))
 const SignUp = lazy(() => import("./AuthCycle/SignUp/signUp.jsx"))
@@ -11,8 +12,10 @@ const Automation = lazy(() => import("./AdminDashoard/Category/Automation.jsx"))
 const CategoryProduct = lazy(() => import("./AdminDashoard/Category/CategoryProduct.jsx"))
 const AdminProduct = lazy(() => import("./AdminDashoard/AdminProduct/AdminProduct.jsx"))
 const AdminService = lazy(() => import("./AdminDashoard/AdminService.jsx"))
-const SiteSetting = lazy(() => import("./AdminDashoard/SiteSetting.jsx"))
-const AdminSoftware = lazy(() => import("./AdminDashoard/AdminSoftware.jsx"))
+const AdminHeader = lazy(() => import("./AdminDashoard/SiteSetting/AdminHeader.jsx"))
+const AdminBanner = lazy(() => import("./AdminDashoard/SiteSetting/AdminBanner.jsx"))
+const AdminFooter = lazy(() => import("./AdminDashoard/SiteSetting/AdminFooter.jsx"))
+const AdminSoftware = lazy(() => import("./AdminDashoard/AdminSoftware/AdminSoftware.jsx"))
 const Estore = lazy(() => import("./pages/estore.jsx"))
 const Support = lazy(() => import("./pages/support.jsx"))
 const Oneclickproduct = lazy(() => import("./pages/oneclickproduct.jsx"))
@@ -20,7 +23,8 @@ const Service = lazy(() => import("./pages/service.jsx"))
 const PoGenerator = lazy(() => import("./pages/PoGenerator.jsx"))
 const Software = lazy(() => import("./pages/software.jsx"))
 const Hardware = lazy(() => import("./pages/Hardware.jsx"))
-    
+const TrackService = lazy(() => import("./pages/TrackService.jsx"))
+
 function App() {
 
   const route = useRoutes([
@@ -36,6 +40,7 @@ function App() {
     { path: '/login', element: <Login /> },
     { path: '/signUp', element: <SignUp /> },
     { path: '/forget', element: <Forget /> },
+    { path: '/trackService', element: <TrackService /> },
 
     {
       path: "/admin",
@@ -45,7 +50,9 @@ function App() {
         { path: "automation", element: <Automation /> },
         { path: "adminProduct", element: <AdminProduct /> },
         { path: "adminService", element: <AdminService /> },
-        { path: "siteSetting", element: <SiteSetting /> },
+        { path: "adminHeader", element: <AdminHeader /> },
+        { path: "adminBanner", element: <AdminBanner /> },
+        { path: "adminFooter", element: <AdminFooter /> },
         { path: "adminSoftware", element: <AdminSoftware /> },
 
       ]
@@ -60,6 +67,9 @@ function App() {
         {route}
 
       </Suspense>
+
+    <ToastContainer/>
+      
     </>
   );
 }

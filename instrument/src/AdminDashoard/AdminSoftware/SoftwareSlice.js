@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { API_URL } from "../api/Client";
-import software from "./AdminSoftware";
+import { API_URL } from "../../api/Client";
 
 
 
@@ -31,14 +30,13 @@ export const getSoftware = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${API_URL}/foxboroSoftware`);
-      return response.data?.data || response.data;
+      return  response?.data?.data 
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message
-      )
+      return rejectWithValue(error.response?.data?.message || "Error fetching software");
     }
   }
-)
+);
+
 
 export const deleteSoftware = createAsyncThunk(
   "software/deleteSoftware",
@@ -65,7 +63,7 @@ export const upadateSoftware = createAsyncThunk(
           'Content-Type': 'multipart/form-data'
         }
       })
-      return response.data
+      return response.data.data
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Error updating product"
@@ -99,7 +97,7 @@ const softwareSlice = createSlice({
       })
       .addCase(getSoftware.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload.data || action.payload;
+        state.data = action.payload; // payload is already the array we want
         state.success = true;
       })
       .addCase(getSoftware.rejected, (state, action) => {

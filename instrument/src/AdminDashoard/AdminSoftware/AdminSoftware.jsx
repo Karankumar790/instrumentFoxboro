@@ -26,7 +26,21 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+  '&:hover': {
+    backgroundColor: theme.palette.action.selected,
+  },
+}));
+
 function Software() { // Changed to PascalCase
+  const dispatch = useDispatch();
+  const { data: softwareData = [], loading, error } = useSelector((state) => state.software);
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState(null);
   const [formData, setFormData] = useState({
@@ -35,9 +49,7 @@ function Software() { // Changed to PascalCase
   });
   const [editingSoftware, setEditingSoftware] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const dispatch = useDispatch();
-  const { data: softwareData = [], loading, error } = useSelector(state => state.software);
+
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -112,7 +124,7 @@ function Software() { // Changed to PascalCase
         // Add new software
         await dispatch(addSoftware(submitFormData)).unwrap();
       }
-      
+
       // Refresh the list
       await dispatch(getSoftware());
       handleClose();
@@ -124,14 +136,14 @@ function Software() { // Changed to PascalCase
   };
 
   const handleDelete = async (softwareId) => {
-     
-      try {
-        await dispatch(deleteSoftware(softwareId));
-        dispatch(getSoftware()); // Refresh the list
-      } catch (error) {
-        console.error("Error deleting software:", error);
-      }
-    
+
+    try {
+      await dispatch(deleteSoftware(softwareId));
+      dispatch(getSoftware()); // Refresh the list
+    } catch (error) {
+      console.error("Error deleting software:", error);
+    }
+
   };
 
   useEffect(() => {
@@ -158,47 +170,39 @@ function Software() { // Changed to PascalCase
             </TableRow>
           </TableHead>
           <TableBody>
-            {softwareData?.length > 0 ? (
-              softwareData?.map((software) => (
-                <TableRow key={software?._id}>
-                  <TableCell>
-                    <div className='w-24 h-20'>
-                      {software?.softwareImage ? (
-                        <img
-                          src={software?.softwareImage}
-                          alt={software?.softwareName}
-                          className='w-full h-full object-cover'
-                        />
-                      ) : (
-                        <Typography variant="body2">No Image</Typography>
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell>{software?.softwareName}</TableCell>
-                  <TableCell>{software?.description}</TableCell>
-                  <TableCell>
-                    <IconButton 
-                      color='primary' 
-                      onClick={() => handleOpen(software)}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton 
-                      color='error' 
-                      onClick={() => handleDelete(software?._id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={4} align="center">
-                  {loading ? 'Loading...' : 'No software found'}
-                </TableCell>
-              </TableRow>
-            )}
+            {softwareData?.map((software) => (
+              <StyledTableRow key={software?._id}>
+                <StyledTableCell>
+                  <div className='w-24 h-20'>
+                    {software?.softwareImage ? (
+                      <img
+                        src={software?.softwareImage || "/fallback.png"}
+                        alt={software?.softwareName || "N/A"}
+                        className='w-full h-full object-cover'
+                      />
+                    ) : (
+                      <Typography variant="body2">No Image</Typography>
+                    )}
+                  </div>
+                </StyledTableCell>
+                <StyledTableCell>{software?.softwareName || "N/A"}</StyledTableCell>
+                <StyledTableCell>{software?.description || "N/A"}</StyledTableCell>
+                <StyledTableCell>
+                  <IconButton
+                    color='primary'
+                    onClick={() => handleOpen(software)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    color='error'
+                    onClick={() => handleDelete(software?._id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -260,10 +264,10 @@ function Software() { // Changed to PascalCase
               <input type='file' accept='image/*' hidden onChange={handleImage} />
             </Button>
 
-            <Button 
-              variant='contained' 
-              color='primary' 
-              fullWidth 
+            <Button
+              variant='contained'
+              color='primary'
+              fullWidth
               onClick={handleSubmit}
               disabled={isSubmitting}
             >

@@ -124,34 +124,78 @@ function service() {
           // backgroundPosition: "center",
           display: "flex",
           justifyContent: "space-evenly",
-          marginTop:"20px"
+          marginTop: "20px"
         }}
+
       >
 
-        <Grid2 size={{ lg: 4 }} >
+        <Grid2 size={{ lg: 4 }}>
           <Card
             sx={{
-              borderRadius: "25px",
+              borderRadius: "20px",
               height: "83vh",
-              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
             }}
-            borderRadius={2}
-            p={2}
           >
-            <Typography variant="h5" fontWeight={"bold"} ml={1.5} mt={2}>
-              Find Service Engineer Near You
-            </Typography>
-            {/* <Typography variant="h6" fontWeight={"bold"} ml={1.5}>
-              Customer Support (7*24)
-            </Typography> */}
-            {/* <Typography variant="h5" fontWeight={"bold"} mt={1} ml={1.5}>
-              Customer Details
-            </Typography> */}
-            <Grid2 container p={1} display={"flex"} flexDirection={"row"}>
+            {/* Sticky Header */}
+            <Box
+              sx={{
+                bgcolor: "background.paper",
+                position: "sticky",
+                top: 0,
+                zIndex: 1,
+                px: 3,
+                py: 2,
+                borderBottom: "1px solid #e0e0e0",
+              }}
+            >
+              <Typography variant="h5" fontWeight="bold">
+                Find Service Engineer Near You
+              </Typography>
+
+              <Grid2 container spacing={2} mt={2}>
+                <Grid2 xs={6}>
+                  <label className="flex items-center gap-4">
+                    <input type="radio" name="service" className="size-5" />
+                    <p className="text-base font-semibold">Remote Maintenance Rs. 6000/service</p>
+                  </label>
+                </Grid2>
+                <Grid2 xs={6}>
+                  <label className="flex items-center gap-4">
+                    <input type="radio" name="service" className="size-5" />
+                    <p className="text-base font-semibold">Physical Maintenance Rs. 25000/service</p>
+                  </label>
+                </Grid2>
+                <Grid2 xs={6}>
+                  <label className="flex items-center gap-4">
+                    <input type="radio" name="service" className="size-5" />
+                    <p className="text-base font-semibold">Maintenance & Stay in Audits Rs. 40000/4 day</p>
+                  </label>
+                </Grid2>
+                <Grid2 xs={6}>
+                  <label className="flex items-center gap-4">
+                    <input type="radio" name="service" className="size-5" />
+                    <p className="text-base font-semibold">System Under Warranty</p>
+                  </label>
+                </Grid2>
+              </Grid2>
+            </Box>
+
+            {/* Scrollable Content */}
+            <Box
+              sx={{
+                flex: 1,
+                overflowY: "auto",
+                px: 3,
+                py: 2,
+              }}
+            >
               <Grid2 container spacing={2}>
                 {[...customer, ...Details].map((value, index) => (
                   <Grid2 item xs={12} md={6} key={index}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                    <Box display="flex" alignItems="center" gap={2}>
                       <Typography variant="h6" sx={{ minWidth: "150px" }}>
                         {value.Text}
                       </Typography>
@@ -162,111 +206,42 @@ function service() {
                         value={value.Value}
                         fullWidth
                       />
-                    </div>
+                    </Box>
                   </Grid2>
                 ))}
-              </Grid2>
-              <Grid2 ml={1}>
-                <Typography variant="h6">Problem</Typography>
-                <Box sx={{ width: "100%", height: "150px" }}>
-                  <TextField fullWidth sx={{ height: "150px", width: "550px" }}
-                    multiline
-                    rows={5} />
-                </Box>
-              </Grid2>
-              {/* <Grid2 size={{ lg: 12 }} display={"flex"}>
-                <Box width={"100%"} m={1}>
-                  <Button
-                    sx={{ width: "100%" }}
-                    component="label"
-                    role={undefined}
-                    variant="contained"
-                    tabIndex={-1}
-                    startIcon={<CloudUploadIcon />}
-                  >
-                    Front Upload files
-                    <VisuallyHiddenInput
-                      type="file"
-                      onChange={(event) => console.log(event.target.files)}
-                      multiple
-                    />
-                  </Button>
-                  <Button
-                    sx={{ width: "100%", mt: "2%" }}
-                    component="label"
-                    role={undefined}
-                    variant="contained"
-                    tabIndex={-1}
-                    startIcon={<CloudUploadIcon />}
-                  >
-                    Back Upload files
-                    <VisuallyHiddenInput
-                      type="file"
-                      onChange={(event) => console.log(event.target.files)}
-                      multiple
-                    />
-                  </Button>
-                </Box>
-                <Box width={"100%"} m={1} mr={3}>
-                  <Button
-                    sx={{ width: "100%" }}
-                    component="label"
-                    role={undefined}
-                    variant="contained"
-                    tabIndex={-1}
-                    startIcon={<CloudUploadIcon />}
-                  >
-                    Left Upload files
-                    <VisuallyHiddenInput
-                      type="file"
-                      onChange={(event) => console.log(event.target.files)}
-                      multiple
-                    />
-                  </Button>
-                  <Button
-                    sx={{ width: "100%", mt: "2%" }}
-                    component="label"
-                    role={undefined}
-                    variant="contained"
-                    tabIndex={-1}
-                    startIcon={<CloudUploadIcon />}
-                  >
-                    Right Upload files
-                    <VisuallyHiddenInput
-                      type="file"
-                      onChange={(event) => console.log(event.target.files)}
-                      multiple
-                    />
-                  </Button>
-                </Box>
-              </Grid2> */}
 
-              <Grid2 size={{ lg: 12 }}>
-                <div className="flex gap-4 mt-3">
-                  <input type="radio" className="size-5" />
-                  <p className="text-lg font-semibold">Remote Maintenace Rs. 8000/service</p>
-                </div>
-                <div className="flex gap-4">
-                  <input type="radio" className="size-5"  />
-                  <p className="text-lg font-semibold">Onsite Maintenance Rs. 35000/service</p>
-                </div>
-                <div className="flex gap-4">
-                  <input type="radio" className="size-5"  />
-                  <p className="text-lg font-semibold">Standby Stay During Audits Rs. 25000/day</p>
+                <div >
+                  <Grid2 item xs={12} mt={2}>
+                    <Typography variant="h6">Problem</Typography>
+                    <TextField
+                      fullWidth
+                      multiline
+                      rows={5}
+                      sx={{ mt: 1, width: "100%", minWidth: "550px" }}
+                    />
+                  </Grid2>
+
+                  <Grid2 item xs={12} mt={2} >
+                    <Box display="flex" justifyContent="flex-end" alignItems="end" >
+                      <Button
+                        sx={{
+                          width: "35%",
+                          minWidth: "150px",
+                          bgcolor: "orange",
+                          "&:hover": { bgcolor: "darkorange" },
+                        }}
+                        variant="contained"
+                      >
+                        Generate Estimate
+                      </Button>
+                    </Box>
+                  </Grid2>
                 </div>
               </Grid2>
-
-              <Box m={1} mr={3} width={"100%"} display={"flex"} justifyContent={"end"}>
-                <Button
-                  sx={{ width: "15%", bgcolor: "orange" }}
-                  variant="contained"
-                >
-                  Submit
-                </Button>
-              </Box>
-            </Grid2>
+            </Box>
           </Card>
         </Grid2>
+
 
         <Grid2 size={{ lg: 5 }} >
           <div className="h-[83vh] flex flex-col border rounded-lg overflow-hidden">
