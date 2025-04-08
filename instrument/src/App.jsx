@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const Login = lazy(() => import("./AuthCycle/Login/login.jsx"))
 const SignUp = lazy(() => import("./AuthCycle/SignUp/signUp.jsx"))
@@ -66,6 +67,9 @@ function App() {
         {route}
 
       </Suspense>
+
+    <ToastContainer/>
+      
     </>
   );
 }

@@ -9,7 +9,7 @@ function TrackService() {
             <div className='h-full w-full flex justify-center items-center'>
                 <div className=' w-1/2 h-2/3 border border-gray-500 rounded-lg p-3 '>
                     <div>
-                        <p className='text-3xl font-bold'>Under Water</p>
+                        <p className='text-3xl font-bold'>Track Service Status</p>
                         <div className='flex justify-between mt-3'>
                             <input type="text" placeholder='Enter service number' className='border border-gray-700 rounded-lg p-2' />
                             <button className='bg-yellow-600 text-white text-lg font-semibold rounded-lg p-2 w-24'>Submit</button>

@@ -132,7 +132,7 @@ function service() {
         <Grid2 size={{ lg: 4 }}>
           <Card
             sx={{
-              borderRadius: "25px",
+              borderRadius: "20px",
               height: "83vh",
               display: "flex",
               flexDirection: "column",
@@ -225,7 +225,7 @@ function service() {
                     <Box display="flex" justifyContent="flex-end" alignItems="end" >
                       <Button
                         sx={{
-                          width: "15%",
+                          width: "35%",
                           minWidth: "150px",
                           bgcolor: "orange",
                           "&:hover": { bgcolor: "darkorange" },

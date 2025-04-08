@@ -15,6 +15,9 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import ClearIcon from "@mui/icons-material/Clear";
+import { useDispatch } from 'react-redux';
+import { postheader } from './SettingSlice';
+import { toast } from 'react-toastify';
 
 
 
@@ -29,7 +32,7 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-  
+
 };
 
 
@@ -72,13 +75,106 @@ function AdminHeader() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [image, setImage] = useState(null);
+  const [formValue, setFormValue] = useState({
+    contactNumberOne: "",
+    contactNumberTwo: "",
+    whatsappNumber: "",
+    email: "",
+  });
+
+  const dispatch = useDispatch();
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file)
+    }
+  }
+
+  const handleFormValue = (e) => {
+    const { name, value } = e.target;
+    setFormValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+
+  const handleSubmit = async () => {
+    const submitformData = new FormData();
+    submitformData.append("contactNumberOne", formValue.contactNumberOne);
+    submitformData.append("contactNumberTwo", formValue.contactNumberTwo);
+    submitformData.append("whatsappNumber", formValue.whatsappNumber);
+    submitformData.append("email", formValue.email);
+  
+    if (image) {
+      submitformData.append("foxboroLogo", image);
+    }
+  
+    try {
+      await dispatch(postheader(submitformData)).unwrap(); // unwrap gives you success/error directly
+      setFormValue({
+        contactNumberOne: "",
+        contactNumberTwo: "",
+        whatsappNumber: "",
+        email: "",
+      });
+      setImage(null);
+      toast.success("Header added successfully!");
+    } catch (error) {
+      toast.error(error?.message || "Something went wrong!");
+    }
+  };
+  
 
   return (
     <div className='flex flex-col space-y-5'>
       <div className='flex justify-between'>
         <p className='font-semibold text-2xl'>Header Management</p>
-        <button className='bg-green-600 font-semibold p-2 rounded-lg text-white text-lg' onClick={handleOpen}>Add Header +</button>
+        {/* <button className='bg-green-600 font-semibold p-2 rounded-lg text-white text-lg' onClick={handleOpen}>Add Header +</button> */}
       </div>
+
+      <div className='flex gap-4 justify-between p-4 bg-white rounded-lg shadow-md overflow-x-auto'>
+        <div className='flex flex-col w-[220px]'>
+          <label>
+            <h2 className='text-sm font-semibold mb-1'>Phone Number 1</h2>
+            <input type="number" name='contactNumberOne' value={formValue.contactNumberOne} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          </label>
+        </div>
+        <div className='flex flex-col w-[220px]'>
+          <label>
+            <h2 className='text-sm font-semibold mb-1'>Phone Number 2</h2>
+            <input type="number" name='contactNumberTwo' value={formValue.contactNumberTwo} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          </label>
+        </div>
+        <div className='flex flex-col w-[220px]'>
+          <label>
+            <h2 className='text-sm font-semibold mb-1'>WhatsApp Number</h2>
+            <input type="number" name='whatsappNumber' value={formValue.whatsappNumber} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          </label>
+        </div>
+        <div className='flex flex-col w-[220px]'>
+          <label>
+            <h2 className='text-sm font-semibold mb-1'>Email</h2>
+            <input type="email" name='email' value={formValue.email} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          </label>
+        </div>
+        <div className='flex flex-col w-[220px]'>
+          <label>
+            <h2 className='text-sm font-semibold mb-1'>Logo Image</h2>
+            <input type="file" name='image' accept='image/*' onChange={handleImage} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          </label>
+        </div>
+        <div className='flex items-end w-[140px]'>
+          <button onClick={handleSubmit} className='bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-md w-full'>
+            Submit
+          </button>
+        </div>
+      </div>
+
+
+
+
       <div>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -105,6 +201,7 @@ function AdminHeader() {
                   <StyledTableCell align="right">{
                     <IconButton
                       color="primary"
+                      onClick={handleOpen}
                     >
                       <EditIcon />
                     </IconButton>
@@ -175,8 +272,8 @@ function AdminHeader() {
                   }
                 </Box>
                 <button className='w-full bg-blue-600 p-2 text-white rounded-lg font-semibold'>
-                 Upload Image 
-                 <input type='file' hidden accept='image/*'/>
+                  Upload Image
+                  <input type='file' hidden accept='image/*' />
                 </button>
               </Box>
               <button className='w-full bg-blue-600 p-2 text-white rounded-lg font-semibold'>Submit</button>

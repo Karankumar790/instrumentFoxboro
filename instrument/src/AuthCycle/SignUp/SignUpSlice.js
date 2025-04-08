@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { USER_URL } from "../../api/Client";
 
-
+const token = localStorage.getItem("authToken")
 
 export const register = createAsyncThunk('auth/register', async (userData, { rejectWithValue }) => {
     try {
@@ -13,18 +13,20 @@ export const register = createAsyncThunk('auth/register', async (userData, { rej
     }
 })
 
-export const otpSignUp = async (otp, token) => {
+export const otpSignUp = createAsyncThunk('auth/otpSignUp', async ({ otp, token }, { rejectWithValue }) => {
     try {
-        const response = await axios.post(`${USER_URL}/verifySignUpOtp`, { otp }, { 
-            headers: { Authorization: `Bearer ${token}` } 
-        });
-        
+        const response = await axios.post(
+            `${USER_URL}/verifySignUpOtp`,
+            { otp },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
         return response.data;
     } catch (error) {
-        return error.message
+        return rejectWithValue(error.response?.data?.message || "OTP verification failed");
     }
-
-}
+});
 
 
 const authSignUpSlice = createSlice({
@@ -54,6 +56,18 @@ const authSignUpSlice = createSlice({
                 state.error = action.payload;
 
             })
+            .addCase(otpSignUp.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(otpSignUp.fulfilled, (state, action) => {
+                state.loading = false;
+                state.message = action.payload.message || "OTP verified successfully";
+            })
+            .addCase(otpSignUp.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
     }
 })
 
