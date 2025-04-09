@@ -53,16 +53,16 @@ function product() {
       }
     }
     fetchProduct();
-  },[])
+  }, [])
 
 
 
 
 
   return (
-    <div>
-      <PageContainer showheader="true">
-        <Grid2 container display="flex" justifyContent="center"  >
+    <div className='min-h-screen flex flex-col'>
+      <PageContainer showheader="true" className="flex-1 flex flex-col">
+        <Grid2 container display="flex" justifyContent="center" className='flex-1' >
           <Grid2
             size={{ lg: 9 }}
             overflow="hidden"
@@ -71,7 +71,7 @@ function product() {
           >
             <Box mb={2} >
               <Typography variant="h5" mt={2} fontWeight={"bold"} >
-                Foxboro Product Line
+                Foxboro Product
               </Typography>
             </Box>
             {/* <Box>
@@ -125,6 +125,9 @@ function product() {
                       >
                         {product.description}
                       </Typography>
+                      <div className="w-full flex justify-end">
+                        <button className="bg-blue-600 text-white rounded-lg p-2 mb-2">Available on E-store</button>
+                      </div>
 
                       {/* <Button
                         onClick={handleToggle}

@@ -12,6 +12,7 @@ import Footer from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
 import { fetchCategories } from "../AdminDashoard/Category/CategorySlice";
 import { useDispatch, useSelector } from "react-redux";
+import { getSoftware } from "../AdminDashoard/AdminSoftware/SoftwareSlice";
 // import product from "./product";
 
 
@@ -23,11 +24,12 @@ function content() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
+  const { data: softwareData = [], loading, error } = useSelector(state => state.software);
+
   const handleToggle = () => {
     setOpen(!open);
   };
 
- 
 
   const indus = [
     "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
@@ -37,12 +39,11 @@ function content() {
   ];
 
   const images_animation = [
-    "https://www.beckhoff.com/media/pictures/stages/news/distributed-drive-technology-stage-lowres_webp_85.webp",
     "https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/stages/news/produktneuheiten-sps-2024-stage-lowres_webp_85.webp",
     "https://www.beckhoff.com/media/pictures/stages/news/hvide-sand-seasight-stage_webp_85.webp",
     "https://www.beckhoff.com/media/pictures/stages/news/twincat-plc-plus-plus-starting-page-stage-lowres_webp_85.webp",
   ];
+
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -57,13 +58,11 @@ function content() {
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
 
-
-
-
   }, []);
 
   useEffect(() => {
     dispatch(fetchCategories());
+    dispatch(getSoftware());
   }, [dispatch]);
 
   const limitWords = (text, wordLimit = 10) => {
@@ -150,7 +149,7 @@ function content() {
                         mb={2}
                         sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                       >
-                       {limitWords(category.description)}
+                        {limitWords(category.description)}
                       </Typography>
                     </Card>
                   </Grid2>
@@ -163,37 +162,40 @@ function content() {
               Industrial Software
             </Typography>
             <Grid2 container spacing={3} mt={1}>
-              {indus.map((src, index) => (
+              {softwareData.map((software, index) => (
                 <Grid2
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                   // border={"1px solid black"}
-                  key={index}
+                  key={software._id}
                 >
                   <Card>
-                    <CardMedia
-                      component="img"
-                      style={{
-                        height: "30vh",
-                        width: "40vh",
-                        objectFit: "cover",
-                        background:
-                          "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
-                        transition: "transform 0.3s ease-in-out",
-                      }}
-                      image={src}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "scale(1.1)"; // Scales the image when hovered
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
-                      }}
-                    />
+                    <Link to='/software'>
+                      <CardMedia
+                        component="img"
+                        style={{
+                          height: "30vh",
+                          width: "40vh",
+                          objectFit: "cover",
+                          background:
+                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                          transition: "transform 0.3s ease-in-out",
+                        }}
+                        image={software.softwareImage}
+                        alt={software.softwareName}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "scale(1.1)"; // Scales the image when hovered
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
+                        }}
+                      />
+                    </Link>
                     <Typography
                       variant="h6"
                       gutterBottom
                       sx={{ padding: "8px" }}
                     >
-                      Automation
+                      {software.softwareName}
                     </Typography>
 
                     <Typography
@@ -201,8 +203,11 @@ function content() {
                       mb={2}
                       sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                     >
-                      We deliver Panels and Industrial PCs for every application
-                      with the latest technology for all performance classes.
+                      {software.description
+                        .split(" ")
+                        .slice(0, 100)
+                        .join(" ") + (software.description.split(" ").length > 100 ? "..." : "")
+                      }
                     </Typography>
 
                     {/* <Button
@@ -235,8 +240,8 @@ function content() {
               ))}
             </Grid2>
             <Grid2 display={"flex"} mt={3} mb={2} gap={"55%"} >
-              <Typography variant="h5" fontWeight={"bold"}>Runing Projects</Typography>
-              <Typography variant="h5" fontWeight={"bold"}>New Products</Typography>
+              <Typography variant="h5" fontWeight={"bold"}>Ongoing Projects</Typography>
+              <Typography variant="h5" fontWeight={"bold"}>News Update</Typography>
             </Grid2>
             <Grid2 display="flex" flexDirection="row" gap={2} mb={3}>
               <Grid2 size={{ lg: 8 }}>
