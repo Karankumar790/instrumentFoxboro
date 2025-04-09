@@ -4,6 +4,7 @@ import { API_URL } from "../../api/Client";
 
 
 const token = localStorage.getItem("authToken");
+console.log("-------------=----------",token)
 
 export const postheader = createAsyncThunk(
     "Header/SettingSlice",
@@ -24,12 +25,15 @@ export const postheader = createAsyncThunk(
 )
 
 export const getHeader = createAsyncThunk(
-    "Header/SettingSlice",
-    async(_, {rejectWithValue}) => {
+    "getHeader/SettingSlice",
+    async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/`)
+            const response = await axios.get(`${API_URL}/header`)
+            return response?.data
         } catch (error) {
-            
+            return rejectWithValue(
+                error.response?.data?.message || "Error adding "
+            )
         }
     }
 )
@@ -37,22 +41,34 @@ export const getHeader = createAsyncThunk(
 
 const headerSlice = createSlice({
     name: "header",
-    initialState: {headerInt: [], loading: false, error: null, success: false},
+    initialState: { headerInt: [], loading: false, error: null, success: false },
     extraReducers: (builder) => {
         builder
-        .addCase(postheader.pending, (state) => {
-            state.loading = true;
-            state.error = false;
-        })
-        .addCase(postheader.fulfilled, (state, action) => {
-            state.loading = false;
-            state.headerInt = action.payload.data;
-            state.error = false;
-        })
-        .addCase(postheader.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload.message; 
-        })
+            .addCase(postheader.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(postheader.fulfilled, (state, action) => {
+                state.loading = false;
+                state.headerInt = action.payload.data;
+                state.error = false;
+            })
+            .addCase(postheader.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload.message;
+            })
+            .addCase(getHeader.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(getHeader.fulfilled, (state,action) => {
+                state.loading = false;
+                state.headerInt = action.payload.data;
+            })
+            .addCase(getHeader.rejected, (state,action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
     }
 })
 

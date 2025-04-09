@@ -18,13 +18,18 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getHeader } from "../AdminDashoard/SiteSetting/SettingSlice";
 
 function Header() {
+
+  const fetchHeader = useSelector((state) => state.header.headerInt)
+
   const item = [
-    { text: "+91 94578893231", icon: <PhoneInTalkIcon /> },
-    { text: "+91 9457889232", icon: <PhoneInTalkIcon /> },
-    { text: "+91 88104 74728", icon: <WhatsAppIcon /> },
-    { text: "foxboroinstrument@gmail.com", icon: <MarkunreadIcon /> },
+    { text: fetchHeader.contactNumberOne, icon: <PhoneInTalkIcon /> },
+    { text: fetchHeader.contactNumberTwo, icon: <PhoneInTalkIcon /> },
+    { text: fetchHeader.whatsappNumber, icon: <WhatsAppIcon /> },
+    { text: fetchHeader.email, icon: <MarkunreadIcon /> },
   ];
   // const arr = ["Product", "Software", "Services", "E-Store", "Support"];
   const arr = [
@@ -54,17 +59,18 @@ function Header() {
   };
 
   const [isBlinking, setIsBlinking] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const toggleBlink = () => {
       setIsBlinking((prev) => !prev);
     };
-
+   
     const intervalId = setInterval(toggleBlink, 1000); // Toggle every 500ms
-
+    dispatch(getHeader())
     // Cleanup on unmount
     return () => clearInterval(intervalId);
-  }, []);
+  }, [dispatch]);
 
   const label = { inputProps: { "aria-label": "Join Foxboro" } };
   const top100Films = [];
@@ -131,7 +137,7 @@ function Header() {
         <Grid2 size={{ lg: 1 }} className=' ml-6' display={"flex"}  >
           <Link to="/" style={{ textDecoration: "none" }}>
             <img
-              src={logo}
+              src={fetchHeader.foxboroLogo}
               height={"100%"}
               width={"100%"}
               style={{ objectFit: "contain" }}

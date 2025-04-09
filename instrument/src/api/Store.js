@@ -34,7 +34,13 @@ export const store = configureStore({
     software: SoftwareSlice,
     header: SettingSlice,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+        ignoredPaths: ["_persist"],
+      },
+    }).concat(thunk),
 });
 
 // Create the persisted store

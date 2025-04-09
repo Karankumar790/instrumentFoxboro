@@ -169,25 +169,27 @@ function content() {
                   key={software._id}
                 >
                   <Card>
-                    <CardMedia
-                      component="img"
-                      style={{
-                        height: "30vh",
-                        width: "40vh",
-                        objectFit: "cover",
-                        background:
-                          "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
-                        transition: "transform 0.3s ease-in-out",
-                      }}
-                      image={software.softwareImage}
-                      alt={software.softwareName}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "scale(1.1)"; // Scales the image when hovered
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
-                      }}
-                    />
+                    <Link to='/software'>
+                      <CardMedia
+                        component="img"
+                        style={{
+                          height: "30vh",
+                          width: "40vh",
+                          objectFit: "cover",
+                          background:
+                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                          transition: "transform 0.3s ease-in-out",
+                        }}
+                        image={software.softwareImage}
+                        alt={software.softwareName}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "scale(1.1)"; // Scales the image when hovered
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
+                        }}
+                      />
+                    </Link>
                     <Typography
                       variant="h6"
                       gutterBottom
@@ -201,11 +203,11 @@ function content() {
                       mb={2}
                       sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                     >
-                     {software.description
-                      .split(" ")
-                      .slice(0, 100)
-                      .join(" ") + (software.description.split(" ").length > 100 ? "..." : "")
-                     }
+                      {software.description
+                        .split(" ")
+                        .slice(0, 100)
+                        .join(" ") + (software.description.split(" ").length > 100 ? "..." : "")
+                      }
                     </Typography>
 
                     {/* <Button

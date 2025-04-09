@@ -243,7 +243,7 @@ function service() {
         </Grid2>
 
 
-        <Grid2 size={{ lg: 5 }} >
+        <Grid2 size={{ lg: 4 }} >
           <div className="h-[83vh] flex flex-col border rounded-lg overflow-hidden">
             {/* Sticky Header */}
             <div className="bg-white sticky top-0 z-10 p-4 border-b flex justify-between items-center">
