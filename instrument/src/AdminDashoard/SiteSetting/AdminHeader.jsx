@@ -317,7 +317,7 @@ function AdminHeader() {
           <Box sx={style}>
             <div className='flex justify-between'>
               <Typography id="transition-modal-title" variant="h6" component="h2">
-                Text in a modal
+                Update Header
               </Typography>
               <button onClick={handleClose}>
                 <ClearIcon className="text-black text-lg" />

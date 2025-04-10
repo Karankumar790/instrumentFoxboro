@@ -88,6 +88,7 @@ export const getFooter = createAsyncThunk(
 )
 
 
+
 const headerSlice = createSlice({
     name: "header",
     initialState: { headerInt: [], footerInt: [], loading: false, error: null, success: false },
