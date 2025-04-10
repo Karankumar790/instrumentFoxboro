@@ -119,7 +119,7 @@ function content() {
                     size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                   >
                     <Card>
-                      <Link to={`/products/${category._id}`} style={{ textDecoration: "none" }}>
+                      <Link to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`} style={{ textDecoration: "none" }}>
                         <CardMedia
                           component="img"
                           style={{
@@ -241,7 +241,7 @@ function content() {
             </Grid2>
             <Grid2 display={"flex"} mt={3} mb={2} gap={"55%"} >
               <Typography variant="h5" fontWeight={"bold"}>Ongoing Projects</Typography>
-              <Typography variant="h5" fontWeight={"bold"}>News Update</Typography>
+              <Typography variant="h5" fontWeight={"bold"}>New Product</Typography>
             </Grid2>
             <Grid2 display="flex" flexDirection="row" gap={2} mb={3}>
               <Grid2 size={{ lg: 8 }}>

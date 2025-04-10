@@ -53,8 +53,8 @@ const Software = () => {
             {softwareData.map((product, index) => (
               <div key={index} className='bg-gray-100 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow'>
                 <div className='flex items-center mb-4'>
-                  <div className='w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4'>
-                    <span className='font-bold'>{product.softwareName.charAt(0)}</span>
+                  <div className='w-20  h-16 rounded-lg bg-gray-200 flex items-center justify-center mr-4'>
+                    <img src={product.softwareImage} alt={product.softwareName} className='w-full h-full object-cover' />
                   </div>
                   <h2 className='text-xl font-semibold'>{product.softwareName}</h2>
                 </div>

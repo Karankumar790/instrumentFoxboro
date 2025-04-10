@@ -16,7 +16,7 @@ import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch, useSelector } from 'react-redux';
-import { getHeader, postheader } from './SettingSlice';
+import { getHeader, postheader, updateHeader } from './SettingSlice';
 import { toast } from 'react-toastify';
 
 
@@ -62,7 +62,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function AdminHeader() {
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [image, setImage] = useState(null);
   const getHeaders = useSelector((state) => state.header.headerInt);
@@ -71,9 +70,36 @@ function AdminHeader() {
     contactNumberTwo: "",
     whatsappNumber: "",
     email: "",
+    instagramLink: "",
+    facebookLink: "",
+    youTubeLink: ""
   });
 
+  const [updateValue, setUpdateValue] = useState({
+    contactNumberOne: "",
+    contactNumberTwo: "",
+    whatsappNumber: "",
+    email: "",
+    instagramLink: "",
+    facebookLink: "",
+    youTubeLink: ""
+  })
+
   const dispatch = useDispatch();
+
+  const handleOpen = () => {
+    setUpdateValue({
+      contactNumberOne: getHeaders.contactNumberOne,
+      contactNumberTwo: getHeaders.contactNumberTwo,
+      whatsappNumber: getHeaders.whatsappNumber,
+      email: getHeaders.email,
+      instagramLink: getHeaders.instagramLink,
+      facebookLink: getHeaders.facebookLink,
+      youTubeLink: getHeaders.youTubeLink,
+    })
+    setImage(getHeaders.foxboroLogo)
+    setOpen(true)
+  };
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -90,6 +116,14 @@ function AdminHeader() {
     }))
   }
 
+  const handleUpdateValue = (e) => {
+    const { name, value } = e.target;
+    setUpdateValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
 
   const handleSubmit = async () => {
     const submitformData = new FormData();
@@ -97,6 +131,9 @@ function AdminHeader() {
     submitformData.append("contactNumberTwo", formValue.contactNumberTwo);
     submitformData.append("whatsappNumber", formValue.whatsappNumber);
     submitformData.append("email", formValue.email);
+    submitformData.append("instagramLink", formValue.instagramLink);
+    submitformData.append("facebookLink", formValue.facebookLink);
+    submitformData.append("youTubeLink", formValue.youTubeLink);
 
     if (image) {
       submitformData.append("foxboroLogo", image);
@@ -109,11 +146,39 @@ function AdminHeader() {
         contactNumberTwo: "",
         whatsappNumber: "",
         email: "",
+        instagramLink: "",
+        facebookLink: "",
+        youTubeLink: "",
       });
       setImage(null);
       toast.success("Header added successfully!");
     } catch (error) {
       toast.error(error?.message || "Something went wrong!");
+    }
+  };
+
+  const handleUpdateSubmit = async () => {
+    const updateformData = new FormData();
+    updateformData.append("contactNumberOne", updateValue.contactNumberOne);
+    updateformData.append("contactNumberTwo", updateValue.contactNumberTwo);
+    updateformData.append("whatsappNumber", updateValue.whatsappNumber);
+    updateformData.append("email", updateValue.email);
+    updateformData.append("instagramLink", updateValue.instagramLink);
+    updateformData.append("facebookLink", updateValue.facebookLink);
+    updateformData.append("youTubeLink", updateValue.youTubeLink);
+
+    if (image && typeof image !== "string") {
+      updateformData.append("foxboroLogo", image);
+    }
+
+    try {
+      await dispatch(updateHeader(
+        updateformData
+      )).unwrap();
+      toast.success("Header updated successfully!");
+      handleClose();
+    } catch (error) {
+      toast.error(error?.message || "Failed to update header");
     }
   };
 
@@ -123,51 +188,70 @@ function AdminHeader() {
 
 
   return (
-    <div className='flex flex-col space-y-5'>
+    <div className='flex flex-col  space-y-5'>
       <div className='flex justify-between'>
         <p className='font-semibold text-2xl'>Header Management</p>
         {/* <button className='bg-green-600 font-semibold p-2 rounded-lg text-white text-lg' onClick={handleOpen}>Add Header +</button> */}
       </div>
 
-      <div className='flex gap-4 justify-between p-4 bg-white rounded-lg shadow-md overflow-x-auto'>
-        <div className='flex flex-col w-[220px]'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-between p-4 bg-white rounded-lg shadow-md overflow-x-auto'>
+        <div className='flex flex-col '>
           <label>
             <h2 className='text-sm font-semibold mb-1'>Phone Number 1</h2>
             <input type="number" name='contactNumberOne' value={formValue.contactNumberOne} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
           </label>
         </div>
-        <div className='flex flex-col w-[220px]'>
+        <div className='flex flex-col '>
           <label>
             <h2 className='text-sm font-semibold mb-1'>Phone Number 2</h2>
             <input type="number" name='contactNumberTwo' value={formValue.contactNumberTwo} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
           </label>
         </div>
-        <div className='flex flex-col w-[220px]'>
+        <div className='flex flex-col'>
           <label>
             <h2 className='text-sm font-semibold mb-1'>WhatsApp Number</h2>
             <input type="number" name='whatsappNumber' value={formValue.whatsappNumber} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
           </label>
         </div>
-        <div className='flex flex-col w-[220px]'>
+        <div className='flex flex-col'>
           <label>
             <h2 className='text-sm font-semibold mb-1'>Email</h2>
             <input type="email" name='email' value={formValue.email} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
           </label>
         </div>
-        <div className='flex flex-col w-[220px]'>
+      </div>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-between p-4 bg-white rounded-lg shadow-md overflow-x-auto'>
+        <div className='flex flex-col'>
           <label>
             <h2 className='text-sm font-semibold mb-1'>Logo Image</h2>
             <input type="file" name='image' accept='image/*' onChange={handleImage} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
           </label>
         </div>
-        <div className='flex items-end w-[140px]'>
-          <button onClick={handleSubmit} className='bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-md w-full'>
-            Submit
-          </button>
+        <div className='flex  flex-col'>
+          <label>
+            <h2 className='text-sm font-semibold mb-1'>Instagram</h2>
+            <input type="text" name='instagramLink' value={formValue.instagramLink} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          </label>
         </div>
+        <div className='flex flex-col'>
+          <label>
+            <h2 className='text-sm font-semibold mb-1'>FaceBook</h2>
+            <input type="text" name='facebookLink' value={formValue.facebookLink} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          </label>
+        </div>
+        <div className='flex flex-col'>
+          <label>
+            <h2 className='text-sm font-semibold mb-1'>Youtube</h2>
+            <input type="text" name='youTubeLink' value={formValue.youTubeLink} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          </label>
+        </div>
+
       </div>
-
-
+      <div className='flex items-end justify-end w-full '>
+        <button onClick={handleSubmit} className='bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-md w-32'>
+          Submit
+        </button>
+      </div>
 
 
       <div>
@@ -179,7 +263,10 @@ function AdminHeader() {
                 <StyledTableCell >Phone Number 1</StyledTableCell>
                 <StyledTableCell >Phone Number 2</StyledTableCell>
                 <StyledTableCell >Phone Number 3</StyledTableCell>
-                <StyledTableCell align="left">Email</StyledTableCell>
+                <StyledTableCell >Email</StyledTableCell>
+                <StyledTableCell >Instagram</StyledTableCell>
+                <StyledTableCell >FaceBook</StyledTableCell>
+                <StyledTableCell align="left">YouTube</StyledTableCell>
                 <StyledTableCell align="right">Action</StyledTableCell>
               </TableRow>
             </TableHead>
@@ -195,11 +282,14 @@ function AdminHeader() {
                 <StyledTableCell >{getHeaders.contactNumberOne}</StyledTableCell>
                 <StyledTableCell>{getHeaders.contactNumberTwo}</StyledTableCell>
                 <StyledTableCell >{getHeaders.whatsappNumber}</StyledTableCell>
-                <StyledTableCell align="left">{getHeaders.email}</StyledTableCell>
+                <StyledTableCell >{getHeaders.email}</StyledTableCell>
+                <StyledTableCell sx={{ width: "200px", maxWidth: "100px", overflow: "hidden" }}>{getHeaders.instagramLink}</StyledTableCell>
+                <StyledTableCell sx={{ width: "200px", maxWidth: "100px", overflow: "hidden" }}>{getHeaders.facebookLink}</StyledTableCell>
+                <StyledTableCell align="left" sx={{ width: "200px", maxWidth: "100px", overflow: "hidden" }}>{getHeaders.youTubeLink}</StyledTableCell>
                 <StyledTableCell align="right">{
                   <IconButton
                     color="primary"
-                    onClick={handleOpen}
+                    onClick={() => handleOpen(getHeaders)}
                   >
                     <EditIcon />
                   </IconButton>
@@ -236,12 +326,19 @@ function AdminHeader() {
 
             <div className='w-full  space-y-4 mt-2'>
               <div className='flex gap-2 w-full '>
-                <input type="number" placeholder='Number 1' className='w-1/2 border border-gray-600 p-2 rounded-lg' />
-                <input type="number" placeholder='Number 2' className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+                <input type="number" placeholder='Number 1' name='contactNumberOne' value={updateValue.contactNumberOne} onChange={handleUpdateValue} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+                <input type="number" placeholder='Number 2' name='contactNumberTwo' value={updateValue.contactNumberTwo} onChange={handleUpdateValue} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
               </div>
               <div className='flex gap-2 w-full '>
-                <input type="number" placeholder='Number 3' className='w-1/2 border border-gray-600 p-2 rounded-lg' />
-                <input type="email" placeholder='Email' className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+                <input type="number" placeholder='whatsappNumber ' name='whatsappNumber' value={updateValue.whatsappNumber} onChange={handleUpdateValue} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+                <input type="email" placeholder='Email' name='email' value={updateValue.email} onChange={handleUpdateValue} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+              </div>
+              <div className='flex gap-2 w-full '>
+                <input type="text" placeholder='InstagramLink' name='instagramLink' value={updateValue.instagramLink} onChange={handleUpdateValue} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+                <input type="text" placeholder='FaceBookLink' name='facebookLink' value={updateValue.facebookLink} onChange={handleUpdateValue} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+              </div>
+              <div className='w-full'>
+                <input type="text" placeholder='YoutubeLink' name='youTubeLink' value={updateValue.youTubeLink} onChange={handleUpdateValue} className='w-full border border-gray-600 p-2 rounded-lg' />
               </div>
               <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 2 }}>
                 <Box
@@ -258,8 +355,10 @@ function AdminHeader() {
                 >
                   {
                     image ? (
-                      <img src={URL.createObjectURL(image)} alt=""
+                      <img
+                        src={typeof image === "string" ? image : URL.createObjectURL(image)}
                         style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: 8 }}
+                        alt="preview"
                       />
                     ) : (
                       <Typography variant="body2" color="textSecondary">
@@ -268,12 +367,20 @@ function AdminHeader() {
                     )
                   }
                 </Box>
-                <button className='w-full bg-blue-600 p-2 text-white rounded-lg font-semibold'>
+
+                {/* Wrap the input inside a label */}
+                <label className='w-full bg-blue-600 p-2 text-white rounded-lg font-semibold text-center cursor-pointer'>
                   Upload Image
-                  <input type='file' hidden accept='image/*' />
-                </button>
+                  <input
+                    type="file"
+                    hidden
+                    accept="image/*"
+                    onChange={handleImage}
+                  />
+                </label>
               </Box>
-              <button className='w-full bg-blue-600 p-2 text-white rounded-lg font-semibold'>Submit</button>
+
+              <button onClick={handleUpdateSubmit} className='w-full bg-blue-600 p-2 text-white rounded-lg font-semibold'>Submit</button>
             </div>
 
           </Box>
