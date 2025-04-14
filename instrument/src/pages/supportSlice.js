@@ -1,87 +1,54 @@
-// import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { USER_URL } from "../api/Client";
 
-// const initialState = {
-//   firstName: '',
-//   lastName: '',
-//   mobileNo: '',
-//   email: '',
-//   company: '',
-//   position: '',
-//   country: '',
-//   state: '',
-//   message: '',
-//   isSubmitting: false,
-//   submitSuccess: false,
-//   submitError: null,
-// }
+// 1. Create async thunk to handle API request
+export const submitContactForm = createAsyncThunk(
+  "contact/submitContactForm",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${USER_URL}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-// const supportSlice = createSlice({
-//   name: 'support',
-//   initialState,
-//   reducers : {
-//     setField: (state, action) => {
-//       const { field, value } = action.payload;
-//       state[field] = value;
-//     },
-//     resetForm: (state) => {
-//       return initialState;
-//     },
-//     setSubmitting: (state, action) => {
-//       state.isSubmitting = action.payload;
-//     },
-//     setSubmitSuccess: (state, action) => {
-//       state.submitSuccess = action.payload;
-//     },
-//     setSubmitError: (state, action) => {
-//       state.submitError = action.payload;
-//   }
-//   },
-// })
+      if (!response.ok) {
+        throw new Error("Error in submitting form");
+      }
 
-// export const { setField, resetForm, setSubmitting, setSubmitSuccess, setSubmitError } = supportSlice.actions;
-
-// export default supportSlice.reducer;
-
-import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = {
-  firstName: '',
-  lastName: '',
-  mobileNo: '',
-  email: '',
-  company: '',
-  position: '',
-  country: '',
-  state: '',
-  message: '',
-  isSubmitting: false,
-  submitSuccess: false,
-  submitError: null,
-}
-
-const supportSlice = createSlice({
-  name: 'support',
-  initialState,
-  reducers: {
-    setField: (state, action) => {
-      const { field, value } = action.payload;
-      state[field] = value;
-    },
-    resetForm: (state) => {
-      return initialState;
-    },
-    setSubmitting: (state, action) => {
-      state.isSubmitting = action.payload;
-    },
-    setSubmitSuccess: (state, action) => {
-      state.submitSuccess = action.payload;
-    },
-    setSubmitError: (state, action) => {
-      state.submitError = action.payload;
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
-})
+);
 
-export const { setField, resetForm, setSubmitting, setSubmitSuccess, setSubmitError } = supportSlice.actions;
+// 2. Create slice to manage the state
+const contactSlice = createSlice({
+  name: "contact",
+  initialState: {
+    loading: false,
+    success: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(submitContactForm.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(submitContactForm.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+      })
+      .addCase(submitContactForm.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
+});
 
-export default supportSlice.reducer;
+export default contactSlice.reducer;

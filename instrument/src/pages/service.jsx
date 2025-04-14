@@ -12,6 +12,7 @@ import Services from "../../public/assets/service.webp";
 import PageContainer from "../components/HOC/PageContainer";
 import Header from "../components/Header";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Footer from "../components/Footer/Footer";
 
 function service() {
   const customer = [
@@ -113,7 +114,7 @@ function service() {
     left: 0,
   });
   return (
-    <>
+    <div className="min-h-screen flex flex-col flex-1">
       <Header />
       <Grid2
         container
@@ -145,17 +146,16 @@ function service() {
                 bgcolor: "background.paper",
                 position: "sticky",
                 top: 0,
-                zIndex: 1,
                 px: 3,
                 py: 2,
                 borderBottom: "1px solid #e0e0e0",
               }}
             >
-              <Typography variant="h5" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold">
                 Find Service Engineer Near You
               </Typography>
 
-              <Grid2 container spacing={2} mt={2}>
+              <Grid2 container spacing={2} mt={1}>
                 <Grid2 xs={6}>
                   <label className="flex items-center gap-4">
                     <input type="radio" name="service" className="size-5" />
@@ -212,12 +212,12 @@ function service() {
 
                 <div >
                   <Grid2 item xs={12} mt={2}>
-                    <Typography variant="h6">Problem</Typography>
                     <TextField
                       fullWidth
                       multiline
-                      rows={5}
-                      sx={{ mt: 1, width: "100%", minWidth: "550px" }}
+                      rows={4}
+                      placeholder="Service Description"
+                      sx={{  width: "100%", minWidth: "553px" }}
                     />
                   </Grid2>
 
@@ -243,7 +243,7 @@ function service() {
         </Grid2>
 
 
-        <Grid2 size={{ lg: 5 }} >
+        <Grid2 size={{ lg: 4 }} >
           <div className="h-[83vh] flex flex-col border rounded-lg overflow-hidden">
             {/* Sticky Header */}
             <div className="bg-white sticky top-0 z-10 p-4 border-b flex justify-between items-center">
@@ -311,7 +311,8 @@ function service() {
           </Typography>
         </Grid2> */}
       </Grid2>
-    </>
+      <Footer/>
+    </div>
   );
 }
 export default service;

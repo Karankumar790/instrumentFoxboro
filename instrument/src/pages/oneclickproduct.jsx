@@ -6,7 +6,6 @@ import {
   CardMedia,
   CircularProgress,
   Collapse,
-  Grid,
   Grid2,
   Typography,
 } from "@mui/material";

@@ -42,7 +42,7 @@ function login() {
 
     return (
         <>
-            <div className="bg-[url('/login.jpg')]  bg-cover ">
+            <div className='bg-sky-200'>
                 <Header />
                 <div className="flex items-center justify-center min-h-screen  ">
                     <div className="w-full max-w-md p-8 bg-gray-100 shadow-lg rounded-lg space-y-6">
@@ -51,8 +51,8 @@ function login() {
 
                         {/* Title */}
                         <div className="text-center">
-                            <h2 className="text-2xl font-bold text-gray-800">Foxboro Instrument</h2>
-                            <p className="text-gray-600">Sign in to manage your instruments and insights.</p>
+                            <h2 className="text-2xl font-bold text-gray-800">Foxboro Instrument Company</h2>
+                            <p className="text-gray-600">Sign in Your Account</p>
                         </div>
 
                         {/* Login Form */}

@@ -1,83 +1,62 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer/Footer";
-import {
-  Backdrop,
-  Box,
-  Button,
-  Fade,
-  Grid,
-  Grid2,
-  Modal,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import ClearIcon from "@mui/icons-material/Clear";
+import { submitContactForm } from "./supportSlice";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setField,
-  setSubmitting,
-  setSubmitSuccess,
-  setSubmitError,
-  resetForm,
-} from "../pages/supportSlice";
-
-// import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { setField, setSubmitting, setSubmitSuccess, setSubmitError, resetForm } from '../pages/supportSlice';
-
-// import React, { useEffect } from 'react'
-// import { useSelector } from "react-redux";
-// import {
-//   setField,
-//   setSubmitting,
-//   setSubmitSuccess,
-//   setSubmitError,
-//   resetForm,
-// } from "../pages/supportSlice";
-import { useNavigate } from "react-router-dom";
 
 function support() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const formState = useSelector((state) => state.support);
+  const { loading, success, error } = useSelector((state) => state.contact);
 
-  // Update Redux state when an input value changes
+  const [formData, setFormData] = useState({
+    Firstname: "",
+    Lastname: "",
+    Mobile: "",
+    Email: "",
+    Companyname: "",
+    Position: "",
+    Country: "",
+    State: "",
+    Message: "",
+  });
+
+  
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    dispatch(setField({ field: name, value }));
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(setSubmitting(true));
-
-    try {
-      // Simulate an API call here
-      // Replace this with the actual API logic to save form data.
-      setTimeout(() => {
-        dispatch(setSubmitSuccess(true));
-        dispatch(setSubmitting(false));
-        dispatch(resetForm()); // Reset form after successful submit
-        navigate("/thank-you"); // Navigate to a Thank You page or similar after successful form submission
-      }, 2000);
-    } catch (error) {
-      dispatch(setSubmitError("Error submitting form."));
-      dispatch(setSubmitting(false));
-    }
-  };
+      const { name, value } = e.target;
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(submitContactForm(formData));
+    };
+    
+    useEffect(() => {
+      if (success) {
+        setFormData({
+          Firstname: "",
+          Lastname: "",
+          Mobile: "",
+          Email: "",
+          Companyname: "",
+          Position: "",
+          Country: "",
+          State: "",
+          Message: "",
+        });
+      }
+    }, [success]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div
+      className="flex flex-col min-h-screen"
+      style={{
+        backgroundImage: `linear-gradient(to bottom right, #e0f2fe, #c7d2fe)`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <Header />
       <div className="w-full flex-grow flex  justify-center bg-indigo-50">
         <div className="flex flex-col items-center  w-4/5 ">
@@ -95,13 +74,13 @@ function support() {
           </div>
 
           <div className="w-full flex h-full ">
-            <div className=" p-6 flex flex-col  w-1/2 m-4 rounded-lg bg-blue-100">
+            <div className=" p-6 flex flex-col  w-1/2 m-4 rounded-lg ">
               <h2 className="text-4xl font-bold mb-4">Contact Information</h2>
 
               <div className="flex-1 overflow-auto space-y-16">
                 <div className="flex items-center">
                   <div className="w-20 h-20 bg-blue-900 text-white rounded-full flex items-center justify-center mr-4">
-                    <i className="fas fa-map-marker-alt text-6xl"></i>{" "}
+                    <i className="fas fa-map-marker-alt text-6xl"></i>
                     {/* Address Icon */}
                   </div>
                   <div>
@@ -116,7 +95,7 @@ function support() {
 
                 <div className="flex items-center">
                   <div className="w-20 h-20 bg-blue-900 text-white rounded-full flex items-center justify-center mr-4">
-                    <i className="fas fa-phone-alt text-6xl"></i>{" "}
+                    <i className="fas fa-phone-alt text-6xl"></i>
                     {/* Phone Icon */}
                   </div>
                   <div>
@@ -127,7 +106,7 @@ function support() {
 
                 <div className="flex items-center">
                   <div className="w-20 h-20 bg-blue-900 text-white rounded-full flex items-center justify-center mr-4">
-                    <i className="fas fa-envelope text-6xl"></i>{" "}
+                    <i className="fas fa-envelope text-6xl"></i>
                     {/* Email Icon */}
                   </div>
                   <div>
@@ -140,160 +119,151 @@ function support() {
               </div>
             </div>
 
-            <div className="w-1/2 flex flex-col m-4 space-y-1 bg-blue-100 pl-2 pr-2">
-              <p className="w-full text-3xl font-semibold bg-blue-950 text-white flex justify-center mb-2">
+            <div className="w-full lg:w-1/2 flex flex-col m-4 space-y-4 bg-white shadow-lg rounded-xl p-6">
+              <p className="text-3xl font-semibold bg-blue-950 text-white py-2 px-4 rounded-md text-center">
                 Contact Us
               </p>
+
               <form
-                className="grid grid-cols-1 sm:grid-cols-2 flex-1 overflow-auto gap-4"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
                 onSubmit={handleSubmit}
               >
                 {/* First Name */}
-                <div className="flex flex-col">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="firstName"
-                      placeholder="First Name"
-                      value={formState.firstName}
-                      onChange={handleChange}
-                      className="p-2 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
-                    />
-                    <i className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 fas fa-user"></i>
-                  </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="Firstname"
+                    placeholder="First Name"
+                    value={formData.Firstname}
+                    onChange={handleChange}
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                  />
+                  <i className="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
 
                 {/* Last Name */}
-                <div className="flex flex-col">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="lastName"
-                      placeholder="Last Name"
-                      value={formState.lastName}
-                      onChange={handleChange}
-                      className="p-2 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
-                    />
-                    <i className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 fas fa-user"></i>
-                  </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="Lastname"
+                    placeholder="Last Name"
+                    value={formData.Lastname}
+                    onChange={handleChange}
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                  />
+                  <i className="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
 
                 {/* Mobile No. */}
-                <div className="flex flex-col">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="mobileNo"
-                      placeholder="Mobile No."
-                      value={formState.mobileNo}
-                      onChange={handleChange}
-                      className="p-2 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
-                    />
-                    <i className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 fas fa-phone"></i>
-                  </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Mobile No."
+                    name="Mobile"
+                    value={formData.Mobile}
+                    onChange={handleChange}
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                  />
+                  <i className="fas fa-phone absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
 
                 {/* Email ID */}
-                <div className="flex flex-col">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="email"
-                      placeholder="Email ID"
-                      value={formState.email}
-                      onChange={handleChange}
-                      className="p-2 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
-                    />
-                    <i className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 fas fa-envelope"></i>
-                  </div>
+                <div className="relative">
+                  <input
+                    type="email"
+                    placeholder="Email ID"
+                    name="Email"
+                    value={formData.Email}
+                    onChange={handleChange}
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                  />
+                  <i className="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
 
                 {/* Company */}
-                <div className="flex flex-col">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="company"
-                      placeholder="Company"
-                      value={formState.company}
-                      onChange={handleChange}
-                      className="p-2 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
-                    />
-                    <i className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 fas fa-building"></i>
-                  </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Company"
+                    name="Companyname"
+                    value={formData.Companyname}
+                    onChange={handleChange}
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                  />
+                  <i className="fas fa-building absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
 
                 {/* Position */}
-                <div className="flex flex-col">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="position"
-                      placeholder="Position"
-                      value={formState.position}
-                      onChange={handleChange}
-                      className="p-2 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
-                    />
-                    <i className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 fas fa-briefcase"></i>
-                  </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Position"
+                    name="Position"
+                    value={formData.Position}
+                    onChange={handleChange}
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                  />
+                  <i className="fas fa-briefcase absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
 
                 {/* Country */}
-                <div className="flex flex-col">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="country"
-                      placeholder="Country"
-                      value={formState.country}
-                      onChange={handleChange}
-                      className="p-2 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
-                    />
-                    <i className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 fas fa-globe"></i>
-                  </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Country"
+                    name="Country"
+                    value={formData.Country}
+                    onChange={handleChange}
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                  />
+                  <i className="fas fa-globe absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
 
                 {/* State */}
-                <div className="flex flex-col">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="state"
-                      placeholder="State"
-                      value={formState.state}
-                      onChange={handleChange}
-                      className="p-2 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
-                    />
-                    <i className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 fas fa-map-marker-alt"></i>
-                  </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="State"
+                    name="State"
+                    value={formData.State}
+                    onChange={handleChange}
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                  />
+                  <i className="fas fa-map-marker-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
 
-                {/* Message Textarea */}
-                <div className="flex flex-col col-span-2">
-                  <div className="relative">
-                    <textarea
-                      rows={2}
-                      name="message"
-                      placeholder="Message"
-                      value={formState.message}
-                      onChange={handleChange}
-                      className="p-2 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
-                    />
-                    <i className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 fas fa-comment-alt"></i>
-                  </div>
+                {/* Message */}
+                <div className="relative col-span-1 sm:col-span-2">
+                  <textarea
+                    rows={4}
+                    placeholder="Message"
+                    name="Message"
+                    value={formData.Message}
+                    onChange={handleChange}
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                  />
+                  <i className="fas fa-comment-alt absolute left-4 top-4 text-gray-500 text-lg"></i>
                 </div>
 
                 {/* Submit Button */}
-                <div className="col-span-2 flex justify-center">
+                <div className="col-span-1 sm:col-span-2">
                   <button
                     type="submit"
-                    className="bg-blue-900 w-full text-white font-bold text-2xl rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    disabled={formState.isSubmitting}
+                    className="bg-blue-900 w-full text-white font-bold text-2xl rounded-lg py-3 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    disabled={loading}
                   >
-                    Submit
+                    {loading ? "Submitting..." : "Submit"}
                   </button>
                 </div>
               </form>
+              {error && (
+                <p className="text-red-500 mt-4 text-center">{error}</p>
+              )}
+              {success && (
+                <p className="text-green-500 mt-4 text-center">
+                  Form submitted successfully!
+                </p>
+              )}
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ import productByCategory from "../AdminDashoard/Category/CategoryProductSlice";
 import AdminFoxboroProduct from "../AdminDashoard/AdminProduct/AdminProductSlice";
 import SoftwareSlice from "../AdminDashoard/AdminSoftware/SoftwareSlice";
 import SettingSlice from "../AdminDashoard/SiteSetting/SettingSlice";
+import contactReducer from "../pages/supportSlice";
 
 // Configuration for Redux Persist
 const persistConfig = {
@@ -33,8 +34,15 @@ export const store = configureStore({
     foxLineProduct: AdminFoxboroProduct,
     software: SoftwareSlice,
     header: SettingSlice,
+    contact: contactReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+        ignoredPaths: ["_persist"],
+      },
+    }).concat(thunk),
 });
 
 // Create the persisted store

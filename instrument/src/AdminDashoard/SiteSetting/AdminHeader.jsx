@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -15,8 +15,8 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import ClearIcon from "@mui/icons-material/Clear";
-import { useDispatch } from 'react-redux';
-import { postheader } from './SettingSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getHeader, postheader } from './SettingSlice';
 import { toast } from 'react-toastify';
 
 
@@ -57,17 +57,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     backgroundColor: theme.palette.action.selected,
   },
 }));
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 function AdminHeader() {
 
@@ -75,6 +65,7 @@ function AdminHeader() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [image, setImage] = useState(null);
+  const getHeaders = useSelector((state) => state.header.headerInt);
   const [formValue, setFormValue] = useState({
     contactNumberOne: "",
     contactNumberTwo: "",
@@ -106,11 +97,11 @@ function AdminHeader() {
     submitformData.append("contactNumberTwo", formValue.contactNumberTwo);
     submitformData.append("whatsappNumber", formValue.whatsappNumber);
     submitformData.append("email", formValue.email);
-  
+
     if (image) {
       submitformData.append("foxboroLogo", image);
     }
-  
+
     try {
       await dispatch(postheader(submitformData)).unwrap(); // unwrap gives you success/error directly
       setFormValue({
@@ -125,7 +116,11 @@ function AdminHeader() {
       toast.error(error?.message || "Something went wrong!");
     }
   };
-  
+
+  useEffect(() => {
+    dispatch(getHeader());
+  }, [dispatch])
+
 
   return (
     <div className='flex flex-col space-y-5'>
@@ -189,25 +184,27 @@ function AdminHeader() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell >{row.calories}</StyledTableCell>
-                  <StyledTableCell>{row.fat}</StyledTableCell>
-                  <StyledTableCell >{row.carbs}</StyledTableCell>
-                  <StyledTableCell align="left">{row.protein}</StyledTableCell>
-                  <StyledTableCell align="right">{
-                    <IconButton
-                      color="primary"
-                      onClick={handleOpen}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                  }</StyledTableCell>
-                </StyledTableRow>
-              ))}
+              <StyledTableRow key={getHeaders._id}>
+                <StyledTableCell component="th" scope="row">
+                  <img
+                    src={getHeaders.foxboroLogo}
+                    alt="logo"
+                    className="w-20 h-12 object-contain"
+                  />
+                </StyledTableCell>
+                <StyledTableCell >{getHeaders.contactNumberOne}</StyledTableCell>
+                <StyledTableCell>{getHeaders.contactNumberTwo}</StyledTableCell>
+                <StyledTableCell >{getHeaders.whatsappNumber}</StyledTableCell>
+                <StyledTableCell align="left">{getHeaders.email}</StyledTableCell>
+                <StyledTableCell align="right">{
+                  <IconButton
+                    color="primary"
+                    onClick={handleOpen}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                }</StyledTableCell>
+              </StyledTableRow>
             </TableBody>
           </Table>
         </TableContainer>
