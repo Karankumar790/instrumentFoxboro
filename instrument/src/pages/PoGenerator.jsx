@@ -1,85 +1,79 @@
-import React from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer/Footer'
-import { Button, Card, Grid2 } from '@mui/material'
+import React, { useState } from 'react'
+import {  Card, Grid2, Typography } from '@mui/material'
+import PageContainer from '../components/HOC/PageContainer';
 
 function PoGenerator() {
+
+    const [selectedIndex, setSelectedIndex] = useState(null);
+
     const arr = [
-        { label: "Mobile", value: "?" },
-        { label: "Name", value: "?" },
-        { label: "Email", value: "?" },
-        { label: "Position", value: "?" },
-        { label: "Company", value: "?" },
-        { label: "City", value: "?" },
-        { label: "State", value: "?" },
-        { label: "Country", value: "?" },
-        { label: "ZIP Code", value: "?" },
+        { Estimate: "Mobile", Date: "12/12/12", Description: "there are the one " },
+        { Estimate: "Name", Date: "03/06/2025", Description: "Integrated SCADA system for real-time process monitoring and control, improving operational efficiency across multiple industrial sites." },
+        { Estimate: "Email", Date: "03/07/2021", Description: "Upgraded legacy PLC systems to modern PC-based automation, enhancing flexibility and reducing downtime in manufacturing processes." },
+        { Estimate: "Position", Date: "03/05/2022", Description: "Developed a centralized dashboard for remote diagnostics and control of field devices using IIoT protocols." },
+        { Estimate: "Company", Date: "03/09/2018", Description: "Implemented energy monitoring solutions with data visualization tools for predictive maintenance and resource optimization." },
+        { Estimate: "City", Date: "03/12/2019", Description: "Automated packaging line with vision-based inspection and robotic handling, increasing throughput and quality assurance." },
+        { Estimate: "State", Date: "03/03/2023", Description: "Customized control panel design for a multi-zone HVAC system, ensuring climate stability in cleanroom environments." },
+        { Estimate: "Country", Date: "14/05/2024", Description: "Converted manual operations to fully automated sequences using IEC 61131-3 compliant programming for process safety." },
+        { Estimate: "ZIP Code", Date: "23/07/2015", Description: "Designed an HMI solution for a bottling plant, improving operator interface and reducing training time." },
     ]
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <Header />
-            <Grid2 container className='flex-grow flex justify-center items-center bg-gradient-to-br from-blue-50 to-gray-100 p-4'>
-                <Grid2 size={{ lg: 4 }} className="h-full">
-                    <Card
-                        sx={{
-                            borderRadius: "25px",
-                            height: "83vh",
-                            width: "100%",
-                            boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-                            overflow: "hidden",
+            <PageContainer showheader="true" showfooter="true" className='min-h-screen flex flex-col overflow-hidden'>
+                <Grid2 container className='flex justify-center items-center  bg-slate-200 flex-grow overflow-hidden'>
+                    <Grid2 size={{ lg: 7 }}>
+                        <Card sx={{
+                            borderRadius: "20px",
                             display: "flex",
-                            flexDirection: "column"
-                        }}
-                        className="bg-white"
-                    >
-                        {/* Card Content Container */}
-                        <div className="flex flex-col h-full">
-                            {/* Search Section */}
-                            <div className='border p-3 bg-blue-50'>
-                                <p className="text-gray-600 text-xl font-bold">Upload Purchase Order</p>
+                            flexDirection: "column",
+                            overflow: "hidden",
+                            // backgroundColor: "#ECECEC"
+                        }}>
+                            <Typography variant="h5" fontWeight="bold" className="border bg-green-400 px-5 h-14 p-3 ">
+                                Upload Purchase Order
+                            </Typography>
+                            <div className=' flex gap-4 p-5 '>
+                                <input type="text" size='small' placeholder='Enter Email or Mobile' className='w-96 border rounded-lg p-2 ' />
+                                <button className='w-28 p-3 text-white font-bold bg-yellow-600 rounded-lg border'>Search</button>
                             </div>
 
-                            {/* Search Input */}
-                            <div className='flex justify-between border p-3 bg-blue-50 rounded-lg m-3'>
-                                <div className='flex gap-1 font-semibold items-center flex-grow'>
+                            <div className='flex justify-between gap-8 px-5 py-3 bg-gray-300 rounded-t-md'>
+                                <p className='text-xl font-semibold w-[20%] px-3 text-gray-800'>Estimate</p>
+                                <p className='text-xl font-semibold w-[20%] text-gray-800'>Date</p>
+                                <p className='text-xl font-semibold w-[100%] text-gray-800'>Description</p>
+                            </div>
+
+                            {arr.map((row, index) => (
+                                <div
+                                    key={index}
+                                    className='flex justify-between items-center border rounded-md  gap-4 px-5 py-3 border-b bg-gray-50 hover:bg-gray-100 transition-all duration-200'
+                                >
                                     <input
-                                        type="text"
-                                        className='border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-300 w-full'
-                                        placeholder="Enter Email or Mobile"
-                                    />
+                                        type="radio"
+                                        name='po selected'
+                                        checked={selectedIndex == index}
+                                        onChange={() => setSelectedIndex(index)}
+                                        className='text-lg accent-yellow-600' />
+                                    <p className='w-[20%] text-gray-700 font-medium'>{row.Estimate}</p>
+                                    <p className='w-[20%] text-gray-700 font-medium'>{row.Date}</p>
+                                    <p className='w-[100%] text-gray-600 text-sm'>{row.Description}</p>
                                 </div>
-                                <button className='bg-blue-500 hover:bg-blue-600 rounded-lg text-white p-2 w-28 font-semibold transition-colors ml-2'>
-                                    Search
-                                </button>
+                            ))}
+
+                            <div className='flex justify-between p-4 bg-gray-300 '>
+                                <input type="file" name="" id="hiddenFileInput" style={{ display: "none" }} />
+                                <label htmlFor="hiddenFileInput">
+                                    <button className="bg-yellow-600  text-white font-semibold py-2 px-4 rounded-lg cursor-pointer w-36">
+                                        Upload File
+                                    </button>
+                                </label>
+                                <button className='bg-orange-600 text-white font-semibold rounded-lg px-4 py-2 cursor-pointer w-28'>Submit</button>
                             </div>
 
-                            {/* List Items - Scrollable Area */}
-                            <div className="flex flex-wrap overflow-y-auto flex-grow px-3 pb-3" style={{ maxHeight: 'calc(100% - 180px)' }}>
-                                {arr.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex border-b pb-2 items-center min-h-20 px-3 hover:bg-gray-50 transition-colors gap-4 w-full md:w-1/2"
-                                    >
-                                        <p className="text-lg font-medium text-gray-600">{item.label}:</p>
-                                        <p className="text-lg font-semibold text-gray-900">{item.value}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Submit Button */}
-                            <div className='flex justify-between items-center h-20 border-t p-4'>
-                                <input type="file" name="" placeholder='Attach order file' />
-                                <button className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors'>
-                                    Upload
-                                </button>
-                            </div>
-                        </div>
-                    </Card>
+                        </Card>
+                    </Grid2>
                 </Grid2>
-            </Grid2>
-            <Footer />
-        </div>
+            </PageContainer>
     )
 }
 

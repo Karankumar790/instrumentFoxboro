@@ -11,6 +11,8 @@ import productByCategory from "../AdminDashoard/Category/CategoryProductSlice";
 import AdminFoxboroProduct from "../AdminDashoard/AdminProduct/AdminProductSlice";
 import SoftwareSlice from "../AdminDashoard/AdminSoftware/SoftwareSlice";
 import SettingSlice from "../AdminDashoard/SiteSetting/SettingSlice";
+import RunNewSlice from "../AdminDashoard/Run&NewProject/RunNewSlice";
+import newProductSlice from "../AdminDashoard/Run&NewProject/newProductSlice";
 
 // Configuration for Redux Persist
 const persistConfig = {
@@ -33,6 +35,8 @@ export const store = configureStore({
     foxLineProduct: AdminFoxboroProduct,
     software: SoftwareSlice,
     header: SettingSlice,
+    rnProject: RunNewSlice,
+    newProduct: newProductSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

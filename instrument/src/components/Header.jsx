@@ -45,6 +45,7 @@ function Header() {
     { text: "Get Estimate", Link: "/service" },
     { text: "Upload Order", Link: "/poGenerator" },
     { text: "Track Service", Link: "/trackService" },
+    {text: "Service Partners", Link: "/servicePartner"}
   ]
 
   const [serviceMenu, setServiceMenu] = useState(null);
