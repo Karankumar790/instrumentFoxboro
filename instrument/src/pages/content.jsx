@@ -23,24 +23,15 @@ import { getRunning } from "../AdminDashoard/Run&NewProject/RunNewSlice";
 "https://www.beckhoff.com/media/pictures/stages/news/hvide-sand-seasight-stage_webp_85.webp",
   "https://www.beckhoff.com/media/pictures/stages/news/twincat-plc-plus-plus-starting-page-stage-lowres_webp_85.webp";
 function content() {
-  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
   const fetchRunning = useSelector((state) => state.rnProject.runningInt[0]);
-  const fetchNewProject = useSelector((state) => state.newProduct.getNewProduct[0]);
+  const fetchNewProject = useSelector((state) => state.newProduct.newProducts[0]);
   const { data: softwareData = [], loading, error } = useSelector(state => state.software);
 
-  const handleToggle = () => {
-    setOpen(!open);
-  };
+  
 
-
-  const indus = [
-    "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/ipc/ipc_webp_85.webp",
-  ];
+ 
 
   const images_animation = [
     "https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp",
