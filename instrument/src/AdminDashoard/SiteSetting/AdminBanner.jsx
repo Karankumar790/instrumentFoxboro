@@ -42,3 +42,82 @@ function AdminBanner() {
 }
 
 export default AdminBanner
+
+
+// import React, { useState } from "react";
+// import axios from "axios";
+
+// const AdminBanner = () => {
+//   const [images, setImages] = useState([]);
+//   const [title, setTitle] = useState("");
+//   const [preview, setPreview] = useState([]);
+//   const [message, setMessage] = useState("");
+
+//   const handleImageChange = (e) => {
+//     const files = Array.from(e.target.files);
+
+//     if (files.length > 10) {
+//       return setMessage("You can only upload up to 10 images.");
+//     }
+
+//     setImages(files);
+//     setPreview(files.map((file) => URL.createObjectURL(file)));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (images.length === 0) {
+//       return setMessage("Please select at least one image.");
+//     }
+
+//     const formData = new FormData();
+//     images.forEach((image) => {
+//       formData.append("files", image);
+//     });
+//     formData.append("title", title);
+
+//     try {
+//       const response = await axios.post(`${API_URL}api/v1/admin/banner`, formData, {
+//         headers: { "Content-Type": "multipart/form-data" },
+//       });
+
+//       setMessage(response.data.message);
+//       setImages([]);
+//       setPreview([]);
+//       setTitle("");
+//     } catch (error) {
+//       console.error(error);
+//       setMessage(error.response?.data?.message || "Upload failed.");
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h2>Upload Banner</h2>
+//       <form onSubmit={handleSubmit}>
+//         <input
+//           type="text"
+//           placeholder="Enter banner title"
+//           value={title}
+//           onChange={(e) => setTitle(e.target.value)}
+//         />
+//         <input
+//           type="file"
+//           accept="image/*"
+//           multiple
+//           onChange={handleImageChange}
+//         />
+//         <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+//           {preview.map((src, index) => (
+//             <img key={index} src={src} alt={`preview-${index}`} width="100" />
+//           ))}
+//         </div>
+//         <button type="submit">Upload</button>
+//       </form>
+//       {message && <p>{message}</p>}
+//     </div>
+//   );
+// };
+
+// export default AdminBanner;

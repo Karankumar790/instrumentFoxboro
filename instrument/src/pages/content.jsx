@@ -38,7 +38,7 @@ function content() {
   ];
 
   const images_animation = [
-    "https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp",
+    // "https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp",
     "https://www.beckhoff.com/media/pictures/stages/news/hvide-sand-seasight-stage_webp_85.webp",
     "https://www.beckhoff.com/media/pictures/stages/news/twincat-plc-plus-plus-starting-page-stage-lowres_webp_85.webp",
   ];
@@ -86,7 +86,7 @@ function content() {
               <img
                 src={images_animation[currentIndex]}
                 alt="Carousel"
-                style={{ maxHeight: "100%", maxWidth: "100%", width: "100%" }}
+                style={{ maxHeight: "100%", maxWidth: "100%", width: "100%" }} 
               />
             </Box>
           </Grid2>
