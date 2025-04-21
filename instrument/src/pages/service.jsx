@@ -8,10 +8,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Services from "../../public/assets/service.webp";
-import PageContainer from "../components/HOC/PageContainer";
 import Header from "../components/Header";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Footer from "../components/Footer/Footer";
 
 function service() {
   const customer = [
@@ -49,10 +47,7 @@ function service() {
       Text: "Country",
       Value: "",
     },
-    {
-      Text: "ZIP Code",
-      Value: "",
-    },
+
     // {
     //   Text: "Problem",
     //   Value: "",
@@ -113,77 +108,82 @@ function service() {
     left: 0,
   });
   return (
-    <>
+    <div className="min-h-screen flex flex-col flex-1">
       <Header />
       <Grid2
         container
         sx={{
-          height: "84.2vh",
-          // backgroundImage: `url(${Services})`,
-          // backgroundSize: "cover",
-          // backgroundPosition: "center",
+          height: "100vh",
           display: "flex",
-          justifyContent: "space-evenly",
-          marginTop: "20px"
+          justifyContent:'center',
+          alignItems: 'center',
         }}
+        className='bg-slate-200'
 
       >
 
-        <Grid2 size={{ lg: 4 }}>
+        <Grid2 size={{ lg: 6.5 }} >
           <Card
             sx={{
               borderRadius: "20px",
-              height: "83vh",
               display: "flex",
               flexDirection: "column",
               overflow: "hidden",
+              backgroundColor:"#ECECEC"
             }}
+           
           >
             {/* Sticky Header */}
+            <Typography variant="h5" fontWeight="bold" className="border bg-green-400 px-5 h-10 ">
+              Generate Estimate (Self Service)
+            </Typography>
             <Box
               sx={{
                 bgcolor: "background.paper",
                 position: "sticky",
                 top: 0,
-                zIndex: 1,
                 px: 3,
                 py: 2,
                 borderBottom: "1px solid #e0e0e0",
+                backgroundColor:"#ECECEC"
               }}
+              
             >
-              <Typography variant="h5" fontWeight="bold">
-                Find Service Engineer Near You
-              </Typography>
 
-              <Grid2 container spacing={2} mt={2}>
+
+              <Grid2 container spacing={2} mt={1} width="90%" gap={13} >
                 <Grid2 xs={6}>
-                  <label className="flex items-center gap-4">
-                    <input type="radio" name="service" className="size-5" />
+                  <label className="flex items-start gap-4 mb-4">
+                    <input type="radio" name="service" className="size-5 mt-1" />
                     <p className="text-base font-semibold">Remote Maintenance Rs. 6000/service</p>
                   </label>
                 </Grid2>
                 <Grid2 xs={6}>
-                  <label className="flex items-center gap-4">
-                    <input type="radio" name="service" className="size-5" />
+                  <label className="flex items-start gap-4 mb-4">
+                    <input type="radio" name="service" className="size-5 mt-1" />
                     <p className="text-base font-semibold">Physical Maintenance Rs. 25000/service</p>
                   </label>
                 </Grid2>
+              </Grid2>
+
+              <Grid2 container spacing={2} mt={1} width="90%" gap={6}>
                 <Grid2 xs={6}>
-                  <label className="flex items-center gap-4">
-                    <input type="radio" name="service" className="size-5" />
+                  <label className="flex items-start gap-4 mb-4">
+                    <input type="radio" name="service" className="size-5 mt-1" />
                     <p className="text-base font-semibold">Maintenance & Stay in Audits Rs. 40000/4 day</p>
                   </label>
                 </Grid2>
                 <Grid2 xs={6}>
-                  <label className="flex items-center gap-4">
-                    <input type="radio" name="service" className="size-5" />
-                    <p className="text-base font-semibold">System Under Warranty</p>
+                  <label className="flex items-start gap-4 mb-4">
+                    <input type="radio" name="service" className="size-5 mt-1" />
+                    <p className="text-base font-semibold">System Under Warranty Rs. 0/service</p>
                   </label>
                 </Grid2>
               </Grid2>
+
+
             </Box>
 
-            {/* Scrollable Content */}
             <Box
               sx={{
                 flex: 1,
@@ -195,12 +195,12 @@ function service() {
               <Grid2 container spacing={2}>
                 {[...customer, ...Details].map((value, index) => (
                   <Grid2 item xs={12} md={6} key={index}>
-                    <Box display="flex" alignItems="center" gap={2}>
-                      <Typography variant="h6" sx={{ minWidth: "150px" }}>
+                    <Box display="flex" alignItems="center" >
+                      <Typography variant="h6" sx={{ minWidth: "130px" }}>
                         {value.Text}
                       </Typography>
                       <TextField
-                        sx={{ minWidth: "390px" }}
+                        sx={{ minWidth: "350px" }}
                         size="small"
                         variant="outlined"
                         value={value.Value}
@@ -209,109 +209,40 @@ function service() {
                     </Box>
                   </Grid2>
                 ))}
-
-                <div >
-                  <Grid2 item xs={12} mt={2}>
-                    <Typography variant="h6">Problem</Typography>
-                    <TextField
-                      fullWidth
-                      multiline
-                      rows={5}
-                      sx={{ mt: 1, width: "100%", minWidth: "550px" }}
-                    />
-                  </Grid2>
-
-                  <Grid2 item xs={12} mt={2} >
-                    <Box display="flex" justifyContent="flex-end" alignItems="end" >
-                      <Button
-                        sx={{
-                          width: "35%",
-                          minWidth: "150px",
-                          bgcolor: "orange",
-                          "&:hover": { bgcolor: "darkorange" },
-                        }}
-                        variant="contained"
-                      >
-                        Generate Estimate
-                      </Button>
-                    </Box>
-                  </Grid2>
-                </div>
               </Grid2>
+              <div >
+                <Grid2 item xs={12} mt={2}>
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={4}
+                    placeholder="Service Description"
+                    sx={{ width: "100%", minWidth: "470px" }}
+                  />
+                </Grid2>
+
+                <Box width="100%" display="flex" justifyContent="flex-end" alignItems="end" mt={3} mb={2} >
+                  <Button
+                    sx={{
+                      width: "20%",
+                      minWidth: "150px",
+                      bgcolor: "orange",
+                      "&:hover": { bgcolor: "darkorange" },
+
+                    }}
+                    variant="contained"
+                    className="font-bold"
+                  >
+                    Generate Estimate
+                  </Button>
+                </Box>
+              </div>
             </Box>
           </Card>
         </Grid2>
-
-
-        <Grid2 size={{ lg: 4 }} >
-          <div className="h-[83vh] flex flex-col border rounded-lg overflow-hidden">
-            {/* Sticky Header */}
-            <div className="bg-white sticky top-0 z-10 p-4 border-b flex justify-between items-center">
-              <p className="font-bold">SERVICE PARTNERS</p>
-              <div className="flex gap-4">
-                <input
-                  type="text"
-                  placeholder="Country"
-                  className="p-2 border rounded"
-                />
-                <input
-                  type="text"
-                  placeholder="State"
-                  className="p-2 border rounded"
-                />
-              </div>
-            </div>
-
-            {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-6">
-              {partners.map((partner, index) => (
-                <div key={index} className="p-4 rounded-lg">
-                  <p className="font-bold mb-2">{partner.companyName}</p>
-                  <div className="grid grid-cols-2 gap-4 mb-2">
-                    <div className="flex gap-3">
-                      <p className="text-sm text-gray-500">Contact Person:</p>
-                      <p>{partner.contactPerson}</p>
-                    </div>
-                    <div className="flex gap-3">
-                      <p className="text-sm text-gray-500">Telephone:</p>
-                      <p>{partner.telephone}</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4 mb-2">
-                    <div className="flex gap-3">
-                      <p className="text-sm text-gray-500">Mobile:</p>
-                      <p>{partner.mobile}</p>
-                    </div>
-                    <div className="flex gap-3">
-                      <p className="text-sm text-gray-500">Email:</p>
-                      <p>{partner.email}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <p className="text-sm text-gray-500">Location:</p>
-                    <p>{partner.location}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </Grid2>
-        {/* <Grid2 size={{ lg: 2.7 }} mt={5}>
-          <Typography variant="h5" fontWeight={"bold"}>
-            Find Service Engineer Near by You
-          </Typography>
-          <Typography
-            variant="h6"
-            fontWeight={"bold"}
-            display={"flex"}
-            justifyContent={"center"}
-          >
-            Customer Support (7*24)
-          </Typography>
-        </Grid2> */}
       </Grid2>
-    </>
+      <Footer />
+    </div>
   );
 }
 export default service;

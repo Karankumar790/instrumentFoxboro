@@ -1,18 +1,13 @@
 import {
   Box,
-  Button,
   Card,
-  CardContent,
   CardMedia,
-  CircularProgress,
-  Collapse,
-  Grid,
   Grid2,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import PageContainer from "../components/HOC/PageContainer";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -21,7 +16,7 @@ import { getProductById } from "./product";
 
 function oneclickproduct() {
   const [open, setOpen] = useState(false);
-  const { categoryId } = useParams();
+  const { categoryId, categoryName } = useParams();
   const [products,setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,7 +37,7 @@ function oneclickproduct() {
         setProduct(response);  
       } catch (error) {
         console.error("Error fetching products:", error);
-        setError("Failed to fetch products");
+        setError("Not Find products");
       } finally {
         setLoading(false);
       }
@@ -60,7 +55,7 @@ function oneclickproduct() {
           <Grid2 size={{ lg: 9 }} overflow="hidden" mb={4}>
             <Box>
               <Typography variant="h5" mt={2} mb={2} fontWeight={"bold"}>
-                Industrial Automation
+                Industrial Automation / {decodeURIComponent(categoryName)}
               </Typography>
             </Box>
 

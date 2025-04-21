@@ -1,7 +1,7 @@
 import { Box, Button, IconButton, Modal, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ClearIcon from "@mui/icons-material/Clear";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addFoxProduct, deleteProduct, updateFoxProduct } from './AdminProductSlice';
 import { getFoxboroProduct } from '../../pages/product';
 import EditIcon from "@mui/icons-material/Edit";
@@ -47,7 +47,6 @@ function Product() {
   const [loading, setLoading] = useState(false);
   const [fetchProduct, setFetchProduct] = useState([]);
   const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({
     name: "",
     description: "",

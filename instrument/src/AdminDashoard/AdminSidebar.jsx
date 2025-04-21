@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaCogs, FaBox, FaTools, FaSlidersH, FaLaptopCode } from "react-icons/fa";
+import { FaCogs, FaBox, FaTools, FaSlidersH, FaLaptopCode, FaPlay, FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import { Button, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -38,6 +38,8 @@ export default function AdminSidebar() {
         <NavItem to="/admin/adminProduct" icon={<FaBox />} label="Products" />
         <NavItem to="/admin/adminsoftware" icon={<FaLaptopCode />} label="Software" />
         <NavItem to="/admin/adminService" icon={<FaTools />} label="Enquire" />
+        <NavItem to="/admin/adminRunningProject" icon={<FaPlay />} label="Running Project" />
+        <NavItem to="/admin/adminNewProject" icon={<FaPlus />} label="New Project" />
 
         {/* Settings with same style as NavItem */}
         <div className="flex items-center space-x-2 pl-4 cursor-pointer text-white hover:text-blue-400 transition-all duration-200"
