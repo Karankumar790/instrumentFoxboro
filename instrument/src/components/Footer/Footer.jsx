@@ -1,56 +1,65 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid2, Typography, Link } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getFooter } from "../../AdminDashoard/SiteSetting/SettingSlice";
 
 function Footer() {
 
+  const dispatch = useDispatch();
+
+  const fetchFooter = useSelector((state) => state.header.footerInt)
+
+  useEffect(() => {
+    dispatch(getFooter())
+  },[dispatch])
 
   return (
     <Box sx={{ bgcolor: "#2b313b", p: 2 }}>
-      <Grid2 container spacing={5} ml={12}  sx={{display:'flex',justifyContent:'space-between'}}>
+      <Grid2 container spacing={4} ml={12}  sx={{display:'flex',justifyContent:'space-between'}}>
         {/* Corporate Office */}
-        <Grid2 size={{ lg: 2.4 }} >
+        <Grid2 size={{ lg: 2.6 }} >
           <Box >
             <Typography variant="h5" color="white">Registered Office</Typography>
-            <Typography color="white">118, Sundaram Building Ansal Complex </Typography>
+            <Typography color="white">{fetchFooter.registeredOfficeAddress} </Typography>
             <Typography color="white">Raj Nagar District Center, Ghaziabad </Typography>
             <Typography color="white">Uttar Pradesh India, Zip code 201001</Typography>
-            <Typography color="white">Email:admin@foxboroinstrument.com</Typography>
+            <Typography color="white">{fetchFooter.supportEmail}</Typography>
           </Box>
         </Grid2>
 
 
         {/* Customer Support */}
-        <Grid2 size={{ lg: 2.4 }}>
+        <Grid2 size={{ lg: 2.6 }}>
           <Box>
             <Typography variant="h5" color="white">Customer Support </Typography>
-            <Typography color="white">Tel 1: +91-9457889231 (Sales)</Typography>
-            <Typography color="white">Tel 2: +91-9457889232 (Engineering) </Typography>
-            <Typography color="white">Tel 3: +91-9457889234 (Service)</Typography>
-            <Typography color="white">Email: support@foxboroinstrument.com</Typography>
+            <Typography color="white">Tel 1: {fetchFooter?.customerSupport?.salesNumber} (Sales)</Typography>
+            <Typography color="white">Tel 2: {fetchFooter?.customerSupport?.engineeringNumber} (Engineering) </Typography>
+            <Typography color="white">Tel 3: {fetchFooter?.customerSupport?.serviceNumber} (Service)</Typography>
+            <Typography color="white">Email: {fetchFooter?.customerSupport?.email}</Typography>
           </Box>
         </Grid2>
 
-        <Grid2 size={{ lg: 2.4 }}>
+        <Grid2 size={{ lg: 2.9 }}>
           <Box>
           <Typography variant="h5" color="white">Useful Website </Typography>
           <Typography color="white">
               <a href="https://www.foxboroinstrument.com" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-              www.foxboroinstrument.com (Automation)
+              {fetchFooter?.websiteLinks?.link1} (Automation)
               </a>
             </Typography>
             <Typography color="white">
               <a href="https://www.foxboroinstrument.online" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-                www.foxboroinstrument.co.in (E-Store)
+              {fetchFooter?.websiteLinks?.link2}  (E-Store)
               </a>
             </Typography>
             <Typography color="white">
               <a href="https://www.foxboro.in" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-              www.foxboro.in (Industrial IoT Systems)
+              {fetchFooter?.websiteLinks?.link3}  (Industrial IoT Systems)
               </a>
             </Typography>
             <Typography color="white">
               <a href="https://www.foxboroinstrument.co.in" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-                www.foxboroinstrument.co.in (Service)
+              {fetchFooter?.websiteLinks?.link4}  (Service)
               </a>
             </Typography>
 
@@ -58,7 +67,7 @@ function Footer() {
         </Grid2>
 
         {/* Help & Policies */}
-        <Grid2 size={{ lg: 2.4 }}>
+        <Grid2 size={{ lg: 2.6 }}>
           <Box>
             <Typography variant="h5" color="white">Need Help?</Typography>
             {/* <Typography color="white">Contact Us</Typography> */}

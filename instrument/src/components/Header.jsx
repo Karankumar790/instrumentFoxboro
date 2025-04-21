@@ -45,6 +45,7 @@ function Header() {
     { text: "Get Estimate", Link: "/service" },
     { text: "Upload Order", Link: "/poGenerator" },
     { text: "Track Service", Link: "/trackService" },
+    {text: "Service Partners", Link: "/servicePartner"}
   ]
 
   const [serviceMenu, setServiceMenu] = useState(null);
@@ -65,7 +66,7 @@ function Header() {
     const toggleBlink = () => {
       setIsBlinking((prev) => !prev);
     };
-   
+
     const intervalId = setInterval(toggleBlink, 1000); // Toggle every 500ms
     dispatch(getHeader())
     // Cleanup on unmount
@@ -90,7 +91,7 @@ function Header() {
           width={"76%"}
           gap={11}
         >
-          <Stack direction="row" width={"70%"}  gap={5}  >
+          <Stack direction="row" width={"70%"} gap={5}  >
             {item.map((value, index) => (
               <Stack direction="row" alignItems="center" key={index}>
                 {value.icon}
@@ -105,15 +106,22 @@ function Header() {
           </Stack>
           <Grid2 className='flex w-96'>
             <Stack display={"flex"} flexDirection={"row"} mr={3}>
-              <Button>
-                <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
-              </Button>
-              <Button>
-                <FacebookIcon style={{ color: "blue", fontSize: "30px" }} />
-              </Button>
-              <Button>
-                <YouTubeIcon style={{ color: "red", fontSize: "39px" }} />
-              </Button>
+              <a href={fetchHeader.instagramLink}>
+                <Button>
+                  <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
+                </Button>
+              </a>
+              <a href={fetchHeader.facebookLink}>
+                <Button>
+                  <FacebookIcon style={{ color: "blue", fontSize: "30px" }} />
+                </Button>
+              </a>
+              <a href={fetchHeader.youTubeLink}>
+                <Button>
+                  <YouTubeIcon style={{ color: "red", fontSize: "39px" }} />
+                </Button>
+              </a>
+
             </Stack>
             <Button
               sx={{ bgcolor: "pink", color: "black", width: "7vw", fontWeight: '300' }}

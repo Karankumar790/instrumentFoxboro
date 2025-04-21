@@ -20,32 +20,31 @@ function support() {
     Message: "",
   });
 
-  
   const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
-    };
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(submitContactForm(formData));
-    };
-    
-    useEffect(() => {
-      if (success) {
-        setFormData({
-          Firstname: "",
-          Lastname: "",
-          Mobile: "",
-          Email: "",
-          Companyname: "",
-          Position: "",
-          Country: "",
-          State: "",
-          Message: "",
-        });
-      }
-    }, [success]);
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(submitContactForm(formData));
+  };
+
+  useEffect(() => {
+    if (success) {
+      setFormData({
+        Firstname: "",
+        Lastname: "",
+        Mobile: "",
+        Email: "",
+        Companyname: "",
+        Position: "",
+        Country: "",
+        State: "",
+        Message: "",
+      });
+    }
+  }, [success]);
 
   return (
     <div

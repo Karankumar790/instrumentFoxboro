@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import { fetchCategories } from "../AdminDashoard/Category/CategorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getSoftware } from "../AdminDashoard/AdminSoftware/SoftwareSlice";
+import { getNewProduct } from "../AdminDashoard/Run&NewProject/newProductSlice";
+import { getRunning } from "../AdminDashoard/Run&NewProject/RunNewSlice";
 // import product from "./product";
 
 ("https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp");
@@ -20,22 +22,15 @@ import { getSoftware } from "../AdminDashoard/AdminSoftware/SoftwareSlice";
 "https://www.beckhoff.com/media/pictures/stages/news/hvide-sand-seasight-stage_webp_85.webp",
   "https://www.beckhoff.com/media/pictures/stages/news/twincat-plc-plus-plus-starting-page-stage-lowres_webp_85.webp";
 function content() {
-  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
+  const fetchRunning = useSelector((state) => state.rnProject.runningInt[0]);
+  const fetchNewProject = useSelector((state) => state.newProduct.newProducts[0]);
   const { data: softwareData = [], loading, error } = useSelector(state => state.software);
 
-  const handleToggle = () => {
-    setOpen(!open);
-  };
+  
 
-
-  const indus = [
-    "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/ipc/ipc_webp_85.webp",
-  ];
+ 
 
   const images_animation = [
     // "https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp",
@@ -62,6 +57,8 @@ function content() {
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(getSoftware());
+    dispatch(getNewProduct());
+    dispatch(getRunning());
   }, [dispatch]);
 
   const limitWords = (text, wordLimit = 10) => {
@@ -114,7 +111,7 @@ function content() {
                     size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                   >
                     <Card>
-                      <Link to={`/products/${category._id}`} style={{ textDecoration: "none" }}>
+                      <Link to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`} style={{ textDecoration: "none" }}>
                         <CardMedia
                           component="img"
                           style={{
@@ -236,32 +233,91 @@ function content() {
             </Grid2>
             <Grid2 display={"flex"} mt={3} mb={2} gap={"55%"} >
               <Typography variant="h5" fontWeight={"bold"}>Ongoing Projects</Typography>
-              <Typography variant="h5" fontWeight={"bold"}>News Update</Typography>
+              <Typography variant="h5" fontWeight={"bold"}>New Product</Typography>
             </Grid2>
             <Grid2 display="flex" flexDirection="row" gap={2} mb={3}>
               <Grid2 size={{ lg: 8 }}>
-                <Box position="relative" width="100%" height="90%">
-                  <img
-                    src="https://www.beckhoff.com/media/pictures/cards/news/scheugenpflug-application-report-teaser_webp_85.webp"
-                    style={{
-                      objectFit: "cover",
+                {/* <img
+                  src="https://www.beckhoff.com/media/pictures/cards/news/scheugenpflug-application-report-teaser_webp_85.webp"
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  alt=""
+                /> */}
+                {fetchRunning && (
+                  <Box position="relative" width="100%" height="90%" >
+                    <img
+                      src={fetchRunning.projectImage}
+                      style={{
+                        objectFit: "cover",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      alt="Layer Seven Application"
+                    />
+                    <Box width={"10px"} bgcolor={"yellow"}>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          position: "absolute",
+                          right: 20,
+                          bottom: 20,
+                          left: 20,
+                          color: "black",
+                          backgroundColor: "rgba(237, 231, 231, 0.7)",
+                          padding: "5px 10px",
+                          borderRadius: "5px",
+                          background:
+                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
+                          transition: "transform 0.3s ease-in-out",
+                        }}
+                      >
+                        <Typography
+                          variant="h6"
+                          color="black"
+                          fontWeight={"bold"}
+
+                        >
+                          {fetchRunning.projectName}
+                        </Typography>
+                        {fetchRunning.description}
+                      </Typography>
+                    </Box>
+                  </Box>
+                )}
+
+              </Grid2>
+              {/* src="https://www.beckhoff.com/media/pictures/cards/news/layer-seven-application-teaser_webp_85.webp" */}
+              <Grid2 size={{ lg: 4 }} >
+                {fetchNewProject && (
+                  <Card
+                    sx={{
                       width: "100%",
-                      height: "100%",
+                      height: "90%",
+                      display: "flex",
+
+                      flexDirection: "column",
                     }}
-                    alt="Layer Seven Application"
-                  />
-                  <Box width={"10px"} bgcolor={"yellow"}>
-                    <Typography
-                      variant="h6"
+                  >
+                    {/* Image */}
+                    <CardMedia
+                      component="img"
+                      image={fetchNewProject.projectImage}
+                      alt="Layer Seven Automation"
                       sx={{
-                        position: "absolute",
-                        right: 20,
-                        bottom: 20,
-                        left: 20,
-                        color: "black",
-                        backgroundColor: "rgba(237, 231, 231, 0.7)",
-                        padding: "5px 10px",
-                        borderRadius: "5px",
+                        width: "100%",
+                        height: "350px",
+                        objectFit: "cover",
+                      }}
+                    />
+
+                    {/* Content Section */}
+                    <CardContent
+                      sx={{
+                        flexGrow: 1,
+                        // backgroundColor: "rgba(237, 231, 231, 0.7)",
                         background:
                           "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
                         transition: "transform 0.3s ease-in-out",
@@ -270,70 +326,21 @@ function content() {
                       <Typography
                         variant="h6"
                         color="black"
-                        fontWeight={"bold"}
-
+                      // sx={{ fontWeight: "bold" }}
                       >
-                        PC-based control for all-electric blow molding machines
+                        <Typography
+                          variant="h6"
+                          color="black"
+                          fontWeight={"bold"}
+                        >
+                         {fetchNewProject.projectName}
+                        </Typography>
+                       {fetchNewProject.description}
                       </Typography>
-                      In the extensive central warehouse of Australian office
-                      equipment supplier Officeworks, Layer Seven Automation has
-                      replaced the proprietary, outdated warehouse logistics
-                      control technology with PC-based control.
-                    </Typography>
-                  </Box>
-                </Box>
-              </Grid2>
-              <Grid2 size={{ lg: 4 }}>
-                <Card
-                  sx={{
-                    width: "100%",
-                    height: "90%",
-                    display: "flex",
+                    </CardContent>
+                  </Card>
+                )}
 
-                    flexDirection: "column",
-                  }}
-                >
-                  {/* Image */}
-                  <CardMedia
-                    component="img"
-                    image="https://www.beckhoff.com/media/pictures/cards/news/layer-seven-application-teaser_webp_85.webp"
-                    alt="Layer Seven Automation"
-                    sx={{
-                      width: "100%",
-                      height: "350px",
-                      objectFit: "cover",
-                    }}
-                  />
-
-                  {/* Content Section */}
-                  <CardContent
-                    sx={{
-                      flexGrow: 1,
-                      // backgroundColor: "rgba(237, 231, 231, 0.7)",
-                      background:
-                        "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
-                      transition: "transform 0.3s ease-in-out",
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
-                      color="black"
-                    // sx={{ fontWeight: "bold" }}
-                    >
-                      <Typography
-                        variant="h6"
-                        color="black"
-                        fontWeight={"bold"}
-                      >
-                        Flexible, automated production of valuable fertilizer
-                        from slurry
-                      </Typography>
-                      Layer Seven Automation has replaced the proprietary,
-                      outdated warehouse logistics control technology with
-                      PC-based control.
-                    </Typography>
-                  </CardContent>
-                </Card>
               </Grid2>
             </Grid2>
           </Grid2>
