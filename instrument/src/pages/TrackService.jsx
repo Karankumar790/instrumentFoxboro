@@ -6,7 +6,7 @@ import { Card, Grid2, Typography } from '@mui/material'
 
 function TrackService() {
     return (
-        <PageContainer showheader="true" showfooter="true" className='min-h-screen flex flex-col'>
+        <PageContainer showheader="true" showfooter="true" className='flex flex-col'>
             {/* <div className='h-full w-full flex justify-center items-center'>
                 <div className=' w-1/2 h-2/3 border border-gray-500 rounded-lg p-3 '>
                     <div>

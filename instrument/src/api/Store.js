@@ -13,12 +13,15 @@ import SoftwareSlice from "../AdminDashoard/AdminSoftware/SoftwareSlice";
 import SettingSlice from "../AdminDashoard/SiteSetting/SettingSlice";
 import RunNewSlice from "../AdminDashoard/Run&NewProject/RunNewSlice";
 import newProductSlice from "../AdminDashoard/Run&NewProject/newProductSlice";
+import PoSlice from "../pages/PoUpload/PoSlice";
+import AdminServiceSlice from "../AdminDashoard/AdminService/AdminServiceSlice";
+import serviceSlice from "../AdminDashoard/ServiceManager/serviceSlice";
+
 
 // Configuration for Redux Persist
 const persistConfig = {
-  key: "root",
+  key: "auth",
   storage,
-  whitelist: ["auth"],
 };
 
 // Wrap the authReducer with persistReducer
@@ -37,6 +40,9 @@ export const store = configureStore({
     header: SettingSlice,
     rnProject: RunNewSlice,
     newProduct: newProductSlice,
+    poUploads: PoSlice,
+    service: AdminServiceSlice,
+    serviceManager: serviceSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

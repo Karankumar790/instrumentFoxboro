@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSoftware } from "../AdminDashoard/AdminSoftware/SoftwareSlice";
 import { getNewProduct } from "../AdminDashoard/Run&NewProject/newProductSlice";
 import { getRunning } from "../AdminDashoard/Run&NewProject/RunNewSlice";
+import { getBanner } from "../AdminDashoard/SiteSetting/SettingSlice";
 // import product from "./product";
 
 
@@ -28,23 +29,28 @@ function content() {
   const fetchRunning = useSelector((state) => state.rnProject.runningInt[0]);
   const fetchNewProject = useSelector((state) => state.newProduct.newProducts[0]);
   const { data: softwareData = [], loading, error } = useSelector(state => state.software);
+  const { uploadedBanners } = useSelector((state) => state.header);
 
-  
 
- 
+  const data = uploadedBanners.length > 0
+    ? uploadedBanners[0].images.map((img) => img.url)
+    : [];
 
-  const images_animation = [
-    "https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/stages/news/hvide-sand-seasight-stage_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/stages/news/twincat-plc-plus-plus-starting-page-stage-lowres_webp_85.webp",
-  ];
+
+
+
+  // const images_animation = [
+  //   "https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp",
+  //   "https://www.beckhoff.com/media/pictures/stages/news/hvide-sand-seasight-stage_webp_85.webp",
+  //   "https://www.beckhoff.com/media/pictures/stages/news/twincat-plc-plus-plus-starting-page-stage-lowres_webp_85.webp",
+  // ];
 
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Function to handle next image
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images_animation.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
   };
 
   // Auto-change banner every 3 seconds
@@ -60,6 +66,7 @@ function content() {
     dispatch(getSoftware());
     dispatch(getNewProduct());
     dispatch(getRunning());
+    dispatch(getBanner());
   }, [dispatch]);
 
   const limitWords = (text, wordLimit = 10) => {
@@ -82,7 +89,7 @@ function content() {
 
             <Box display="flex" justifyContent="center" height="45vh">
               <img
-                src={images_animation[currentIndex]}
+                src={data[currentIndex]}
                 alt="Carousel"
                 style={{ maxHeight: "100%", maxWidth: "100%", width: "100%" }}
               />
@@ -294,7 +301,6 @@ function content() {
                 )}
 
               </Grid2>
-              {/* src="https://www.beckhoff.com/media/pictures/cards/news/layer-seven-application-teaser_webp_85.webp" */}
               <Grid2 size={{ lg: 4 }} >
                 {fetchNewProject && (
                   <Card
@@ -338,9 +344,9 @@ function content() {
                           color="black"
                           fontWeight={"bold"}
                         >
-                         {fetchNewProject.projectName}
+                          {fetchNewProject.projectName}
                         </Typography>
-                       {fetchNewProject.description}
+                        {fetchNewProject.description}
                       </Typography>
                     </CardContent>
                   </Card>

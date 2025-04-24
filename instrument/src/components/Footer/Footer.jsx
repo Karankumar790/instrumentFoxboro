@@ -29,7 +29,7 @@ function Footer() {
 
 
         {/* Customer Support */}
-        <Grid2 size={{ lg: 2.6 }}>
+        <Grid2 size={{ lg: 3 }}>
           <Box>
             <Typography variant="h5" color="white">Customer Support </Typography>
             <Typography color="white">Tel 1: {fetchFooter?.customerSupport?.salesNumber} (Sales)</Typography>
@@ -39,7 +39,7 @@ function Footer() {
           </Box>
         </Grid2>
 
-        <Grid2 size={{ lg: 2.9 }}>
+        <Grid2 size={{ lg: 4 }}>
           <Box>
           <Typography variant="h5" color="white">Useful Website </Typography>
           <Typography color="white">
@@ -67,7 +67,7 @@ function Footer() {
         </Grid2>
 
         {/* Help & Policies */}
-        <Grid2 size={{ lg: 2.6 }}>
+        <Grid2 size={{ lg: 2 }}>
           <Box>
             <Typography variant="h5" color="white">Need Help?</Typography>
             {/* <Typography color="white">Contact Us</Typography> */}
