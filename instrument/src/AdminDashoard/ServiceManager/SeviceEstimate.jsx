@@ -10,27 +10,13 @@ import { getEstimate } from './serviceSlice';
 
 
 function SeviceEstimate() {
-  // const [rows, setRows] = useState({
-  //   Firstname: "",
-  //   Lastname: "",
-  //   Mobile: "",
-  //   Email: "",
-  //   Companyname: "",
-  //   Position: "",
-  //   Country: "",
-  //   State: "",
-  //   Message: "",
-  // });
-
+  
   const { quotations } = useSelector((state) => state.serviceManager);
 
-  console.log("--------",quotations)
 
   const dispatch = useDispatch();
 
-  const handleDelete = (id) => {
-    dispatch(deleteService(id))
-  };
+  
 
   useEffect(() => {
     dispatch(getEstimate())
