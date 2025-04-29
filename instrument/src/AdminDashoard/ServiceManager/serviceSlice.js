@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { SER_URL } from "../../api/Client";
-import reducer from "../Category/CategorySlice";
 
 
 
 
 export const getEstimate = createAsyncThunk(
     "getEstimate",
-    async (_, { rejectWithValue }) => {
+    async ({page, limit}, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${SER_URL}/get-all-quotation`)
+            const response = await axios.get(`${SER_URL}/get-all-quotation?page=${page}&limit=${limit}`)
             return response.data
         } catch (error) {
             return rejectWithValue(
@@ -25,6 +24,12 @@ export const getServiceEstimate = createSlice({
     name: "serviceManager",
     initialState: {
         quotations: [],
+        pagination: {
+            total: 9,
+            page: 1,
+            limit: 4,
+            totalPages: 8
+        },
         loading: false,
         error: null,
         success: false,
@@ -39,12 +44,13 @@ export const getServiceEstimate = createSlice({
             .addCase(getEstimate.fulfilled, (state, action) => {
                 state.loading = false;
                 state.quotations = action.payload.data
+                state.pagination = action.payload.pagination;
                 state.error = false;
-        })
-        .addCase(getEstimate.rejected, (state) => {
-            state.loading = false;
-            state.error = action.payload;
-        })
+            })
+            .addCase(getEstimate.rejected, (state) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
     }
 })
 

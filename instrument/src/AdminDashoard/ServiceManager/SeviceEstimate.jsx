@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import {
   Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, Paper, IconButton
+  TableHead, TableRow, Paper,
+  Pagination
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteService, getService } from '../AdminService/AdminServiceSlice';
 import { getEstimate } from './serviceSlice';
 
 
 
 function SeviceEstimate() {
-  
-  const { quotations } = useSelector((state) => state.serviceManager);
 
+  const { quotations, pagination } = useSelector((state) => state.serviceManager);
+  const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
 
-  
+
 
   useEffect(() => {
-    dispatch(getEstimate())
-  }, [dispatch])
+    dispatch(getEstimate({ page, limit:8 }))
+  }, [dispatch, page])
+
+
+  const handlePageChange = ( event,value) => {
+    setPage(value);
+  };
 
   return (
     <>
@@ -60,13 +65,22 @@ function SeviceEstimate() {
                 <TableCell>{row.serviceNumber}</TableCell>
                 <TableCell>{row.problemDescription}</TableCell>
                 <TableCell>
-                 
+
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      <div className="flex justify-end mt-4">
+        <Pagination
+          count={pagination?.totalPages || 1}
+          page={page}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </div>
     </>
   );
 };
