@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -17,16 +17,18 @@ function service() {
 
   const [formData, setFormData] = useState({
     name: "",
-    Mobile: "",
-    Email: "",
-    Position: "",
-    Company: "",
-    City: "",
-    State: "",
-    Country: "",
+    mobileNumber: "",
+    email: "",
+    position: "",
+    company: "",
+    city: "",
+    state: "",
+    country: "",
     problemDescription: "",
     serviceMethod: "",
   })
+
+
 
   const handleChange = (field) => (event) => {
     setFormData((prev) => ({
@@ -46,13 +48,13 @@ function service() {
     dispatch(postEstimate(formData));
     setFormData({
       name: "",
-      Mobile: "",
-      Email: "",
-      Position: "",
-      Company: "",
-      City: "",
-      State: "",
-      Country: "",
+      mobileNumber: "",
+      email: "",
+      position: "",
+      company: "",
+      city: "",
+      state: "",
+      country: "",
       problemDescription: "",
       serviceMethod: "",
     })

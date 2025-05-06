@@ -27,6 +27,7 @@ const Software = lazy(() => import("./pages/software.jsx"))
 const Hardware = lazy(() => import("./pages/Hardware.jsx"))
 const TrackService = lazy(() => import("./pages/TrackService.jsx"))
 const ServicePartner = lazy(() => import("./pages/ServicePartner.jsx"))
+const WorkFoxboro = lazy(() => import("./pages/WorkFoxboro/workFoxboro.jsx"))
 const ServiceEstimate = lazy(() => import("./AdminDashoard/ServiceManager/SeviceEstimate.jsx"))
 const ServiceUploadPO = lazy(() => import("./AdminDashoard/ServiceManager/ServiceUploadPO.jsx"))
 
@@ -47,6 +48,7 @@ function App() {
     { path: '/forget', element: <Forget /> },
     { path: '/trackService', element: <TrackService /> },
     { path: '/servicePartner', element: <ServicePartner /> },
+    { path: '/workFoxboro', element: <WorkFoxboro /> },
 
     {
       path: "/admin",
