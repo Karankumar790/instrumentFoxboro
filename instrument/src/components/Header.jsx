@@ -8,7 +8,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import logo from "../../public/assets/foxlogo.png";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
@@ -73,8 +72,6 @@ function Header() {
     return () => clearInterval(intervalId);
   }, [dispatch]);
 
-  const label = { inputProps: { "aria-label": "Join Foxboro" } };
-  const top100Films = [];
   return (
     <>
       <Grid2
@@ -98,11 +95,7 @@ function Header() {
                 <Typography ml={1}>{value.text}</Typography>
               </Stack>
             ))}
-            {/* <button className="bg-blue-900 border rounded-md text-white p-2 pl-4 pr-4">
-              <span className={isBlinking ? "opacity-100" : "opacity-0"}>
-                <p className="#FFFF00"> Engineering Consultancy - Book Appointment</p>
-              </span>
-            </button> */}
+           
           </Stack>
           <Grid2 className='flex w-96'>
             <Stack display={"flex"} flexDirection={"row"} mr={3}>
@@ -142,7 +135,7 @@ function Header() {
         p={1.5}
         pl={27}
       >
-        <Grid2 size={{ lg: 1 }} className=' ml-6' display={"flex"}  >
+        <Grid2 size={{ lg: 1, md:2, sm:6 }} className=' ml-6' display={"flex"}  >
           <Link to="/" style={{ textDecoration: "none" }}>
             <img
               src={fetchHeader.foxboroLogo}

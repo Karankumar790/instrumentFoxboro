@@ -160,9 +160,9 @@ const categorySlice = createSlice({
       .addCase(deleteCategory.fulfilled, (state, action) => {
         state.loading = false;
         state.categories = state.categories.filter(
-          (category) => category._id !== action.payload // Remove the deleted category
-        );
-      })
+          (category) => category._id !== action.payload // Ensure category is removed
+        );  
+      })     
       .addCase(deleteCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;

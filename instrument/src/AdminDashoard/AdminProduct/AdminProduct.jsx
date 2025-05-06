@@ -131,7 +131,7 @@ function Product() {
     const data = new FormData();
     data.append("name", formData.name);
     data.append("description", formData.description);
-    
+
     if (image && typeof image !== "string") {
       data.append("foxboroProductImage", image);
     }
@@ -145,7 +145,7 @@ function Product() {
             formData: data
           })
         ).unwrap();
-        
+
         setFetchProduct(prevProducts =>
           prevProducts.map(product =>
             product._id === editingProduct._id ? result.data : product
@@ -166,8 +166,7 @@ function Product() {
   };
 
   const handleDeletePro = async (productId) => {
-    if (!window.confirm("Are you sure you want to delete this product?")) return;
-    
+
     try {
       await dispatch(deleteProduct(productId));
       setFetchProduct(prevProducts => prevProducts.filter(product => product._id !== productId));
@@ -179,10 +178,10 @@ function Product() {
 
   return (
     <div className='space-y-3'>
-       <div className='flex justify-between'>
+      <div className='flex justify-between'>
         <p className='text-2xl font-bold'>Foxboro Product Line</p>
-        <button 
-          className='text-xl font-semibold p-2 rounded-lg text-white bg-green-700' 
+        <button
+          className='text-xl font-semibold p-2 rounded-lg text-white bg-green-700'
           onClick={() => handleOpen()}
         >
           Add Item +
@@ -226,9 +225,9 @@ function Product() {
                   <StyledTableCell align="right">{product?.description || "N/A"}</StyledTableCell>
                   <StyledTableCell align="right">
                     <div className="flex justify-end space-x-2">
-                      <IconButton 
-                        color="primary" 
-                        className="hover:bg-blue-100" 
+                      <IconButton
+                        color="primary"
+                        className="hover:bg-blue-100"
                         onClick={() => handleOpen(product)}
                       >
                         <EditIcon />
@@ -319,9 +318,8 @@ function Product() {
             </Button>
 
             <button
-              className={`w-full bg-blue-600 hover:bg-blue-700 p-2 text-white rounded-lg font-semibold transition-colors ${
-                loading ? "opacity-70 cursor-not-allowed" : ""
-              }`}
+              className={`w-full bg-blue-600 hover:bg-blue-700 p-2 text-white rounded-lg font-semibold transition-colors ${loading ? "opacity-70 cursor-not-allowed" : ""
+                }`}
               type="button"
               onClick={handleSubmit}
               disabled={loading}

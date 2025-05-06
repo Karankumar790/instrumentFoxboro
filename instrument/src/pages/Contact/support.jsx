@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer/Footer";
+import React, { useState } from "react";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer/Footer";
 import { submitContactForm } from "./supportSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
-function support() {
+function Support() {
   const dispatch = useDispatch();
-  const { loading, success, error } = useSelector((state) => state.contact);
 
   const [formData, setFormData] = useState({
     Firstname: "",
@@ -25,26 +25,37 @@ function support() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(submitContactForm(formData));
-  };
 
-  useEffect(() => {
-    if (success) {
-      setFormData({
-        Firstname: "",
-        Lastname: "",
-        Mobile: "",
-        Email: "",
-        Companyname: "",
-        Position: "",
-        Country: "",
-        State: "",
-        Message: "",
-      });
+    try {
+      const resultAction = await dispatch(submitContactForm(formData));
+
+      if (submitContactForm.fulfilled.match(resultAction)) {
+        // If the backend returns a success message
+        toast.success(
+          resultAction.payload.message || "Form submitted successfully"
+        );
+        setFormData({
+          Firstname: "",
+          Lastname: "",
+          Mobile: "",
+          Email: "",
+          Companyname: "",
+          Position: "",
+          Country: "",
+          State: "",
+          Message: "",
+        });
+      } else {
+        // If the backend returns an error message
+        toast.error(resultAction?.payload?.message || "Something went wrong");
+      }
+    } catch (error) {
+      // Any unexpected error (e.g., network issues)
+      toast.error("Unexpected error occurred");
     }
-  }, [success]);
+  };
 
   return (
     <div
@@ -79,7 +90,7 @@ function support() {
               <div className="flex-1 overflow-auto space-y-16">
                 <div className="flex items-center">
                   <div className="w-20 h-20 bg-blue-900 text-white rounded-full flex items-center justify-center mr-4">
-                    <i className="fas fa-map-marker-alt text-6xl"></i>
+                    <i className="fas fa-map-marker-alt text-6xl"></i>{" "}
                     {/* Address Icon */}
                   </div>
                   <div>
@@ -94,7 +105,7 @@ function support() {
 
                 <div className="flex items-center">
                   <div className="w-20 h-20 bg-blue-900 text-white rounded-full flex items-center justify-center mr-4">
-                    <i className="fas fa-phone-alt text-6xl"></i>
+                    <i className="fas fa-phone-alt text-6xl"></i>{" "}
                     {/* Phone Icon */}
                   </div>
                   <div>
@@ -105,7 +116,7 @@ function support() {
 
                 <div className="flex items-center">
                   <div className="w-20 h-20 bg-blue-900 text-white rounded-full flex items-center justify-center mr-4">
-                    <i className="fas fa-envelope text-6xl"></i>
+                    <i className="fas fa-envelope text-6xl"></i>{" "}
                     {/* Email Icon */}
                   </div>
                   <div>
@@ -124,15 +135,15 @@ function support() {
               </p>
 
               <form
-                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
                 onSubmit={handleSubmit}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
               >
                 {/* First Name */}
                 <div className="relative">
                   <input
                     type="text"
-                    name="Firstname"
                     placeholder="First Name"
+                    name="Firstname"
                     value={formData.Firstname}
                     onChange={handleChange}
                     className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
@@ -144,8 +155,8 @@ function support() {
                 <div className="relative">
                   <input
                     type="text"
-                    name="Lastname"
                     placeholder="Last Name"
+                    name="Lastname"
                     value={formData.Lastname}
                     onChange={handleChange}
                     className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
@@ -157,10 +168,10 @@ function support() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Mobile No."
                     name="Mobile"
                     value={formData.Mobile}
                     onChange={handleChange}
+                    placeholder="Mobile No."
                     className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
                   />
                   <i className="fas fa-phone absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
@@ -170,10 +181,10 @@ function support() {
                 <div className="relative">
                   <input
                     type="email"
-                    placeholder="Email ID"
                     name="Email"
                     value={formData.Email}
                     onChange={handleChange}
+                    placeholder="Email ID"
                     className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
                   />
                   <i className="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
@@ -183,10 +194,10 @@ function support() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Company"
                     name="Companyname"
                     value={formData.Companyname}
                     onChange={handleChange}
+                    placeholder="Company"
                     className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
                   />
                   <i className="fas fa-building absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
@@ -196,10 +207,10 @@ function support() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Position"
                     name="Position"
                     value={formData.Position}
                     onChange={handleChange}
+                    placeholder="Position"
                     className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
                   />
                   <i className="fas fa-briefcase absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
@@ -209,10 +220,10 @@ function support() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Country"
                     name="Country"
                     value={formData.Country}
                     onChange={handleChange}
+                    placeholder="Country"
                     className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
                   />
                   <i className="fas fa-globe absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
@@ -222,10 +233,10 @@ function support() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="State"
                     name="State"
                     value={formData.State}
                     onChange={handleChange}
+                    placeholder="State"
                     className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
                   />
                   <i className="fas fa-map-marker-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
@@ -249,20 +260,11 @@ function support() {
                   <button
                     type="submit"
                     className="bg-blue-900 w-full text-white font-bold text-2xl rounded-lg py-3 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    disabled={loading}
                   >
-                    {loading ? "Submitting..." : "Submit"}
+                    Submit
                   </button>
                 </div>
               </form>
-              {error && (
-                <p className="text-red-500 mt-4 text-center">{error}</p>
-              )}
-              {success && (
-                <p className="text-green-500 mt-4 text-center">
-                  Form submitted successfully!
-                </p>
-              )}
             </div>
           </div>
         </div>
@@ -272,4 +274,4 @@ function support() {
   );
 }
 
-export default support;
+export default Support;

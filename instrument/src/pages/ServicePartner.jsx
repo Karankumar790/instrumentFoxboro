@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Header from "../components/Header";
 import Footer from "../components/Footer/Footer";
+import PageContainer from '../components/HOC/PageContainer';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -92,11 +93,9 @@ function ServicePartner() {
     ];
 
     return (
-        <div>
-            <Header />
-
+        <PageContainer showheader="true" showfooter="true" className=' flex flex-col overflow-hidden'>
             <Grid2 size={{ lg: 4 }} >
-                <div className="h-[100vh] flex flex-col border rounded-lg overflow-hidden">
+                <div className=" flex flex-col border rounded-lg overflow-hidden">
                     {/* Sticky Header */}
                     <div className="bg-white sticky top-0 z-10 p-4 border-b flex justify-between items-center">
                         <p className=" text-2xl font-bold">SERVICE PARTNERS</p>
@@ -189,9 +188,7 @@ function ServicePartner() {
 
                 </div>
             </Grid2>
-
-            <Footer />
-        </div>
+        </PageContainer>
     )
 }
 

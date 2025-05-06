@@ -42,7 +42,12 @@ export const deleteSoftware = createAsyncThunk(
   "software/deleteSoftware",
   async (softwareId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${API_URL}/foxboroSoftware?softwareId=${softwareId}`);
+      const response = await axios.delete(`${API_URL}/foxboroSoftware?softwareId=${softwareId}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        }
+      });
       return response.data._id;
     } catch (error) {
       return rejectWithValue(
