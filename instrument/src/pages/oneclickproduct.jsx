@@ -17,7 +17,7 @@ import { getProductById } from "./product";
 function oneclickproduct() {
   const [open, setOpen] = useState(false);
   const { categoryId, categoryName } = useParams();
-  const [products,setProduct] = useState([]);
+  const [products, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -25,16 +25,16 @@ function oneclickproduct() {
   const handleToggle = () => {
     setOpen(!open);
   };
- 
+
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await getProductById(categoryId);
         console.log("API Response:", response); // Debugging
-  
+
         // Ensure we're setting the correct data array
-        setProduct(response);  
+        setProduct(response);
       } catch (error) {
         console.error("Error fetching products:", error);
         setError("Not Find products");
@@ -44,13 +44,13 @@ function oneclickproduct() {
     };
     fetchProduct();
   }, [categoryId]);
-  
-  
-  
+
+
+
 
   return (
     <div className="min-h-screen flex flex-col">
-     <PageContainer showheader="true" className="flex flex-1 flex-col">
+      <PageContainer showheader="true" className="flex flex-1 flex-col">
         <Grid2 container display="flex" justifyContent="center" className="flex-1">
           <Grid2 size={{ lg: 9 }} overflow="hidden" mb={4}>
             <Box>
@@ -73,7 +73,7 @@ function oneclickproduct() {
                       size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                     >
                       <Card>
-                        <CardMedia
+                        {/* <CardMedia
                           component="img"
                           style={{
                             height: "30vh",
@@ -92,7 +92,20 @@ function oneclickproduct() {
                           onMouseLeave={(e) => {
                             e.currentTarget.style.transform = "scale(1)";
                           }}
-                        />
+                        /> */}
+                        <div className="h-80 w-full">
+                          <img
+                            src={product.productImage}
+                            alt={product.productName}
+                            className="transition-transform duration-300 ease-in-out h-full w-full object-fill"
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = "scale(1.1)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = "scale(1)";
+                            }}
+                          />
+                        </div>
                         <Typography variant="h6" gutterBottom sx={{ padding: "8px" }}>
                           {product.productName}
                         </Typography>

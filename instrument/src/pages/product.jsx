@@ -1,10 +1,6 @@
 import {
   Box,
-  Button,
   Card,
-  CardContent,
-  CardMedia,
-  Collapse,
   Grid2,
   Pagination,
   Stack,
@@ -89,28 +85,7 @@ function product() {
                 >
                   <Link to="/product" style={{ textDecoration: "none" }}>
                     <Card>
-                      {/* <CardMedia
-                        component="img"
-                        // sx={{objectFit:"cover",objectPosition:'center'}}
-                        style={{
-                          height: "30vh",
-                          width: "40vh",
-                          objectFit: "cover",
-                          objectPosition: "left",
-                          background:
-                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
-                          transition: "transform 0.3s ease-in-out",
-                        }}
-                        image={product.image}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = "scale(1.1)"; // Scales the image when hovered
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
-                        }}
-                        alt={`Image ${index}`}
-                      /> */}
-
+                     
                       <div className="h-72 w-full bg-pink-500">
                         <img
                           src={product.image}

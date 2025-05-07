@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
-import PageContainer from '../../components/HOC/PageContainer'
+import PageContainer from '../../src/components/HOC/PageContainer'
 import { useDispatch } from 'react-redux';
-import { postWork } from './workFoxSlice';
+import { postWork } from './WorkFoxboro/workFoxSlice';
 import { Card, Grid2, MenuItem, TextField, Typography, Button, Box } from '@mui/material';
 
 const personalData = [
-    { label: "Name", placeholder: "Enter your name", name: "name" },
-    { label: "Email", placeholder: "Enter your email", name: "email" },
-    { label: "Mobile", placeholder: "Enter your mobile", name: "mobile" },
+    { label: "Company Name", placeholder: "Enter company name", name: "name" },
     { label: "City", placeholder: "Enter your city", name: "city" },
     { label: "State", placeholder: "Enter your state", name: "state" },
     { label: "Country", placeholder: "Enter your country", name: "country" },
+    { label: "Email Address", placeholder: "Enter your email address", name: "email" },
+    { label: "Mobile number", placeholder: "Enter your mobile number", name: "mobile" },
 ];
 
 const technicalOptions = ["Diploma", "B.Tech", "M.Tech", "Other"];
 const domainOptions = ["Embedded Systems", "Automation", "Web Development", "AI/ML", "Other"];
 
-function WorkFoxboro() {
+function BecomePartner() {
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",
@@ -68,7 +68,7 @@ function WorkFoxboro() {
 
                         }}>
                             <Typography variant="h5" fontWeight="bold">
-                                APPLY FOR INTERNSHIP
+                                BECOME SERVICE PARTNER
                             </Typography>
                         </Box>
 
@@ -95,7 +95,7 @@ function WorkFoxboro() {
                                     <TextField
                                         select
                                         fullWidth
-                                        label="Technical Qualification"
+                                        label="Service Domain"
                                         name="technicalQualification"
                                         value={formValues.technicalQualification}
                                         onChange={handleChange}
@@ -110,7 +110,7 @@ function WorkFoxboro() {
                                     </TextField>
                                 </Grid2>
 
-                                <Grid2 size={{ xs: 12, sm: 6 }}>
+                                {/* <Grid2 size={{ xs: 12, sm: 6 }}>
                                     <TextField
                                         select
                                         fullWidth
@@ -127,7 +127,7 @@ function WorkFoxboro() {
                                             </MenuItem>
                                         ))}
                                     </TextField>
-                                </Grid2>
+                                </Grid2> */}
 
                                 {/* Submit Button */}
                                 <Grid2 item size={{ lg: 6 }}>
@@ -147,14 +147,14 @@ function WorkFoxboro() {
                                             <input
                                                 type="file"
                                                 fullWidth
-                                                hidden
+                                                style={{ display: 'none' }}
                                                 onChange={(e) => {
                                                     const file = e.target.files[0];
                                                     setFormValues({ ...formValues, resume: file });
                                                 }}
                                             />
                                             <Button variant="outlined" component="span">
-                                                Upload Resume
+                                                Upload GST Certificate
                                             </Button>
                                             {formValues.resume && (
                                                 <Typography variant="body2" sx={{ ml: 2, display: 'inline' }}>
@@ -164,13 +164,14 @@ function WorkFoxboro() {
                                         </Box>
                                     </label>
                                 </Grid2>
-                                <Grid2 item size={{ lg: 6 }} sx={{display:'flex', justifyContent:'end'}}>
+                                <Grid2 item size={{ lg: 12 }}>
 
                                     <Button
                                         type="submit"
                                         variant="contained"
                                         color="primary"
                                         size="large"
+                                        fullWidth
                                         sx={{
                                             py: 1.5,
                                             fontSize: '1.1rem',
@@ -190,4 +191,4 @@ function WorkFoxboro() {
     );
 }
 
-export default WorkFoxboro;
+export default BecomePartner;
