@@ -30,6 +30,7 @@ const ServicePartner = lazy(() => import("./pages/ServicePartner.jsx"))
 const WorkFoxboro = lazy(() => import("./pages/WorkFoxboro/workFoxboro.jsx"))
 const ServiceEstimate = lazy(() => import("./AdminDashoard/ServiceManager/SeviceEstimate.jsx"))
 const ServiceUploadPO = lazy(() => import("./AdminDashoard/ServiceManager/ServiceUploadPO.jsx"))
+const ManagerWorkFOx = lazy(() => import("./AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkFOx.jsx"))
 
 function App() {
 
@@ -66,6 +67,7 @@ function App() {
         { path: "adminNewProject", element: <AdminNewProject /> },
         { path: "serviceEstimate", element: <ServiceEstimate /> },
         { path: "serviceUploadPO", element: <ServiceUploadPO /> },
+        { path: "managerWorkFOx", element: <ManagerWorkFOx /> },
 
       ]
     }

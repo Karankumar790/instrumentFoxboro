@@ -6,6 +6,7 @@ import { Menu, MenuItem } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { MdManageAccounts } from 'react-icons/md';
 import { RiServiceLine } from 'react-icons/ri';
+import { RiBriefcaseLine } from "react-icons/ri";
 
 export default function AdminSidebar() {
   const [settingMenu, setSettingMenu] = useState(null);
@@ -54,7 +55,8 @@ export default function AdminSidebar() {
         {(role === 'service_manager') && (
           <>
             <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="Service Estimate" />
-            <NavItem to="/admin/serviceUploadPO" icon={<RiServiceLine />} label="Service UploadPO" />
+            {/* <NavItem to="/admin/serviceUploadPO" icon={<RiServiceLine />} label="Service UploadPO" /> */}
+            <NavItem to="/admin/managerWorkFOx" icon={<RiBriefcaseLine />} label="Work Foxboro" />
           </>
         )}
 
