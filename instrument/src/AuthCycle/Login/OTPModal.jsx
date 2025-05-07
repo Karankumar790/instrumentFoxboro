@@ -4,53 +4,30 @@ import OTPInput from 'react-otp-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { otpLogin } from './loginSlice';
-import { otpSignUp } from '../SignUp/SignUpSlice';
 
 const OTPModal = ({ open, onClose, email }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
-  const { token } = useSelector((state) => state.signUp);
+  const { error } = useSelector((state) => state.auth);
 
   const handleSubmitOtp = async () => {
     setLoading(true);
-    setError('');
-    setMessage('');
-
     try {
-      let response;
-
-      if (!email) {
-        // If no email, call otpSignUp
-        response = await dispatch(otpSignUp({ otp, token })).unwrap();
-        handleResponse(response, '/login', '/');
+      const response = await dispatch(otpLogin({ otp, email })).unwrap();
+      
+      if (response?.user?.role === 'admin') {
+        navigate('/admin');
+      } else if (response?.user?.role === 'service_manager') {
+        navigate('/admin/serviceEstimate');
       } else {
-        // If email exists, call otpLogin
-        response = await dispatch(otpLogin({ otp, email })).unwrap();
-        handleResponse(response, '/admin', '/login');
+        navigate('/');
       }
     } catch (error) {
-      setOtp('');
-      onClose(false);
-      setError(error.message || "Error processing OTP");
-      alert(error.message || "Error processing OTP");
+      console.error("OTP verification failed:", error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleResponse = (response, successRedirect, failureRedirect) => {
-    if (response?.success) {
-      setOtp('');
-      onClose(false);
-      navigate(successRedirect);
-    } else {
-      setOtp('');
-      onClose(false);
-      navigate(failureRedirect);
     }
   };
 
@@ -73,7 +50,6 @@ const OTPModal = ({ open, onClose, email }) => {
         <div className="flex flex-col gap-6 items-center h-full w-full">
           <p className="text-2xl font-semibold">Enter OTP To Verify</p>
 
-          {/* OTP Input */}
           <div className="flex justify-center w-full">
             <OTPInput
               value={otp}
@@ -93,22 +69,17 @@ const OTPModal = ({ open, onClose, email }) => {
             />
           </div>
 
-          {/* Submit Button */}
           <Button
             variant="contained"
             size="small"
             fullWidth
             onClick={handleSubmitOtp}
-            disabled={loading}
+            disabled={loading || otp.length !== 6}
           >
             {loading ? 'Verifying...' : 'Submit'}
           </Button>
 
-          {/* Error Message */}
           {error && <p className="text-red-500">{error}</p>}
-
-          {/* Success Message */}
-          {message && <p className="text-green-500">{message}</p>}
 
           <p className="text-sm text-blue-600 cursor-pointer hover:underline">
             Resend One-Time Password

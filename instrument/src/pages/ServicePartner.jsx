@@ -1,5 +1,5 @@
-import React from 'react'
-import {Grid2,styled, } from "@mui/material";
+import React, { useEffect, useState } from 'react'
+import { Grid2, styled, } from "@mui/material";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -7,115 +7,111 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Header from "../components/Header";
-import Footer from "../components/Footer/Footer";
+import PageContainer from '../components/HOC/PageContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuthorize, searchWorkFox } from '../AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkSlice';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
+        fontSize: 14,
     },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
+        backgroundColor: theme.palette.action.hover,
     },
     '&:last-child td, &:last-child th': {
-      border: 0,
+        border: 0,
     },
     '&:hover': {
-      backgroundColor: theme.palette.action.selected,
+        backgroundColor: theme.palette.action.selected,
     },
-  }));
+}));
 
-  function createData(name, calories, fat, carbs, protein) {
+function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
+}
+
+const rows = [
     createData('C', '+1 234 567 890', 6.0, 24, 4.0),
     createData('Jane Smith', 237, 9.0, 37, 4.3),
     createData('Robert Johnson"', 262, 16.0, 24, 6.0),
     createData('Cupcake', 305, 3.7, 67, 4.3),
     createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+];
 
 
 function ServicePartner() {
 
+    const dispatch = useDispatch();
+    const { authWork, loading } = useSelector((state) => state.managerFoxboro);
 
-    const partners = [
-        {
-            companyName: "Company Name 1",
-            contactPerson: "C",
-            telephone: "+1 234 567 890",
-            mobile: "+1 987 654 321",
-            email: "john@example.com",
-            location: "123 Main St, New York, NY",
-        },
-        {
-            companyName: "Company Name 2",
-            contactPerson: "Jane Smith",
-            telephone: "+1 345 678 901",
-            mobile: "+1 876 543 210",
-            email: "jane@example.com",
-            location: "456 Oak Ave, Los Angeles, CA",
-        },
-        {
-            companyName: "Company Name 3",
-            contactPerson: "Robert Johnson",
-            telephone: "+1 555 678 901",
-            mobile: "+1 999 543 210",
-            email: "robert@example.com",
-            location: "789 Pine St, Chicago, IL",
-        },
-        {
-            companyName: "Company Name 4",
-            contactPerson: "Emily Davis",
-            telephone: "+1 444 678 901",
-            mobile: "+1 888 543 210",
-            email: "emily@example.com",
-            location: "321 Maple Ave, Houston, TX",
-        },
-        {
-            companyName: "Company Name 5",
-            contactPerson: "Michael Brown",
-            telephone: "+1 333 678 901",
-            mobile: "+1 777 543 210",
-            email: "michael@example.com",
-            location: "654 Birch Rd, San Francisco, CA",
-        },
-    ];
+    const [filters, setFilters] = useState({
+        city: '',
+        state: '',
+        country: ''
+    });
+
+    // ✅ Handle input change
+    const handleChange = (e) => {
+        setFilters({
+            ...filters,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    // ✅ Handle Search Button
+    const handleSearch = () => {
+        dispatch(searchWorkFox(filters));
+    };
+
+    useEffect(() => {
+        dispatch(getAuthorize())
+    }, [dispatch])
 
     return (
-        <div>
-            <Header />
-
+        <PageContainer showheader="true" showfooter="true" className=' flex flex-col overflow-hidden'>
             <Grid2 size={{ lg: 4 }} >
-                <div className="h-[100vh] flex flex-col border rounded-lg overflow-hidden">
+                <div className=" flex flex-col border rounded-lg overflow-hidden">
                     {/* Sticky Header */}
                     <div className="bg-white sticky top-0 z-10 p-4 border-b flex justify-between items-center">
                         <p className=" text-2xl font-bold">SERVICE PARTNERS</p>
                         <div className="flex gap-4">
                             <input
+                                name="city"
                                 type="text"
                                 placeholder="City"
                                 className="p-2 border rounded"
+                                value={filters.city}
+                                onChange={handleChange}
                             />
                             <input
+                                name="state"
                                 type="text"
                                 placeholder="State"
                                 className="p-2 border rounded"
+                                value={filters.state}
+                                onChange={handleChange}
                             />
-                             <input
+                            <input
+                                name="country"
                                 type="text"
                                 placeholder="Country"
                                 className="p-2 border rounded"
+                                value={filters.country}
+                                onChange={handleChange}
                             />
+                            <button
+                                className="p-2 text-xl bg-blue-700 text-white rounded-lg w-32"
+                                onClick={handleSearch}
+                            >
+                                Search
+                            </button>
                         </div>
                     </div>
 
@@ -166,20 +162,22 @@ function ServicePartner() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows?.map((row) => (
-                                        <StyledTableRow key={row.name}>
+                                    {authWork?.map((row) => (
+                                        <StyledTableRow key={row._id}>
                                             <StyledTableCell component="th" scope="row">
-                                             {row.name}
+                                                {row.name}
+                                            </StyledTableCell><StyledTableCell component="th" scope="row">
+                                                {row.name}
                                             </StyledTableCell>
-                                            <StyledTableCell>{row.calories}</StyledTableCell>
-                                            <StyledTableCell>{row.fat}</StyledTableCell>
+                                            <StyledTableCell>{row.phone}</StyledTableCell>
+                                            <StyledTableCell>{row.email}</StyledTableCell>
                                             <StyledTableCell>
-                                               {row.fat}
+                                                {row.city}
                                             </StyledTableCell>
-                                            <StyledTableCell>{row.fat}</StyledTableCell>
-                                            <StyledTableCell>{row.fat}</StyledTableCell>
-                                            <StyledTableCell>{row.fat}</StyledTableCell>
-                                            <StyledTableCell>{row.fat}</StyledTableCell>
+                                            <StyledTableCell>{row.state}</StyledTableCell>
+                                            <StyledTableCell>{row.country}</StyledTableCell>
+
+                                            <TableCell>{row.authorize ? 'Yes' : 'No'}</TableCell>
                                         </StyledTableRow>
                                     ))}
                                 </TableBody>
@@ -189,9 +187,7 @@ function ServicePartner() {
 
                 </div>
             </Grid2>
-
-            <Footer />
-        </div>
+        </PageContainer>
     )
 }
 

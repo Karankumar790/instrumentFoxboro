@@ -89,7 +89,7 @@ function product() {
                 >
                   <Link to="/product" style={{ textDecoration: "none" }}>
                     <Card>
-                      <CardMedia
+                      {/* <CardMedia
                         component="img"
                         // sx={{objectFit:"cover",objectPosition:'center'}}
                         style={{
@@ -109,7 +109,21 @@ function product() {
                           e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
                         }}
                         alt={`Image ${index}`}
-                      />
+                      /> */}
+
+                      <div className="h-72 w-full bg-pink-500">
+                        <img
+                          src={product.image}
+                          alt={product.image}
+                          className="transition-transform duration-300 ease-in-out h-full w-full object-fill"
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "scale(1.1)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "scale(1)";
+                          }}
+                        />
+                      </div>
                       <Typography
                         variant="h6"
                         gutterBottom

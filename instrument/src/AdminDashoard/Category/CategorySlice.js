@@ -128,9 +128,7 @@ const categorySlice = createSlice({
       
         state.categories = state.categories.filter(
           (category) => category._id !== action.payload // Ensure category is removed
-        );
-      
-        console.log("Updated categories list:", state.categories); // Debug log
+        );  
       })     
       .addCase(deleteCategory.rejected, (state, action) => {
         state.loading = false;
