@@ -6,6 +6,8 @@ import {
   Grid2,
   TextField,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import PageContainer from "../../components/HOC/PageContainer";
 import { postEstimate } from "./ServiceSlice";
@@ -13,6 +15,7 @@ import { useDispatch } from "react-redux";
 
 function service() {
 
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -44,20 +47,41 @@ function service() {
     }));
   };
 
-  const handleSubmit = () => {
-    dispatch(postEstimate(formData));
-    setFormData({
-      name: "",
-      mobileNumber: "",
-      email: "",
-      position: "",
-      company: "",
-      city: "",
-      state: "",
-      country: "",
-      problemDescription: "",
-      serviceMethod: "",
-    })
+  const handleSubmit = async () => {
+    try {
+      const result = await dispatch(postEstimate(formData)).unwrap();
+      
+      setSnackbar({
+        open: true,
+        message: result.message || "Estimate generated successfully",
+        severity: "success",
+      });
+  
+      // Reset form only on success
+      setFormData({
+        name: "",
+        mobileNumber: "",
+        email: "",
+        position: "",
+        company: "",
+        city: "",
+        state: "",
+        country: "",
+        problemDescription: "",
+        serviceMethod: "",
+      });
+    } catch (error) {
+      setSnackbar({
+        open: true,
+        message: error.message || "Failed to generate estimate",
+        severity: "error",
+      });
+    }
+  };
+  
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
   };
 
 
@@ -200,6 +224,16 @@ function service() {
           </Card>
         </Grid2>
       </Grid2>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </PageContainer>
   );
 }

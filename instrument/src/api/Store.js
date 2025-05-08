@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
-import { thunk } from "redux-thunk";  
+import { thunk } from "redux-thunk";
 
 import categoryReducer from "../AdminDashoard/Category/CategorySlice";
 import authReducer from "../AuthCycle/Login/loginSlice";
@@ -17,7 +17,9 @@ import PoSlice from "../pages/PoUpload/PoSlice";
 import workFoxSlice from "../pages/WorkFoxboro/workFoxSlice";
 import AdminServiceSlice from "../AdminDashoard/AdminService/AdminServiceSlice";
 import serviceSlice from "../AdminDashoard/ServiceManager/serviceSlice";
-import managerWorkFoxReducer  from "../AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkSlice";
+import managerWorkFoxReducer from "../AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkSlice";
+import product from "../pages/product";
+
 
 
 // Configuration for Redux Persist
@@ -47,6 +49,7 @@ export const store = configureStore({
     serviceManager: serviceSlice,
     foxboro: workFoxSlice,
     managerFoxboro: managerWorkFoxReducer,
+    foxboroProduct: product,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

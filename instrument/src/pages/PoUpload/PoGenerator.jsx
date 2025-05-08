@@ -91,7 +91,7 @@ function PoGenerator() {
                             />
                             <button
                                 onClick={handleSearch}
-                                className='w-28 p-3 text-white font-bold bg-yellow-600 rounded-lg border'
+                                className='w-28 px-4 py-2 text-white font-bold bg-yellow-600 rounded-lg border'
                                 disabled={loading}
                             >
                                 {loading ? 'Searching...' : 'Search'}
@@ -152,7 +152,7 @@ function PoGenerator() {
 
                             <button
                                 onClick={handleSubmit}
-                                className='bg-orange-600 text-white font-semibold rounded-lg px-4 py-2 cursor-pointer w-28'
+                                className='bg-green-600 text-white font-semibold rounded-lg px-4 py-2 cursor-pointer w-28'
                                 disabled={loading}
                             >
                                 {loading ? 'Submitting...' : 'Submit'}

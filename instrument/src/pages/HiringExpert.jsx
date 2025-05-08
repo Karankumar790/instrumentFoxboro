@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import PageContainer from '../../components/HOC/PageContainer'
+import PageContainer from '../../src/components/HOC/PageContainer'
 import { useDispatch } from 'react-redux';
-import { postWork } from './workFoxSlice';
+import { postWork } from './WorkFoxboro/workFoxSlice';
 import { Card, Grid2, MenuItem, TextField, Typography, Button, Box } from '@mui/material';
 
 const personalData = [
@@ -11,12 +11,14 @@ const personalData = [
     { label: "City", placeholder: "Enter your city", name: "city" },
     { label: "State", placeholder: "Enter your state", name: "state" },
     { label: "Country", placeholder: "Enter your country", name: "country" },
+    { label: "Total Experience", placeholder: "Enter your total experience", name: "totalExperience" },
+    { label: "Expected salary", placeholder: "Enter your expected salary", name: "totalExperience" },
 ];
 
 const technicalOptions = ["Diploma", "B.Tech", "M.Tech", "Other"];
 const domainOptions = ["Embedded Systems", "Automation", "Web Development", "AI/ML", "Other"];
 
-function WorkFoxboro() {
+function HiringExpert() {
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",
@@ -68,7 +70,7 @@ function WorkFoxboro() {
 
                         }}>
                             <Typography variant="h5" fontWeight="bold">
-                                APPLY FOR INTERNSHIP
+                            OPPORTUNITIES FOR HIGHLY SKILLED PROFESSIONALS
                             </Typography>
                         </Box>
 
@@ -95,7 +97,7 @@ function WorkFoxboro() {
                                     <TextField
                                         select
                                         fullWidth
-                                        label="Technical Qualification"
+                                        label="Professional Quailfication"
                                         name="technicalQualification"
                                         value={formValues.technicalQualification}
                                         onChange={handleChange}
@@ -114,7 +116,7 @@ function WorkFoxboro() {
                                     <TextField
                                         select
                                         fullWidth
-                                        label="Internship Domain"
+                                        label="You are experts in"
                                         name="internshipDomain"
                                         value={formValues.internshipDomain}
                                         onChange={handleChange}
@@ -128,6 +130,8 @@ function WorkFoxboro() {
                                         ))}
                                     </TextField>
                                 </Grid2>
+
+
 
                                 {/* Submit Button */}
                                 <Grid2 item size={{ lg: 6 }}>
@@ -147,7 +151,7 @@ function WorkFoxboro() {
                                             <input
                                                 type="file"
                                                 fullWidth
-                                                hidden
+                                                style={{ display: 'none' }}
                                                 onChange={(e) => {
                                                     const file = e.target.files[0];
                                                     setFormValues({ ...formValues, resume: file });
@@ -164,7 +168,7 @@ function WorkFoxboro() {
                                         </Box>
                                     </label>
                                 </Grid2>
-                                <Grid2 item size={{ lg: 6 }} sx={{display:'flex', justifyContent:'end'}}>
+                                <Grid2 item size={{ lg: 6 }} sx={{display:'flex',justifyContent:'end'}}>
 
                                     <Button
                                         type="submit"
@@ -190,4 +194,4 @@ function WorkFoxboro() {
     );
 }
 
-export default WorkFoxboro;
+export default HiringExpert;

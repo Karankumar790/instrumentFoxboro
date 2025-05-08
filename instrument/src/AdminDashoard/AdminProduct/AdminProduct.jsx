@@ -53,6 +53,11 @@ function Product() {
   });
 
   const [editingProduct, setEditingProduct] = useState(null);
+  const { productFox } = useSelector(
+    (state) => state.foxboroProduct
+  );
+
+
 
   const handleOpen = (product = null) => {
     if (product) {
@@ -86,24 +91,36 @@ function Product() {
     setImage(null);
   };
 
+  // useEffect(() => {
+  //   const fetchFoxProduct = async () => {
+  //     try {
+  //       const response = await getFoxboroProduct();
+  //       // Ensure response.data is an array and has proper structure
+  //       if (Array.isArray(response?.data)) {
+  //         setFetchProduct(response.data);
+  //       } else {
+  //         console.error("Invalid product data format:", response);
+  //         setFetchProduct([]);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching products:", error);
+  //       setFetchProduct([]);
+  //     }
+  //   };
+  //   fetchFoxProduct();
+  // }, []);
+
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
-    const fetchFoxProduct = async () => {
-      try {
-        const response = await getFoxboroProduct();
-        // Ensure response.data is an array and has proper structure
-        if (Array.isArray(response?.data)) {
-          setFetchProduct(response.data);
-        } else {
-          console.error("Invalid product data format:", response);
-          setFetchProduct([]);
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setFetchProduct([]);
-      }
-    };
-    fetchFoxProduct();
-  }, []);
+    dispatch(getFoxboroProduct({ page, limit: 12 }));
+  }, [dispatch, page]);
+
+  useEffect(() => {
+    if (Array.isArray(productFox)) {
+      setFetchProduct(productFox);
+    }
+  }, [productFox]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
