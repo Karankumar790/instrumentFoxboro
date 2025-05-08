@@ -27,19 +27,20 @@ export const addFoxProduct = createAsyncThunk(
 // Fetch Products
 export const fetchFoxboroProduct = createAsyncThunk(
     "foxboro/fetchProducts",
-    async (_, { rejectWithValue }) => {
-        try {
-            const response = await axios.get(`${API_URL}/foxboroProduct`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Error fetching products");
-        }
+    async ({ page, limit  }, { rejectWithValue }) => {
+      try {
+        const response = await axios.get(`${API_URL}/foxboroProduct?page=${page}&limit=${limit}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+        return response?.data;
+      } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Error fetching products");
+      }
     }
-);
+  );
+  
 
 // Delete Product
 export const deleteProduct = createAsyncThunk(
@@ -119,7 +120,7 @@ const foxboroProductSlice = createSlice({
             })
             .addCase(fetchFoxboroProduct.fulfilled, (state, action) => {
                 state.loading = false;
-                state.products = action.payload.data;
+                state.products.push(action.payload.data);
             })
             .addCase(fetchFoxboroProduct.rejected, (state, action) => {
                 state.loading = false;

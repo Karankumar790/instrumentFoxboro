@@ -121,10 +121,9 @@ function Header() {
               </a>
               <a href={fetchHeader.youTubeLink}>
                 <Button>
-                  <YouTubeIcon style={{ color: "red", fontSize: "39px" }} />
+                  <YouTubeIcon style={{ color: "red", fontSize: "30px" }} />
                 </Button>
               </a>
-
             </Stack>
             <Button
               sx={{ bgcolor: "pink", color: "black", width: "7vw", fontWeight: '300' }}

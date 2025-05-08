@@ -16,9 +16,14 @@ const OTPModal = ({ open, onClose, email }) => {
     setLoading(true);
     try {
       const response = await dispatch(otpLogin({ otp, email })).unwrap();
-      
+
+      if (response?.token) {
+        localStorage.setItem('authToken', response.token);
+      }
+
       if (response?.user?.role === 'admin') {
         navigate('/admin');
+        console.log("-------------", response)
       } else if (response?.user?.role === 'service_manager') {
         navigate('/admin/serviceEstimate');
       } else {
