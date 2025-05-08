@@ -24,6 +24,16 @@ function Header() {
 
   const fetchHeader = useSelector((state) => state.header.headerInt)
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const item = [
     { text: fetchHeader.contactNumberOne, icon: <PhoneInTalkIcon /> },
     { text: fetchHeader.contactNumberTwo, icon: <PhoneInTalkIcon /> },
@@ -152,7 +162,7 @@ function Header() {
             justifyContent={"space-between"}
             width={"67.5vw"}
           >
-            
+
             <Box flexDirection="row" display="flex" gap={5} ml={4}>
               {arr.map((value, index) => (
                 <Stack direction="row" alignItems="center" key={index}>
@@ -191,14 +201,24 @@ function Header() {
             </Box>
             <Box display={'flex'} gap={2} mr={3}>
 
-              <Typography
-                sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              <Button
+                onClick={handleOpen}
+                sx={{ color: "white", textTransform: "none", display: "flex", alignItems: "center", gap: 1 }}
               >
-                <Link to={"/workFoxboro"}>
-                  <EngineeringIcon sx={{ color: "white" }} />
-                  Work @Foxboro
-                </Link>
-              </Typography>
+                <EngineeringIcon sx={{ color: "white" }} />
+                Work @Foxboro
+              </Button>
+              <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                <MenuItem onClick={handleClose} component={Link} to="/workFoxboro">
+                  Apply for Internship
+                </MenuItem>
+                <MenuItem onClick={handleClose} component={Link} to="/hiringExpert">
+                  We're Hiring Experts
+                </MenuItem>
+                <MenuItem onClick={handleClose} component={Link} to="/becomePartner">
+                  Become Service Partner
+                </MenuItem>
+              </Menu>
             </Box>
           </Stack>
         </Grid2>

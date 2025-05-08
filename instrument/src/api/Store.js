@@ -15,8 +15,10 @@ import contactReducer from "../pages/supportSlice";
 import RunNewSlice from "../AdminDashoard/Run&NewProject/RunNewSlice";
 import newProductSlice from "../AdminDashoard/Run&NewProject/newProductSlice";
 import PoSlice from "../pages/PoUpload/PoSlice";
+import workFoxSlice from "../pages/WorkFoxboro/workFoxSlice";
 import AdminServiceSlice from "../AdminDashoard/AdminService/AdminServiceSlice";
 import serviceSlice from "../AdminDashoard/ServiceManager/serviceSlice";
+import managerWorkFoxReducer  from "../AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkSlice";
 
 
 // Configuration for Redux Persist
@@ -45,6 +47,8 @@ export const store = configureStore({
     poUploads: PoSlice,
     service: AdminServiceSlice,
     serviceManager: serviceSlice,
+    foxboro: workFoxSlice,
+    managerFoxboro: managerWorkFoxReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
