@@ -13,9 +13,6 @@ const data =
     ]
 
 function workFoxboro() {
-
- 
-
     return (
         <>
             <PageContainer showheader="true" showfooter="true">
