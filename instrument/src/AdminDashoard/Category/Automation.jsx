@@ -261,7 +261,7 @@ function Automation() {
         </Table>
       </TableContainer>
 
-      <Modal open={isModalOpen} onClose={handleCloseModal} aria-labelledby="modal-title">
+      {/* <Modal open={isModalOpen} onClose={handleCloseModal} aria-labelledby="modal-title">
         <Box sx={style}>
           <Box display="flex" justifyContent="space-between">
             <Typography id="modal-title" variant="h6">
@@ -335,7 +335,7 @@ function Automation() {
             {isSubmitting ? 'Processing...' : editingCategory ? 'Update' : 'Submit'}
           </Button>
         </Box>
-      </Modal>
+      </Modal> */}
 
       <Snackbar
         open={snackbar.open}
