@@ -1,15 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { SER_URL } from "../../api/Client";
+import { API_URL } from "../../../api/Client";
 
 
 
 
 export const postWork = createAsyncThunk(
     "postWork",
-    async (formData, { rejectWithValue }) => {
+    async (formValue, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${SER_URL}/service_partner`, formData)
+
+            const formData = new FormData();
+            for (let key in formValue) {
+                formData.append(key, formValue[key]);
+            }
+
+            const response = await axios.post(`${API_URL}/service_partner`, formValue,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                }
+            )
             response.data
         } catch (error) {
             return rejectWithValue(

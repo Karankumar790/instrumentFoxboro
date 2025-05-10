@@ -17,7 +17,7 @@ export const getProductById = async (categoryId) => {
 // Create asyncThunk for foxboro products
 export const getFoxboroProduct = createAsyncThunk(
     "foxboroProduct/fetch",
-    async ({ page = 1, limit = 10 }, thunkAPI) => {
+    async ({ page , limit }, thunkAPI) => {
         try {
             const response = await axios.get(`${API_URL}/foxboroProduct?page=${page}&limit=${limit}`, {
                 headers: {
@@ -36,8 +36,12 @@ const foxProduct = createSlice({
     name: "foxboroProduct",
     initialState: {
         productFox: [],
-        totalPages: 0,
-        currentPage: 1,
+        pagination: {
+            total: 9,
+            page: 1,
+            limit: 4,
+            totalPages: 8
+        },
         loading: false,
         error: null,
         success: false,
@@ -51,8 +55,7 @@ const foxProduct = createSlice({
             .addCase(getFoxboroProduct.fulfilled, (state, action) => {
                 state.loading = false;
                 state.productFox = action.payload.data;
-                state.totalPages = action.payload.totalPages;
-                state.currentPage = action.payload.currentPage;
+                state.pagination = action.payload.pagination;
                 state.success = true;
             })
             .addCase(getFoxboroProduct.rejected, (state, action) => {

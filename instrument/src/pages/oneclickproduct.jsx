@@ -124,10 +124,10 @@ function oneclickproduct() {
                 )}
               </Grid2>
             )}
+            {products.length > 0 && (<Stack spacing={1} alignItems={"end"} mt={2}>
+              <Pagination count={2} variant="outlined" shape="rounded" />
+            </Stack>)}
 
-            <Stack spacing={1} alignItems={"end"} mt={2}>
-              <Pagination count={5} variant="outlined" shape="rounded" />
-            </Stack>
           </Grid2>
         </Grid2>
 

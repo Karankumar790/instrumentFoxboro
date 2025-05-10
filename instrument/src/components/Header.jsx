@@ -19,6 +19,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getHeader } from "../AdminDashoard/SiteSetting/SettingSlice";
+import { IoLogoYoutube } from "react-icons/io";
 
 function Header() {
 
@@ -43,10 +44,9 @@ function Header() {
   // const arr = ["Product", "Software", "Services", "E-Store", "Support"];
   const arr = [
     { text: "Automation", Link: "/" },
-    { text: "Product", Link: "/product" },
+    { text: "Products", Link: "/product" },
     { text: "Software", Link: "/software" },
-    { text: "Services", Link: null }, // Dropdown
-    // { text: "E-Store", Link: "/estore" },
+    { text: "E-Service", Link: null }, 
     { text: "Contact Us", Link: "/support" },
   ];
 
@@ -108,7 +108,7 @@ function Header() {
 
           </Stack>
           <Grid2 className='flex w-96'>
-            <Stack display={"flex"} flexDirection={"row"} mr={3}>
+            <Stack display={"flex"} flexDirection={"row"} mr={2} >
               <a href={fetchHeader.instagramLink}>
                 <Button>
                   <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
@@ -121,16 +121,16 @@ function Header() {
               </a>
               <a href={fetchHeader.youTubeLink}>
                 <Button>
-                  <YouTubeIcon style={{ color: "red", fontSize: "30px" }} />
+                  <IoLogoYoutube style={{ color: "red", fontSize: "30px" }} />
                 </Button>
               </a>
             </Stack>
-            <Button
-              sx={{ bgcolor: "pink", color: "black", width: "7vw", fontWeight: '300' }}
-              variant="contained"
-            >
-              <Link to='/login' >Login</Link>
-            </Button>
+            <button className="bg-pink-300 hover:bg-pink-600 text-lg text-white font-semibold py-2 px-9 rounded-lg shadow-md transition duration-300">
+              <Link to="/login" className="no-underline text-white">
+                Login
+              </Link>
+            </button>
+
           </Grid2>
         </Grid2>
       </Grid2>
@@ -144,16 +144,16 @@ function Header() {
         p={1.5}
         pl={27}
       >
-        <Grid2 size={{ lg: 1, md: 2, sm: 6 }} className=' ml-6' display={"flex"}  >
+        <div className=' w-32 h-16' display={"flex"} >
           <Link to="/" style={{ textDecoration: "none" }}>
+            {/* <div className="h-20 w-20"> */}
             <img
               src={fetchHeader.foxboroLogo}
-              height={"100%"}
-              width={"100%"}
-              style={{ objectFit: "contain" }}
+              className="h-full w-full object-fill"
             />
+            {/* </div> */}
           </Link>
-        </Grid2>
+        </div>
         <Grid2 size={{ lg: 10 }} >
           <Stack
             display={"flex"}
@@ -165,7 +165,7 @@ function Header() {
             <Box flexDirection="row" display="flex" gap={5} ml={4}>
               {arr.map((value, index) => (
                 <Stack direction="row" alignItems="center" key={index}>
-                  {value.text === "Services" ? (
+                  {value.text === "E-Service" ? (
                     <>
                       <Button
                         sx={{ color: "white" }}
@@ -200,15 +200,16 @@ function Header() {
             </Box>
             <Box display={'flex'} gap={2} mr={3}>
 
-              <Button
+              <button
                 onClick={handleOpen}
-                sx={{ color: "white", textTransform: "none", display: "flex", alignItems: "center", gap: 1 }}
+                // sx={{ color: "white", textTransform: "none", display: "flex", alignItems: "center", gap: 1, }}
+                className="text-white flex gap-1 text-xl"
               >
-                <EngineeringIcon sx={{ color: "white" }} />
+                <EngineeringIcon className="text-white text-2xl" />
                 Work @Foxboro
-              </Button>
+              </button>
               <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                <MenuItem onClick={handleClose} component={Link} to="/workFoxboro">
+                <MenuItem onClick={handleClose} component={Link} to="/applyIntership">
                   Apply for Internship
                 </MenuItem>
                 <MenuItem onClick={handleClose} component={Link} to="/hiringExpert">

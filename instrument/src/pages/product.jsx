@@ -14,7 +14,7 @@ import { getFoxboroProduct } from "./product";
 import { useDispatch, useSelector } from "react-redux";
 
 function product() {
-  const { productFox, totalPages, currentPage, loading } = useSelector(
+  const { productFox, pagination } = useSelector(
     (state) => state.foxboroProduct
   );
   const [open, setOpen] = useState(false);
@@ -29,9 +29,13 @@ function product() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getFoxboroProduct({ page, limit: 12 }));
+    dispatch(getFoxboroProduct({ page, limit: 8 }));
   }, [dispatch, page]);
 
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
 
 
 
@@ -48,10 +52,10 @@ function product() {
           >
             <Box mb={2} >
               <Typography variant="h5" mt={2} fontWeight={"bold"} >
-                Foxboro Product
+                Foxboro IoT Hardware
               </Typography>
             </Box>
-           
+
 
             <Grid2 container spacing={3}>
               {productFox.map((product) => (
@@ -99,9 +103,16 @@ function product() {
                 </Grid2>
               ))}
             </Grid2>
-            <Stack spacing={1} alignItems={"end"} mt={2}>
-              <Pagination count={2} variant="outlined" shape="rounded" />
-            </Stack>
+            {productFox.length > 0 && (
+              <Stack spacing={1} alignItems={"end"} mt={2}>
+                <Pagination count={pagination?.totalPages || 1}
+                 page={page}
+                 onChange={handlePageChange}
+                 variant="outlined"
+                  shape="rounded" />
+              </Stack>
+            )}
+
           </Grid2>
         </Grid2>
         <Footer />

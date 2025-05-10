@@ -14,11 +14,13 @@ import SettingSlice from "../AdminDashoard/SiteSetting/SettingSlice";
 import RunNewSlice from "../AdminDashoard/Run&NewProject/RunNewSlice";
 import newProductSlice from "../AdminDashoard/Run&NewProject/newProductSlice";
 import PoSlice from "../pages/PoUpload/PoSlice";
-import workFoxSlice from "../pages/WorkFoxboro/workFoxSlice";
+import workFoxSlice from "../pages/WorkFoxboro/ServicePartner/workFoxSlice";
 import AdminServiceSlice from "../AdminDashoard/AdminService/AdminServiceSlice";
 import serviceSlice from "../AdminDashoard/ServiceManager/serviceSlice";
 import managerWorkFoxReducer from "../AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkSlice";
 import product from "../pages/product";
+import applyIntership from "../pages/WorkFoxboro/ApplyIntership/applyIntership";
+import hiringExpert from "../pages/WorkFoxboro/HiringExpert/hiringExpert";
 
 
 
@@ -50,6 +52,8 @@ export const store = configureStore({
     foxboro: workFoxSlice,
     managerFoxboro: managerWorkFoxReducer,
     foxboroProduct: product,
+    intership: applyIntership,
+    hiring: hiringExpert,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
-import PageContainer from '../../src/components/HOC/PageContainer'
-import { useDispatch } from 'react-redux';
-import { postWork } from './WorkFoxboro/workFoxSlice';
-import { Card, Grid2, MenuItem, TextField, Typography, Button, Box } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import PageContainer from '../../../components/HOC/PageContainer'
+import { useDispatch, useSelector } from 'react-redux';
+import { Card, Grid2, MenuItem, TextField, Typography, Button, Box, Snackbar, Alert } from '@mui/material';
+import { postHiring } from './hiringExpert';
 
 const personalData = [
-    { label: "Name", placeholder: "Enter your name", name: "name" },
-    { label: "Email", placeholder: "Enter your email", name: "email" },
-    { label: "Mobile", placeholder: "Enter your mobile", name: "mobile" },
-    { label: "City", placeholder: "Enter your city", name: "city" },
-    { label: "State", placeholder: "Enter your state", name: "state" },
-    { label: "Country", placeholder: "Enter your country", name: "country" },
-    { label: "Total Experience", placeholder: "Enter your total experience", name: "totalExperience" },
-    { label: "Expected salary", placeholder: "Enter your expected salary", name: "totalExperience" },
+    { label: "Name", placeholder: "Enter your name", name: "name", required: true },
+    { label: "Email", placeholder: "Enter your email", name: "email", required: true },
+    { label: "Mobile", placeholder: "Enter your mobile", name: "phone", required: true },
+    { label: "City", placeholder: "Enter your city", name: "city", required: true },
+    { label: "State", placeholder: "Enter your state", name: "state", required: true },
+    { label: "Country", placeholder: "Enter your country", name: "country", required: true },
+    { label: "Total Experience", placeholder: "Enter your total experience", name: "totalExperience", required: true },
+    { label: "Expected salary", placeholder: "Enter your expected salary", name: "expectedSalary", required: true },
 ];
 
 const technicalOptions = ["Diploma", "B.Tech", "M.Tech", "Other"];
@@ -22,13 +22,19 @@ function HiringExpert() {
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",
-        mobile: "",
+        phone: "",
         city: "",
         state: "",
         country: "",
-        technicalQualification: "",
-        internshipDomain: ""
+        professionalQualification: "",
+        youAreExpertIn: "",
+        totalExperience: "",
+        expectedSalary: "",
+        expertResume: null
     });
+
+    const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+    const { error, success } = useSelector(state => state.hiring)
 
     const dispatch = useDispatch();
 
@@ -39,19 +45,38 @@ function HiringExpert() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form submitted:", formValues);
-        dispatch(postWork(formValues));
+        dispatch(postHiring(formValues));
         setFormValues({
             name: "",
             email: "",
-            mobile: "",
+            phone: "",
             city: "",
             state: "",
             country: "",
-            technicalQualification: "",
-            internshipDomain: ""
+            professionalQualification: "",
+            youAreExpertIn: "",
+            totalExperience: "",
+            expectedSalary: "",
+            expertResume: null
         });
     };
+
+    useEffect(() => {
+        if (success) {
+            setSnackbar({
+                open: true,
+                message: "Application submitted Successfully",
+                severity: 'success'
+            });
+            
+        } else if (error) {
+            setSnackbar({
+                open: true,
+                message: error,
+                severity: 'error'
+            });
+        }
+    }, [success, error]);
 
     return (
         <PageContainer showheader="true" showfooter="true">
@@ -70,7 +95,7 @@ function HiringExpert() {
 
                         }}>
                             <Typography variant="h5" fontWeight="bold">
-                            OPPORTUNITIES FOR HIGHLY SKILLED PROFESSIONALS
+                                OPPORTUNITIES FOR HIGHLY SKILLED PROFESSIONALS
                             </Typography>
                         </Box>
 
@@ -88,6 +113,7 @@ function HiringExpert() {
                                             onChange={handleChange}
                                             variant="outlined"
                                             sx={{ mb: 2 }}
+                                            required={field.required}
                                         />
                                     </Grid2>
                                 ))}
@@ -98,11 +124,12 @@ function HiringExpert() {
                                         select
                                         fullWidth
                                         label="Professional Quailfication"
-                                        name="technicalQualification"
-                                        value={formValues.technicalQualification}
+                                        name="professionalQualification"
+                                        value={formValues.professionalQualification}
                                         onChange={handleChange}
                                         variant="outlined"
                                         sx={{ mb: 2 }}
+                                        required
                                     >
                                         {technicalOptions.map((option) => (
                                             <MenuItem key={option} value={option}>
@@ -117,11 +144,12 @@ function HiringExpert() {
                                         select
                                         fullWidth
                                         label="You are experts in"
-                                        name="internshipDomain"
-                                        value={formValues.internshipDomain}
+                                        name="youAreExpertIn"
+                                        value={formValues.youAreExpertIn}
                                         onChange={handleChange}
                                         variant="outlined"
                                         sx={{ mb: 2 }}
+                                        required
                                     >
                                         {domainOptions.map((option) => (
                                             <MenuItem key={option} value={option}>
@@ -154,21 +182,21 @@ function HiringExpert() {
                                                 style={{ display: 'none' }}
                                                 onChange={(e) => {
                                                     const file = e.target.files[0];
-                                                    setFormValues({ ...formValues, resume: file });
+                                                    setFormValues({ ...formValues, expertResume: file });
                                                 }}
                                             />
                                             <Button variant="outlined" component="span">
                                                 Upload Resume
                                             </Button>
-                                            {formValues.resume && (
+                                            {formValues.expertResume && (
                                                 <Typography variant="body2" sx={{ ml: 2, display: 'inline' }}>
-                                                    {formValues.resume.name}
+                                                    {formValues.expertResume.name}
                                                 </Typography>
                                             )}
                                         </Box>
                                     </label>
                                 </Grid2>
-                                <Grid2 item size={{ lg: 6 }} sx={{display:'flex',justifyContent:'end'}}>
+                                <Grid2 item size={{ lg: 6 }} sx={{ display: 'flex', justifyContent: 'end' }}>
 
                                     <Button
                                         type="submit"
@@ -190,6 +218,23 @@ function HiringExpert() {
                     </Card>
                 </Grid2>
             </Grid2>
+
+
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={4000}
+                onClose={() => setSnackbar({ ...snackbar, open: false })}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert
+                    onClose={() => setSnackbar({ ...snackbar, open: false })}
+                    severity={snackbar.severity}
+                    sx={{ width: '100%' }}
+                >
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+
         </PageContainer>
     );
 }
