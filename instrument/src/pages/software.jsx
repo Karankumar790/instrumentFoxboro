@@ -60,7 +60,7 @@ const Software = () => {
                     <h2 className='text-xl font-semibold'>{product.softwareName}</h2>
                   </div>
                 </div>
-                <p className='text-gray-600 mb-6 text-lg'>THefk eq VDKHVKLHDLV VLBLSV UBLBVLDS Ubfelvblad efBLUVBA lkhavlkhda vlkhd ieq flkhAE IQEFQ E</p>
+                <p className='text-gray-600 mb-6 text-lg'>{product.description}</p>
                 <div className='flex justify-end'>
                   <button className='text-green-700 font-semibold text-lg hover:text-blue-800 transition-colors'>
                     TRY NOW &gt;

@@ -194,63 +194,65 @@ function AdminHeader() {
         {/* <button className='bg-green-600 font-semibold p-2 rounded-lg text-white text-lg' onClick={handleOpen}>Add Header +</button> */}
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-between p-4 bg-white rounded-lg shadow-md overflow-x-auto'>
-        <div className='flex flex-col '>
-          <label>
-            <h2 className='text-sm font-semibold mb-1'>Phone Number 1</h2>
-            <input type="number" name='contactNumberOne' value={formValue.contactNumberOne} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          </label>
+      <div className='space-y-4 bg-white rounded-lg shadow-md p-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-between p-4  overflow-x-auto'>
+          <div className='flex flex-col '>
+            <label>
+              <h2 className='text-sm font-semibold mb-1'>Phone Number 1</h2>
+              <input type="number" name='contactNumberOne' value={formValue.contactNumberOne} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+            </label>
+          </div>
+          <div className='flex flex-col '>
+            <label>
+              <h2 className='text-sm font-semibold mb-1'>Phone Number 2</h2>
+              <input type="number" name='contactNumberTwo' value={formValue.contactNumberTwo} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+            </label>
+          </div>
+          <div className='flex flex-col'>
+            <label>
+              <h2 className='text-sm font-semibold mb-1'>WhatsApp Number</h2>
+              <input type="number" name='whatsappNumber' value={formValue.whatsappNumber} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+            </label>
+          </div>
+          <div className='flex flex-col'>
+            <label>
+              <h2 className='text-sm font-semibold mb-1'>Email</h2>
+              <input type="email" name='email' value={formValue.email} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+            </label>
+          </div>
         </div>
-        <div className='flex flex-col '>
-          <label>
-            <h2 className='text-sm font-semibold mb-1'>Phone Number 2</h2>
-            <input type="number" name='contactNumberTwo' value={formValue.contactNumberTwo} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          </label>
-        </div>
-        <div className='flex flex-col'>
-          <label>
-            <h2 className='text-sm font-semibold mb-1'>WhatsApp Number</h2>
-            <input type="number" name='whatsappNumber' value={formValue.whatsappNumber} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          </label>
-        </div>
-        <div className='flex flex-col'>
-          <label>
-            <h2 className='text-sm font-semibold mb-1'>Email</h2>
-            <input type="email" name='email' value={formValue.email} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          </label>
-        </div>
-      </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-between p-4 bg-white rounded-lg shadow-md overflow-x-auto'>
-        <div className='flex flex-col'>
-          <label>
-            <h2 className='text-sm font-semibold mb-1'>Logo Image</h2>
-            <input type="file" name='image' accept='image/*' onChange={handleImage} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          </label>
-        </div>
-        <div className='flex  flex-col'>
-          <label>
-            <h2 className='text-sm font-semibold mb-1'>Instagram</h2>
-            <input type="text" name='instagramLink' value={formValue.instagramLink} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          </label>
-        </div>
-        <div className='flex flex-col'>
-          <label>
-            <h2 className='text-sm font-semibold mb-1'>FaceBook</h2>
-            <input type="text" name='facebookLink' value={formValue.facebookLink} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          </label>
-        </div>
-        <div className='flex flex-col'>
-          <label>
-            <h2 className='text-sm font-semibold mb-1'>Youtube</h2>
-            <input type="text" name='youTubeLink' value={formValue.youTubeLink} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          </label>
-        </div>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-between p-4  overflow-x-auto'>
+          <div className='flex flex-col'>
+            <label>
+              <h2 className='text-sm font-semibold mb-1'>Logo Image</h2>
+              <input type="file" name='image' accept='image/*' onChange={handleImage} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+            </label>
+          </div>
+          <div className='flex  flex-col'>
+            <label>
+              <h2 className='text-sm font-semibold mb-1'>Instagram Link</h2>
+              <input type="text" name='instagramLink' value={formValue.instagramLink} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+            </label>
+          </div>
+          <div className='flex flex-col'>
+            <label>
+              <h2 className='text-sm font-semibold mb-1'>FaceBook Link</h2>
+              <input type="text" name='facebookLink' value={formValue.facebookLink} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+            </label>
+          </div>
+          <div className='flex flex-col'>
+            <label>
+              <h2 className='text-sm font-semibold mb-1'>Youtube Link</h2>
+              <input type="text" name='youTubeLink' value={formValue.youTubeLink} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+            </label>
+          </div>
 
-      </div>
-      <div className='flex items-end justify-end w-full '>
-        <button onClick={handleSubmit} className='bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-md w-32'>
-          Submit
-        </button>
+        </div>
+        <div className='flex items-end justify-end w-full '>
+          <button onClick={handleSubmit} className='bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-md w-32'>
+            Submit
+          </button>
+        </div>
       </div>
 
 

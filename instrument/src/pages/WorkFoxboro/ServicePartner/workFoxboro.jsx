@@ -1,32 +1,34 @@
-import React, { useState } from 'react'
-import PageContainer from '../../src/components/HOC/PageContainer'
-import { useDispatch } from 'react-redux';
-import { postWork } from './WorkFoxboro/workFoxSlice';
-import { Card, Grid2, MenuItem, TextField, Typography, Button, Box } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import PageContainer from '../../../components/HOC/PageContainer'
+import { useDispatch, useSelector } from 'react-redux';
+import { postWork } from './workFoxSlice';
+import { Card, Grid2, MenuItem, TextField, Typography, Button, Box, Snackbar, Alert } from '@mui/material';
 
 const personalData = [
-    { label: "Company Name", placeholder: "Enter company name", name: "name" },
-    { label: "City", placeholder: "Enter your city", name: "city" },
-    { label: "State", placeholder: "Enter your state", name: "state" },
-    { label: "Country", placeholder: "Enter your country", name: "country" },
-    { label: "Email Address", placeholder: "Enter your email address", name: "email" },
-    { label: "Mobile number", placeholder: "Enter your mobile number", name: "mobile" },
+    { label: "Company Name", placeholder: "Enter company name", name: "companyName", required: true },
+    { label: "City", placeholder: "Enter your city", name: "city", required: true },
+    { label: "State", placeholder: "Enter your state", name: "state", required: true },
+    { label: "Country", placeholder: "Enter your country", name: "country", required: true },
+    { label: "Email Address", placeholder: "Enter your email address", name: "email", required: true },
+    { label: "Phone", placeholder: "Enter your mobile number", name: "phone", required: true },
 ];
 
-const technicalOptions = ["Diploma", "B.Tech", "M.Tech", "Other"];
-const domainOptions = ["Embedded Systems", "Automation", "Web Development", "AI/ML", "Other"];
+const serviceDomain = ["Diploma", "B.Tech", "M.Tech", "Other"];
 
-function BecomePartner() {
+function WorkFoxboro() {
     const [formValues, setFormValues] = useState({
-        name: "",
+        companyName: "",
         email: "",
-        mobile: "",
+        phone: "",
         city: "",
         state: "",
         country: "",
-        technicalQualification: "",
-        internshipDomain: ""
+        serviceDomain: "",
+        GSTCertificate: null
     });
+
+    const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+    const { error, success } = useSelector(state => state.foxboro)
 
     const dispatch = useDispatch();
 
@@ -40,16 +42,32 @@ function BecomePartner() {
         console.log("Form submitted:", formValues);
         dispatch(postWork(formValues));
         setFormValues({
-            name: "",
+            companyName: "",
             email: "",
-            mobile: "",
+            phone: "",
             city: "",
             state: "",
             country: "",
-            technicalQualification: "",
-            internshipDomain: ""
+            serviceDomain: "",
+            GSTCertificate: null
         });
     };
+
+    useEffect(() => {
+        if (success) {
+            snackbar({
+                open: true,
+                message: "Application submitted Successfully",
+                severity: 'success'
+            })
+        } else if (error) {
+            setSnackbar({
+                open: true,
+                message: error,
+                severity: 'error'
+            });
+        }
+    }, [success, error]);
 
     return (
         <PageContainer showheader="true" showfooter="true">
@@ -82,6 +100,7 @@ function BecomePartner() {
                                             label={field.label}
                                             placeholder={field.placeholder}
                                             name={field.name}
+                                            required={field.required}
                                             value={formValues[field.name]}
                                             onChange={handleChange}
                                             variant="outlined"
@@ -96,13 +115,14 @@ function BecomePartner() {
                                         select
                                         fullWidth
                                         label="Service Domain"
-                                        name="technicalQualification"
-                                        value={formValues.technicalQualification}
+                                        name="serviceDomain"
+                                        value={formValues.serviceDomain}
                                         onChange={handleChange}
                                         variant="outlined"
                                         sx={{ mb: 2 }}
+                                        required
                                     >
-                                        {technicalOptions.map((option) => (
+                                        {serviceDomain.map((option) => (
                                             <MenuItem key={option} value={option}>
                                                 {option}
                                             </MenuItem>
@@ -110,26 +130,6 @@ function BecomePartner() {
                                     </TextField>
                                 </Grid2>
 
-                                {/* <Grid2 size={{ xs: 12, sm: 6 }}>
-                                    <TextField
-                                        select
-                                        fullWidth
-                                        label="Internship Domain"
-                                        name="internshipDomain"
-                                        value={formValues.internshipDomain}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        sx={{ mb: 2 }}
-                                    >
-                                        {domainOptions.map((option) => (
-                                            <MenuItem key={option} value={option}>
-                                                {option}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </Grid2> */}
-
-                                {/* Submit Button */}
                                 <Grid2 item size={{ lg: 6 }}>
                                     <label>
 
@@ -150,15 +150,15 @@ function BecomePartner() {
                                                 style={{ display: 'none' }}
                                                 onChange={(e) => {
                                                     const file = e.target.files[0];
-                                                    setFormValues({ ...formValues, resume: file });
+                                                    setFormValues({ ...formValues, GSTCertificate: file });
                                                 }}
                                             />
                                             <Button variant="outlined" component="span">
                                                 Upload GST Certificate
                                             </Button>
-                                            {formValues.resume && (
+                                            {formValues.GSTCertificate && (
                                                 <Typography variant="body2" sx={{ ml: 2, display: 'inline' }}>
-                                                    {formValues.resume.name}
+                                                    {formValues.GSTCertificate.name}
                                                 </Typography>
                                             )}
                                         </Box>
@@ -187,8 +187,24 @@ function BecomePartner() {
                     </Card>
                 </Grid2>
             </Grid2>
+
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={4000}
+                onClose={() => setSnackbar({ ...snackbar, open: false })}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert
+                    onClose={() => setSnackbar({ ...snackbar, open: false })}
+                    severity={snackbar.severity}
+                    sx={{ width: '100%' }}
+                >
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+
         </PageContainer>
     );
 }
 
-export default BecomePartner;
+export default WorkFoxboro;

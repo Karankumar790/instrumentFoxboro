@@ -19,11 +19,11 @@ const SignUpPage = () => {
         avatar: null,
     });
 
-    // Handle input change
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value }));
-    };
+  // Handle input change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
     // Handle form submission
     const handleSubmit = (e) => {

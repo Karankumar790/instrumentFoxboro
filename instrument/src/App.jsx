@@ -27,12 +27,13 @@ const Software = lazy(() => import("./pages/software.jsx"))
 const Hardware = lazy(() => import("./pages/Hardware.jsx"))
 const TrackService = lazy(() => import("./pages/TrackService.jsx"))
 const ServicePartner = lazy(() => import("./pages/ServicePartner.jsx"))
-const WorkFoxboro = lazy(() => import("./pages/WorkFoxboro/workFoxboro.jsx"))
-const HiringExpert = lazy(() => import("./pages/HiringExpert.jsx"))
-const BecomePartner = lazy(() => import("./pages/BecomePartner.jsx"))
+const ApplyIntership = lazy(() => import("./pages/WorkFoxboro/ApplyIntership/applyIntership.jsx"))
+const HiringExpert = lazy(() => import("./pages/WorkFoxboro/HiringExpert/HiringExpert.jsx"))
+const BecomePartner = lazy(() => import("./pages/WorkFoxboro/ServicePartner/workFoxboro.jsx"))
 const ServiceEstimate = lazy(() => import("./AdminDashoard/ServiceManager/SeviceEstimate.jsx"))
 const ServiceUploadPO = lazy(() => import("./AdminDashoard/ServiceManager/ServiceUploadPO.jsx"))
 const ManagerWorkFOx = lazy(() => import("./AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkFOx.jsx"))
+const Internship = lazy(() => import("./pages/WorkFoxboro/Internship.jsx"))
 
 function App() {
 
@@ -51,7 +52,7 @@ function App() {
     { path: '/forget', element: <Forget /> },
     { path: '/trackService', element: <TrackService /> },
     { path: '/servicePartner', element: <ServicePartner /> },
-    { path: '/workFoxboro', element: <WorkFoxboro /> },
+    { path: '/applyIntership', element: <ApplyIntership /> },
     { path: '/hiringExpert', element: <HiringExpert /> },
     { path: '/becomePartner', element: <BecomePartner /> },
 
@@ -72,6 +73,7 @@ function App() {
         { path: "serviceEstimate", element: <ServiceEstimate /> },
         { path: "serviceUploadPO", element: <ServiceUploadPO /> },
         { path: "managerWorkFOx", element: <ManagerWorkFOx /> },
+        { path: "internship", element: <Internship /> },
 
       ]
     }
