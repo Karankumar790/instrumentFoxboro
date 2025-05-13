@@ -1,15 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { API_URL } from "../../api/Client";
-const token = localStorage.getItem("authToken");
+import { API_URL, SER_URL } from "../../../api/Client";
 
-export const postWork = createAsyncThunk(
-  "postWork",
-  async (formData, { rejectWithValue }) => {
+export const postIntership = createAsyncThunk(
+  "postIntership",
+  async (formValue, { rejectWithValue }) => {
     try {
+      const formData = new FormData();
+      for (let key in formValue) {
+        formData.append(key, formValue[key]);
+      }
+
       const response = await axios.post(
         `${API_URL}/internship_candidate`,
-        formData,
+        formValue,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -23,10 +27,6 @@ export const postWork = createAsyncThunk(
   }
 );
 
-// console.log(token,"dlkfdfkjdf")
-// if (token) {
-//   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-// }
 export const getWork = createAsyncThunk(
   "getWork",
   async (_, { rejectWithValue }) => {
@@ -50,7 +50,7 @@ export const deleteWork = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await axios.delete(
-        `${API_URL}/update_internship_candidate/${id}`,
+        `${API_URL}/internship_candidate/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,27 +66,25 @@ export const deleteWork = createAsyncThunk(
   }
 );
 
-export const workFoxboro = createSlice({
-  name: "foxboro",
+export const applyIntership = createSlice({
+  name: "intership",
   initialState: { initWork: [], loading: false, error: null, success: false },
   extraReducers: (builder) => {
     builder
-      // Post Work
-      .addCase(postWork.pending, (state) => {
+      .addCase(postIntership.pending, (state) => {
         state.loading = true;
         state.error = false;
       })
-      .addCase(postWork.fulfilled, (state, action) => {
+      .addCase(postIntership.fulfilled, (state, action) => {
         state.loading = false;
         state.initWork.push(action.payload);
         state.success = true;
         state.error = false;
       })
-      .addCase(postWork.rejected, (state, action) => {
+      .addCase(postIntership.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-
       // Get Work
       .addCase(getWork.pending, (state) => {
         state.loading = true;
@@ -120,4 +118,4 @@ export const workFoxboro = createSlice({
   },
 });
 
-export default workFoxboro.reducer;
+export default applyIntership.reducer;

@@ -79,11 +79,11 @@ import {
   DialogContent,
   IconButton,
 } from "@mui/material";
-import { deleteWork, getWork } from "./workFoxSlice";
+import { deleteWork, getWork } from "../WorkFoxboro/ApplyIntership/applyIntership";
 
 function Internship() {
   const dispatch = useDispatch();
-  const { initWork, loading, error } = useSelector((state) => state.foxboro);
+  const { initWork, loading, error } = useSelector((state) => state.intership);
 
   const [open, setOpen] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");

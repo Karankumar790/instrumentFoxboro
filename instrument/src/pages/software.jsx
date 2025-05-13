@@ -51,17 +51,18 @@ const Software = () => {
 
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
             {softwareData.map((product, index) => (
-              <div key={index} className='bg-gray-100 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow'>
+              <div key={index} className='bg-gray-200 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow'>
                 <div className='flex items-center mb-4'>
                   <div className='w-36  h-24 rounded-lg bg-gray-200 flex items-center justify-center mr-4'>
                     <img src={product.softwareImage} alt={product.softwareName} className='w-full h-full object-cover' />
                   </div>
-                  <h2 className='text-xl font-semibold'>{product.softwareName}</h2>
+                  <div className='h-24'>
+                    <h2 className='text-xl font-semibold'>{product.softwareName}</h2>
+                  </div>
                 </div>
-                <p className='text-gray-600 mb-6'>{product.description}</p>
-
+                <p className='text-gray-600 mb-6 text-lg'>{product.description}</p>
                 <div className='flex justify-end'>
-                  <button className='text-green-700 font-semibold hover:text-blue-800 transition-colors'>
+                  <button className='text-green-700 font-semibold text-lg hover:text-blue-800 transition-colors'>
                     TRY NOW &gt;
                   </button>
                 </div>

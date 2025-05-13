@@ -111,6 +111,8 @@ function Support() {
                   <div>
                     <h3 className="font-semibold text-4xl">Phone</h3>
                     <p className="text-2xl font-semibold">+91 94578893231</p>
+                    <p className="text-2xl font-semibold">+91 94578893232</p>
+                    <p className="text-2xl font-semibold">+91 94578893234</p>
                   </div>
                 </div>
 
@@ -122,7 +124,10 @@ function Support() {
                   <div>
                     <h3 className="font-semibold text-4xl">Email</h3>
                     <p className="text-2xl font-semibold">
-                      foxboroinstrument@email.com
+                      foxboroinstrument@gmail.com
+                    </p>
+                    <p className="text-2xl font-semibold">
+                      foxboroinstrument@yahoo.com
                     </p>
                   </div>
                 </div>

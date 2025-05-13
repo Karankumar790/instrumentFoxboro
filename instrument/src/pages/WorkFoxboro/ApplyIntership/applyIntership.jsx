@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import PageContainer from "../../src/components/HOC/PageContainer";
+import PageContainer from "../../components/HOC/PageContainer";
 import { useDispatch } from "react-redux";
-import { postWork } from "./WorkFoxboro/workFoxSlice";
-import {Card,Grid2,MenuItem,TextField,Typography,Button,Box} from "@mui/material";
+import { postWork } from "./workFoxSlice";
+import { Card, Grid2, MenuItem, TextField, Typography, Button, Box,} from "@mui/material";
 
 const personalData = [
   { label: "Name", placeholder: "Enter your name", name: "name" },
@@ -11,16 +11,6 @@ const personalData = [
   { label: "City", placeholder: "Enter your city", name: "city" },
   { label: "State", placeholder: "Enter your state", name: "state" },
   { label: "Country", placeholder: "Enter your country", name: "country" },
-  {
-    label: "Total Experience",
-    placeholder: "Enter your total experience",
-    name: "totalExperience",
-  },
-  {
-    label: "Expected salary",
-    placeholder: "Enter your expected salary",
-    name: "totalExperience",
-  },
 ];
 
 const technicalOptions = ["Diploma", "B.Tech", "M.Tech", "Other"];
@@ -32,7 +22,7 @@ const domainOptions = [
   "Other",
 ];
 
-function HiringExpert() {
+function WorkFoxboro() {
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -42,6 +32,7 @@ function HiringExpert() {
     country: "",
     technicalQualification: "",
     internshipDomain: "",
+    candidateResume: null,
   });
 
   const dispatch = useDispatch();
@@ -53,8 +44,23 @@ function HiringExpert() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formValues);
-    dispatch(postWork(formValues));
+
+    // Validation
+    if (!formValues.candidateResume) {
+      alert("Please upload your resume.");
+      return;
+    }
+
+    // Create FormData and append all fields
+    const formDataToSend = new FormData();
+    Object.entries(formValues).forEach(([key, value]) => {
+      formDataToSend.append(key, value);
+    });
+
+    // Dispatch FormData to API
+    dispatch(postWork(formDataToSend));
+
+    // Reset form
     setFormValues({
       name: "",
       email: "",
@@ -64,8 +70,10 @@ function HiringExpert() {
       country: "",
       technicalQualification: "",
       internshipDomain: "",
+      candidateResume: null,
     });
   };
+
   return (
     <PageContainer showheader="true" showfooter="true">
       <Grid2
@@ -95,13 +103,12 @@ function HiringExpert() {
               }}
             >
               <Typography variant="h5" fontWeight="bold">
-                OPPORTUNITIES FOR HIGHLY SKILLED PROFESSIONALS
+                APPLY FOR INTERNSHIP
               </Typography>
             </Box>
 
             <Box component="form" onSubmit={handleSubmit} sx={{ p: 4 }}>
               <Grid2 container spacing={3}>
-                {/* Personal Data Fields */}
                 {personalData.map((field, index) => (
                   <Grid2 key={index} size={{ xs: 12, sm: 6 }}>
                     <TextField
@@ -116,12 +123,12 @@ function HiringExpert() {
                     />
                   </Grid2>
                 ))}
-                {/* Dropdown Fields - Now matching other fields */}
+
                 <Grid2 size={{ xs: 12, sm: 6 }}>
                   <TextField
                     select
                     fullWidth
-                    label="Professional Quailfication"
+                    label="Technical Qualification"
                     name="technicalQualification"
                     value={formValues.technicalQualification}
                     onChange={handleChange}
@@ -135,11 +142,12 @@ function HiringExpert() {
                     ))}
                   </TextField>
                 </Grid2>
+
                 <Grid2 size={{ xs: 12, sm: 6 }}>
                   <TextField
                     select
                     fullWidth
-                    label="You are experts in"
+                    label="Internship Domain"
                     name="internshipDomain"
                     value={formValues.internshipDomain}
                     onChange={handleChange}
@@ -153,7 +161,8 @@ function HiringExpert() {
                     ))}
                   </TextField>
                 </Grid2>
-                {/* Submit Button */}
+
+                {/* Resume Upload */}
                 <Grid2 item size={{ lg: 6 }}>
                   <label>
                     <Box
@@ -169,27 +178,31 @@ function HiringExpert() {
                     >
                       <input
                         type="file"
-                        fullWidth
-                        style={{ display: "none" }}
+                        hidden
                         onChange={(e) => {
                           const file = e.target.files[0];
-                          setFormValues({ ...formValues, resume: file });
+                          setFormValues({
+                            ...formValues,
+                            candidateResume: file,
+                          });
                         }}
                       />
                       <Button variant="outlined" component="span">
                         Upload Resume
                       </Button>
-                      {formValues.resume && (
+                      {formValues.candidateResume && (
                         <Typography
                           variant="body2"
                           sx={{ ml: 2, display: "inline" }}
                         >
-                          {formValues.resume.name}
+                          {formValues.candidateResume.name}
                         </Typography>
                       )}
                     </Box>
                   </label>
                 </Grid2>
+
+                {/* Submit Button */}
                 <Grid2
                   item
                   size={{ lg: 6 }}
@@ -217,4 +230,5 @@ function HiringExpert() {
     </PageContainer>
   );
 }
-export default HiringExpert;
+
+export default WorkFoxboro;
