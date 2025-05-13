@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import PageContainer from "../../components/HOC/PageContainer";
+import PageContainer from "../../../components/HOC/PageContainer";
 import { useDispatch } from "react-redux";
-import { postWork } from "./workFoxSlice";
+import { postIntership } from "../../WorkFoxboro/ApplyIntership/applyIntership";
 import { Card, Grid2, MenuItem, TextField, Typography, Button, Box,} from "@mui/material";
 
 const personalData = [
@@ -58,7 +58,7 @@ function WorkFoxboro() {
     });
 
     // Dispatch FormData to API
-    dispatch(postWork(formDataToSend));
+    dispatch(postIntership(formDataToSend));
 
     // Reset form
     setFormValues({
