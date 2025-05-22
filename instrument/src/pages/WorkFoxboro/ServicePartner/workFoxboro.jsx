@@ -55,11 +55,11 @@ function WorkFoxboro() {
 
     useEffect(() => {
         if (success) {
-            snackbar({
+            setSnackbar({
                 open: true,
                 message: "Application submitted Successfully",
                 severity: 'success'
-            })
+            });
         } else if (error) {
             setSnackbar({
                 open: true,
@@ -68,6 +68,7 @@ function WorkFoxboro() {
             });
         }
     }, [success, error]);
+
 
     return (
         <PageContainer showheader="true" showfooter="true">

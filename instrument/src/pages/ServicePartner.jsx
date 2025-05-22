@@ -151,8 +151,7 @@ function ServicePartner() {
                             <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                 <TableHead>
                                     <TableRow>
-                                        <StyledTableCell>Service Partner</StyledTableCell>
-                                        <StyledTableCell>Contact Person</StyledTableCell>
+                                        <StyledTableCell>Company Name</StyledTableCell>
                                         <StyledTableCell>Mobile</StyledTableCell>
                                         <StyledTableCell >Email</StyledTableCell>
                                         <StyledTableCell >City</StyledTableCell>
@@ -165,9 +164,7 @@ function ServicePartner() {
                                     {authWork?.map((row) => (
                                         <StyledTableRow key={row._id}>
                                             <StyledTableCell component="th" scope="row">
-                                                {row.name}
-                                            </StyledTableCell><StyledTableCell component="th" scope="row">
-                                                {row.name}
+                                                {row.companyName}
                                             </StyledTableCell>
                                             <StyledTableCell>{row.phone}</StyledTableCell>
                                             <StyledTableCell>{row.email}</StyledTableCell>

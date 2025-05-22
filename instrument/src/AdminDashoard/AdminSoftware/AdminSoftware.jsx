@@ -187,7 +187,7 @@ function Software() { // Changed to PascalCase
                 </StyledTableCell>
                 <StyledTableCell>{software?.softwareName || "N/A"}</StyledTableCell>
                 <StyledTableCell>{software?.description || "N/A"}</StyledTableCell>
-                <StyledTableCell>
+                <StyledTableCell className='w-28'>
                   <IconButton
                     color='primary'
                     onClick={() => handleOpen(software)}

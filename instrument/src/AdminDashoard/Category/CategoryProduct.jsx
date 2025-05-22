@@ -56,9 +56,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
-  }
-  
- 
+}
+
+
 
 function CategoryProduct() {
     const [open, setOpen] = useState(false);
@@ -107,10 +107,12 @@ function CategoryProduct() {
     };
 
     useEffect(() => {
+        // In your fetchProduct function:
         const fetchProduct = async () => {
             try {
                 const response = await getProductById(categoryId);
-                setProducts(response);
+                // Ensure response is always an array
+                setProducts(Array.isArray(response) ? response : []);
             } catch (error) {
                 console.error("Error fetching products:", error);
                 setError("Failed to fetch products");
@@ -208,7 +210,7 @@ function CategoryProduct() {
                     >
                         Edit Category
                     </button> */}
-                    <button 
+                    <button
                         onClick={() => handleOpen("product")}
                         className='px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors'
                     >
@@ -228,62 +230,64 @@ function CategoryProduct() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {loading ? (
-                            <TableRow>
-                                <TableCell colSpan={4} align="center">
-                                    Loading...
-                                </TableCell>
-                            </TableRow>
-                        ) : error ? (
-                            <TableRow>
-                                <TableCell colSpan={4} align="center" className="text-red-500">
-                                    {error}
-                                </TableCell>
-                            </TableRow>
-                        ) : products.length === 0 ? (
-                            <TableRow>
-                                <TableCell colSpan={4} align="center">
-                                    No products found
-                                </TableCell>
-                            </TableRow>
-                        ) : (
-                            products.map((product) => (
-                                <StyledTableRow key={product._id}>
-                                    <StyledTableCell>
-                                        <img 
-                                            src={product.productImage} 
-                                            alt={product.productName} 
-                                            className="w-12 h-12 object-cover rounded"
-                                        />
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right" className="font-medium">
-                                        {product.productName}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        {product.description}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        <div className="flex justify-end space-x-2">
-                                            <IconButton 
-                                                color="primary" 
-                                                onClick={() => handleOpen("product", product)}
-                                                className="hover:bg-blue-100"
-                                            >
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton 
-                                                color="error" 
-                                                onClick={() => handleDeleteProduct(product._id)}
-                                                className="hover:bg-red-100"
-                                            >
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </div>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))
-                        )}
+                        {
+                            loading ? (
+                                <TableRow>
+                                    <TableCell colSpan={4} align="center">
+                                        Loading...
+                                    </TableCell>
+                                </TableRow>
+                            ) : error ? (
+                                <TableRow>
+                                    <TableCell colSpan={4} align="center" className="text-red-500">
+                                        {error}
+                                    </TableCell>
+                                </TableRow>
+                            ) : !Array.isArray(products) || products.length === 0 ? (
+                                <TableRow>
+                                    <TableCell colSpan={4} align="center">
+                                        No products found
+                                    </TableCell>
+                                </TableRow>
+                            ) : (
+                                products.map((product) => (
+                                    <StyledTableRow key={product._id}>
+                                        <StyledTableCell>
+                                            <img
+                                                src={product.productImage}
+                                                alt={product.productName}
+                                                className="w-12 h-12 object-cover rounded"
+                                            />
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right" className="font-medium">
+                                            {product.productName}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">
+                                            {product.description}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">
+                                            <div className="flex justify-end space-x-2">
+                                                <IconButton
+                                                    color="primary"
+                                                    onClick={() => handleOpen("product", product)}
+                                                    className="hover:bg-blue-100"
+                                                >
+                                                    <EditIcon />
+                                                </IconButton>
+                                                <IconButton
+                                                    color="error"
+                                                    onClick={() => handleDeleteProduct(product._id)}
+                                                    className="hover:bg-red-100"
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </div>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))
+                            )}
                     </TableBody>
+
                 </Table>
             </TableContainer>
 
@@ -311,7 +315,7 @@ function CategoryProduct() {
                                     <ClearIcon />
                                 </IconButton>
                             </div>
-                            
+
                             <div className='space-y-6'>
                                 {modalType === "product" ? (
                                     <>
@@ -319,34 +323,34 @@ function CategoryProduct() {
                                             <label className="block text-sm font-medium text-gray-700">
                                                 Product Name
                                             </label>
-                                            <input 
-                                                type="text" 
-                                                placeholder='Product Name' 
+                                            <input
+                                                type="text"
+                                                placeholder='Product Name'
                                                 className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                                                value={productName} 
-                                                onChange={(e) => setProductName(e.target.value)} 
+                                                value={productName}
+                                                onChange={(e) => setProductName(e.target.value)}
                                             />
                                         </div>
-                                        
+
                                         <div className="space-y-2">
                                             <label className="block text-sm font-medium text-gray-700">
                                                 Description
                                             </label>
-                                            <textarea 
-                                                rows={4} 
-                                                placeholder='Description' 
+                                            <textarea
+                                                rows={4}
+                                                placeholder='Description'
                                                 className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                                                value={description} 
+                                                value={description}
                                                 onChange={(e) => setDescription(e.target.value)}
                                             />
                                         </div>
-                                        
+
                                         <div className="space-y-2">
                                             <label className="block text-sm font-medium text-gray-700">
                                                 Product Image
                                             </label>
-                                            <Box 
-                                                sx={{ 
+                                            <Box
+                                                sx={{
                                                     width: "100%",
                                                     height: 200,
                                                     display: "flex",
@@ -378,19 +382,19 @@ function CategoryProduct() {
                                                     </Typography>
                                                 )}
                                             </Box>
-                                            
-                                            <Button 
-                                                variant="contained" 
+
+                                            <Button
+                                                variant="contained"
                                                 component="label"
                                                 fullWidth
                                                 className="bg-blue-600 hover:bg-blue-700"
                                             >
                                                 Upload Image
-                                                <input 
-                                                    type="file" 
-                                                    hidden 
-                                                    onChange={handleImageChange} 
-                                                    accept="image/*" 
+                                                <input
+                                                    type="file"
+                                                    hidden
+                                                    onChange={handleImageChange}
+                                                    accept="image/*"
                                                 />
                                             </Button>
                                         </div>
@@ -400,16 +404,16 @@ function CategoryProduct() {
                                         <label className="block text-sm font-medium text-gray-700">
                                             Category Name
                                         </label>
-                                        <input 
-                                            type="text" 
-                                            placeholder='Category Name' 
+                                        <input
+                                            type="text"
+                                            placeholder='Category Name'
                                             className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                                            value={categoryName} 
-                                            onChange={(e) => setCategoryName(e.target.value)} 
+                                            value={categoryName}
+                                            onChange={(e) => setCategoryName(e.target.value)}
                                         />
                                     </div>
                                 )}
-                                
+
                                 <button
                                     onClick={handleSubmit}
                                     className="w-full bg-blue-600 hover:bg-blue-700 p-3 text-white rounded-lg font-semibold transition-colors"
@@ -417,7 +421,7 @@ function CategoryProduct() {
                                 >
                                     {loading ? "Processing..." : editMode ? "Update" : "Submit"}
                                 </button>
-                                
+
                                 {error && (
                                     <div className="p-3 bg-red-100 text-red-700 rounded-lg">
                                         {error}

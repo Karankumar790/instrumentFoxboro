@@ -31,8 +31,12 @@ const ApplyIntership = lazy(() => import("./pages/WorkFoxboro/ApplyIntership/app
 const HiringExpert = lazy(() => import("./pages/WorkFoxboro/HiringExpert/HiringExpert.jsx"))
 const BecomePartner = lazy(() => import("./pages/WorkFoxboro/ServicePartner/workFoxboro.jsx"))
 const ServiceEstimate = lazy(() => import("./AdminDashoard/ServiceManager/SeviceEstimate.jsx"))
-const ServiceUploadPO = lazy(() => import("./AdminDashoard/ServiceManager/ServiceUploadPO.jsx"))
+const Internship = lazy(() => import("./AdminDashoard/ServiceManager/Internship.jsx"))
 const ManagerWorkFOx = lazy(() => import("./AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkFOx.jsx"))
+const ProductDetail = lazy(() => import("./AdminDashoard/AdminProduct/ProductDetail.jsx"))
+const AdminHiringExp = lazy(() => import("./AdminDashoard/ServiceManager/AdminHiringExp.jsx"))
+const SubProduct = lazy(() => import("./pages/SubProduct/subProduct.jsx"))
+
 
 function App() {
 
@@ -54,6 +58,8 @@ function App() {
     { path: '/applyIntership', element: <ApplyIntership /> },
     { path: '/hiringExpert', element: <HiringExpert /> },
     { path: '/becomePartner', element: <BecomePartner /> },
+    { path: '/subProduct/:id', element: <SubProduct /> },
+    
 
     {
       path: "/admin",
@@ -70,8 +76,10 @@ function App() {
         { path: "adminRunningProject", element: <AdminRunningProject /> },
         { path: "adminNewProject", element: <AdminNewProject /> },
         { path: "serviceEstimate", element: <ServiceEstimate /> },
-        { path: "serviceUploadPO", element: <ServiceUploadPO /> },
+        { path: "internship", element: <Internship /> },
         { path: "managerWorkFOx", element: <ManagerWorkFOx /> },
+        { path: 'productDetail/:id', element: <ProductDetail /> },
+        { path: 'adminHiringExp', element: <AdminHiringExp /> },
 
       ]
     }
