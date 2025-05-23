@@ -1,16 +1,21 @@
-import { Box, Button, IconButton, Modal, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import {
+  Box, Button, IconButton, Modal, Paper, styled, Table, TableBody,
+  TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Typography
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch, useSelector } from "react-redux";
-import { addFoxProduct, deleteProduct, updateFoxProduct } from './AdminProductSlice';
-import { getFoxboroProduct } from '../../pages/product';
+import {
+  addFoxProduct, deleteProduct, updateFoxProduct, fetchFoxboroProduct
+} from './AdminProductSlice';
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
 
 const Modalstyle = {
   position: 'absolute',
-  top: '50%',
-  left: '50%',
+  top: '50%', left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 600,
   bgcolor: 'background.paper',
@@ -42,39 +47,26 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function Product() {
-  const [image, setImage] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [fetchProduct, setFetchProduct] = useState([]);
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-  });
+  const { products = [], loading } = useSelector((state) => state.foxboroProduct);
 
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: "", description: "" });
+  const [image, setImage] = useState(null);
   const [editingProduct, setEditingProduct] = useState(null);
-  const { productFox } = useSelector(
-    (state) => state.foxboroProduct
-  );
 
-
+  useEffect(() => {
+    dispatch(fetchFoxboroProduct({ page: 1, limit: 100 }));
+  }, [dispatch]);
 
   const handleOpen = (product = null) => {
     if (product) {
-      // Edit mode
       setEditingProduct(product);
-      setFormData({
-        name: product.name || "",
-        description: product.description || "",
-      });
+      setFormData({ name: product.name || "", description: product.description || "" });
       setImage(product.image || null);
     } else {
-      // Add mode
       setEditingProduct(null);
-      setFormData({
-        name: "",
-        description: "",
-      });
+      setFormData({ name: "", description: "" });
       setImage(null);
     }
     setOpen(true);
@@ -82,59 +74,19 @@ function Product() {
 
   const handleClose = () => {
     setOpen(false);
-    setLoading(false);
     setEditingProduct(null);
-    setFormData({
-      name: "",
-      description: "",
-    });
+    setFormData({ name: "", description: "" });
     setImage(null);
   };
 
-  // useEffect(() => {
-  //   const fetchFoxProduct = async () => {
-  //     try {
-  //       const response = await getFoxboroProduct();
-  //       // Ensure response.data is an array and has proper structure
-  //       if (Array.isArray(response?.data)) {
-  //         setFetchProduct(response.data);
-  //       } else {
-  //         console.error("Invalid product data format:", response);
-  //         setFetchProduct([]);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching products:", error);
-  //       setFetchProduct([]);
-  //     }
-  //   };
-  //   fetchFoxProduct();
-  // }, []);
-
-  const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    dispatch(getFoxboroProduct({ page, limit: 12 }));
-  }, [dispatch, page]);
-
-  useEffect(() => {
-    if (Array.isArray(productFox)) {
-      setFetchProduct(productFox);
-    }
-  }, [productFox]);
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setImage(file);
-    }
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) setImage(file);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async () => {
@@ -143,52 +95,33 @@ function Product() {
       return;
     }
 
-    setLoading(true);
-
     const data = new FormData();
     data.append("name", formData.name);
     data.append("description", formData.description);
-
     if (image && typeof image !== "string") {
       data.append("foxboroProductImage", image);
     }
 
     try {
       if (editingProduct) {
-        // Update existing product
-        const result = await dispatch(
-          updateFoxProduct({
-            productId: editingProduct._id,
-            formData: data
-          })
-        ).unwrap();
-
-        setFetchProduct(prevProducts =>
-          prevProducts.map(product =>
-            product._id === editingProduct._id ? result.data : product
-          )
-        );
+        await dispatch(updateFoxProduct({ id: editingProduct._id, formData: data })).unwrap();
       } else {
-        // Add new product
-        const result = await dispatch(addFoxProduct({ proData: data })).unwrap();
-        setFetchProduct(prevProducts => [result.data, ...prevProducts]);
+        await dispatch(addFoxProduct({ proData: data })).unwrap();
       }
+      dispatch(fetchFoxboroProduct({ page: 1, limit: 100 }));
       handleClose();
     } catch (error) {
-      console.error("Error submitting product:", error);
+      console.error("Error:", error);
       alert(error.message || "Something went wrong!");
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleDeletePro = async (productId) => {
-
     try {
-      await dispatch(deleteProduct(productId));
-      setFetchProduct(prevProducts => prevProducts.filter(product => product._id !== productId));
+      await dispatch(deleteProduct(productId)).unwrap();
+      dispatch(fetchFoxboroProduct({ page: 1, limit: 100 }));
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.error("Delete error:", error);
       alert("Failed to delete product");
     }
   };
@@ -216,46 +149,37 @@ function Product() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {fetchProduct.length > 0 ? (
-              fetchProduct.map((product) => (
-                <StyledTableRow key={product?._id || Math.random()}>
-                  <StyledTableCell component="th" scope="row">
+            {products.length > 0 ? (
+              products.map((product) => (
+                <StyledTableRow key={product._id}>
+                  <StyledTableCell>
                     <div className='w-20 h-20'>
-                      {product?.image ? (
+                      {product.image ? (
                         <img
                           src={product.image}
-                          alt={product.name || "Product image"}
+                          alt={product.name}
                           className='w-full h-full object-contain'
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = 'path/to/default/image.png';
-                          }}
                         />
                       ) : (
-                        <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                          <Typography variant="body2">No Image</Typography>
-                        </div>
+                        <Typography variant="body2">No Image</Typography>
                       )}
                     </div>
                   </StyledTableCell>
-                  <StyledTableCell align="right">{product?.name || "N/A"}</StyledTableCell>
-                  <StyledTableCell align="right">{product?.description || "N/A"}</StyledTableCell>
+                  <StyledTableCell align="right">{product.name}</StyledTableCell>
+                  <StyledTableCell align="right">{product.description}</StyledTableCell>
                   <StyledTableCell align="right">
                     <div className="flex justify-end space-x-2">
-                      <IconButton
-                        color="primary"
-                        className="hover:bg-blue-100"
-                        onClick={() => handleOpen(product)}
-                      >
+                      <IconButton color="primary" onClick={() => handleOpen(product)}>
                         <EditIcon />
                       </IconButton>
-                      <IconButton
-                        color="error"
-                        className="hover:bg-red-100"
-                        onClick={() => product?._id && handleDeletePro(product._id)}
-                      >
+                      <IconButton color="error" onClick={() => handleDeletePro(product._id)}>
                         <DeleteIcon />
                       </IconButton>
+                      <Link to={`/admin/productDetail/${product._id}`}>
+                        <IconButton>
+                          <AddIcon className='text-black font-bold' />
+                        </IconButton>
+                      </Link>
                     </div>
                   </StyledTableCell>
                 </StyledTableRow>
@@ -271,39 +195,28 @@ function Product() {
         </Table>
       </TableContainer>
 
-      <Modal
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="keep-mounted-modal-title"
-        aria-describedby="keep-mounted-modal-description"
-      >
+      <Modal open={open} onClose={handleClose}>
         <Box sx={Modalstyle}>
-          <div className='flex justify-between'>
-            <h2 className='text-2xl font-bold text-gray-800'>
-              {editingProduct ? 'Edit Product' : 'Add New Product'}
-            </h2>
-            <IconButton onClick={handleClose} className="hover:bg-gray-100 text-lg">
-              <ClearIcon />
-            </IconButton>
+          <div className='flex justify-between mb-4'>
+            <h2 className='text-xl font-bold'>{editingProduct ? 'Edit Product' : 'Add New Product'}</h2>
+            <IconButton onClick={handleClose}><ClearIcon /></IconButton>
           </div>
-
-          <div className='space-y-5'>
+          <div className='space-y-4'>
             <input
               type="text"
-              placeholder='Name'
-              className='border rounded w-full p-2 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+              placeholder="Name"
+              name="name"
               value={formData.name}
               onChange={handleInputChange}
-              name='name'
+              className='w-full p-2 border border-gray-300 rounded'
             />
             <textarea
               rows={3}
-              placeholder='Description'
-              name='description'
-              className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+              name="description"
+              placeholder="Description"
               value={formData.description}
               onChange={handleInputChange}
+              className='w-full p-2 border border-gray-300 rounded'
             />
             <div className="w-full h-56 border border-gray-300 rounded-lg flex justify-center items-center">
               {image ? (
@@ -313,36 +226,22 @@ function Product() {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <Typography variant="body2" color="textSecondary">
-                  No Image Selected
-                </Typography>
+                <Typography variant="body2">No Image Selected</Typography>
               )}
             </div>
-
+            <Button variant="contained" component="label" fullWidth>
+              Upload Image
+              <input type="file" hidden onChange={handleImageChange} accept="image/*" />
+            </Button>
             <Button
               variant="contained"
-              component="label"
               fullWidth
-              className="bg-blue-600 hover:bg-blue-700"
-            >
-              Upload Image
-              <input
-                type="file"
-                hidden
-                onChange={handleImageChange}
-                accept="image/*"
-              />
-            </Button>
-
-            <button
-              className={`w-full bg-blue-600 hover:bg-blue-700 p-2 text-white rounded-lg font-semibold transition-colors ${loading ? "opacity-70 cursor-not-allowed" : ""
-                }`}
-              type="button"
+              color="primary"
               onClick={handleSubmit}
               disabled={loading}
             >
               {loading ? "Processing..." : editingProduct ? "Update" : "Submit"}
-            </button>
+            </Button>
           </div>
         </Box>
       </Modal>

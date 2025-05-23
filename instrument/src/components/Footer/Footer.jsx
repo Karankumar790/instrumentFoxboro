@@ -11,18 +11,23 @@ function Footer() {
 
   useEffect(() => {
     dispatch(getFooter())
-  },[dispatch])
+  }, [dispatch])
 
   return (
     <Box sx={{ bgcolor: "#2b313b", p: 2 }}>
-      <Grid2 container spacing={4} ml={12}  sx={{display:'flex',justifyContent:'space-between'}}>
+      <Grid2 container spacing={4} ml={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
         {/* Corporate Office */}
         <Grid2 size={{ lg: 2.6 }} >
           <Box >
             <Typography variant="h5" color="white">Registered Office</Typography>
-            <Typography color="white">{fetchFooter.registeredOfficeAddress} </Typography>
-            <Typography color="white">Raj Nagar District Center, Ghaziabad </Typography>
-            <Typography color="white">Uttar Pradesh India, Zip code 201001</Typography>
+            {fetchFooter.registeredOfficeAddress?.split(',').map((line, index) => (
+              <Typography key={index} color="white">
+                {line}
+              </Typography>
+            ))}
+
+            {/* <Typography color="white">Raj Nagar District Center, Ghaziabad </Typography>
+            <Typography color="white">Uttar Pradesh India, Zip code 201001</Typography> */}
             <Typography color="white">{fetchFooter.supportEmail}</Typography>
           </Box>
         </Grid2>
@@ -41,25 +46,25 @@ function Footer() {
 
         <Grid2 size={{ lg: 4 }}>
           <Box>
-          <Typography variant="h5" color="white">Useful Website </Typography>
-          <Typography color="white">
+            <Typography variant="h5" color="white">Useful Website </Typography>
+            <Typography color="white">
               <a href="https://www.foxboroinstrument.com" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-              {fetchFooter?.websiteLinks?.link1} (Automation)
+                {fetchFooter?.websiteLinks?.link1} (Automation)
               </a>
             </Typography>
             <Typography color="white">
               <a href="https://www.foxboroinstrument.online" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-              {fetchFooter?.websiteLinks?.link2}  (E-Store)
+                {fetchFooter?.websiteLinks?.link2}  (E-Store)
               </a>
             </Typography>
             <Typography color="white">
               <a href="https://www.foxboro.in" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-              {fetchFooter?.websiteLinks?.link3}  (Industrial IoT Systems)
+                {fetchFooter?.websiteLinks?.link3}  (Industrial IoT Systems)
               </a>
             </Typography>
             <Typography color="white">
               <a href="https://www.foxboroinstrument.co.in" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-              {fetchFooter?.websiteLinks?.link4}  (Service)
+                {fetchFooter?.websiteLinks?.link4}  (Service)
               </a>
             </Typography>
 

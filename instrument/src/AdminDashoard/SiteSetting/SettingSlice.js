@@ -95,7 +95,9 @@ export const postBanner = createAsyncThunk(
             images.forEach((image) => {
                 formData.append("images", image);
             });
-            const response = await axios.post(`${API_URL}/banner`, formData)
+            const response = await axios.post(`${API_URL}/banner`, formData,
+                { withCredentials: true }
+            )
             return response.data;
         } catch (error) {
             return rejectWithValue(
@@ -123,8 +125,12 @@ export const deleteBanner = createAsyncThunk(
     "deleteBanner",
     async (id, { rejectWithValue }) => {
         try {
-            const response = await axios.delete(`${API_URL}/deletePhoto/${id}`)
-            return id
+            const response = await axios.delete(`${API_URL}/deletePhoto/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            return response.data
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message || "Error adding "

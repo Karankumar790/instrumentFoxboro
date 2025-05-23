@@ -3,31 +3,28 @@ import axios from "axios";
 import { API_URL } from "../../../api/Client";
 
 export const postWork = createAsyncThunk(
-  "postWork",
-  async (formValue, { rejectWithValue }) => {
-    try {
-      const formData = new FormData();
-      for (let key in formValue) {
-        formData.append(key, formValue[key]);
-      }
+    "postWork",
+    async (formValue, { rejectWithValue }) => {
+        try {
+            const formData = new FormData();
+            for (let key in formValue) {
+                formData.append(key, formValue[key]);
+            }
 
-      const response = await axios.post(
-        `${API_URL}/service_partner`,
-        formValue,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+            const response = await axios.post(`${API_URL}/service_partner`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Error adding service partner"
+            );
         }
-      );
-      response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.message || "Error adding ");
     }
-  }
 );
-
-
 
 export const workFoxboro = createSlice({
   name: "foxboro",
@@ -48,7 +45,7 @@ export const workFoxboro = createSlice({
       .addCase(postWork.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
+      });
   },
 });
 

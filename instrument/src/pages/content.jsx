@@ -1,9 +1,4 @@
-import {
-  Box,
-  Card,
-  Grid2,
-  Typography,
-} from "@mui/material";
+import { Box, Card, Grid2, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
@@ -18,17 +13,19 @@ import { getFoxboroProduct } from "./product";
 function content() {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
-  const { data: softwareData = [], loading, error } = useSelector(state => state.software);
+  const {
+    data: softwareData = [],
+    loading,
+    error,
+  } = useSelector((state) => state.software);
   const { uploadedBanners } = useSelector((state) => state.header);
-  const { productFox } = useSelector(state => state.foxboroProduct)
+  const { productFox } = useSelector((state) => state.foxboroProduct);
   const [page, setPage] = useState(1);
 
-
-  const data = uploadedBanners.length > 0
-    ? uploadedBanners[0].images.map((img) => img.url)
-    : [];
-
-
+  const data =
+    uploadedBanners.length > 0
+      ? uploadedBanners[0].images.map((img) => img.url)
+      : [];
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -45,7 +42,6 @@ function content() {
 
     return () => clearInterval(interval);
   }, [data.length]); // Re-run if banner data updates
-
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -65,7 +61,9 @@ function content() {
   const limitNameWords = (text, wordLimit = 5) => {
     if (!text) return "No Name available";
     const words = text.split(" ");
-    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(" ") + "..."
+      : text;
   };
 
   return (
@@ -83,7 +81,6 @@ function content() {
                 />
               )}
             </Box>
-
           </Grid2>
         </Grid2>
         <Grid2 container className=" flex justify-center">
@@ -122,7 +119,11 @@ function content() {
                           />
                         </div>
                       </Link>
-                      <Typography variant="h5" gutterBottom sx={{ padding: "8px", }}>
+                      <Typography
+                        variant="h5"
+                        gutterBottom
+                        sx={{ padding: "8px" }}
+                      >
                         {limitNameWords(category.categoryName)}
                       </Typography>
                       <Typography
@@ -178,29 +179,30 @@ function content() {
                       mb={2}
                       sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                     >
-                      {software.description
-                        .split(" ")
-                        .slice(0, 20)
-                        .join(" ") + (software.description.split(" ").length > 20 ? "..." : "")
-                      }
+                      {software.description.split(" ").slice(0, 20).join(" ") +
+                        (software.description.split(" ").length > 20
+                          ? "..."
+                          : "")}
                     </Typography>
                   </Card>
                 </Grid2>
               ))}
             </Grid2>
-            <Grid2 mt={3} mb={2}   >
-              <Typography variant="h5" fontWeight={"bold"}>Products</Typography>
+            <Grid2 mt={3} mb={2}>
+              <Typography variant="h5" fontWeight={"bold"}>
+                Products
+              </Typography>
             </Grid2>
 
             <Grid2 container spacing={3} mt={1} mb={3}>
-              {productFox.slice(0, 4).map((product) => (
+              {(productFox || []).slice(0, 4).map((product) => (
                 <Grid2
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                   // border={"1px solid black"}
                   key={product._id}
                 >
                   <Card>
-                    <Link to='/product'>
+                    <Link to="/product">
                       <div className="h-80 w-full">
                         <img
                           src={product.image}
@@ -214,7 +216,6 @@ function content() {
                           }}
                         />
                       </div>
-
                     </Link>
                     <Typography
                       variant="h5"
@@ -229,11 +230,10 @@ function content() {
                       mb={2}
                       sx={{ paddingLeft: "8px", paddingRight: "8px" }}
                     >
-                      {product.description
-                        .split(" ")
-                        .slice(0, 20)
-                        .join(" ") + (product.description.split(" ").length > 20 ? "..." : "")
-                      }
+                      {product.description.split(" ").slice(0, 20).join(" ") +
+                        (product.description.split(" ").length > 20
+                          ? "..."
+                          : "")}
                     </Typography>
                   </Card>
                 </Grid2>

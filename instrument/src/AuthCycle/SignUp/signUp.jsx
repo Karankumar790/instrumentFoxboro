@@ -63,10 +63,10 @@ const SignUpPage = () => {
     const [openModals, setOpenModals] = useState(false);
     
     const token = localStorage.getItem("authToken")
-    const handleSignupOtpSubmit = async (otp, userToken) => {
+    const handleSignupOtpSubmit = async (otp,email, userToken) => {
         try {
             console.log(otp, "otp:::", token)
-            const response = await otpSignUp({ otp, token: userToken });
+            const response = await otpSignUp({ otp,email, token: userToken });
             if (response.success) {
                 alert("OTP Verified! Account created.");
                 setOpenModals(false);

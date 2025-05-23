@@ -49,7 +49,7 @@ export const getServiceEstimate = createSlice({
             })
             .addCase(getEstimate.rejected, (state) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = payload;
             })
     }
 })

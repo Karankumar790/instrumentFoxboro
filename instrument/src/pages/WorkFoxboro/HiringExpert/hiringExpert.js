@@ -4,6 +4,7 @@ import { API_URL } from "../../../api/Client";
 
 
 
+
 export const postHiring = createAsyncThunk(
     "postHiring",
     async (formValue, { rejetWithValue }) => {
@@ -22,6 +23,45 @@ export const postHiring = createAsyncThunk(
                 }
             )
             return response.data
+        } catch (error) {
+            return rejetWithValue(
+                error.response?.data?.message || "Error adding "
+            )
+        }
+    }
+)
+
+
+export const getHiring = createAsyncThunk(
+    "getHiring",
+    async (_, { rejetWithValue }) => {
+        try {
+            const token = localStorage.getItem("authToken");
+            const response = await axios.get(`${API_URL}/hiring_expert`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            return response.data.data
+        } catch (error) {
+            return rejetWithValue(
+                error.response?.data?.message || "Error adding "
+            )
+        }
+    }
+)
+
+export const deleteHiring = createAsyncThunk(
+    "deleteHiring",
+    async (id, { rejetWithValue }) => {
+        try {
+            const token = localStorage.getItem("authToken");
+            const response = await axios.delete(`${API_URL}/hiring_expert/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            return response.data.data
         } catch (error) {
             return rejetWithValue(
                 error.response?.data?.message || "Error adding "
@@ -49,6 +89,31 @@ export const hiringExp = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
+            .addCase(getHiring.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getHiring.fulfilled, (state, action) => {
+                state.loading = false;
+                state.initHiring = action.payload;
+            })
+            .addCase(getHiring.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(deleteHiring.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(deleteHiring.fulfilled, (state, action) => {
+                state.loading = false;
+                state.initHiring = state.initHiring.filter((prev) => prev._id !== action.payload);
+                state.error = false;
+            })
+            .addCase(deleteHiring.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
     }
 })
 

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { SER_URL } from "../../../api/Client";
+import { API_URL } from "../../../api/Client";
 
 
 
@@ -8,7 +8,7 @@ export const getWorkFox = createAsyncThunk(
     "getWorkFox",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${SER_URL}/service_partner`)
+            const response = await axios.get(`${API_URL}/service_partner`)
             return response?.data?.data
         } catch (error) {
             return rejectWithValue(
@@ -22,7 +22,7 @@ export const getAuthorize = createAsyncThunk(
     "getAuthorize",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${SER_URL}/authorize_partner`)
+            const response = await axios.get(`${API_URL}/authorize_partner`)
             return response?.data?.data
         } catch (error) {
             return rejectWithValue(
@@ -36,7 +36,7 @@ export const deleteWorkFox = createAsyncThunk(
     "deleteWorkFox",
     async (id, { rejectWithValue }) => {
         try {
-            const response = await axios.delete(`${SER_URL}/service_partner?id=${id}`)
+            const response = await axios.delete(`${API_URL}/service_partner?id=${id}`)
             return response.data.data
         } catch (error) {
             return rejectWithValue(
@@ -50,7 +50,7 @@ export const authorizePartner = createAsyncThunk(
     "authorizePartner",
     async (id, { rejectWithValue }) => {
         try {
-            const response = await axios.put(`${SER_URL}/authorize_partner/?id=${id}`);
+            const response = await axios.put(`${API_URL}/authorize_partner/?id=${id}`);
             return response.data.data; // assuming updated partner object
         } catch (error) {
             return rejectWithValue(error.response?.data?.message);
@@ -62,7 +62,7 @@ export const searchWorkFox = createAsyncThunk(
     "searchWorkFox",
     async ({ city, state, country }, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${SER_URL}/filter_authorize_partner?`,
+            const response = await axios.get(`${API_URL}/filter_authorize_partner?`,
                 {
                     params: { city, state, country },
                 }
