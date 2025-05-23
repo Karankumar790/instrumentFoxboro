@@ -8,16 +8,35 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
 const personalData = [
-    { label: "Name", placeholder: "Enter your name", name: "name",required: true},
-    { label: "Email", placeholder: "Enter your email", name: "email",required: true },
-    { label: "Mobile", placeholder: "Enter your mobile", name: "phone",required: true },
-    { label: "City", placeholder: "Enter your city", name: "city",required: true },
-    { label: "State", placeholder: "Enter your state", name: "state",required: true },
-    { label: "Country", placeholder: "Enter your country", name: "country",required: true },
+    { label: "Name", placeholder: "Enter your name", name: "name", required: true },
+    { label: "Email", placeholder: "Enter your email", name: "email", required: true },
+    { label: "Mobile", placeholder: "Enter your mobile", name: "phone", required: true },
+    { label: "City", placeholder: "Enter your city", name: "city", required: true },
+    { label: "State", placeholder: "Enter your state", name: "state", required: true },
+    { label: "Country", placeholder: "Enter your country", name: "country", required: true },
 ];
 
-const technicalOptions = ["Diploma", "B.Tech", "M.Tech", "Other"];
-const domainOptions = ["Embedded Systems", "Automation", "Web Development", "AI/ML", "Other"];
+const technicalOptions = [
+    "Diploma electronics",
+    "Diploma instrumentation",
+    "B.tech. Electronics & Communication",
+    "B.tech Electrical And Electronics",
+    "B.Tech computer science",
+    "MBA marketing",
+    "Commerce graduate",
+];
+const domainOptions = [
+    "software Marketing",
+    "automation marketing ",
+    "Tender & Bidding",
+    "Ecommerce handling",
+    "Software development",
+    "Panel manufacturing",
+    "Installation commissioning",
+    "Plc scada vfd programing",
+    "Finance & account",
+    "other"
+];
 
 function applyIntership() {
     const [formValues, setFormValues] = useState({
