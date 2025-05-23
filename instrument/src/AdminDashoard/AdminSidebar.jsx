@@ -7,6 +7,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { MdManageAccounts } from 'react-icons/md';
 import { RiServiceLine } from 'react-icons/ri';
 import { RiBriefcaseLine } from "react-icons/ri";
+import { GrUserExpert } from "react-icons/gr";
 
 export default function AdminSidebar() {
   const [settingMenu, setSettingMenu] = useState(null);
@@ -14,7 +15,6 @@ export default function AdminSidebar() {
   const role = user?.role;
 
   const auth = useSelector((state) => state.auth);
-  console.log("Auth State From Redux:", auth);
 
 
   const handleSettingClick = (event) => {
@@ -45,11 +45,10 @@ export default function AdminSidebar() {
             <NavItem to="/admin/adminProduct" icon={<FaBox />} label="Products" />
             <NavItem to="/admin/adminsoftware" icon={<FaLaptopCode />} label="Software" />
             <NavItem to="/admin/adminService" icon={<FaTools />} label="Enquire" />
-            <NavItem to="/admin/internship" icon={<FaTools />} label="Internship" />
-            <NavItem to="/admin/adminRunningProject" icon={<FaPlay />} label="Running Project" />
-            <NavItem to="/admin/adminNewProject" icon={<FaPlus />} label="New Project" />
             <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="Service Estimate" />
-            <NavItem to="/admin/serviceUploadPO" icon={<RiServiceLine />} label="Service UploadPO" />
+            <NavItem to="/admin/managerWorkFOx" icon={<RiBriefcaseLine />} label="Work Foxboro" />
+            <NavItem to="/admin/internship" icon={<RiServiceLine />} label="Intership" />
+            <NavItem to="/admin/adminHiringExp" icon={<GrUserExpert />} label="Hiring Expert" />
           </>
         )}
 
@@ -57,35 +56,68 @@ export default function AdminSidebar() {
           <>
             <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="Service Estimate" />
             {/* <NavItem to="/admin/serviceUploadPO" icon={<RiServiceLine />} label="Service UploadPO" /> */}
-            <NavItem to="/admin/managerWorkFOx" icon={<RiBriefcaseLine />} label="Work Foxboro" />
           </>
         )}
 
         {role === 'admin' && (
           <>
-            <div className="flex items-center space-x-2 pl-4 cursor-pointer text-white hover:text-blue-400 transition-all duration-200"
-              onClick={handleSettingClick}>
+            <div
+              className="flex items-center space-x-2 pl-4 cursor-pointer text-white hover:text-blue-400 transition-all duration-200"
+              onClick={handleSettingClick}
+            >
               <FaSlidersH />
               <span className="font-semibold text-lg">Settings</span>
-              <KeyboardArrowDownIcon fontSize="medium" className="text-lg" />
+              <KeyboardArrowDownIcon
+                fontSize="medium"
+                className={`text-lg transition-transform duration-300 ${settingMenu ? 'rotate-180' : ''
+                  }`}
+              />
             </div>
+
 
             <Menu
               anchorEl={settingMenu}
               open={Boolean(settingMenu)}
               onClose={handleCloseSettingMenu}
+              PaperProps={{
+                elevation: 8,
+                sx: {
+                  borderRadius: 2,
+                  minWidth: 200,
+                  padding: 1,
+                  // backgroundColor: '#ffffff',
+                }
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               {settingOptions.map((option, idx) => (
-                <MenuItem key={idx} onClick={handleCloseSettingMenu}>
+                <MenuItem
+                  key={idx}
+                  onClick={handleCloseSettingMenu}
+                  sx={{
+                    borderRadius: 1,
+                    '&:hover': {
+                      backgroundColor: 'primary.light',
+                      color: 'white'
+                    }
+                  }}
+                >
                   <Link
                     to={option.Link}
-                    className="text-gray-700 hover:text-blue-600 w-full block"
+                    style={{
+                      textDecoration: 'none',
+                      width: '100%',
+                      color: 'inherit',
+                      fontWeight: 500
+                    }}
                   >
                     {option.text}
                   </Link>
                 </MenuItem>
               ))}
             </Menu>
+
           </>
         )}
       </nav>

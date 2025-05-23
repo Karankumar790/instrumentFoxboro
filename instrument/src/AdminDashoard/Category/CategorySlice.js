@@ -69,13 +69,13 @@ export const deleteCategory = createAsyncThunk(
   async (categoryId, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
-        `${API_URL}/category?categoryId=${categoryId}`,{
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
+        `${API_URL}/category?categoryId=${categoryId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         }
+      }
       );
-      return data.data._id; // Return the deleted category ID
+      return data._id; // Return the deleted category ID
     } catch (error) {
       console.error("Delete API Error:", error.response);
       return rejectWithValue(
@@ -87,7 +87,7 @@ export const deleteCategory = createAsyncThunk(
 
 export const updateCategory = createAsyncThunk(
   "category/updateCategory",
-  async({updateCategoryId,formData}, {rejectWithValue}) => {
+  async ({ updateCategoryId, formData }, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(`${API_URL}/category?categoryId=${updateCategoryId}`, formData,
@@ -160,9 +160,9 @@ const categorySlice = createSlice({
       .addCase(deleteCategory.fulfilled, (state, action) => {
         state.loading = false;
         state.categories = state.categories.filter(
-          (category) => category._id !== action.payload // Ensure category is removed
-        );  
-      })     
+          (category) => category._id !== action.payload
+        );
+      })
       .addCase(deleteCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
@@ -171,14 +171,16 @@ const categorySlice = createSlice({
         state.loading = true;
         state.error = false;
       })
-      .addCase(updateCategory.fulfilled, (state,action) => {
+      .addCase(updateCategory.fulfilled, (state, action) => {
         state.loading = false;
-        state.categories = state.categories.map(catogory =>
-          catogory._id === action.payload.categories._id ? action.payload.categories.data : catogory
-        )
+        state.categories = state.categories.map((category) =>
+          category._id === action.payload.data._id
+            ? action.payload.data
+            : category
+        );
         state.success = true;
       })
-      .addCase(updateCategory.rejected, (state,action) => {
+      .addCase(updateCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
       })

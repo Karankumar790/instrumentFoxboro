@@ -135,16 +135,16 @@ function Automation() {
       });
       return;
     }
-  
+
     setIsSubmitting(true);
     const formData = new FormData();
     formData.append("categoryName", categoryData.categoryName);
     formData.append("description", categoryData.description);
-  
+
     if (image && !(typeof image === "string")) {
       formData.append("categoryImage", image);
     }
-  
+
     try {
       if (editingCategory) {
         await dispatch(
@@ -173,7 +173,9 @@ function Automation() {
   const handleDelete = async (categoryId) => {
     try {
       await dispatch(deleteCategory(categoryId)).unwrap();
-      dispatch(fetchCategories());
+      setTimeout(() => {
+        dispatch(fetchCategories());
+      }, 1000)
       setSnackbar({
         open: true,
         message: "Category deleted successfully!",
@@ -183,7 +185,7 @@ function Automation() {
       console.error("Error deleting category:", error);
       setSnackbar({
         open: true,
-        message: error.message || "Failed to delete category",
+        message: error.message || "Please first delete the product then  delete category",
         severity: "error",
       });
     }
@@ -223,10 +225,10 @@ function Automation() {
             {categories.map((cat) => (
               <StyledTableRow key={cat._id}>
                 <StyledTableCell>
-                  <img 
-                    src={cat.categoryImage} 
-                    alt={cat.categoryName} 
-                    width="100" 
+                  <img
+                    src={cat.categoryImage}
+                    alt={cat.categoryName}
+                    width="100"
                     style={{ maxHeight: 100, objectFit: 'contain' }}
                   />
                 </StyledTableCell>
@@ -234,14 +236,11 @@ function Automation() {
                   {cat.categoryName}
                 </StyledTableCell>
                 <StyledTableCell>{cat.description}</StyledTableCell>
-                <StyledTableCell>
-                  <IconButton>
-                    <Link to={`/admin/categoryProduct/${cat._id}`}>
-                      <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                        <FontAwesomeIcon icon={faEye} />
-                      </button>
-                    </Link>
+                <StyledTableCell className="w-40 ">
+                  <IconButton component={Link} to={`/admin/categoryProduct/${cat._id}`}>
+                    <FontAwesomeIcon icon={faEye} />
                   </IconButton>
+
                   <IconButton
                     color="primary"
                     onClick={() => handleOpen(cat)}
@@ -341,6 +340,7 @@ function Automation() {
         open={snackbar.open}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert
           onClose={handleSnackbarClose}

@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function product() {
   const { productFox, pagination } = useSelector(
-    (state) => state.foxboroProduct
+    (state) => state.productPage
   );
   const [open, setOpen] = useState(false);
 
@@ -23,6 +23,7 @@ function product() {
   const handleToggle = () => {
     setOpen(!open);
   };
+
 
   const dispatch = useDispatch();
 
@@ -52,7 +53,7 @@ function product() {
           >
             <Box mb={2} >
               <Typography variant="h5" mt={2} fontWeight={"bold"} >
-                Foxboro IoT Hardware
+                Foxboro Products
               </Typography>
             </Box>
 
@@ -64,9 +65,9 @@ function product() {
                   key={product._id}
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                 >
-                  <Link to="/product" style={{ textDecoration: "none" }}>
-                    <Card>
+                  <Card>
 
+                    <Link to={`/subProduct/${product._id}`}>
                       <div className="h-72 w-full ">
                         <img
                           src={product?.image}
@@ -80,35 +81,35 @@ function product() {
                           }}
                         />
                       </div>
-                      <Typography
-                        variant="h6"
-                        gutterBottom
-                        sx={{ padding: "8px" }}
-                      >
-                        {product?.name}
-                      </Typography>
+                    </Link>
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      sx={{ padding: "8px" }}
+                    >
+                      {product?.name}
+                    </Typography>
 
-                      <Typography
-                        variant="body2"
-                        mb={2}
-                        sx={{ paddingLeft: "8px", paddingRight: "8px" }}
-                      >
-                        {product?.description}
-                      </Typography>
-                      <div className="w-full flex justify-end">
-                        <button className="bg-green-600 text-white rounded-lg p-2 mb-2">Available on E-store</button>
-                      </div>
-                    </Card>
-                  </Link>
+                    <Typography
+                      variant="body2"
+                      mb={2}
+                      sx={{ paddingLeft: "8px", paddingRight: "8px" }}
+                    >
+                      {product?.description}
+                    </Typography>
+                    <div className="w-full flex justify-end">
+                      <button className="bg-green-600 text-white rounded-lg p-2 mb-2">Available on E-store</button>
+                    </div>
+                  </Card>
                 </Grid2>
               ))}
             </Grid2>
             {productFox.length > 0 && (
               <Stack spacing={1} alignItems={"end"} mt={2}>
                 <Pagination count={pagination?.totalPages || 1}
-                 page={page}
-                 onChange={handlePageChange}
-                 variant="outlined"
+                  page={page}
+                  onChange={handlePageChange}
+                  variant="outlined"
                   shape="rounded" />
               </Stack>
             )}

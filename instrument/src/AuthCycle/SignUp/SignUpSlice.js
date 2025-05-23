@@ -13,11 +13,11 @@ export const register = createAsyncThunk('auth/register', async (userData, { rej
     }
 })
 
-export const otpSignUp = createAsyncThunk('auth/otpSignUp', async ({ otp, token }, { rejectWithValue }) => {
+export const otpSignUp = createAsyncThunk('auth/otpSignUp', async ({ otp, token,email }, { rejectWithValue }) => {
     try {
         const response = await axios.post(
             `${USER_URL}/verifySignUpOtp`,
-            { otp },
+            { otp,email },
             {
                 headers: { Authorization: `Bearer ${token}` },
             }

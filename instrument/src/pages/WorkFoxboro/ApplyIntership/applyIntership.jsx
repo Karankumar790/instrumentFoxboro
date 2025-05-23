@@ -5,56 +5,48 @@ import { postIntership } from "../../WorkFoxboro/ApplyIntership/applyIntership";
 import { Card, Grid2, MenuItem, TextField, Typography, Button, Box,} from "@mui/material";
 
 const personalData = [
-  { label: "Name", placeholder: "Enter your name", name: "name" },
-  { label: "Email", placeholder: "Enter your email", name: "email" },
-  { label: "Mobile", placeholder: "Enter your mobile", name: "mobile" },
-  { label: "City", placeholder: "Enter your city", name: "city" },
-  { label: "State", placeholder: "Enter your state", name: "state" },
-  { label: "Country", placeholder: "Enter your country", name: "country" },
+
+    { label: "Name", placeholder: "Enter your name", name: "name", required: true },
+    { label: "Email", placeholder: "Enter your email", name: "email", required: true },
+    { label: "Mobile", placeholder: "Enter your mobile", name: "phone", required: true },
+    { label: "City", placeholder: "Enter your city", name: "city", required: true },
+    { label: "State", placeholder: "Enter your state", name: "state", required: true },
+    { label: "Country", placeholder: "Enter your country", name: "country", required: true },
 ];
 
-const technicalOptions = ["Diploma", "B.Tech", "M.Tech", "Other"];
+const technicalOptions = [
+    "Diploma electronics",
+    "Diploma instrumentation",
+    "B.tech. Electronics & Communication",
+    "B.tech Electrical And Electronics",
+    "B.Tech computer science",
+    "MBA marketing",
+    "Commerce graduate",
+];
 const domainOptions = [
-  "Embedded Systems",
-  "Automation",
-  "Web Development",
-  "AI/ML",
-  "Other",
+    "software Marketing",
+    "automation marketing ",
+    "Tender & Bidding",
+    "Ecommerce handling",
+    "Software development",
+    "Panel manufacturing",
+    "Installation commissioning",
+    "Plc scada vfd programing",
+    "Finance & account",
+    "other"
 ];
 
-function WorkFoxboro() {
-  const [formValues, setFormValues] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    city: "",
-    state: "",
-    country: "",
-    technicalQualification: "",
-    internshipDomain: "",
-    candidateResume: null,
-  });
-
-  const dispatch = useDispatch();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Validation
-    if (!formValues.candidateResume) {
-      alert("Please upload your resume.");
-      return;
-    }
-
-    // Create FormData and append all fields
-    const formDataToSend = new FormData();
-    Object.entries(formValues).forEach(([key, value]) => {
-      formDataToSend.append(key, value);
+function applyIntership() {
+    const [formValues, setFormValues] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        city: "",
+        state: "",
+        country: "",
+        technicalQualification: "",
+        internshipDomain: "",
+        candidateResume: null
     });
 
     // Dispatch FormData to API

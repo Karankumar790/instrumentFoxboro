@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Modal, Button, Box } from '@mui/material';
-import OTPInput from 'react-otp-input';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { otpLogin } from './loginSlice';
+import React, { useState } from "react";
+import { Modal, Button, Box } from "@mui/material";
+import OTPInput from "react-otp-input";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { otpLogin } from "./loginSlice";
 
-const OTPModal = ({ open, onClose, email }) => {
+const OTPModal = ({ open, onClose, email, sign, handleSignupOtpSubmit }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const { error } = useSelector((state) => state.auth);
 
@@ -17,17 +17,12 @@ const OTPModal = ({ open, onClose, email }) => {
     try {
       const response = await dispatch(otpLogin({ otp, email })).unwrap();
 
-      if (response?.token) {
-        localStorage.setItem('authToken', response.token);
-      }
-
-      if (response?.user?.role === 'admin') {
-        navigate('/admin');
-        console.log("-------------", response)
-      } else if (response?.user?.role === 'service_manager') {
-        navigate('/admin/serviceEstimate');
+      if (response?.user?.role === "admin") {
+        navigate("/admin");
+      } else if (response?.user?.role === "service_manager") {
+        navigate("/admin/serviceEstimate");
       } else {
-        navigate('/');
+        navigate("/");
       }
     } catch (error) {
       console.error("OTP verification failed:", error);
@@ -37,14 +32,14 @@ const OTPModal = ({ open, onClose, email }) => {
   };
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 450,
     height: 300,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
     p: 2,
   };
@@ -61,14 +56,14 @@ const OTPModal = ({ open, onClose, email }) => {
               onChange={setOtp}
               numInputs={6}
               inputStyle={{
-                width: '100%',
-                maxWidth: '2.5rem',
-                height: '4vh',
-                fontSize: '18px',
-                border: '2px solid black',
-                color: 'black',
-                textAlign: 'center',
-                margin: '0 0.5rem',
+                width: "100%",
+                maxWidth: "2.5rem",
+                height: "4vh",
+                fontSize: "18px",
+                border: "2px solid black",
+                color: "black",
+                textAlign: "center",
+                margin: "0 0.5rem",
               }}
               renderInput={(props) => <input {...props} />}
             />
@@ -78,10 +73,16 @@ const OTPModal = ({ open, onClose, email }) => {
             variant="contained"
             size="small"
             fullWidth
-            onClick={handleSubmitOtp}
+            onClick={
+              sign
+                ? () => {
+                    handleSignupOtpSubmit(otp); // properly invoke the function
+                  }
+                : handleSubmitOtp
+            }
             disabled={loading || otp.length !== 6}
           >
-            {loading ? 'Verifying...' : 'Submit'}
+            {loading ? "Verifying..." : "Submit"}
           </Button>
 
           {error && <p className="text-red-500">{error}</p>}

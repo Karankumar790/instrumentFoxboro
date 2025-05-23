@@ -13,7 +13,13 @@ const personalData = [
     { label: "Phone", placeholder: "Enter your mobile number", name: "phone", required: true },
 ];
 
-const serviceDomain = ["Diploma", "B.Tech", "M.Tech", "Other"];
+const serviceDomain = [
+    "Field instruments",
+    "Panel instruments",
+    "Plc & Scada system",
+    "Industrial Networking",
+    "Other",
+];
 
 function WorkFoxboro() {
     const [formValues, setFormValues] = useState({
@@ -55,11 +61,11 @@ function WorkFoxboro() {
 
     useEffect(() => {
         if (success) {
-            snackbar({
+            setSnackbar({
                 open: true,
                 message: "Application submitted Successfully",
                 severity: 'success'
-            })
+            });
         } else if (error) {
             setSnackbar({
                 open: true,
@@ -68,6 +74,7 @@ function WorkFoxboro() {
             });
         }
     }, [success, error]);
+
 
     return (
         <PageContainer showheader="true" showfooter="true">

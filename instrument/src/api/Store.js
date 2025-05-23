@@ -8,7 +8,6 @@ import authReducer from "../AuthCycle/Login/loginSlice";
 import signUpReducer from "../AuthCycle/SignUp/SignUpSlice";
 import authForgetReducer from "../AuthCycle/Forget/forgetSlice";
 import productByCategory from "../AdminDashoard/Category/CategoryProductSlice";
-import AdminFoxboroProduct from "../AdminDashoard/AdminProduct/AdminProductSlice";
 import SoftwareSlice from "../AdminDashoard/AdminSoftware/SoftwareSlice";
 import SettingSlice from "../AdminDashoard/SiteSetting/SettingSlice";
 import contactReducer from "../pages/supportSlice";
@@ -22,6 +21,8 @@ import managerWorkFoxReducer from "../AdminDashoard/ServiceManager/ManagerWorkFo
 import product from "../pages/product";
 import applyIntership from "../pages/WorkFoxboro/ApplyIntership/applyIntership";
 import hiringExpert from "../pages/WorkFoxboro/HiringExpert/hiringExpert";
+import foxboroProductSlice from "../AdminDashoard/AdminProduct/AdminProductSlice";
+
 
 
 
@@ -42,7 +43,7 @@ export const store = configureStore({
     signUp: signUpReducer,
     authForget: authForgetReducer,
     product: productByCategory,
-    foxLineProduct: AdminFoxboroProduct,
+    foxboroProduct: foxboroProductSlice,
     software: SoftwareSlice,
     header: SettingSlice,
     contact: contactReducer,
@@ -53,7 +54,7 @@ export const store = configureStore({
     serviceManager: serviceSlice,
     foxboro: workFoxSlice,
     managerFoxboro: managerWorkFoxReducer,
-    foxboroProduct: product,
+    productPage: product,
     intership: applyIntership,
     hiring: hiringExpert,
   },
