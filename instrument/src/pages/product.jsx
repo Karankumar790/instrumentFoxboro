@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function product() {
   const { productFox, pagination } = useSelector(
-    (state) => state.foxboroProduct
+    (state) => state.productPage
   );
   const [open, setOpen] = useState(false);
 

@@ -19,7 +19,7 @@ function content() {
     error,
   } = useSelector((state) => state.software);
   const { uploadedBanners } = useSelector((state) => state.header);
-  const { productFox } = useSelector((state) => state.foxboroProduct);
+  const { productFox } = useSelector(state => state.productPage)
   const [page, setPage] = useState(1);
 
   const data =

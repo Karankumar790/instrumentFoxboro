@@ -1,23 +1,24 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API_URL } from "../../api/Client";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { API_URL } from '../../api/Client';
+import axios from 'axios';
 
 // Add Product
 export const addFoxProduct = createAsyncThunk(
-    "foxboro/addProduct",
+    'foxboro/addProduct',
     async (proData, { rejectWithValue }) => {
         try {
-            const token = localStorage.getItem("authToken");
+            const token = localStorage.getItem('authToken');
             const response = await axios.post(`${API_URL}/foxboroProduct`, proData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data"
+                    'Content-Type': 'multipart/form-data',
                 },
             });
+            // response.data should contain the newly created product
             return response.data;
         } catch (error) {
             return rejectWithValue(
-                error.response?.data?.message || "Error adding Foxboro Product"
+                error.response?.data?.message || 'Error adding Foxboro Product'
             );
         }
     }
@@ -25,19 +26,22 @@ export const addFoxProduct = createAsyncThunk(
 
 // Fetch Products
 export const fetchFoxboroProduct = createAsyncThunk(
-    "foxboro/fetchFoxboroProduct",
+    'foxboro/fetchFoxboroProduct',
     async ({ page = 1, limit = 100 }, { rejectWithValue }) => {
         try {
-            const token = localStorage.getItem("authToken");
-            const response = await axios.get(`${API_URL}/foxboroProduct?page=${page}&limit=${limit}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            return response.data.data; // already .data here
+            const token = localStorage.getItem('authToken');
+            const response = await axios.get(
+                `${API_URL}/foxboroProduct?page=${page}&limit=${limit}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            return response.data.data; // products array
         } catch (error) {
             return rejectWithValue(
-                error.response?.data?.message || "Error fetching products"
+                error.response?.data?.message || 'Error fetching products'
             );
         }
     }
@@ -45,19 +49,19 @@ export const fetchFoxboroProduct = createAsyncThunk(
 
 // Delete Product
 export const deleteProduct = createAsyncThunk(
-    "foxboro/deleteProduct",
+    'foxboro/deleteProduct',
     async (productId, { rejectWithValue }) => {
         try {
-            const token = localStorage.getItem("authToken");
+            const token = localStorage.getItem('authToken');
             await axios.delete(`${API_URL}/foxboroProduct?productId=${productId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            return productId;
+            return productId; // return deleted id
         } catch (error) {
             return rejectWithValue(
-                error.response?.data?.message || "Error deleting product"
+                error.response?.data?.message || 'Error deleting product'
             );
         }
     }
@@ -65,26 +69,25 @@ export const deleteProduct = createAsyncThunk(
 
 // Update Product
 export const updateFoxProduct = createAsyncThunk(
-    "foxboro/updateProduct",
+    'foxboro/updateFoxProduct',
     async ({ id, formData }, { rejectWithValue }) => {
         try {
-            const token = localStorage.getItem("authToken");
-            const response = await axios.post(`${API_URL}/foxboroProduct?productId=${id}`, formData, {
+            const token = localStorage.getItem('authToken');
+            const response = await axios.put(`${API_URL}/foxboroProduct?productId=${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
+                    'Content-Type': 'multipart/form-data',
                 },
             });
-            return response.data;
+            return response.data; // updated product object
         } catch (error) {
             return rejectWithValue(
-                error.response?.data?.message || "Error updating product"
+                error.response?.data?.message || 'Error updating product'
             );
         }
     }
 );
 
-// Submit Additional Product Details
 export const submitAdditionalDetails = createAsyncThunk(
     "foxboro/submitAdditionalDetails",
     async ({ id, formData }, { rejectWithValue }) => {
@@ -105,7 +108,6 @@ export const submitAdditionalDetails = createAsyncThunk(
     }
 );
 
-// Initial state
 const initialState = {
     products: [],
     loading: false,
@@ -113,34 +115,16 @@ const initialState = {
     success: false,
 };
 
-// Slice
 const foxboroProductSlice = createSlice({
-    name: "foxboroProduct",
+    name: 'foxboroProduct',
     initialState,
     reducers: {
-        resetProductState: (state) => {
-            state.loading = false;
-            state.error = null;
+        resetSuccess(state) {
             state.success = false;
         },
     },
     extraReducers: (builder) => {
         builder
-            // Add Product
-            .addCase(addFoxProduct.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(addFoxProduct.fulfilled, (state, action) => {
-                state.loading = false;
-                state.products.push(action.payload.data);
-                state.success = true;
-            })
-            .addCase(addFoxProduct.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            })
-
             // Fetch Products
             .addCase(fetchFoxboroProduct.pending, (state) => {
                 state.loading = true;
@@ -148,9 +132,24 @@ const foxboroProductSlice = createSlice({
             })
             .addCase(fetchFoxboroProduct.fulfilled, (state, action) => {
                 state.loading = false;
-                state.products = action.payload; // Already .data returned
+                state.products = action.payload;
             })
             .addCase(fetchFoxboroProduct.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
+            // Add Product
+            .addCase(addFoxProduct.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(addFoxProduct.fulfilled, (state, action) => {
+                state.loading = false;
+                state.products.unshift(action.payload.data); // because response shape: { data: product }
+                state.success = true;
+            })
+            .addCase(addFoxProduct.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
@@ -165,7 +164,6 @@ const foxboroProductSlice = createSlice({
                 state.products = state.products.filter(
                     (product) => product._id !== action.payload
                 );
-                state.success = true;
             })
             .addCase(deleteProduct.rejected, (state, action) => {
                 state.loading = false;
@@ -180,9 +178,7 @@ const foxboroProductSlice = createSlice({
             .addCase(updateFoxProduct.fulfilled, (state, action) => {
                 state.loading = false;
                 state.products = state.products.map((product) =>
-                    product._id === action.payload.data._id
-                        ? action.payload.data
-                        : product
+                    product._id === action.payload.data._id ? action.payload.data : product
                 );
                 state.success = true;
             })
@@ -190,7 +186,6 @@ const foxboroProductSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
-
             // Submit Additional Product Details
             .addCase(submitAdditionalDetails.pending, (state) => {
                 state.loading = true;
@@ -208,6 +203,5 @@ const foxboroProductSlice = createSlice({
     },
 });
 
-// Export actions and reducer
-export const { resetProductState } = foxboroProductSlice.actions;
+export const { resetSuccess } = foxboroProductSlice.actions;
 export default foxboroProductSlice.reducer;

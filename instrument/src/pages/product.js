@@ -33,7 +33,7 @@ export const getFoxboroProduct = createAsyncThunk(
 
 // Redux slice
 const foxProduct = createSlice({
-    name: "foxboroProduct",
+    name: "productPage",
     initialState: {
         productFox: [],
         pagination: {

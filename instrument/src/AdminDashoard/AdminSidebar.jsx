@@ -44,9 +44,10 @@ export default function AdminSidebar() {
             <NavItem to="/admin/adminProduct" icon={<FaBox />} label="Products" />
             <NavItem to="/admin/adminsoftware" icon={<FaLaptopCode />} label="Software" />
             <NavItem to="/admin/adminService" icon={<FaTools />} label="Enquire" />
-            <NavItem to="/admin/adminRunningProject" icon={<FaPlay />} label="Running Project" />
-            <NavItem to="/admin/adminNewProject" icon={<FaPlus />} label="New Project" />
+            {/* <NavItem to="/admin/adminRunningProject" icon={<FaPlay />} label="Running Project" />
+            <NavItem to="/admin/adminNewProject" icon={<FaPlus />} label="New Project" /> */}
             <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="Service Estimate" />
+            <NavItem to="/admin/managerWorkFOx" icon={<RiBriefcaseLine />} label="Work Foxboro" />
             <NavItem to="/admin/internship" icon={<RiServiceLine />} label="Intership" />
             <NavItem to="/admin/adminHiringExp" icon={<GrUserExpert />} label="Hiring Expert" />
           </>
@@ -60,11 +61,6 @@ export default function AdminSidebar() {
               label="Service Estimate"
             />
             {/* <NavItem to="/admin/serviceUploadPO" icon={<RiServiceLine />} label="Service UploadPO" /> */}
-            <NavItem
-              to="/admin/managerWorkFOx"
-              icon={<RiBriefcaseLine />}
-              label="Work Foxboro"
-            />
           </>
         )}
 

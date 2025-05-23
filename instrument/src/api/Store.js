@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; 
+import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
+import { thunk } from "redux-thunk";
 
 import categoryReducer from "../AdminDashoard/Category/CategorySlice";
 import authReducer from "../AuthCycle/Login/loginSlice";
@@ -22,14 +23,19 @@ import applyIntership from "../pages/WorkFoxboro/ApplyIntership/applyIntership";
 import hiringExpert from "../pages/WorkFoxboro/HiringExpert/hiringExpert";
 import foxboroProductSlice from "../AdminDashoard/AdminProduct/AdminProductSlice";
 
-// Persist config
+
+
+
+// Configuration for Redux Persist
 const persistConfig = {
   key: "auth",
   storage,
 };
 
+// Wrap the authReducer with persistReducer
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
+// Create the Redux store without custom middleware
 export const store = configureStore({
   reducer: {
     category: categoryReducer,
@@ -58,7 +64,8 @@ export const store = configureStore({
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
         ignoredPaths: ["_persist"],
       },
-    }),
+    }).concat(thunk),
 });
 
+// Create the persisted store
 export const persistor = persistStore(store);
