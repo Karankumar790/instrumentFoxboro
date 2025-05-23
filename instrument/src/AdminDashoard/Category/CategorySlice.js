@@ -46,8 +46,26 @@ export const addCategory = createAsyncThunk(
   }
 );
 
+// export const deleteCategory = createAsyncThunk(
+//   "category/deleteCategory",
+//   async (categoryId, { rejectWithValue }) => {
+//     try {
+//       const { data } = await axios.delete(
+//         `${API_URL}/category?categoryId=${categoryId}` // Use query parameter
+//       );
+//       console.log("Delete API Response:", data);
+//       return data.data._id; // Return the deleted category ID
+//     } catch (error) {
+//       console.error("Delete API Error:", error.response);
+//       return rejectWithValue(
+//         error.response?.data?.message || "Error deleting category"
+//       );
+//     }
+//   }
+// );
+
 export const deleteCategory = createAsyncThunk(
-  "category/deleteCategory",
+  'category/deleteCategory',
   async (categoryId, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
@@ -120,11 +138,27 @@ const categorySlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+      // .addCase(deleteCategory.pending, (state) => {
+      //   state.loading = true;
+      //   state.error = null;
+      // })
+      // .addCase(deleteCategory.fulfilled, (state, action) => {
+      
+      //   state.categories = state.categories.filter(
+      //     (category) => category._id !== action.payload // Ensure category is removed
+      //   );
+      
+      //   console.log("Updated categories list:", state.categories); // Debug log
+      // })     
+      // .addCase(deleteCategory.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.error = action.payload;
+      // });
       .addCase(deleteCategory.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
+        state.loading = false;
         state.categories = state.categories.filter(
           (category) => category._id !== action.payload
         );

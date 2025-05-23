@@ -107,6 +107,7 @@ function Automation() {
     setCategoryData({ ...categoryData, [e.target.name]: e.target.value });
   };
 
+  // Handle image selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -115,6 +116,7 @@ function Automation() {
     }
   };
 
+  // Validate form data before submitting
   const validateForm = () => {
     if (!categoryData.categoryName.trim()) return "Category Name is required.";
     if (!categoryData.description.trim()) return "Description is required.";
@@ -122,6 +124,7 @@ function Automation() {
     return null;
   };
 
+  // Handle form submission for adding a category
   const handleSubmit = async () => {
     const validationError = validateForm();
     if (validationError) {
@@ -257,13 +260,13 @@ function Automation() {
         </Table>
       </TableContainer>
 
-      <Modal open={isModalOpen} onClose={handleClose} aria-labelledby="modal-title">
+      {/* <Modal open={isModalOpen} onClose={handleCloseModal} aria-labelledby="modal-title">
         <Box sx={style}>
           <Box display="flex" justifyContent="space-between">
             <Typography id="modal-title" variant="h6">
               {editingCategory ? 'Edit Category' : 'Add New Category'}
             </Typography>
-            <Button onClick={handleClose}>
+            <Button onClick={handleCloseModal}>
               <ClearIcon className="text-black text-lg" />
             </Button>
           </Box>
@@ -331,7 +334,7 @@ function Automation() {
             {isSubmitting ? 'Processing...' : editingCategory ? 'Update' : 'Submit'}
           </Button>
         </Box>
-      </Modal>
+      </Modal> */}
 
       <Snackbar
         open={snackbar.open}

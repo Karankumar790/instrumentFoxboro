@@ -15,11 +15,6 @@ import Header from "../components/Header";
 import { getFoxboroProduct } from "./product";
 // import product from "./product";
 
-
-("https://www.beckhoff.com/media/pictures/stages/news/application-report-tetra-pak-stage-lowres_webp_85.webp");
-("https://www.beckhoff.com/media/pictures/stages/news/produktneuheiten-sps-2024-stage-lowres_webp_85.webp");
-"https://www.beckhoff.com/media/pictures/stages/news/hvide-sand-seasight-stage_webp_85.webp",
-  "https://www.beckhoff.com/media/pictures/stages/news/twincat-plc-plus-plus-starting-page-stage-lowres_webp_85.webp";
 function content() {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
@@ -52,7 +47,6 @@ function content() {
   }, [data.length]); // Re-run if banner data updates
 
 
-
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(getSoftware());
@@ -63,7 +57,9 @@ function content() {
   const limitWords = (text, wordLimit = 20) => {
     if (!text) return "No description available.";
     const words = text.split(" ");
-    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(" ") + "..."
+      : text;
   };
 
   const limitNameWords = (text, wordLimit = 5) => {
@@ -77,9 +73,7 @@ function content() {
       <div className="min-h-screen flex flex-col">
         <Header />
         <Grid2 container display="flex" justifyContent="center" mt={1}>
-
           <Grid2 size={{ lg: 9 }}>
-
             <Box display="flex" justifyContent="center" height="45vh">
               {data.length > 0 && (
                 <img
@@ -91,9 +85,8 @@ function content() {
             </Box>
 
           </Grid2>
-
         </Grid2>
-        <Grid2 container className=" flex justify-center" >
+        <Grid2 container className=" flex justify-center">
           <Grid2 size={{ lg: 9 }} className="">
             <Box>
               <Typography variant="h5" mt={3} mb={2} fontWeight={"bold"}>
@@ -108,8 +101,13 @@ function content() {
                     key={index}
                     size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                   >
-                    <Card >
-                      <Link to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`} style={{ textDecoration: "none" }}>
+                    <Card>
+                      <Link
+                        to={`/products/${category._id}/${encodeURIComponent(
+                          category.categoryName
+                        )}`}
+                        style={{ textDecoration: "none" }}
+                      >
                         <div className="h-80 w-full">
                           <img
                             src={category.categoryImage}
@@ -152,7 +150,7 @@ function content() {
                   key={software._id}
                 >
                   <Card>
-                    <Link to='/software'>
+                    <Link to="/software">
                       <div className="h-80 w-full">
                         <img
                           src={software.softwareImage}
@@ -166,7 +164,6 @@ function content() {
                           }}
                         />
                       </div>
-
                     </Link>
                     <Typography
                       variant="h5"

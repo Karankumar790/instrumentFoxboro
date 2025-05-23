@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
+import storage from "redux-persist/lib/storage"; 
 import { thunk } from "redux-thunk";
 
 import categoryReducer from "../AdminDashoard/Category/CategorySlice";
@@ -10,6 +10,7 @@ import authForgetReducer from "../AuthCycle/Forget/forgetSlice";
 import productByCategory from "../AdminDashoard/Category/CategoryProductSlice";
 import SoftwareSlice from "../AdminDashoard/AdminSoftware/SoftwareSlice";
 import SettingSlice from "../AdminDashoard/SiteSetting/SettingSlice";
+import contactReducer from "../pages/supportSlice";
 import RunNewSlice from "../AdminDashoard/Run&NewProject/RunNewSlice";
 import newProductSlice from "../AdminDashoard/Run&NewProject/newProductSlice";
 import PoSlice from "../pages/PoUpload/PoSlice";
@@ -45,6 +46,7 @@ export const store = configureStore({
     foxboroProduct: foxboroProductSlice,
     software: SoftwareSlice,
     header: SettingSlice,
+    contact: contactReducer,
     rnProject: RunNewSlice,
     newProduct: newProductSlice,
     poUploads: PoSlice,
