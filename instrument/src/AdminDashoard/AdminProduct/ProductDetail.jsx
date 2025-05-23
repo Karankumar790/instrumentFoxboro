@@ -10,7 +10,7 @@ import {
   Box,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { productDetail } from './AdminProductSlice';
+import { submitAdditionalDetails } from './AdminProductSlice';
 import { useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
@@ -134,7 +134,7 @@ const ProductDetail = () => {
   if (form.image2) data.append('images', form.image2);
   if (form.image3) data.append('images', form.image3);
 
-  dispatch(productDetail({ id, formData: data }));
+  dispatch(submitAdditionalDetails({ id, formData: data }));
 
   // Reset form after submission
   setFormData({

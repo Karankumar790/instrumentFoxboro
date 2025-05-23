@@ -25,7 +25,7 @@ function content() {
   const categories = useSelector((state) => state.category.categories);
   const { data: softwareData = [], loading, error } = useSelector(state => state.software);
   const { uploadedBanners } = useSelector((state) => state.header);
-  const { productFox } = useSelector(state => state.foxboroProduct)
+  const { productFox } = useSelector(state => state.productPage)
   const [page, setPage] = useState(1);
 
 
