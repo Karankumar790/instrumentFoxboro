@@ -1,21 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { USER_URL } from "../../api/Client";
-import axios from "axios";
+import { USER_URL } from "../api/Client";
 
 // 1. Create async thunk to handle API request
 export const submitContactForm = createAsyncThunk(
   "contact/submitContactForm",
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${USER_URL}/contact`, formData);
-      return response.data;
+      const response = await fetch(`${USER_URL}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error in submitting form");
+      }
+
+      return await response.json();
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-//   2. Create slice to manage the state
+// 2. Create slice to manage the state
 const contactSlice = createSlice({
   name: "contact",
   initialState: {
@@ -28,7 +38,6 @@ const contactSlice = createSlice({
     builder
       .addCase(submitContactForm.pending, (state) => {
         state.loading = true;
-        state.error = false;
       })
       .addCase(submitContactForm.fulfilled, (state) => {
         state.loading = false;

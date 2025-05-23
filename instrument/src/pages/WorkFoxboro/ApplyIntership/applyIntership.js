@@ -3,34 +3,72 @@ import axios from "axios";
 import { API_URL } from "../../../api/Client";
 
 
+
 const token = localStorage.getItem("authToken");
 
-
 export const postIntership = createAsyncThunk(
-    "postIntership",
-    async (formValue, { rejectWithValue }) => {
-        try {
+  "postIntership",
+  async (formValue, { rejectWithValue }) => {
+    try {
+      const formData = new FormData();
+      for (let key in formValue) {
+        formData.append(key, formValue[key]);
+      }
 
-            const formData = new FormData();
-            for (let key in formValue) {
-                formData.append(key, formValue[key]);
-            }
-
-            const response = await axios.post(`${API_URL}/internship_candidate`, formValue,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
-            )
-            return response.data
-        } catch (error) {
-            return rejectWithValue(
-                error.response?.data?.message || "Error adding "
-            )
+      const response = await axios.post(
+        `${API_URL}/internship_candidate`,
+        formValue,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Error adding ");
     }
-)
+  }
+);
+
+export const getWork = createAsyncThunk(
+  "getWork",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${API_URL}/internship_candidate`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data.internCandidate;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Error fetching data"
+      );
+    }
+  }
+);
+
+export const deleteWork = createAsyncThunk(
+  "deleteWork",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(
+        `${API_URL}/internship_candidate/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data.internCandidate;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Error fetching data"
+      );
+    }
+  }
+);
 
 
 export const getWork = createAsyncThunk(

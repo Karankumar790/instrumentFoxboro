@@ -9,6 +9,7 @@ import { otpSignUp, register } from "./SignUpSlice";
 import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);

@@ -38,6 +38,7 @@ const AdminHiringExp = lazy(() => import("./AdminDashoard/ServiceManager/AdminHi
 const SubProduct = lazy(() => import("./pages/SubProduct/subProduct.jsx"))
 
 
+
 function App() {
 
   const route = useRoutes([
@@ -80,6 +81,7 @@ function App() {
         { path: "managerWorkFOx", element: <ManagerWorkFOx /> },
         { path: 'productDetail/:id', element: <ProductDetail /> },
         { path: 'adminHiringExp', element: <AdminHiringExp /> },
+
 
       ]
     }
