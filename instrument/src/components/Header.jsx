@@ -46,7 +46,7 @@ function Header() {
     { text: "Automation", Link: "/" },
     { text: "Products", Link: "/product" },
     { text: "Software", Link: "/software" },
-    { text: "E-Service", Link: null }, 
+    { text: "E-Service", Link: null },
     { text: "Contact Us", Link: "/support" },
   ];
 
@@ -84,21 +84,9 @@ function Header() {
 
   return (
     <>
-      <Grid2
-        display={"flex"}
-        justifyContent={"center"}
-        bgcolor={"#3C9040"}
-        height={"6vh"}
-        color="white"
-        p={1}
-      >
-        <Grid2
-          display={"flex"}
-          flexDirection={"row"}
-          width={"76%"}
-          gap={11}
-        >
-          <Stack direction="row" width={"70%"} gap={5}  >
+      <div className="bg-[#3C9040] text-white py-2">
+        <div className="w-[76%] mx-auto flex flex-col lg:flex-row justify-between items-center gap-4 px-4">
+          <div className="flex flex-wrap lg:text-lg md:text-md sm:text-xs gap-5 justify-center lg:justify-start"  >
             {item.map((value, index) => (
               <Stack direction="row" alignItems="center" key={index}>
                 {value.icon}
@@ -106,7 +94,7 @@ function Header() {
               </Stack>
             ))}
 
-          </Stack>
+          </div>
           <Grid2 className='flex w-96'>
             <Stack display={"flex"} flexDirection={"row"} mr={2} >
               <a href={fetchHeader.instagramLink}>
@@ -132,8 +120,8 @@ function Header() {
             </button>
 
           </Grid2>
-        </Grid2>
-      </Grid2>
+        </div>
+      </div>
       <Grid2
         container
         display="flex"
@@ -142,7 +130,7 @@ function Header() {
         color="white"
         bgcolor={"#2b313b"}
         p={1.5}
-        pl={27}
+        pl={30}
       >
         <div className=' w-32 h-16' display={"flex"} >
           <Link to="/" style={{ textDecoration: "none" }}>
@@ -222,74 +210,9 @@ function Header() {
             </Box>
           </Stack>
         </Grid2>
-        {/* <Grid2 size={{ lg: 2 }}>
-          <Stack
-            spacing={2}
-            sx={{ width: 200, bgcolor: "white" }}
-            borderRadius={3}
-          >
-            <Autocomplete
-              sx={{ borderRadius: 3 }}
-              options={top100Films.map((option) => option.title)}
-              renderInput={(params) => <TextField {...params} label="Search" />}
-            />
-          </Stack>
-        </Grid2> */}
-        {/* <Grid2 size={{ lg: 3 }} display={"flex"} gap={2}>
-          <Button variant="contained">
-            <ShoppingCartIcon />
-            Cart
-          </Button>
-          <Button variant="contained">Track Order</Button>
-         
-        </Grid2> */}
-      </Grid2>
-      {/* <Grid2
-        display={"flex"}
-        bgcolor={"#223047"}
-        // bgcolor={"skyblue"}
-        justifyContent={"space-between"}
-        color="white"
-        p={1}
-      >
-        <Stack
-          display={"flex"}
-          flexDirection={"row"}
-          justifyContent={"space-evenly"}
-          width={"60vw"}
-          alignItems={"center"}
-        >
-          {item.map((value, index) => (
-            <Typography> {value}</Typography>
-          ))}
-        </Stack>
-        <Stack>
-          <Typography>
-            <Checkbox {...label} />
-            Join Foxboro
-          </Typography>
-        </Stack>
-      </Grid2> */}
 
-      {/* <Grid2
-        container
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        color="white"
-        bgcolor={"#2b313b"}
-        p={1}
-      >
-        <Grid2 size={{ lg: 10 }}>
-        <Grid2 size={{ lg: 2 }}></Grid2>
-        <Grid2 size={{ lg: 2 }}></Grid2>
-        <Grid2 size={{ lg: 2 }}></Grid2>
-        <Grid2 size={{ lg: 2 }}></Grid2>
-        <Grid2 size={{ lg: 2 }}></Grid2>
-      
-        </Grid2>
-        <Grid2 size={{ lg: 2 }}></Grid2>
-      </Grid2> */}
+      </Grid2>
+
     </>
   );
 }
