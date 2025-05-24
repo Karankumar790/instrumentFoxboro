@@ -94,7 +94,7 @@ function content() {
 
         </Grid2>
         <Grid2 container className=" flex justify-center" >
-          <Grid2 size={{ lg: 9 }} className="">
+          <Grid2 size={{ lg: 9 }}>
             <Box>
               <Typography variant="h5" mt={3} mb={2} fontWeight={"bold"}>
                 Industrial Automation
