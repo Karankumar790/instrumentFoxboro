@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {FaCogs,FaBox,FaTools,FaSlidersH,FaLaptopCode,FaPlay,FaPlus} from "react-icons/fa";
+import {FaCogs,FaBox,FaTools,FaSlidersH,FaLaptopCode} from "react-icons/fa";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Menu, MenuItem } from "@mui/material";
