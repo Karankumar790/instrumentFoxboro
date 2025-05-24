@@ -15,8 +15,19 @@ const personalData = [
     { label: "Expected salary", placeholder: "Enter your expected salary", name: "expectedSalary", required: true },
 ];
 
-const technicalOptions = ["Diploma", "B.Tech", "M.Tech", "Other"];
-const domainOptions = ["Embedded Systems", "Automation", "Web Development", "AI/ML", "Other"];
+const technicalOptions = [
+    "Diploma electronics",
+    "Diploma instrumentation",
+    "B.tech. Electronics & Communication",
+    "B.tech Electrical And Electronics",
+    "B.Tech computer science",
+    "MBA marketing",
+    "Commerce graduate",
+    "other"
+];
+const domainOptions = [
+    "Embedded Systems", "Automation", "Web Development", "AI/ML", "Other",
+];
 
 function HiringExpert() {
     const [formValues, setFormValues] = useState({
@@ -68,7 +79,7 @@ function HiringExpert() {
                 message: "Application submitted Successfully",
                 severity: 'success'
             });
-            
+
         } else if (error) {
             setSnackbar({
                 open: true,

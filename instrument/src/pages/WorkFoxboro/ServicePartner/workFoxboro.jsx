@@ -13,7 +13,13 @@ const personalData = [
     { label: "Phone", placeholder: "Enter your mobile number", name: "phone", required: true },
 ];
 
-const serviceDomain = ["Diploma", "B.Tech", "M.Tech", "Other"];
+const serviceDomain = [
+    "Field instruments",
+    "Panel instruments",
+    "Plc & Scada system",
+    "Industrial Networking",
+    "Other",
+];
 
 function WorkFoxboro() {
     const [formValues, setFormValues] = useState({

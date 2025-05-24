@@ -3,8 +3,8 @@ import axios from "axios";
 import { API_URL } from "../../../api/Client";
 
 
-const token = localStorage.getItem("authToken");
 
+const token = localStorage.getItem("authToken");
 
 export const postIntership = createAsyncThunk(
   "postIntership",
