@@ -16,7 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AddIcon from '@mui/icons-material/Add';
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
@@ -222,12 +222,13 @@ function Automation() {
             {categories.map((cat) => (
               <StyledTableRow key={cat._id}>
                 <StyledTableCell>
-                  <img
-                    src={cat.categoryImage}
-                    alt={cat.categoryName}
-                    width="100"
-                    style={{ maxHeight: 100, objectFit: 'contain' }}
-                  />
+                  <div className="w-24 h-20">
+                    <img
+                      src={cat.categoryImage}
+                      alt={cat.categoryName}
+                      className="w-full h-full object-fill"
+                    />
+                  </div>
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   {cat.categoryName}
@@ -235,7 +236,7 @@ function Automation() {
                 <StyledTableCell>{cat.description}</StyledTableCell>
                 <StyledTableCell className="w-40 ">
                   <IconButton component={Link} to={`/admin/categoryProduct/${cat._id}`}>
-                    <FontAwesomeIcon icon={faEye} />
+                    <AddIcon icon={faEye} className="text-black text-lg" />
                   </IconButton>
 
                   <IconButton

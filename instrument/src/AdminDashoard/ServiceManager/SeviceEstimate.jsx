@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {
   Table, TableBody, TableCell, TableContainer,
   TableHead, TableRow, Paper,
-  Pagination
+  Pagination,
+  Dialog,
+  DialogTitle,
+  DialogContent
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEstimate } from './serviceSlice';
@@ -15,15 +18,26 @@ function SeviceEstimate() {
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState("");
 
+  const handleOpenPdf = (url) => {
+    setPdfUrl(url);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setPdfUrl("");
+  };
 
 
   useEffect(() => {
-    dispatch(getEstimate({ page, limit:8 }))
+    dispatch(getEstimate({ page, limit: 8 }))
   }, [dispatch, page])
 
 
-  const handlePageChange = ( event,value) => {
+  const handlePageChange = (event, value) => {
     setPage(value);
   };
 
@@ -46,9 +60,22 @@ function SeviceEstimate() {
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>serviceMethod</TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>serviceNumber</TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>problemDescription</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>View</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
-
+          <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
+            <DialogTitle>Po Preview</DialogTitle>
+            <DialogContent dividers>
+              <iframe
+                src={pdfUrl}
+                title="Resume PDF"
+                width="100%"
+                height="600px"
+                style={{ border: "none" }}
+              />
+            </DialogContent>
+          </Dialog>
           <TableBody>
             {quotations?.map((row) => (
               <TableRow key={row.id}>
@@ -64,6 +91,16 @@ function SeviceEstimate() {
                 <TableCell>{row.serviceMethod}</TableCell>
                 <TableCell>{row.serviceNumber}</TableCell>
                 <TableCell>{row.problemDescription}</TableCell>
+                <TableCell>
+                  {row.POImagePdf && (
+                    <button
+                      onClick={() => handleOpenPdf(row.POImagePdf)}
+                      className="text-blue-600 hover:underline"
+                    >
+                      Po
+                    </button>
+                  )}
+                </TableCell>
                 <TableCell>
 
                 </TableCell>

@@ -124,16 +124,12 @@ function content() {
                           />
                         </div>
                       </Link>
-                      <Typography variant="h5" gutterBottom sx={{ padding: "8px", }}>
+                      <p className="text-xl text-black font-bold pt-3">
                         {limitNameWords(category.categoryName)}
-                      </Typography>
-                      <Typography
-                        variant="h6"
-                        mb={2}
-                        sx={{ paddingLeft: "8px", paddingRight: "8px" }}
-                      >
+                      </p>
+                      <p className="text-lg text-gray-800 pt-1 py-1" >
                         {limitWords(category.description)}
-                      </Typography>
+                      </p>
                     </Card>
                   </Grid2>
                 ))
@@ -168,25 +164,17 @@ function content() {
                       </div>
 
                     </Link>
-                    <Typography
-                      variant="h5"
-                      gutterBottom
-                      sx={{ padding: "8px" }}
-                    >
+                    <p className="text-xl text-black font-bold pt-3">
                       {limitNameWords(software.softwareName)}
-                    </Typography>
+                    </p>
 
-                    <Typography
-                      variant="h6"
-                      mb={2}
-                      sx={{ paddingLeft: "8px", paddingRight: "8px" }}
-                    >
+                    <p className="text-lg text-gray-800 pt-1 py-1">
                       {software.description
                         .split(" ")
                         .slice(0, 20)
                         .join(" ") + (software.description.split(" ").length > 20 ? "..." : "")
                       }
-                    </Typography>
+                    </p>
                   </Card>
                 </Grid2>
               ))}
@@ -219,25 +207,17 @@ function content() {
                       </div>
 
                     </Link>
-                    <Typography
-                      variant="h5"
-                      gutterBottom
-                      sx={{ padding: "8px" }}
-                    >
+                    <p className="text-xl text-black font-bold pt-3">
                       {limitNameWords(product.name)}
-                    </Typography>
+                    </p>
 
-                    <Typography
-                      variant="h6"
-                      mb={2}
-                      sx={{ paddingLeft: "8px", paddingRight: "8px" }}
-                    >
+                    <p className="text-lg text-gray-800 pt-1 py-1">
                       {product.description
                         .split(" ")
                         .slice(0, 20)
                         .join(" ") + (product.description.split(" ").length > 20 ? "..." : "")
                       }
-                    </Typography>
+                    </p>
                   </Card>
                 </Grid2>
               ))}

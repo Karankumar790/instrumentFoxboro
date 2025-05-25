@@ -38,6 +38,18 @@ function product() {
     setPage(value);
   };
 
+   const limitWords = (text, wordLimit = 20) => {
+    if (!text) return "No description available.";
+    const words = text.split(" ");
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+  };
+
+  const limitNameWords = (text, wordLimit = 5) => {
+    if (!text) return "No Name available";
+    const words = text.split(" ");
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+  };
+
 
 
 
@@ -82,24 +94,16 @@ function product() {
                         />
                       </div>
                     </Link>
-                    <Typography
-                      variant="h6"
-                      gutterBottom
-                      sx={{ padding: "8px" }}
-                    >
-                      {product?.name}
-                    </Typography>
+                    <p className="text-xl text-black font-bold pt-3">
+                      {limitNameWords(product?.name)}
+                    </p>
 
-                    <Typography
-                      variant="body2"
-                      mb={2}
-                      sx={{ paddingLeft: "8px", paddingRight: "8px" }}
-                    >
-                      {product?.description}
-                    </Typography>
-                    <div className="w-full flex justify-end">
+                    <p className="text-lg text-gray-800 pt-1 py-1">
+                      {limitWords(product?.description)}
+                    </p>
+                    {/* <div className="w-full flex justify-end">
                       <button className="bg-green-600 text-white rounded-lg p-2 mb-2">Available on E-store</button>
-                    </div>
+                    </div> */}
                   </Card>
                 </Grid2>
               ))}

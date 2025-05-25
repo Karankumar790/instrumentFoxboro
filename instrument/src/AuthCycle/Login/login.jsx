@@ -5,6 +5,7 @@ import Footer from '../../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, resetAuthState, clearError } from './loginSlice';
 import OTPModal from './OTPModal';
+import PageContainer from '../../components/HOC/PageContainer';
 
 function Login() {
   const dispatch = useDispatch();
@@ -48,19 +49,18 @@ function Login() {
 
   return (
     <>
-      <div className='bg-sky-200'>
-        <Header />
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="w-full max-w-md p-8 bg-gray-100 shadow-lg rounded-lg space-y-6">
+      <PageContainer showheader='true' showfooter='true' className='bg-sky-200 flex flex-col overflow-hidden'>
+        <div className='flex justify-center items-center bg-slate-200 flex-grow overflow-hidden'>
+          <div className=" max-w-md p-8 bg-gray-100 shadow-lg rounded-lg space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-gray-800">Foxboro Instrument Company</h2>
-              <p className="text-gray-600">Sign in Your Account</p>
+              <p className="text-black">Employee Login</p>
             </div>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email Address
+                  User ID
                 </label>
                 <input
                   type="email"
@@ -126,23 +126,21 @@ function Login() {
               <p className="text-lg text-gray-600">
                 Don't have an account?{" "}
                 <Link to="/signUp" className="font-medium text-blue-600 hover:underline">
-                  Sign Up
+                  Register
                 </Link>
               </p>
             </div>
           </div>
         </div>
-        <Footer />
-      </div>
-
-      <OTPModal 
-        open={otpModalOpen} 
-        onClose={() => {
-          setOtpModalOpen(false);
-          dispatch(resetAuthState());
-        }} 
-        email={formData.email} 
-      />
+        <OTPModal
+          open={otpModalOpen}
+          onClose={() => {
+            setOtpModalOpen(false);
+            dispatch(resetAuthState());
+          }}
+          email={formData.email}
+        />
+      </PageContainer>
     </>
   );
 }
