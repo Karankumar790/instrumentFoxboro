@@ -45,6 +45,18 @@ function oneclickproduct() {
     fetchProduct();
   }, [categoryId]);
 
+  const limitWords = (text, wordLimit = 20) => {
+    if (!text) return "No description available.";
+    const words = text.split(" ");
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+  };
+
+  const limitNameWords = (text, wordLimit = 5) => {
+    if (!text) return "No Name available";
+    const words = text.split(" ");
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+  };
+
 
 
 
@@ -106,16 +118,13 @@ function oneclickproduct() {
                             }}
                           />
                         </div>
-                        <Typography variant="h6" gutterBottom sx={{ padding: "8px" }}>
-                          {product.productName}
-                        </Typography>
+                        <p className="text-xl text-black font-bold pt-3">
+                          {limitNameWords(product.productName)}
+                        </p>
 
-                        <Typography
-                          variant="body2"
-                          sx={{ paddingLeft: "8px", paddingRight: "8px" }}
-                        >
-                          {product.description}
-                        </Typography>
+                        <p className="text-lg text-gray-800 pt-1 py-1">
+                          {limitWords(product.description)}
+                        </p>
                       </Card>
                     </Grid2>
                   ))

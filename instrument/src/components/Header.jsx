@@ -95,8 +95,8 @@ function Header() {
             ))}
 
           </div>
-          <Grid2 className='flex w-96'>
-            <Stack display={"flex"} flexDirection={"row"} mr={2} >
+          <Grid2 className='flex w-96 '>
+            <Stack display={"flex"} flexDirection={"row"} mr={3} >
               <a href={fetchHeader.instagramLink}>
                 <Button>
                   <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
@@ -113,9 +113,9 @@ function Header() {
                 </Button>
               </a>
             </Stack>
-            <button className="bg-pink-300 hover:bg-pink-600 text-lg text-white font-semibold py-2 px-9 rounded-lg shadow-md transition duration-300">
-              <Link to="/login" className="no-underline text-white">
-                Login
+            <button className="bg-yellow-300 hover:bg-yellow-400 text-md text-white font-semibold py-2 px-9  shadow-md transition duration-300">
+              <Link to="/login" className="no-underline text-black">
+               STAFF LOGIN
               </Link>
             </button>
 

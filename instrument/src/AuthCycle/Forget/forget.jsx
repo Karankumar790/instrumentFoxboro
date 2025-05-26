@@ -4,6 +4,7 @@ import { forget, resetPassword } from '../Forget/forgetSlice';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer/Footer';
 import { Modal, Box, TextField, Button, Alert, CircularProgress } from '@mui/material';
+import PageContainer from '../../components/HOC/PageContainer';
 
 function ForgotPassword() {
   const dispatch = useDispatch();
@@ -42,9 +43,8 @@ function ForgotPassword() {
   };
 
   return (
-    <div className='bg-[url("login.jpg")]  bg-cover h-full w-full'>
-      <Header />
-      <div className="flex justify-center items-center h-screen">
+      <PageContainer showheader='true' showfooter='true' className='bg-sky-200 flex flex-col overflow-hidden'>
+    <div className='flex justify-center items-center bg-slate-200 flex-grow overflow-hidden'>
         <div className="bg-white p-6 rounded-lg shadow-md w-96">
           <h2 className="text-2xl font-bold mb-4 text-center">Forgot Password</h2>
           {message && <Alert severity="success">{message}</Alert>}
@@ -70,8 +70,6 @@ function ForgotPassword() {
             </button>
           </form>
         </div>
-      </div>
-      <Footer />
 
       {/* Modal for OTP & Password Reset */}
       <Modal open={open} onClose={() => setOpen(false)}>
@@ -120,11 +118,12 @@ function ForgotPassword() {
             onClick={handleResetSubmit}
             disabled={loading}
           >
-            {loading ? <CircularProgress size={20} /> : "Submit"}
+            {loading ? <CircularProgress size={20} /> : "Reset Password"}
           </Button>
         </Box>
       </Modal>
     </div>
+    </PageContainer>
   );
 }
 

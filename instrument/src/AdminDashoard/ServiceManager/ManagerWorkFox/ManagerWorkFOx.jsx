@@ -53,6 +53,7 @@ function ManagerWorkFOx() {
   return (
     <>
       <div className='mb-80'>
+        <p className='mb-3 text-2xl font-bold'>Become Service Partner</p>
         <TableContainer component={Paper} sx={{ maxHeight: 400, overflowY: 'auto' }}>
           <Table>
             <TableHead sx={{ backgroundColor: '#1e3a8a' }}>
@@ -116,6 +117,7 @@ function ManagerWorkFOx() {
 
       </div>
       <div>
+        <p className='mb-3 text-2xl font-bold'>Authorize Service Partner</p>
         <TableContainer component={Paper} sx={{ maxHeight: 400, overflowY: 'auto' }}>
           <Table>
             <TableHead sx={{ backgroundColor: '#1e3a8a' }}>

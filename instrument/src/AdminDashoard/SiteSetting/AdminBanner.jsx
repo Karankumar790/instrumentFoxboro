@@ -62,6 +62,16 @@ const BannerUploadUI = () => {
     })
   }
 
+  const handleDeletePreviewImage = (index) => {
+  const updatedPreviews = [...selectedImages];
+  const updatedFiles = [...imageFiles];
+  updatedPreviews.splice(index, 1);
+  updatedFiles.splice(index, 1);
+  setSelectedImages(updatedPreviews);
+  setImageFiles(updatedFiles);
+};
+
+
 
   return (
     <Box sx={{ padding: 3 }}>
@@ -106,7 +116,7 @@ const BannerUploadUI = () => {
                 />
                 <IconButton
                   color="error"
-                  onClick={() => handleDelete(index)}
+                  onClick={() =>  handleDeletePreviewImage(index)}
                   sx={{
                     position: 'absolute',
                     top: 0,

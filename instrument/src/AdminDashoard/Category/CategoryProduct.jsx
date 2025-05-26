@@ -253,11 +253,13 @@ function CategoryProduct() {
                                 products.map((product) => (
                                     <StyledTableRow key={product._id}>
                                         <StyledTableCell>
-                                            <img
-                                                src={product.productImage}
-                                                alt={product.productName}
-                                                className="w-12 h-12 object-cover rounded"
-                                            />
+                                            <div className='w-24 h-20'>
+                                                <img
+                                                    src={product.productImage}
+                                                    alt={product.productName}
+                                                    className="w-full h-full object-fill rounded"
+                                                />
+                                            </div>
                                         </StyledTableCell>
                                         <StyledTableCell align="right" className="font-medium">
                                             {product.productName}
