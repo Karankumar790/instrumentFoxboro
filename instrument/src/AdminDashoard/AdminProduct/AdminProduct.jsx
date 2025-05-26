@@ -279,11 +279,13 @@ function Product() {
             />
             <div className="w-full h-56 border border-gray-300 rounded-lg flex justify-center items-center">
               {image ? (
-                <img
-                  src={typeof image === 'string' ? image : URL.createObjectURL(image)}
-                  alt="Preview"
-                  className="w-full h-full object-cover"
-                />
+                <div className='h-56 w-full'>
+                  <img
+                    src={typeof image === 'string' ? image : URL.createObjectURL(image)}
+                    alt="Preview"
+                    className="w-full h-full object-fill"
+                  />
+                </div>
               ) : (
                 <Typography variant="body2" color="textSecondary">
                   No Image Selected

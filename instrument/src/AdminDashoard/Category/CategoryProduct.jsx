@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import ClearIcon from "@mui/icons-material/Clear";
-import { Button, IconButton, Typography } from '@mui/material';
+import { Alert, Button, IconButton, Snackbar, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -79,6 +79,11 @@ function CategoryProduct() {
     const [editingProductId, setEditingProductId] = useState(null);
     const [modalType, setModalType] = useState(""); // "product" or "category"
     const [editingId, setEditingId] = useState(null);
+    const [snackbar, setSnackbar] = useState({
+        open: false,
+        message: "",
+        severity: "success",
+    });
 
     const handleOpen = (type, item = null) => {
         setModalType(type);
@@ -139,7 +144,23 @@ function CategoryProduct() {
         setEditingProductId(null);
     };
 
+    const validateForm = () => {
+        if (!productName.trim()) return "Product Name is required.";
+        if (!description.trim()) return "Product Description is required.";
+        if (!image) return "Product Image is required.";
+        return null;
+    };
+
     const handleSubmit = async () => {
+        const validationError = validateForm();
+        if (validationError) {
+            setSnackbar({
+                open: true,
+                message: validationError,
+                severity: "error",
+            });
+            return;
+        }
         if (modalType === "product") {
             if (!productName || !description) {
                 alert("All fields are required!");
@@ -176,13 +197,21 @@ function CategoryProduct() {
                 }
                 handleClose();
             } catch (error) {
-                alert("Something went wrong!");
+                setSnackbar({
+                    open: true,
+                    message: error.message || "An error occurred",
+                    severity: "error",
+                });
             }
         } else if (modalType === "category") {
             // Handle category submission logic here
             console.log("Category submission:", categoryName);
             handleClose();
         }
+    };
+
+    const handleSnackbarClose = () => {
+        setSnackbar({ ...snackbar, open: false });
     };
 
     const handleDeleteProduct = async (productId) => {
@@ -366,17 +395,21 @@ function CategoryProduct() {
                                             >
                                                 {image ? (
                                                     typeof image === 'string' ? (
-                                                        <img
-                                                            src={image}
-                                                            alt="Preview"
-                                                            className="w-full h-full object-cover"
-                                                        />
+                                                        <div className='h-60 w-full'>
+                                                            <img
+                                                                src={image}
+                                                                alt="Preview"
+                                                                className="w-full h-full object-fill"
+                                                            />
+                                                        </div>
                                                     ) : (
-                                                        <img
-                                                            src={URL.createObjectURL(image)}
-                                                            alt="Preview"
-                                                            className="w-full h-full object-cover"
-                                                        />
+                                                        <div className='h-56 w-full'>
+                                                            <img
+                                                                src={URL.createObjectURL(image)}
+                                                                alt="Preview"
+                                                                className="w-full h-full object-fill"
+                                                            />
+                                                        </div>
                                                     )
                                                 ) : (
                                                     <Typography variant="body2" color="textSecondary">
@@ -434,6 +467,21 @@ function CategoryProduct() {
                     </Box>
                 </Fade>
             </Modal>
+
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert
+                    onClose={handleSnackbarClose}
+                    severity={snackbar.severity}
+                    sx={{ width: '100%' }}
+                >
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

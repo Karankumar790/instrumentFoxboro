@@ -44,10 +44,10 @@ export default function AdminSidebar() {
             <NavItem to="/admin/automation" icon={<FaCogs />} label="Automation" />
             <NavItem to="/admin/adminProduct" icon={<FaBox />} label="Products" />
             <NavItem to="/admin/adminsoftware" icon={<FaLaptopCode />} label="Software" />
-            <NavItem to="/admin/adminService" icon={<FaTools />} label="Enquire" />
+            <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="E-Service" />
+            <NavItem to="/admin/adminService" icon={<FaTools />} label="Enquires" />
             {/* <NavItem to="/admin/adminRunningProject" icon={<FaPlay />} label="Running Project" />
             <NavItem to="/admin/adminNewProject" icon={<FaPlus />} label="New Project" /> */}
-            <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="Service Estimate" />
             <NavItem to="/admin/managerWorkFOx" icon={<RiBriefcaseLine />} label="Work Foxboro" />
             <NavItem to="/admin/internship" icon={<RiServiceLine />} label="Intership" />
             <NavItem to="/admin/adminHiringExp" icon={<GrUserExpert />} label="Hiring Expert" />
@@ -68,7 +68,7 @@ export default function AdminSidebar() {
               onClick={handleSettingClick}
             >
               <FaSlidersH />
-              <span className="font-semibold text-lg">Settings</span>
+              <span className="font-semibold text-lg">Site Settings</span>
               <KeyboardArrowDownIcon
                 fontSize="medium"
                 className={`text-lg transition-transform duration-300 ${settingMenu ? 'rotate-180' : ''

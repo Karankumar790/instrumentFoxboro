@@ -65,6 +65,7 @@ function AdminHeader() {
   const handleClose = () => setOpen(false);
   const [image, setImage] = useState(null);
   const getHeaders = useSelector((state) => state.header.headerInt);
+  const error = useSelector((state) => state.header.error)
   const [formValue, setFormValue] = useState({
     contactNumberOne: "",
     contactNumberTwo: "",
@@ -153,7 +154,7 @@ function AdminHeader() {
       setImage(null);
       toast.success("Header added successfully!");
     } catch (error) {
-      toast.error(error?.message || "Something went wrong!");
+      toast.error(error || "Something went wrong!");
     }
   };
 
@@ -200,6 +201,7 @@ function AdminHeader() {
             <label>
               <h2 className='text-sm font-semibold mb-1'>Phone Number 1</h2>
               <input type="number" name='contactNumberOne' value={formValue.contactNumberOne} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+               {error?.message}
             </label>
           </div>
           <div className='flex flex-col '>

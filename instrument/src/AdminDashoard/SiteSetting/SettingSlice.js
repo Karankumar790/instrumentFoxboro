@@ -142,7 +142,7 @@ export const deleteBanner = createAsyncThunk(
 
 const headerSlice = createSlice({
     name: "header",
-    initialState: { headerInt: [], footerInt: [], uploadedBanners: [], loading: false, error: null, success: false },
+    initialState: { headerInt: [], footerInt: [], uploadedBanners: [], loading: false, error: null, success: false,errorMessage: '' },
     extraReducers: (builder) => {
         builder
             .addCase(postheader.pending, (state) => {
@@ -157,6 +157,7 @@ const headerSlice = createSlice({
             .addCase(postheader.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload.message;
+                state.errorMessage = action.payload || "Failed to add header";
             })
             .addCase(getHeader.pending, (state) => {
                 state.loading = true;
@@ -169,6 +170,7 @@ const headerSlice = createSlice({
             .addCase(getHeader.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+                state.errorMessage = action.payload || "Failed to fetch header data";
             })
             .addCase(updateHeader.pending, (state) => {
                 state.loading = true;
@@ -182,6 +184,7 @@ const headerSlice = createSlice({
             .addCase(updateHeader.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload.message;
+                state.errorMessage = action.payload || "Failed to update header";
             })
             .addCase(postFooter.pending, (state) => {
                 state.loading = true;
@@ -195,6 +198,7 @@ const headerSlice = createSlice({
             .addCase(postFooter.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload.data;
+                state.errorMessage = action.payload || "Failed to update header";
             })
             .addCase(getFooter.pending, (state) => {
                 state.loading = true;

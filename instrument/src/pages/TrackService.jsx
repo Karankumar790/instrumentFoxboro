@@ -43,8 +43,8 @@ function TrackService() {
                             <input type="text" size='small' placeholder='Enter Service Number' className='w-96 border rounded-lg p-2 ' />
                             <button className='w-28 p-3 text-white font-bold bg-yellow-600 rounded-lg border'>Submit</button>
                         </div>
-                        <div className='h-96 bg-gray-100 border rounded-lg border-gray-500 m-2'>
-
+                        <div className='h-96 flex justify-center items-center bg-gray-100 border rounded-lg border-gray-500 m-2'>
+                            <p className='text-2xl font-bold'>Under Development</p>
                         </div>
                         <div className='w-full flex justify-end p-4'>
                              <button className='bg-orange-600 text-white font-semibold rounded-lg cursor-pointer w-28 p-2'>Accept</button>
