@@ -215,6 +215,11 @@ function Product() {
                     <StyledTableCell align="right">{product?.description || 'N/A'}</StyledTableCell>
                     <StyledTableCell align="right">
                       <div className="flex justify-end space-x-2">
+                        <Link to={`/admin/productDetail/${product._id}`}>
+                          <IconButton>
+                            <AddIcon className="text-black font-bold" />
+                          </IconButton>
+                        </Link>
                         <IconButton
                           color="primary"
                           className="hover:bg-blue-100"
@@ -229,11 +234,7 @@ function Product() {
                         >
                           <DeleteIcon />
                         </IconButton>
-                        <Link to={`/admin/productDetail/${product._id}`}>
-                          <IconButton>
-                            <AddIcon className="text-black font-bold" />
-                          </IconButton>
-                        </Link>
+
                       </div>
                     </StyledTableCell>
                   </StyledTableRow>

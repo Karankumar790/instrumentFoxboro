@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { Menu, MenuItem, IconButton, Avatar, Typography, Box } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../AuthCycle/Login/loginSlice";
 
 function AdminHeader() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
+  const  loginUser  = useSelector((state) => state.auth.user)
 
   const user = {
     name: "Admin User",
     email: "admin@foxboro.com"
   };
+  console.log("--------",loginUser)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -83,9 +85,9 @@ const handleLogout = async () => {
           }}
         >
           <Box className="px-4 py-2">
-            <Typography variant="subtitle1">{user.name}</Typography>
+            <Typography variant="subtitle1">{loginUser.username}</Typography>
             <Typography variant="body2" color="textSecondary">
-              {user.email}
+              {loginUser.email}
             </Typography>
           </Box>
           <MenuItem onClick={handleLogout} className="text-red-600">Logout</MenuItem>

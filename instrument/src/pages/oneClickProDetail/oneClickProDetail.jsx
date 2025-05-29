@@ -5,16 +5,16 @@ import MoneyIcon from '@mui/icons-material/Money';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import StoreIcon from '@mui/icons-material/Store';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
-import TableProduct from "./TableProduct";
+import TableProduct from "./TableProductDetail";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer/Footer";
 import { useDispatch } from "react-redux";
-import { getProduct } from "./subProduct"; // ensure this returns a promise
+import { getProductDetail } from "../../AdminDashoard/Category/CategoryProductSlice"; // ensure this returns a promise
 
-function SubProduct() {
+function oneClickProDetail() {
     const [product, setProduct] = useState(null);
-    const [currentImage, setCurrentImage] = useState(product?.images?.[0] || '');
+    const [currentImage, setCurrentImage] = useState(product?.productId?.productImage[0] || '');
     const dispatch = useDispatch();
     const { id } = useParams();
     const [open, setOpen] = useState(false);
@@ -40,7 +40,7 @@ function SubProduct() {
 
     useEffect(() => {
         const fetchProduct = async () => {
-            const res = await dispatch(getProduct(id));
+            const res = await dispatch(getProductDetail(id));
             setProduct(res.payload.data); // assuming redux thunk
         };
         fetchProduct();
@@ -55,22 +55,22 @@ function SubProduct() {
                         <div className="flex h-full w-full max-w-2xl p-6">
                             {/* Thumbnails */}
                             <div className="flex flex-col justify-center items-center w-1/6 gap-20 mr-2">
-                                {product?.images?.map((image, index) => (
+                                {product?.images?.map((productImage, index) => (
                                     <img
                                         key={index}
-                                        src={image}
+                                        src={productImage}
                                         alt={`Thumbnail ${index + 1}`}
-                                        className={`w-16 h-16 rounded-md cursor-pointer border-2 ${currentImage === image ? "border-blue-500" : "border-transparent"}`}
-                                        onClick={() => setCurrentImage(image)}
+                                        className={`w-16 h-16 rounded-md cursor-pointer border-2 ${currentImage === productImage ? "border-blue-500" : "border-transparent"}`}
+                                        onClick={() => setCurrentImage(productImage)}
                                     />
                                 ))}
 
-                                {product?.productId?.image && (
+                                {product?.productId?.productImage && (
                                     <img
-                                        src={product.productId.image}
+                                        src={product.productId.productImage}
                                         alt="Product ID Image"
-                                        className={`w-16 h-16 rounded-md cursor-pointer border-2 ${currentImage === product.productId.image ? "border-blue-500" : "border-transparent"}`}
-                                        onClick={() => setCurrentImage(product.productId.image)}
+                                        className={`w-16 h-16 rounded-md cursor-pointer border-2 ${currentImage === product.productId.productImage ? "border-blue-500" : "border-transparent"}`}
+                                        onClick={() => setCurrentImage(product.productId.productImage)}
                                     />
                                 )}
                             </div>
@@ -79,7 +79,7 @@ function SubProduct() {
                             {/* Main Image */}
                             <div className="rounded-lg w-full h-[500px]">
                                 <img
-                                    src={currentImage || product?.productId?.image}
+                                    src={currentImage || product?.productId?.productImage}
                                     alt="Main Slide"
                                     className="w-full h-full object-fill transition-transform duration-500 ease-in-out"
                                 />
@@ -90,7 +90,7 @@ function SubProduct() {
                         {/* Product Info */}
                         <div className="flex flex-col  w-[90%] gap-4 p-5">
                             <div className="text-3xl font-semibold text-gray-700">
-                                <span className="text-4xl">🛍️</span> Product Name:&nbsp; {product?.productId?.name}
+                                <span className="text-4xl">🛍️</span> Product Name:&nbsp; {product?.productId?.productName}
                             </div>
                             <div className="text-xl flex text-gray-600">
                                 <span className="text-4xl">📦</span><p className="font-bold">Model:</p> &nbsp; {product?.modelNo}
@@ -247,4 +247,4 @@ function SubProduct() {
     );
 }
 
-export default SubProduct;
+export default oneClickProDetail;
