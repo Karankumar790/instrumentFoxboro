@@ -31,19 +31,28 @@ function oneclickproduct() {
     const fetchProduct = async () => {
       try {
         const response = await getProductById(categoryId);
-        console.log("API Response:", response); // Debugging
+        console.log("API Response:", response);
 
-        // Ensure we're setting the correct data array
-        setProduct(response);
+        // Handle common response structures
+        if (Array.isArray(response)) {
+          setProduct(response);
+        } else if (response && Array.isArray(response.data)) {
+          setProduct(response.data);
+        } else {
+          setProduct([]); // fallback to empty array
+        }
       } catch (error) {
         console.error("Error fetching products:", error);
-        setError("Not Find products");
+        setError("Error fetching products");
+        setProduct([]); // Also set empty array in case of error
       } finally {
         setLoading(false);
       }
     };
+
     fetchProduct();
   }, [categoryId]);
+
 
   const limitWords = (text, wordLimit = 20) => {
     if (!text) return "No description available.";
@@ -64,7 +73,7 @@ function oneclickproduct() {
     <div className="min-h-screen flex flex-col">
       <PageContainer showheader="true" className="flex flex-1 flex-col">
         <Grid2 container display="flex" justifyContent="center" className="flex-1">
-          <Grid2 size={{ lg: 9 }} overflow="hidden" mb={4}>
+          <Grid2 size={{ lg: 8 }} overflow="hidden" mb={4}>
             <Box>
               <Typography variant="h5" mt={2} mb={2} fontWeight={"bold"}>
                 Industrial Automation / {decodeURIComponent(categoryName)}
@@ -75,17 +84,18 @@ function oneclickproduct() {
               <Typography>Loading products...</Typography>
             ) : error ? (
               <Typography color="error">{error}</Typography>
+            ) : products.length == 0 ? (
+              <Typography>No products available for this category.</Typography>
             ) : (
               <Grid2 container spacing={3}>
-                {products.length > 0 ? (
-                  products.map((product, index) => (
-                    <Grid2
-                      bgcolor={"yellow"}
-                      key={index}
-                      size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
-                    >
-                      <Card>
-                        {/* <CardMedia
+                {products.map((product, index) => (
+                  <Grid2
+                    bgcolor={"yellow"}
+                    key={index}
+                    size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
+                  >
+                    <Card>
+                      {/* <CardMedia
                           component="img"
                           style={{
                             height: "30vh",
@@ -105,41 +115,46 @@ function oneclickproduct() {
                             e.currentTarget.style.transform = "scale(1)";
                           }}
                         /> */}
-                        <div className="h-80 w-full">
-                          <img
-                            src={product.productImage}
-                            alt={product.productName}
-                            className="transition-transform duration-300 ease-in-out h-full w-full object-fill"
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.transform = "scale(1.1)";
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.transform = "scale(1)";
-                            }}
-                          />
-                        </div>
-                        <p className="text-xl text-black font-bold pt-3">
-                          {limitNameWords(product.productName)}
-                        </p>
+                      <div className="h-72 w-full">
+                        <img
+                          src={product.productImage}
+                          alt={product.productName}
+                          className="transition-transform duration-300 ease-in-out h-full w-full object-fill"
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "scale(1.1)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "scale(1)";
+                          }}
+                        />
+                      </div>
+                      <p className="text-xl text-black font-bold pt-3">
+                        {limitNameWords(product.productName)}
+                      </p>
 
-                        <p className="text-lg text-gray-800 pt-1 py-1">
-                          {limitWords(product.description)}
-                        </p>
-                      </Card>
-                    </Grid2>
-                  ))
-                ) : (
-                  <Typography>No products available for this category.</Typography>
-                )}
+                      <p className="text-lg text-gray-800 pt-1 py-1">
+                        {limitWords(product.description)}
+                      </p>
+
+                      <div className="w-full flex  pr-2">
+                        <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                      </div>
+                    </Card>
+                  </Grid2>
+                ))}
+
               </Grid2>
             )}
-            {products.length > 0 && (<Stack spacing={1} alignItems={"end"} mt={2}>
-              <Pagination count={2} variant="outlined" shape="rounded" />
-            </Stack>)}
+
 
           </Grid2>
         </Grid2>
-
+        {/* Pagination at the bottom */}
+        <Box mt="auto" margin={3}>
+          <Stack spacing={1} alignItems="end">
+            <Pagination count={2} variant="outlined" shape="rounded" />
+          </Stack>
+        </Box>
         <Footer />
       </PageContainer>
     </div>

@@ -45,6 +45,8 @@ const ProductDetail = () => {
     patternWidth: '',
     packageContains: '',
     countryOfOrigin: '',
+    datasheetPdf: null,
+
     // images: [form.image1, form.image2, form.image3]
   });
 
@@ -67,19 +69,32 @@ const ProductDetail = () => {
 
   const handleImageChange = (e) => {
     const { name, files } = e.target;
-    { console.log("files :", files) }
     const file = files[0];
+
     if (file) {
       setForm((prev) => ({
         ...prev,
         [name]: file,
       }));
-      setPreviewImages((prev) => ({
-        ...prev,
-        [name]: URL.createObjectURL(file),
-      }));
+
+      // Only generate previews for image fields
+      if (['image1', 'image2', 'image3'].includes(name)) {
+        setPreviewImages((prev) => ({
+          ...prev,
+          [name]: URL.createObjectURL(file),
+        }));
+      }
+
+      // Handle datasheetPdf (store file name in formData if needed)
+      if (name === 'datasheetPdf') {
+        setFormData((prev) => ({
+          ...prev,
+          datasheetPdf: file,
+        }));
+      }
     }
   };
+
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -157,6 +172,8 @@ const ProductDetail = () => {
       patternWidth: '',
       packageContains: '',
       countryOfOrigin: '',
+      datasheetPdf: null,
+
     });
 
     setForm({
@@ -224,25 +241,31 @@ const ProductDetail = () => {
           <TextField label="Country of Origin" required name="countryOfOrigin" value={formData.countryOfOrigin} onChange={handleChange} fullWidth />
 
           {/* Image Uploads */}
-          <div className=' w-full flex flex-cols-2 justify-between'>
-            <Box>
-              <InputLabel>Image 1</InputLabel>
-              <input type="file" name="image1" accept="image/*" onChange={handleImageChange} />
-              {previewImages.image1 && <img src={previewImages.image1} alt="Preview 1" className="mt-2 w-32 h-20 object-cover rounded" />}
-            </Box>
-            <Box>
-              <InputLabel>Image 2</InputLabel>
-              <input type="file" name="image2" accept="image/*" onChange={handleImageChange} />
-              {previewImages.image2 && <img src={previewImages.image2} alt="Preview 2" className="mt-2 w-32 h-20 object-cover rounded" />}
-            </Box>
-          </div>
-          <div className='flex justify-center'>
-            <Box>
-              <InputLabel>Image 3</InputLabel>
-              <input type="file" name="image3" accept="image/*" onChange={handleImageChange} />
-              {previewImages.image3 && <img src={previewImages.image3} alt="Preview 3" className="mt-2 w-32 h-20 object-cover rounded" />}
-            </Box>
-          </div>
+          <Box>
+            <InputLabel>Image 1</InputLabel>
+            <input type="file" name="image1" accept="image/*" onChange={handleImageChange} />
+            {previewImages.image1 && <img src={previewImages.image1} alt="Preview 1" className="mt-2 w-32 h-20 object-cover rounded" />}
+          </Box>
+          <Box>
+            <InputLabel>Image 2</InputLabel>
+            <input type="file" name="image2" accept="image/*" onChange={handleImageChange} />
+            {previewImages.image2 && <img src={previewImages.image2} alt="Preview 2" className="mt-2 w-32 h-20 object-cover rounded" />}
+          </Box>
+          <Box>
+            <InputLabel>Image 3</InputLabel>
+            <input type="file" name="image3" accept="image/*" onChange={handleImageChange} />
+            {previewImages.image3 && <img src={previewImages.image3} alt="Preview 3" className="mt-2 w-32 h-20 object-cover rounded" />}
+          </Box>
+          <Box>
+            <InputLabel>Data Sheet</InputLabel>
+            <input type="file" name="datasheetPdf" accept=".pdf" onChange={handleImageChange} />
+            {formData.datasheetPdf && (
+              <Typography variant="body2" className="mt-2 text-sm text-gray-600">
+                Selected File: {formData.datasheetPdf.name}
+              </Typography>
+            )}
+          </Box>
+
 
           <Box className="col-span-1 md:col-span-2 flex justify-end mt-4">
             <Button variant="contained" color="primary" type="submit">

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer/Footer'
 import { submitContactForm } from './supportSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { toast } from "react-toastify";
 
 
@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 function Support() {
 
     const dispatch = useDispatch();
+    // const error = useSelector((state) => state.contact.error)
 
     const [formData, setFormData] = useState({
         Firstname: "",
@@ -55,8 +56,7 @@ function Support() {
                 toast.error(resultAction?.payload?.message || "Something went wrong");
             }
         } catch (error) {
-            // Any unexpected error (e.g., network issues)
-            toast.error("Unexpected error occurred");
+          toast.error(error || "Something went wrong!");
         }
     };
 
@@ -134,6 +134,7 @@ function Support() {
                                 <div className="relative">
                                     <input
                                         type="text"
+                                        required
                                         placeholder="First Name"
                                         name="Firstname"
                                         value={formData.Firstname}
@@ -147,6 +148,7 @@ function Support() {
                                 <div className="relative">
                                     <input
                                         type="text"
+                                        required
                                         placeholder="Last Name"
                                         name="Lastname"
                                         value={formData.Lastname}
@@ -160,6 +162,7 @@ function Support() {
                                 <div className="relative">
                                     <input
                                         type="text"
+                                        required
                                         name="Mobile"
                                         value={formData.Mobile}
                                         onChange={handleChange}
@@ -173,6 +176,7 @@ function Support() {
                                 <div className="relative">
                                     <input
                                         type="email"
+                                        required
                                         name="Email"
                                         value={formData.Email}
                                         onChange={handleChange}
@@ -186,6 +190,7 @@ function Support() {
                                 <div className="relative">
                                     <input
                                         type="text"
+                                        required
                                         name="Companyname"
                                         value={formData.Companyname}
                                         onChange={handleChange}
@@ -199,6 +204,7 @@ function Support() {
                                 <div className="relative">
                                     <input
                                         type="text"
+                                        required
                                         name="Position"
                                         value={formData.Position}
                                         onChange={handleChange}
@@ -212,6 +218,7 @@ function Support() {
                                 <div className="relative">
                                     <input
                                         type="text"
+                                        required
                                         name="Country"
                                         value={formData.Country}
                                         onChange={handleChange}
@@ -225,6 +232,7 @@ function Support() {
                                 <div className="relative">
                                     <input
                                         type="text"
+                                        required
                                         name="State"
                                         value={formData.State}
                                         onChange={handleChange}
@@ -238,6 +246,7 @@ function Support() {
                                 <div className="relative col-span-1 sm:col-span-2">
                                     <textarea
                                         rows={4}
+                                        required
                                         placeholder="Message"
                                         name="Message"
                                         value={formData.Message}

@@ -130,7 +130,7 @@ function service() {
           >
             {/* Sticky Header */}
             <Typography variant="h5" fontWeight="bold" className="border bg-green-400 px-5 h-10 ">
-              Generate Estimate (Self Service)
+              Generate Estimate (Service Menu)
             </Typography>
             <Box
               sx={{

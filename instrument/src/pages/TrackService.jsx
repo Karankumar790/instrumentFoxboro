@@ -1,8 +1,7 @@
 import React from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer/Footer'
 import PageContainer from '../components/HOC/PageContainer'
 import { Card, Grid2, Typography } from '@mui/material'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 function TrackService() {
     return (
@@ -46,8 +45,12 @@ function TrackService() {
                         <div className='h-96 flex justify-center items-center bg-gray-100 border rounded-lg border-gray-500 m-2'>
                             <p className='text-2xl font-bold'>Under Development</p>
                         </div>
-                        <div className='w-full flex justify-end p-4'>
-                             <button className='bg-orange-600 text-white font-semibold rounded-lg cursor-pointer w-28 p-2'>Accept</button>
+                        <div className='w-full flex justify-between p-4'>
+                            <div className='flex gap-3'>
+                                <WarningAmberIcon fontSize="large" className='text-red-700' />
+                                <p className='text-xl font-semibold'>Please Accept / Reschedule Within 24 Hours</p>
+                            </div>
+                            <button className='bg-orange-600 text-white font-semibold rounded-lg cursor-pointer w-28 p-2'>Accept</button>
                         </div>
                     </Card>
                 </Grid2>

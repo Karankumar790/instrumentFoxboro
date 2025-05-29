@@ -38,7 +38,7 @@ function product() {
     setPage(value);
   };
 
-   const limitWords = (text, wordLimit = 20) => {
+  const limitWords = (text, wordLimit = 20) => {
     if (!text) return "No description available.";
     const words = text.split(" ");
     return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
@@ -64,20 +64,19 @@ function product() {
           // border={"1px solid black"}
           >
             <Box mb={2} >
-              <Typography variant="h5" mt={2} fontWeight={"bold"} >
-                Foxboro Products
-              </Typography>
+              <p className="text-4xl mt-3 mb-5 font-bold font-noto" >
+                Foxboro Product Line
+              </p>
             </Box>
 
 
             <Grid2 container spacing={3}>
               {productFox.map((product) => (
                 <Grid2
-                  bgcolor={"yellow"}
                   key={product._id}
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                 >
-                  <Card>
+                  <div>
 
                     <Link to={`/subProduct/${product._id}`}>
                       <div className="h-72 w-full ">
@@ -98,17 +97,19 @@ function product() {
                       {limitNameWords(product?.name)}
                     </p>
 
-                    <p className="text-lg text-gray-800 pt-1 py-1">
+                    <p className="text-base text-gray-800 pt-1 py-1">
                       {limitWords(product?.description)}
                     </p>
-                    {/* <div className="w-full flex justify-end">
-                      <button className="bg-green-600 text-white rounded-lg p-2 mb-2">Available on E-store</button>
-                    </div> */}
-                  </Card>
+                    <Link to={`/subProduct/${product._id}`}>
+                      <div className="w-full flex  pr-2">
+                        <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                      </div>
+                    </Link>
+                  </div>
                 </Grid2>
               ))}
             </Grid2>
-            {productFox.length > 0 && (
+            {/* {productFox.length > 0 && (
               <Stack spacing={1} alignItems={"end"} mt={2}>
                 <Pagination count={pagination?.totalPages || 1}
                   page={page}
@@ -116,10 +117,21 @@ function product() {
                   variant="outlined"
                   shape="rounded" />
               </Stack>
-            )}
+            )} */}
 
           </Grid2>
         </Grid2>
+        <div className="m-3">
+          {productFox.length > 0 && (
+            <Stack spacing={1} alignItems={"end"} mt={2}>
+              <Pagination count={pagination?.totalPages || 1}
+                page={page}
+                onChange={handlePageChange}
+                variant="outlined"
+                shape="rounded" />
+            </Stack>
+          )}
+        </div>
         <Footer />
       </PageContainer>
     </div>

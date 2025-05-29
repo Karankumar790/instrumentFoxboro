@@ -14,7 +14,6 @@ export default function AdminSidebar() {
   const user = useSelector((state) => state.auth.user);
   const role = user?.role;
 
-  const auth = useSelector((state) => state.auth);
 
 
   const handleSettingClick = (event) => {

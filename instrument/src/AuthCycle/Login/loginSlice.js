@@ -4,7 +4,7 @@ import { USER_URL } from "../../api/Client";
 import Cookies from 'js-cookie';
 
 export const loginUser = createAsyncThunk(
-  'auth/loginUser', 
+  'auth/loginUser',
   async (userData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(`${USER_URL}/login`, userData, {
@@ -26,8 +26,23 @@ export const otpLogin = createAsyncThunk(
         { otp, email },
         { withCredentials: true }
       );
-      Cookies.set('authToken', response.data.token, { expires: 7 });
+      Cookies.set('authToken', response.data.token);
       localStorage.setItem('authToken', response.data.token);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "OTP Verification Failed");
+    }
+  }
+);
+
+export const logout = createAsyncThunk(
+  'auth/logout',
+  async (_,{ rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${USER_URL}/logout`,{},
+        { withCredentials: true }
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "OTP Verification Failed");
@@ -89,7 +104,12 @@ const authSlice = createSlice({
       .addCase(otpLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.token = null;
+      })
   }
 });
 

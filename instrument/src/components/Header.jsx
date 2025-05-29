@@ -113,7 +113,7 @@ function Header() {
                 </Button>
               </a>
             </Stack>
-            <button className="bg-yellow-300 hover:bg-yellow-400 text-md text-white font-semibold py-2 px-9  shadow-md transition duration-300">
+            <button className="bg-yellow-300 hover:bg-yellow-400 text-md text-white font-semibold py-1 px-4  shadow-md transition duration-300">
               <Link to="/login" className="no-underline text-black">
                STAFF LOGIN
               </Link>
@@ -201,7 +201,7 @@ function Header() {
                   Apply for Internship
                 </MenuItem>
                 <MenuItem onClick={handleClose} component={Link} to="/hiringExpert">
-                  We're Hiring Experts
+                  We are Hiring Experts
                 </MenuItem>
                 <MenuItem onClick={handleClose} component={Link} to="/becomePartner">
                   Become Service Partner
