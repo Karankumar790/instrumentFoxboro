@@ -309,7 +309,7 @@ function Automation() {
                 <img
                   src={typeof image === "string" ? image : URL.createObjectURL(image)}
                   alt="Preview"
-                  style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: 8 }}
+                  className='h-full w-full object-fill'
                 />
               ) : (
                 <Typography variant="body2" color="textSecondary">

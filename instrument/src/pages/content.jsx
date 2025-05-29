@@ -71,7 +71,9 @@ function content() {
       <div className="min-h-screen flex flex-col">
         <Header />
         <Grid2 container display="flex" justifyContent="center" mt={1}>
-          <Grid2 size={{ lg: 9 }}>
+
+          <Grid2 size={{ lg: 8 }}>
+
             <Box display="flex" justifyContent="center" height="45vh">
               {data.length > 0 && (
                 <img
@@ -84,7 +86,7 @@ function content() {
           </Grid2>
         </Grid2>
         <Grid2 container className=" flex justify-center" >
-          <Grid2 size={{ lg: 9 }}>
+          <Grid2 size={{ lg: 8 }}>
             <Box>
               <Typography variant="h5" mt={3} mb={2} fontWeight={"bold"}>
                 Industrial Automation

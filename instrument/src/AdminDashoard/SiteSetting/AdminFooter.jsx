@@ -82,7 +82,7 @@ function AdminFooter() {
   };
 
   const handleEditInput = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setEditData((prev) => ({
       ...prev,
       [name]: value,
@@ -101,22 +101,21 @@ function AdminFooter() {
     e.preventDefault();
     try {
       const dataToSend = open ? editData : footerData; // check modal open or not
-    const res = await dispatch(postFooter(dataToSend)).unwrap();
+      const res = await dispatch(postFooter(dataToSend)).unwrap();
 
-    toast.success(res?.message);
+      toast.success(res?.message);
 
-    // Reset appropriate form
-    if (open) {
-      setEditData(initialFooterState);
-      handleClose();
-    } else {
-      setFooterData(initialFooterState);
-    }
+      // Reset appropriate form
+      if (open) {
+        setEditData(initialFooterState);
+        handleClose();
+      } else {
+        setFooterData(initialFooterState);
+      }
 
-    dispatch(getFooter());
+      dispatch(getFooter());
     } catch (error) {
-      const errorMessage = error?.message || "Something went wrong!";
-      toast.error(errorMessage);
+      toast.error(error || "Something went wrong!");
     }
   };
 
@@ -240,7 +239,7 @@ function AdminFooter() {
                 <input type="text" placeholder='Service Link' name='link4' value={editData.link4} onChange={handleEditInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
               </div>
               <div className='flex gap-2 w-full '>
-                <textarea rows={3} placeholder='Resgistered' name='registeredOfficeAddress' value={editData.registeredOfficeAddress} onChange={handleEditInput} className='w-full border border-gray-600 p-2 rounded-lg'/>
+                <textarea rows={3} placeholder='Resgistered' name='registeredOfficeAddress' value={editData.registeredOfficeAddress} onChange={handleEditInput} className='w-full border border-gray-600 p-2 rounded-lg' />
               </div>
               <button className='w-full bg-blue-600 p-2 text-white rounded-lg font-semibold' onClick={handleSubmit}>Submit</button>
 

@@ -58,7 +58,7 @@ function product() {
       <PageContainer showheader="true" className="flex-1 flex flex-col">
         <Grid2 container display="flex" justifyContent="center" className='flex-1' >
           <Grid2
-            size={{ lg: 9 }}
+            size={{ lg: 8 }}
             overflow="hidden"
             mb={4}
           // border={"1px solid black"}

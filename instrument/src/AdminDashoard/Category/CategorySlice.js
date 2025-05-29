@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_URL } from "../../api/Client";
-import Cookies from "js-cookie"; // Import js-cookie to handle cookies
 
 
 
@@ -132,7 +131,7 @@ const categorySlice = createSlice({
       .addCase(addCategory.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.categories.push(action.payload.data);
+        state.categories.unshift(action.payload.data);
       })
       .addCase(addCategory.rejected, (state, action) => {
         state.loading = false;

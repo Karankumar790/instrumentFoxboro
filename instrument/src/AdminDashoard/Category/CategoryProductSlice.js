@@ -73,7 +73,7 @@ const CategoryProductSlice = createSlice({
             })
             .addCase(addProduct.fulfilled, (state, action) => {
                 state.loading = false;
-                state.product.push(action.payload.data);
+                state.product.unshift(action.payload.data);
             })
             .addCase(addProduct.rejected, (state, action) => {
                 state.loading = false;
