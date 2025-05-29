@@ -37,7 +37,7 @@ function SupportTable() {
 
   return (
     <>
-      <p className='text-2xl font-bold'>Enquire</p>
+      <p className='text-2xl font-bold'>Message Box</p>
       <TableContainer component={Paper} className="mt-6">
         <Table>
           <TableHead sx={{ backgroundColor: '#1e3a8a' }}>

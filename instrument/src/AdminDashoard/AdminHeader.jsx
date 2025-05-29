@@ -10,11 +10,7 @@ function AdminHeader() {
   const dispatch = useDispatch();
   const  loginUser  = useSelector((state) => state.auth.user)
 
-  const user = {
-    name: "Admin User",
-    email: "admin@foxboro.com"
-  };
-  console.log("--------",loginUser)
+ 
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -50,7 +46,7 @@ const handleLogout = async () => {
       localStorage.removeItem("authToken");
       localStorage.removeItem("admin");
 
-      window.location.href = "/login"; // Redirect to login
+      window.location.href = "/"; // Redirect to login
     } else {
       console.error("Logout failed:", resultAction.payload || "Unknown error");
     }

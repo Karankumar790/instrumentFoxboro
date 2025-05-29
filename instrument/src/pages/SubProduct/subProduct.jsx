@@ -118,21 +118,22 @@ function SubProduct() {
                             <div className="text-xl flex text-gray-600">
                                 <span className="text-4xl">⭐</span><p className="font-bold">Google Reviews:</p>&nbsp; {product?.reviews}
                             </div>
-                            {product?.datasheetPdf && (
-                                <button
-                                    onClick={() => handleOpenPdf(product?.datasheetPdf)}
-                                    className="bg-green-500 text-lg font-semibold w-60 h-11"
-                                >
-                                   Download Datasheet
-                                </button>
-                            )}
-
+                            <div className="w-full flex justify-end">
+                                {product?.datasheetPdf && (
+                                    <button
+                                        onClick={() => handleOpenPdf(product?.datasheetPdf)}
+                                        className="bg-green-500 text-lg font-semibold w-60 h-11"
+                                    >
+                                        Download Datasheet
+                                    </button>
+                                )}
+                            </div>
                         </div>
                         {/* Contact  */}
                         <div className="w-full p-6">
-                            <div className="bg-white w-full p-6 space-y-4 h-full  border shadow-lg rounded-lg border-gray-400">
-                                <p className="text-3xl font-semibold bg-blue-950 text-white py-2 px-4 rounded-md text-center">Product Enquires</p>
-                                <form className="grid grid-cols-1 sm:grid-cols-2 gap-6 ">
+                            <div className="bg-white w-full p-4 space-y-3 h-[99%]  border shadow-lg rounded-lg border-gray-400">
+                                <p className="text-2xl font-semibold bg-blue-950 text-white py-2 px-4 rounded-md text-center">Product Enquires</p>
+                                <form className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <div className="relative">
                                         <input
                                             type="text"
@@ -192,7 +193,7 @@ function SubProduct() {
                                     </div>
                                     <div className="relative col-span-1 sm:col-span-2">
                                         <textarea
-                                            rows={4}
+                                            rows={3}
                                             required
                                             placeholder="Message"
                                             name="Message"
@@ -203,7 +204,7 @@ function SubProduct() {
                                     <div className="col-span-1 sm:col-span-2">
                                         <button
                                             type="submit"
-                                            className="bg-blue-900 w-full text-white font-bold text-2xl rounded-lg py-3 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            className="bg-blue-900 w-full text-white font-bold text-xl rounded-lg py-3 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         >
                                             Submit
                                         </button>
