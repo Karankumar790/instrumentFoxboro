@@ -2,8 +2,9 @@ import { useState } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer/Footer'
 import { submitContactForm } from './supportSlice';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from "react-toastify";
+import { Alert, Snackbar } from '@mui/material';
 
 
 
@@ -13,6 +14,7 @@ function Support() {
 
     const dispatch = useDispatch();
     // const error = useSelector((state) => state.contact.error)
+    const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
     const [formData, setFormData] = useState({
         Firstname: "",
@@ -35,29 +37,39 @@ function Support() {
         e.preventDefault();
 
         try {
-            const resultAction = await dispatch(submitContactForm(formData));
-
-            if (submitContactForm.fulfilled.match(resultAction)) {
-                // If the backend returns a success message
-                toast.success(resultAction.payload.message || "Form submitted successfully");
-                setFormData({
-                    Firstname: "",
-                    Lastname: "",
-                    Mobile: "",
-                    Email: "",
-                    Companyname: "",
-                    Position: "",
-                    Country: "",
-                    State: "",
-                    Message: "",
-                });
-            } else {
-                // If the backend returns an error message
-                toast.error(resultAction?.payload?.message || "Something went wrong");
-            }
+            const result = await dispatch(submitContactForm(formData)).unwrap();
+            setSnackbar({
+                open: true,
+                message: result.message || "Query send successfully",
+                severity: "success",
+            });
+            setFormData({
+                Firstname: "",
+                Lastname: "",
+                Mobile: "",
+                Email: "",
+                Companyname: "",
+                Position: "",
+                Country: "",
+                State: "",
+                Message: "",
+            });
         } catch (error) {
-          toast.error(error || "Something went wrong!");
+            const errorMessage =
+                error?.data?.message || // RTK Query-style error
+                error?.message || 
+                error ||      // generic JS error
+                "Failed to send Query"; // fallback
+            setSnackbar({
+                open: true,
+                message: errorMessage,
+                severity: "error",
+            });
         }
+    };
+
+    const handleCloseSnackbar = () => {
+        setSnackbar({ ...snackbar, open: false });
     };
 
 
@@ -271,6 +283,16 @@ function Support() {
                     </div>
                 </div>
             </div>
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity}>
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
             <Footer />
         </div>
     )

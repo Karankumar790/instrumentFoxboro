@@ -47,9 +47,9 @@ export default function AdminSidebar() {
             <NavItem to="/admin/adminService" icon={<FaTools />} label="Message Box" />
             {/* <NavItem to="/admin/adminRunningProject" icon={<FaPlay />} label="Running Project" />
             <NavItem to="/admin/adminNewProject" icon={<FaPlus />} label="New Project" /> */}
-            {/* <NavItem to="/admin/managerWorkFOx" icon={<RiBriefcaseLine />} label="Work Foxboro" />
+            <NavItem to="/admin/managerWorkFOx" icon={<RiBriefcaseLine />} label="Work Foxboro" />
             <NavItem to="/admin/internship" icon={<RiServiceLine />} label="Intership" />
-            <NavItem to="/admin/adminHiringExp" icon={<GrUserExpert />} label="Hiring Expert" /> */}
+            <NavItem to="/admin/adminHiringExp" icon={<GrUserExpert />} label="Hiring Expert" />
           </>
         )}
 

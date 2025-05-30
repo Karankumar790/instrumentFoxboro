@@ -71,9 +71,10 @@ function service() {
         serviceMethod: "",
       });
     } catch (error) {
+      console.error("Estimate error:", error);
       setSnackbar({
         open: true,
-        message: error.message || "Failed to generate estimate",
+        message: error || "Failed to generate estimate",
         severity: "error",
       });
     }

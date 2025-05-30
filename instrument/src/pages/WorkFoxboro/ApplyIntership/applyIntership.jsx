@@ -38,7 +38,7 @@ const domainOptions = [
     "other"
 ];
 
-function applyIntership() {
+function ApplyIntership() {
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",
@@ -50,9 +50,7 @@ function applyIntership() {
         internshipDomain: "",
         candidateResume: null
     });
-
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
-    const { loading, error, success } = useSelector(state => state.intership);
 
 
     const dispatch = useDispatch();
@@ -62,39 +60,43 @@ function applyIntership() {
         setFormValues(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form submitted:", formValues);
-        dispatch(postIntership(formValues));
-        setFormValues({
-            name: "",
-            email: "",
-            phone: "",
-            city: "",
-            state: "",
-            country: "",
-            technicalQualification: "",
-            internshipDomain: "",
-            candidateResume: null
-        });
-    };
-
-    useEffect(() => {
-        if (success) {
+        try {
+            const result = await dispatch(postIntership(formValues)).unwrap();
             setSnackbar({
                 open: true,
-                message: "Application submitted successfully!",
-                severity: 'success'
+                message: result.message || "Estimate generated successfully",
+                severity: "success",
             });
-        } else if (error) {
+
+            setFormValues({
+                name: "",
+                email: "",
+                phone: "",
+                city: "",
+                state: "",
+                country: "",
+                technicalQualification: "",
+                internshipDomain: "",
+                candidateResume: null
+            });
+
+        } catch (error) {
             setSnackbar({
                 open: true,
-                message: error,
-                severity: 'error'
+                message: error || "Failed to generate estimate",
+                severity: "error",
             });
         }
-    }, [success, error]);
+    };
 
+    const handleCloseSnackbar = () => {
+        setSnackbar({ ...snackbar, open: false });
+    };
+
+   
 
     return (
         <PageContainer showheader="true" showfooter="true">
@@ -238,15 +240,11 @@ function applyIntership() {
 
             <Snackbar
                 open={snackbar.open}
-                autoHideDuration={4000}
-                onClose={() => setSnackbar({ ...snackbar, open: false })}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                <Alert
-                    onClose={() => setSnackbar({ ...snackbar, open: false })}
-                    severity={snackbar.severity}
-                    sx={{ width: '100%' }}
-                >
+                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity}>
                     {snackbar.message}
                 </Alert>
             </Snackbar>
@@ -256,5 +254,5 @@ function applyIntership() {
     );
 }
 
-export default applyIntership;
+export default ApplyIntership;
 

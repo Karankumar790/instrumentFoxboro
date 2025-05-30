@@ -45,7 +45,6 @@ function HiringExpert() {
     });
 
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
-    const { error, success } = useSelector(state => state.hiring)
 
     const dispatch = useDispatch();
 
@@ -54,40 +53,44 @@ function HiringExpert() {
         setFormValues(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(postHiring(formValues));
-        setFormValues({
-            name: "",
-            email: "",
-            phone: "",
-            city: "",
-            state: "",
-            country: "",
-            professionalQualification: "",
-            youAreExpertIn: "",
-            totalExperience: "",
-            expectedSalary: "",
-            expertResume: null
-        });
-    };
-
-    useEffect(() => {
-        if (success) {
+        try {
+            const result = await dispatch(postHiring(formValues)).unwrap();
             setSnackbar({
                 open: true,
-                message: "Application submitted Successfully",
-                severity: 'success'
+                message: result.message || "From Submit Successfully",
+                severity: "success"
+            })
+            setFormValues({
+                name: "",
+                email: "",
+                phone: "",
+                city: "",
+                state: "",
+                country: "",
+                professionalQualification: "",
+                youAreExpertIn: "",
+                totalExperience: "",
+                expectedSalary: "",
+                expertResume: null
             });
-
-        } else if (error) {
+        } catch (error) {
             setSnackbar({
                 open: true,
-                message: error,
-                severity: 'error'
+                message: error || "Failed to generate estimate",
+                severity: "error",
             });
         }
-    }, [success, error]);
+
+    };
+
+    const handleCloseSnackbar = () => {
+        setSnackbar({ ...snackbar, open: false });
+    };
+
+
+
 
     return (
         <PageContainer showheader="true" showfooter="true">
@@ -233,15 +236,11 @@ function HiringExpert() {
 
             <Snackbar
                 open={snackbar.open}
-                autoHideDuration={4000}
-                onClose={() => setSnackbar({ ...snackbar, open: false })}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                <Alert
-                    onClose={() => setSnackbar({ ...snackbar, open: false })}
-                    severity={snackbar.severity}
-                    sx={{ width: '100%' }}
-                >
+                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity}>
                     {snackbar.message}
                 </Alert>
             </Snackbar>
