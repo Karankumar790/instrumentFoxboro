@@ -13,12 +13,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getProductById } from '../../pages/product';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, deleteProduct, updateProduct } from './CategoryProductSlice';
+import AddIcon from '@mui/icons-material/Add';
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { FaEye } from 'react-icons/fa';
 
 const style = {
     position: 'absolute',
@@ -298,6 +300,9 @@ function CategoryProduct() {
                                         </StyledTableCell>
                                         <StyledTableCell align="right">
                                             <div className="flex justify-end space-x-2">
+                                                <IconButton component={Link} to={`/admin/cpDetail/${product._id}`} >
+                                                    <AddIcon icon={FaEye} className="text-black text-lg" />
+                                                </IconButton>
                                                 <IconButton
                                                     color="primary"
                                                     onClick={() => handleOpen("product", product)}

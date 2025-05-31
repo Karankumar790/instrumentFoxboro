@@ -122,7 +122,7 @@ function ServicePartner() {
                                         <StyledTableCell >City</StyledTableCell>
                                         <StyledTableCell >State</StyledTableCell>
                                         <StyledTableCell >Country</StyledTableCell>
-                                        <StyledTableCell >Authazation</StyledTableCell>
+                                        <StyledTableCell >Authorization</StyledTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -139,7 +139,7 @@ function ServicePartner() {
                                             <StyledTableCell>{row.state}</StyledTableCell>
                                             <StyledTableCell>{row.country}</StyledTableCell>
 
-                                            <TableCell>{row.authorize ? (<div className='text-green-600'>Authrazation </div>) : 'No'}</TableCell>
+                                            <TableCell>{row.authorize ? (<div className='text-green-600'>Authorization </div>) : 'No'}</TableCell>
                                         </StyledTableRow>
                                     ))}
                                 </TableBody>

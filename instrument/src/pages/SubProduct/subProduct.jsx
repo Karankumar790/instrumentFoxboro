@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
-// import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SecurityIcon from "@mui/icons-material/Security";
 import MoneyIcon from "@mui/icons-material/Money";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -9,9 +9,8 @@ import TableProduct from "./TableProduct";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer/Footer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { contactProduct, getProduct } from "./subProduct"; // ensure this returns a promise
-import { useEffect, useState } from "react";
 
 function SubProduct() {
   const [product, setProduct] = useState(null);
@@ -20,10 +19,6 @@ function SubProduct() {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
-
-  const { loading, success, error } = useSelector(
-    (state) => state.getProData || {}
-  );
 
   const [formData, setFormData] = useState({
     name: "",
@@ -34,23 +29,22 @@ function SubProduct() {
     modelNumber: "",
     message: "",
   });
-    
-   const handleSubmit = (e) => {
-  e.preventDefault();
 
-  dispatch(contactProduct(formData)); // API call
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  setFormData({
-    name: "",
-    mobileNumber: "",
-    email: "",
-    company: "",
-    productName: "",
-    modelNumber: "",
-    message: "",
-  }); 
-};
+    dispatch(contactProduct(formData)); 
 
+    setFormData({
+      name: "",
+      mobileNumber: "",
+      email: "",
+      company: "",
+      productName: "",
+      modelNumber: "",
+      message: "",
+    });
+  };
 
   const handleOpenPdf = (url) => {
     setPdfUrl(url);
@@ -140,7 +134,7 @@ function SubProduct() {
             {/* Product Info */}
             <div className="flex flex-col  w-[90%] gap-4 p-5">
               <div className="text-3xl font-semibold text-gray-700">
-                <span className="text-4xl">🛍️</span> Product Name:&nbsp;{" "}
+                <span className="text-4xl">🛍</span> Product Name:&nbsp;{" "}
                 {product?.productId?.name}
               </div>
               <div className="text-xl flex text-gray-600">
@@ -183,14 +177,16 @@ function SubProduct() {
                 <p className="font-bold">Google Reviews:</p>&nbsp;{" "}
                 {product?.reviews}
               </div>
-              {product?.datasheetPdf && (
-                <button
-                  onClick={() => handleOpenPdf(product?.datasheetPdf)}
-                  className="bg-green-500 text-lg font-semibold w-60 h-11"
-                >
-                  Download Datasheet
-                </button>
-              )}
+              <div className="w-full flex justify-end">
+                {product?.datasheetPdf && (
+                  <button
+                    onClick={() => handleOpenPdf(product?.datasheetPdf)}
+                    className="bg-green-500 text-lg font-semibold w-60 h-11"
+                  >
+                    Download Datasheet
+                  </button>
+                )}
+              </div>
             </div>
             {/* Contact  */}
             <div className="w-full p-6">
@@ -310,11 +306,11 @@ function SubProduct() {
                   <div className="col-span-1 sm:col-span-2">
                     <button
                       type="submit"
-                        disabled={loading}
+                    //   disabled={loading}
                       className="bg-blue-900 w-full text-white font-bold text-2xl rounded-lg py-3 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                         {/* {loading ? "Submitting..." : "Submit"} */}
-                     Submit
+                      {/* {loading ? "Submitting..." : "Submit"} */}
+                      Submit
                     </button>
                   </div>
                 </form>
@@ -340,7 +336,7 @@ function SubProduct() {
         </div>
       </div>
       <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
-        <DialogTitle>Po Preview</DialogTitle>
+        <DialogTitle>DataSheet</DialogTitle>
         <DialogContent dividers>
           <iframe
             src={pdfUrl}

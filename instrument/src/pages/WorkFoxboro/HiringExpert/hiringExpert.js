@@ -7,7 +7,7 @@ import { API_URL } from "../../../api/Client";
 
 export const postHiring = createAsyncThunk(
     "postHiring",
-    async (formValue, { rejetWithValue }) => {
+    async (formValue, { rejectWithValue  }) => {
         try {
 
             const formData = new FormData();
@@ -15,7 +15,7 @@ export const postHiring = createAsyncThunk(
                 formData.append(key, formValue[key]);
             }
 
-            const response = await axios.post(`${API_URL}/hiring_expert`, formValue,
+            const response = await axios.post(`${API_URL}/hiring_expert`, formData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -24,7 +24,7 @@ export const postHiring = createAsyncThunk(
             )
             return response.data
         } catch (error) {
-            return rejetWithValue(
+            return rejectWithValue (
                 error.response?.data?.message || "Error adding "
             )
         }

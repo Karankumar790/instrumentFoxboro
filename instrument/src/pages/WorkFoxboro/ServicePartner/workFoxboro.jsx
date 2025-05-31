@@ -43,37 +43,43 @@ function WorkFoxboro() {
         setFormValues(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form submitted:", formValues);
-        dispatch(postWork(formValues));
-        setFormValues({
-            companyName: "",
-            email: "",
-            phone: "",
-            city: "",
-            state: "",
-            country: "",
-            serviceDomain: "",
-            GSTCertificate: null
-        });
-    };
+        try {
+            const result = await dispatch(postWork(formValues)).unwrap();
 
-    useEffect(() => {
-        if (success) {
             setSnackbar({
                 open: true,
-                message: "Application submitted Successfully",
-                severity: 'success'
+                message: result.message || "Estimate generated successfully",
+                severity: "success",
             });
-        } else if (error) {
+
+            setFormValues({
+                companyName: "",
+                email: "",
+                phone: "",
+                city: "",
+                state: "",
+                country: "",
+                serviceDomain: "",
+                GSTCertificate: null
+            });
+
+        } catch (error) {
             setSnackbar({
                 open: true,
-                message: error,
-                severity: 'error'
+                message: error || "Failed to generate estimate",
+                severity: "error",
             });
         }
-    }, [success, error]);
+    };
+
+    const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
+
+   
 
 
     return (
@@ -197,15 +203,11 @@ function WorkFoxboro() {
 
             <Snackbar
                 open={snackbar.open}
-                autoHideDuration={4000}
-                onClose={() => setSnackbar({ ...snackbar, open: false })}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                <Alert
-                    onClose={() => setSnackbar({ ...snackbar, open: false })}
-                    severity={snackbar.severity}
-                    sx={{ width: '100%' }}
-                >
+                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity}>
                     {snackbar.message}
                 </Alert>
             </Snackbar>

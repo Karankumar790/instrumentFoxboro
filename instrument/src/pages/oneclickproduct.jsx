@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import PageContainer from "../components/HOC/PageContainer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -116,17 +116,19 @@ function oneclickproduct() {
                           }}
                         /> */}
                       <div className="h-72 w-full">
-                        <img
-                          src={product.productImage}
-                          alt={product.productName}
-                          className="transition-transform duration-300 ease-in-out h-full w-full object-fill"
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = "scale(1.1)";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = "scale(1)";
-                          }}
-                        />
+                        <Link to={`/oneClickProDetail/${product._id}`}>
+                          <img
+                            src={product.productImage}
+                            alt={product.productName}
+                            className="transition-transform duration-300 ease-in-out h-full w-full object-fill"
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = "scale(1.1)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = "scale(1)";
+                            }}
+                          />
+                        </Link>
                       </div>
                       <p className="text-xl text-black font-bold pt-3">
                         {limitNameWords(product.productName)}
@@ -137,7 +139,9 @@ function oneclickproduct() {
                       </p>
 
                       <div className="w-full flex  pr-2">
-                        <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                        <Link to={`/oneClickProDetail/${product._id}`}>
+                          <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                        </Link>
                       </div>
                     </Card>
                   </Grid2>

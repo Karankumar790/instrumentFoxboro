@@ -10,7 +10,7 @@ export const submitContactForm = createAsyncThunk(
       const response = await axios.post(`${USER_URL}/contact`, formData);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response?.data?.message || "Submission failed");
     }
   }
 );

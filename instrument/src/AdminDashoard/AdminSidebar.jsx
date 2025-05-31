@@ -44,7 +44,7 @@ export default function AdminSidebar() {
             <NavItem to="/admin/adminProduct" icon={<FaBox />} label="Products" />
             <NavItem to="/admin/adminsoftware" icon={<FaLaptopCode />} label="Software" />
             <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="E-Service" />
-            <NavItem to="/admin/adminService" icon={<FaTools />} label="Enquires" />
+            <NavItem to="/admin/adminService" icon={<FaTools />} label="Message Box" />
             {/* <NavItem to="/admin/adminRunningProject" icon={<FaPlay />} label="Running Project" />
             <NavItem to="/admin/adminNewProject" icon={<FaPlus />} label="New Project" /> */}
             <NavItem to="/admin/managerWorkFOx" icon={<RiBriefcaseLine />} label="Work Foxboro" />
@@ -53,17 +53,17 @@ export default function AdminSidebar() {
           </>
         )}
 
-        {(role === 'service_manager') && (
+        {/* {(role === 'service_manager') && (
           <>
             <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="Service Estimate" />
-            {/* <NavItem to="/admin/serviceUploadPO" icon={<RiServiceLine />} label="Service UploadPO" /> */}
+            <NavItem to="/admin/serviceUploadPO" icon={<RiServiceLine />} label="Service UploadPO" />
           </>
-        )}
+        )} */}
 
         {role === 'admin' && (
           <>
             <div
-              className="flex items-center space-x-2 pl-4 cursor-pointer text-white hover:text-blue-400 transition-all duration-200"
+              className="flex items-center space-x-2 pl-4  cursor-pointer text-white hover:text-blue-400 transition-all duration-200"
               onClick={handleSettingClick}
             >
               <FaSlidersH />

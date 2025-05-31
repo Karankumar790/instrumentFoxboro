@@ -27,7 +27,7 @@ const Software = lazy(() => import("./pages/software.jsx"))
 const Hardware = lazy(() => import("./pages/Hardware.jsx"))
 const TrackService = lazy(() => import("./pages/TrackService.jsx"))
 const ServicePartner = lazy(() => import("./pages/ServicePartner.jsx"))
-const ApplyIntership = lazy(() => import("./pages/WorkFoxboro/ApplyIntership/applyIntership.jsx"))
+const ApplyIntership = lazy(() => import("./pages/WorkFoxboro/ApplyIntership/ApplyIntership.jsx"))
 const HiringExpert = lazy(() => import("./pages/WorkFoxboro/HiringExpert/HiringExpert.jsx"))
 const BecomePartner = lazy(() => import("./pages/WorkFoxboro/ServicePartner/workFoxboro.jsx"))
 const ServiceEstimate = lazy(() => import("./AdminDashoard/ServiceManager/SeviceEstimate.jsx"))
@@ -36,6 +36,10 @@ const ManagerWorkFOx = lazy(() => import("./AdminDashoard/ServiceManager/Manager
 const ProductDetail = lazy(() => import("./AdminDashoard/AdminProduct/ProductDetail.jsx"))
 const AdminHiringExp = lazy(() => import("./AdminDashoard/ServiceManager/AdminHiringExp.jsx"))
 const SubProduct = lazy(() => import("./pages/SubProduct/subProduct.jsx"))
+const CpDetail = lazy(() => import("./AdminDashoard/Category/CpDetail.jsx"))
+const OneClickProDetail = lazy(() => import("./pages/oneClickProDetail/oneClickProDetail.jsx"))
+
+
 
 
 function App() {
@@ -59,6 +63,7 @@ function App() {
     { path: '/hiringExpert', element: <HiringExpert /> },
     { path: '/becomePartner', element: <BecomePartner /> },
     { path: '/subProduct/:id', element: <SubProduct /> },
+    { path: '/oneClickProDetail/:id', element: <OneClickProDetail /> },
     
 
     {
@@ -80,6 +85,8 @@ function App() {
         { path: "managerWorkFOx", element: <ManagerWorkFOx /> },
         { path: 'productDetail/:id', element: <ProductDetail /> },
         { path: 'adminHiringExp', element: <AdminHiringExp /> },
+        { path: 'cpDetail/:id', element: <CpDetail /> },
+
 
       ]
     }
