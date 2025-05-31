@@ -48,7 +48,7 @@ const Hardware = lazy(() => import("./pages/Hardware.jsx"));
 const TrackService = lazy(() => import("./pages/TrackService.jsx"));
 const ServicePartner = lazy(() => import("./pages/ServicePartner.jsx"));
 const ApplyIntership = lazy(() =>
-  import("../pages/WorkFoxboro/ApplyIntership/ApplyIntership.jsx")
+  import("./pages/WorkFoxboro/ApplyIntership/applyIntership.jsx")
 );
 const HiringExpert = lazy(() =>
   import("./pages/WorkFoxboro/HiringExpert/HiringExpert.jsx")
