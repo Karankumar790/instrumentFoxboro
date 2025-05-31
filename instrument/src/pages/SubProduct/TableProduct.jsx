@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function TableProduct({ product }) {
-    const [activeTab, setActiveTab] = useState("Specifications");
+    const [activeTab, setActiveTab] = useState("Description");
 
     const specifications = [
         { label: "Type of Product", value: product?.typeOfProduct || "Not Available" },
@@ -19,15 +19,7 @@ function TableProduct({ product }) {
     return (
         <div className="bg-gray-50 p-7 rounded-lg shadow-md">
             <div className="flex w-full border-b mb-4">
-                <button
-                    className={`flex-1 py-2 text-center text-xl font-bold ${activeTab === "Specifications"
-                        ? "text-blue-600 border-b-2 border-blue-600"
-                        : "text-gray-500 hover:text-gray-800"
-                        }`}
-                    onClick={() => setActiveTab("Specifications")}
-                >
-                    Specifications
-                </button>
+
                 <button
                     className={`flex-1 py-2 text-center text-xl font-bold ${activeTab === "Description"
                         ? "text-blue-600 border-b-2 border-blue-600"
@@ -36,6 +28,15 @@ function TableProduct({ product }) {
                     onClick={() => setActiveTab("Description")}
                 >
                     Description
+                </button>
+                <button
+                    className={`flex-1 py-2 text-center text-xl font-bold ${activeTab === "Specifications"
+                        ? "text-blue-600 border-b-2 border-blue-600"
+                        : "text-gray-500 hover:text-gray-800"
+                        }`}
+                    onClick={() => setActiveTab("Specifications")}
+                >
+                    Specifications
                 </button>
             </div>
 

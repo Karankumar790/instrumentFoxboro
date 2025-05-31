@@ -88,9 +88,9 @@ function content() {
         <Grid2 container className=" flex justify-center" >
           <Grid2 size={{ lg: 8 }}>
             <Box>
-              <Typography variant="h5" mt={3} mb={2} fontWeight={"bold"}>
+              <p className="text-4xl mt-10 mb-8 font-bold font-noto">
                 Industrial Automation
-              </Typography>
+              </p>
             </Box>
             <Grid2 container spacing={3}>
               {Array.isArray(categories) && categories.length > 0 ? (
@@ -100,14 +100,9 @@ function content() {
                     key={index}
                     size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                   >
-                    <Card>
-                      <Link
-                        to={`/products/${category._id}/${encodeURIComponent(
-                          category.categoryName
-                        )}`}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <div className="h-80 w-full">
+                    <Card >
+                      <Link to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`} style={{ textDecoration: "none" }}>
+                        <div className="h-72 w-full">
                           <img
                             src={category.categoryImage}
                             alt={category.categoryName}
@@ -121,12 +116,18 @@ function content() {
                           />
                         </div>
                       </Link>
-                      <p className="text-xl text-black font-bold pt-3">
+                      <p className="text-xl text-black font-semibold font-noto pt-3">
                         {limitNameWords(category.categoryName)}
                       </p>
                       <p className="text-lg text-gray-800 pt-1 py-1" >
                         {limitWords(category.description)}
                       </p>
+                      <div className="w-full flex  pr-2">
+                      <Link to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`} style={{ textDecoration: "none" }}>
+                        <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                        </Link>
+                      </div>
+
                     </Card>
                   </Grid2>
                 ))
@@ -134,9 +135,9 @@ function content() {
                 <div>No categories available</div>
               )}
             </Grid2>
-            <Typography variant="h5" mt={3} mb={2} fontWeight={"bold"}>
-              Industrial Software
-            </Typography>
+            <p className="text-4xl mt-10 mb-8 font-bold font-noto">
+             Web Based Industrial Software
+            </p>
             <Grid2 container spacing={3} mt={1}>
               {softwareData.slice(0, 4).map((software, index) => (
                 <Grid2
@@ -145,8 +146,8 @@ function content() {
                   key={software._id}
                 >
                   <Card>
-                    <Link to="/software">
-                      <div className="h-80 w-full">
+                    <Link to='/software'>
+                      <div className="h-72 w-full">
                         <img
                           src={software.softwareImage}
                           alt={software.softwareName}
@@ -160,7 +161,7 @@ function content() {
                         />
                       </div>
                     </Link>
-                    <p className="text-xl text-black font-bold pt-3">
+                    <p className="text-xl text-black font-noto font-bold pt-3">
                       {limitNameWords(software.softwareName)}
                     </p>
 
@@ -171,14 +172,17 @@ function content() {
                         .join(" ") + (software.description.split(" ").length > 20 ? "..." : "")
                       }
                     </p>
+                    <div className="w-full flex  pr-2">
+                      <Link to='/software'>
+                        <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                      </Link>
+                    </div>
                   </Card>
                 </Grid2>
               ))}
             </Grid2>
-            <Grid2 mt={3} mb={2}>
-              <Typography variant="h5" fontWeight={"bold"}>
-                Products
-              </Typography>
+            <Grid2 mt={3} mb={2}   >
+              <p className="text-4xl mt-10 mb-8 font-bold font-noto">Foxboro Product Line</p>
             </Grid2>
 
             <Grid2 container spacing={3} mt={1} mb={3}>
@@ -189,8 +193,8 @@ function content() {
                   key={product._id}
                 >
                   <Card>
-                    <Link to="/product">
-                      <div className="h-80 w-full">
+                    <Link to='/product'>
+                      <div className="h-72 w-full">
                         <img
                           src={product.image}
                           alt={product.image}
@@ -204,7 +208,7 @@ function content() {
                         />
                       </div>
                     </Link>
-                    <p className="text-xl text-black font-bold pt-3">
+                    <p className="text-xl text-black font-noto font-bold pt-3">
                       {limitNameWords(product.name)}
                     </p>
 
@@ -215,6 +219,13 @@ function content() {
                         .join(" ") + (product.description.split(" ").length > 20 ? "..." : "")
                       }
                     </p>
+
+                    <div className="w-full flex  pr-2">
+                      <Link to='/product'>
+                        <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                      </Link>
+                    </div>
+
                   </Card>
                 </Grid2>
               ))}

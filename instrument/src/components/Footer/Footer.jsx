@@ -46,7 +46,7 @@ function Footer() {
 
         <Grid2 size={{ lg: 4 }}>
           <Box>
-            <Typography variant="h5" color="white">Useful Website </Typography>
+            <Typography variant="h5" color="white">Foxboro Website </Typography>
             <Typography color="white">
               <a href="https://www.foxboroinstrument.com" style={{ color: "white", textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
                 {fetchFooter?.websiteLinks?.link1} (Automation)

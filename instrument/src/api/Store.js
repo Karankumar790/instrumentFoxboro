@@ -22,6 +22,7 @@ import product from "../pages/product";
 import applyIntership from "../pages/WorkFoxboro/ApplyIntership/applyIntership";
 import hiringExpert from "../pages/WorkFoxboro/HiringExpert/hiringExpert";
 import foxboroProductSlice from "../AdminDashoard/AdminProduct/AdminProductSlice";
+import subProduct from "../pages/SubProduct/subProduct";
 
 
 
@@ -57,6 +58,7 @@ export const store = configureStore({
     productPage: product,
     intership: applyIntership,
     hiring: hiringExpert,
+    getProData: subProduct,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
