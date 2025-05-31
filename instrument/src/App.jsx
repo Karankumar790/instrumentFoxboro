@@ -2,69 +2,105 @@ import React, { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-const Login = lazy(() => import("./AuthCycle/Login/login.jsx"))
-const SignUp = lazy(() => import("./AuthCycle/SignUp/signUp.jsx"))
-const Forget = lazy(() => import("./AuthCycle/Forget/forget.jsx"))
-const Product = lazy(() => import("./pages/product.jsx"))
-const Content = lazy(() => import("./pages/content.jsx"))
-const AdminLayout = lazy(() => import("./AdminDashoard/AdminLayout.jsx"))
-const Automation = lazy(() => import("./AdminDashoard/Category/Automation.jsx"))
-const CategoryProduct = lazy(() => import("./AdminDashoard/Category/CategoryProduct.jsx"))
-const AdminProduct = lazy(() => import("./AdminDashoard/AdminProduct/AdminProduct.jsx"))
-const AdminService = lazy(() => import("./AdminDashoard/AdminService/AdminService.jsx"))
-const AdminHeader = lazy(() => import("./AdminDashoard/SiteSetting/AdminHeader.jsx"))
-const AdminBanner = lazy(() => import("./AdminDashoard/SiteSetting/AdminBanner.jsx"))
-const AdminFooter = lazy(() => import("./AdminDashoard/SiteSetting/AdminFooter.jsx"))
-const AdminSoftware = lazy(() => import("./AdminDashoard/AdminSoftware/AdminSoftware.jsx"))
-const AdminRunningProject = lazy(() => import("./AdminDashoard/Run&NewProject/AdminRunningProject.jsx"))
-const AdminNewProject = lazy(() => import("./AdminDashoard/Run&NewProject/AdminNewProject.jsx"))
-const Estore = lazy(() => import("./pages/estore.jsx"))
-const Support = lazy(() => import("./pages/Contact/support.jsx"))
-const Oneclickproduct = lazy(() => import("./pages/oneclickproduct.jsx"))
-const Service = lazy(() => import("./pages/Estimate/service.jsx"))
-const PoGenerator = lazy(() => import("./pages/PoUpload/PoGenerator.jsx"))
-const Software = lazy(() => import("./pages/software.jsx"))
-const Hardware = lazy(() => import("./pages/Hardware.jsx"))
-const TrackService = lazy(() => import("./pages/TrackService.jsx"))
-const ServicePartner = lazy(() => import("./pages/ServicePartner.jsx"))
-const ApplyIntership = lazy(() => import("./pages/WorkFoxboro/ApplyIntership/ApplyIntership.jsx"))
-const HiringExpert = lazy(() => import("./pages/WorkFoxboro/HiringExpert/HiringExpert.jsx"))
-const BecomePartner = lazy(() => import("./pages/WorkFoxboro/ServicePartner/workFoxboro.jsx"))
-const ServiceEstimate = lazy(() => import("./AdminDashoard/ServiceManager/SeviceEstimate.jsx"))
-const Internship = lazy(() => import("./AdminDashoard/ServiceManager/Internship.jsx"))
-const ManagerWorkFOx = lazy(() => import("./AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkFOx.jsx"))
-const ProductDetail = lazy(() => import("./AdminDashoard/AdminProduct/ProductDetail.jsx"))
-const AdminHiringExp = lazy(() => import("./AdminDashoard/ServiceManager/AdminHiringExp.jsx"))
-const SubProduct = lazy(() => import("./pages/SubProduct/subProduct.jsx"))
-const CpDetail = lazy(() => import("./AdminDashoard/Category/CpDetail.jsx"))
-const OneClickProDetail = lazy(() => import("./pages/oneClickProDetail/oneClickProDetail.jsx"))
-
-
-
+const Login = lazy(() => import("./AuthCycle/Login/login.jsx"));
+const SignUp = lazy(() => import("./AuthCycle/SignUp/signUp.jsx"));
+const Forget = lazy(() => import("./AuthCycle/Forget/forget.jsx"));
+const Product = lazy(() => import("./pages/product.jsx"));
+const Content = lazy(() => import("./pages/content.jsx"));
+const AdminLayout = lazy(() => import("./AdminDashoard/AdminLayout.jsx"));
+const Automation = lazy(() =>
+  import("./AdminDashoard/Category/Automation.jsx")
+);
+const CategoryProduct = lazy(() =>
+  import("./AdminDashoard/Category/CategoryProduct.jsx")
+);
+const AdminProduct = lazy(() =>
+  import("./AdminDashoard/AdminProduct/AdminProduct.jsx")
+);
+const AdminService = lazy(() =>
+  import("./AdminDashoard/AdminService/AdminService.jsx")
+);
+const AdminHeader = lazy(() =>
+  import("./AdminDashoard/SiteSetting/AdminHeader.jsx")
+);
+const AdminBanner = lazy(() =>
+  import("./AdminDashoard/SiteSetting/AdminBanner.jsx")
+);
+const AdminFooter = lazy(() =>
+  import("./AdminDashoard/SiteSetting/AdminFooter.jsx")
+);
+const AdminSoftware = lazy(() =>
+  import("./AdminDashoard/AdminSoftware/AdminSoftware.jsx")
+);
+const AdminRunningProject = lazy(() =>
+  import("./AdminDashoard/Run&NewProject/AdminRunningProject.jsx")
+);
+const AdminNewProject = lazy(() =>
+  import("./AdminDashoard/Run&NewProject/AdminNewProject.jsx")
+);
+const Estore = lazy(() => import("./pages/estore.jsx"));
+const Support = lazy(() => import("./pages/Contact/support.jsx"));
+const Oneclickproduct = lazy(() => import("./pages/oneclickproduct.jsx"));
+const Service = lazy(() => import("./pages/Estimate/service.jsx"));
+const PoGenerator = lazy(() => import("./pages/PoUpload/PoGenerator.jsx"));
+const Software = lazy(() => import("./pages/software.jsx"));
+const Hardware = lazy(() => import("./pages/Hardware.jsx"));
+const TrackService = lazy(() => import("./pages/TrackService.jsx"));
+const ServicePartner = lazy(() => import("./pages/ServicePartner.jsx"));
+const ApplyIntership = lazy(() =>
+  import("../pages/WorkFoxboro/ApplyIntership/ApplyIntership.jsx")
+);
+const HiringExpert = lazy(() =>
+  import("./pages/WorkFoxboro/HiringExpert/HiringExpert.jsx")
+);
+const BecomePartner = lazy(() =>
+  import("./pages/WorkFoxboro/ServicePartner/workFoxboro.jsx")
+);
+const ServiceEstimate = lazy(() =>
+  import("./AdminDashoard/ServiceManager/SeviceEstimate.jsx")
+);
+const Internship = lazy(() =>
+  import("./AdminDashoard/ServiceManager/Internship.jsx")
+);
+const ManagerWorkFOx = lazy(() =>
+  import("./AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkFOx.jsx")
+);
+const ProductDetail = lazy(() =>
+  import("./AdminDashoard/AdminProduct/ProductDetail.jsx")
+);
+const AdminHiringExp = lazy(() =>
+  import("./AdminDashoard/ServiceManager/AdminHiringExp.jsx")
+);
+const SubProduct = lazy(() => import("./pages/SubProduct/subProduct.jsx"));
+const CpDetail = lazy(() => import("./AdminDashoard/Category/CpDetail.jsx"));
+const OneClickProDetail = lazy(() =>
+  import("./pages/oneClickProDetail/oneClickProDetail.jsx")
+);
 
 function App() {
-
   const route = useRoutes([
-    { path: '/', element: <Content /> },
-    { path: '/product', element: <Product /> },
-    { path: '/estore', element: <Estore /> },
-    { path: '/support', element: <Support /> },
-    { path: '/products/:categoryId/:categoryName', element: <Oneclickproduct /> },
-    { path: '/service', element: <Service /> },
-    { path: '/poGenerator', element: <PoGenerator /> },
-    { path: '/software', element: <Software /> },
-    { path: '/hardware', element: <Hardware /> },
-    { path: '/login', element: <Login /> },
-    { path: '/signUp', element: <SignUp /> },
-    { path: '/forget', element: <Forget /> },
-    { path: '/trackService', element: <TrackService /> },
-    { path: '/servicePartner', element: <ServicePartner /> },
-    { path: '/applyIntership', element: <ApplyIntership /> },
-    { path: '/hiringExpert', element: <HiringExpert /> },
-    { path: '/becomePartner', element: <BecomePartner /> },
-    { path: '/subProduct/:id', element: <SubProduct /> },
-    { path: '/oneClickProDetail/:id', element: <OneClickProDetail /> },
-    
+    { path: "/", element: <Content /> },
+    { path: "/product", element: <Product /> },
+    { path: "/estore", element: <Estore /> },
+    { path: "/support", element: <Support /> },
+    {
+      path: "/products/:categoryId/:categoryName",
+      element: <Oneclickproduct />,
+    },
+    { path: "/service", element: <Service /> },
+    { path: "/poGenerator", element: <PoGenerator /> },
+    { path: "/software", element: <Software /> },
+    { path: "/hardware", element: <Hardware /> },
+    { path: "/login", element: <Login /> },
+    { path: "/signUp", element: <SignUp /> },
+    { path: "/forget", element: <Forget /> },
+    { path: "/trackService", element: <TrackService /> },
+    { path: "/servicePartner", element: <ServicePartner /> },
+    { path: "/applyIntership", element: <ApplyIntership /> },
+    { path: "/hiringExpert", element: <HiringExpert /> },
+    { path: "/becomePartner", element: <BecomePartner /> },
+    { path: "/subProduct/:id", element: <SubProduct /> },
+    { path: "/oneClickProDetail/:id", element: <OneClickProDetail /> },
 
     {
       path: "/admin",
@@ -83,28 +119,18 @@ function App() {
         { path: "serviceEstimate", element: <ServiceEstimate /> },
         { path: "internship", element: <Internship /> },
         { path: "managerWorkFOx", element: <ManagerWorkFOx /> },
-        { path: 'productDetail/:id', element: <ProductDetail /> },
-        { path: 'adminHiringExp', element: <AdminHiringExp /> },
-        { path: 'cpDetail/:id', element: <CpDetail /> },
-
-
-      ]
-    }
-
-
-
-  ])
+        { path: "productDetail/:id", element: <ProductDetail /> },
+        { path: "adminHiringExp", element: <AdminHiringExp /> },
+        { path: "cpDetail/:id", element: <CpDetail /> },
+      ],
+    },
+  ]);
 
   return (
     <>
-      <Suspense fallback={<div>Loadings...</div>}>
+      <Suspense fallback={<div>Loadings...</div>}>{route}</Suspense>
 
-        {route}
-
-      </Suspense>
-
-    <ToastContainer/>
-      
+      <ToastContainer />
     </>
   );
 }
