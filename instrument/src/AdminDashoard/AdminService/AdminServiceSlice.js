@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { USER_URL } from "../../api/Client";
+import { API_URL, USER_URL } from "../../api/Client";
 
 
 
@@ -23,6 +23,22 @@ export const deleteService = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             const response = await axios.delete(`${USER_URL}/contact/${id}`)
+            return id;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Error deleting service"
+            );
+        }
+    }
+)
+
+export const deleteProduct = createAsyncThunk(
+    "deleteProduct",
+    async (id, { rejectWithValue }) => {
+        try {
+            const response = await axios.delete(`${API_URL}/productQuery/${id}`,{
+                withCredentials: true,
+            })
             return id;
         } catch (error) {
             return rejectWithValue(
@@ -65,6 +81,19 @@ export const serviceSlice = createSlice({
                 service._id !== action.payload)
             })
             .addCase(deleteService.rejected, (state) => {
+                state.loading = false;
+                state.error = true;
+            })
+             .addCase(deleteProduct.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(deleteProduct.fulfilled, (state, action) => {
+                state.loading = true;
+                state.serviceAdm.getServiceData = state.serviceAdm.getServiceData.filter((service) =>
+                service._id !== action.payload)
+            })
+            .addCase(deleteProduct.rejected, (state) => {
                 state.loading = false;
                 state.error = true;
             })

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteService, getService } from "./AdminServiceSlice";
+import { deleteProduct, deleteService, getService } from "./AdminServiceSlice";
 import { getContactProduct } from "../../pages/SubProduct/subProduct";
 
 function SupportTable() {
@@ -44,13 +44,18 @@ function SupportTable() {
     dispatch(deleteService(id));
   };
 
+  const handleDeleteProduct = async (id) => {
+    dispatch(deleteProduct(id));
+    await dispatch(getContactProduct());
+  };
+
   useEffect(() => {
     dispatch(getService());
   }, [dispatch]);
 
   return (
     <>
-      <p className='text-2xl font-bold'>Message Box</p>
+      <p className="text-2xl font-bold">Message Box</p>
       <TableContainer component={Paper} className="mt-6">
         <Table>
           <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
@@ -158,7 +163,7 @@ function SupportTable() {
                 <TableCell>{row?.message}</TableCell>
                 <TableCell>
                   <IconButton
-                    onClick={() => handleDelete(row._id)}
+                    onClick={() => handleDeleteProduct(row._id)}
                     color="error"
                   >
                     <DeleteIcon />
