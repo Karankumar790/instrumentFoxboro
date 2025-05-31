@@ -112,9 +112,7 @@ function SubProduct() {
                             <div className="text-xl flex text-gray-600">
                                 <span className="text-4xl">💰</span><p className="font-bold"> Price:</p>&nbsp; ₹{product?.price}
                             </div>
-                            {/* <div className="text-xl flex text-gray-600">
-                                <span className="text-4xl">✨</span><p className="font-bold"> Key Features:</p>&nbsp; {product?.keyFeatures}
-                            </div> */}
+                           
                             <div className="text-xl flex text-gray-600">
                                 <span className="text-4xl">⭐</span><p className="font-bold">Google Reviews:</p>&nbsp; {product?.reviews}
                             </div>

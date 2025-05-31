@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton } from '@mui/material';
+import { Alert, IconButton, Snackbar } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -66,6 +66,7 @@ function AdminHeader() {
   const [image, setImage] = useState(null);
   const getHeaders = useSelector((state) => state.header.headerInt);
   const error = useSelector((state) => state.header.error)
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
   const [formValue, setFormValue] = useState({
     contactNumberOne: "",
     contactNumberTwo: "",
@@ -141,7 +142,12 @@ function AdminHeader() {
     }
 
     try {
-      await dispatch(postheader(submitformData)).unwrap(); // unwrap gives you success/error directly
+      const result = await dispatch(postheader(submitformData)).unwrap(); // unwrap gives you success/error directly
+      setSnackbar({
+        open: true,
+        message: result.message || "Header Add successfully",
+        severity: "success",
+      });
       setFormValue({
         contactNumberOne: "",
         contactNumberTwo: "",
@@ -152,9 +158,12 @@ function AdminHeader() {
         youTubeLink: "",
       });
       setImage(null);
-      toast.success("Header added successfully!");
     } catch (error) {
-      toast.error(error || "Something went wrong!");
+      setSnackbar({
+        open: true,
+        message: error || "Header Failed to Add",
+        severity: "error",
+      });
     }
   };
 
@@ -176,16 +185,28 @@ function AdminHeader() {
       await dispatch(updateHeader(
         updateformData
       )).unwrap();
-      toast.success("Header updated successfully!");
+      setSnackbar({
+        open: true,
+        message: result.message || "Header Update successfully",
+        severity: "success",
+      });
       handleClose();
     } catch (error) {
-      toast.error(error?.message || "Failed to update header");
+      setSnackbar({
+        open: true,
+        message: error || "Header Failed to Update",
+        severity: "error",
+      });
     }
   };
 
   useEffect(() => {
     dispatch(getHeader());
   }, [dispatch])
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
 
 
   return (
@@ -201,7 +222,7 @@ function AdminHeader() {
             <label>
               <h2 className='text-sm font-semibold mb-1'>Phone Number 1</h2>
               <input type="number" name='contactNumberOne' value={formValue.contactNumberOne} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-               {error?.message}
+              {error?.message}
             </label>
           </div>
           <div className='flex flex-col '>
@@ -390,6 +411,17 @@ function AdminHeader() {
           </Box>
         </Fade>
       </Modal>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
 
     </div>
   )
