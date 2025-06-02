@@ -154,7 +154,7 @@ function AdminFooter() {
           <div className='space-y-2 flex justify-between '>
             <div className='w-full'>
               <p className='text-2xl font-bold'>Registered Office</p>
-              <textarea id="" rows={2} placeholder='Registered' name='registeredOfficeAddress' value={footerData.registeredOfficeAddress} onChange={handleInput} className='w-1/2 p-2 border rounded-lg border-gray-600'></textarea>
+              <textarea id="" rows={2} placeholder='Registered and To the next line used the ( , ) ' name='registeredOfficeAddress' value={footerData.registeredOfficeAddress} onChange={handleInput} className='w-1/2 p-2 border rounded-lg border-gray-600'></textarea>
             </div>
             <button type='submit' className=' w-28 h-10 bg-blue-600 p-2 text-white rounded-lg font-semibold' >Submit</button>
           </div>

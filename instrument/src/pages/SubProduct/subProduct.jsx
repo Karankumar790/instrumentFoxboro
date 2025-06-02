@@ -33,7 +33,7 @@ function SubProduct() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(contactProduct(formData)); 
+    dispatch(contactProduct(formData));
 
     setFormData({
       name: "",
@@ -134,7 +134,7 @@ function SubProduct() {
             {/* Product Info */}
             <div className="flex flex-col  w-[90%] gap-4 p-5">
               <div className="text-3xl font-semibold text-gray-700">
-                <span className="text-4xl">🛍</span> Product Name:&nbsp;{" "}
+                <span className="text-4xl">🛍️</span> Product Name:&nbsp;{" "}
                 {product?.productId?.name}
               </div>
               <div className="text-xl flex text-gray-600">
@@ -169,9 +169,7 @@ function SubProduct() {
                 <span className="text-4xl">💰</span>
                 <p className="font-bold"> Price:</p>&nbsp; ₹{product?.price}
               </div>
-              {/* <div className="text-xl flex text-gray-600">
-                                <span className="text-4xl">✨</span><p className="font-bold"> Key Features:</p>&nbsp; {product?.keyFeatures}
-                            </div> */}
+
               <div className="text-xl flex text-gray-600">
                 <span className="text-4xl">⭐</span>
                 <p className="font-bold">Google Reviews:</p>&nbsp;{" "}
@@ -306,7 +304,7 @@ function SubProduct() {
                   <div className="col-span-1 sm:col-span-2">
                     <button
                       type="submit"
-                    //   disabled={loading}
+                      //   disabled={loading}
                       className="bg-blue-900 w-full text-white font-bold text-2xl rounded-lg py-3 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       {/* {loading ? "Submitting..." : "Submit"} */}
