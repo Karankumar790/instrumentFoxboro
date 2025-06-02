@@ -16,7 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AddIcon from '@mui/icons-material/Add';
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
@@ -132,16 +132,16 @@ function Automation() {
       });
       return;
     }
-  
+
     setIsSubmitting(true);
     const formData = new FormData();
     formData.append("categoryName", categoryData.categoryName);
     formData.append("description", categoryData.description);
-  
+
     if (image && !(typeof image === "string")) {
       formData.append("categoryImage", image);
     }
-  
+
     try {
       if (editingCategory) {
         await dispatch(
@@ -170,7 +170,9 @@ function Automation() {
   const handleDelete = async (categoryId) => {
     try {
       await dispatch(deleteCategory(categoryId)).unwrap();
-      dispatch(fetchCategories());
+      setTimeout(() => {
+        dispatch(fetchCategories());
+      }, 1000)
       setSnackbar({
         open: true,
         message: "Category deleted successfully!",
@@ -180,7 +182,7 @@ function Automation() {
       console.error("Error deleting category:", error);
       setSnackbar({
         open: true,
-        message: error.message || "Failed to delete category",
+        message: error.message || "Please first delete the product then  delete category",
         severity: "error",
       });
     }
@@ -220,25 +222,23 @@ function Automation() {
             {categories.map((cat) => (
               <StyledTableRow key={cat._id}>
                 <StyledTableCell>
-                  <img 
-                    src={cat.categoryImage} 
-                    alt={cat.categoryName} 
-                    width="100" 
-                    style={{ maxHeight: 100, objectFit: 'contain' }}
-                  />
+                  <div className="w-24 h-20">
+                    <img
+                      src={cat.categoryImage}
+                      alt={cat.categoryName}
+                      className="w-full h-full object-fill"
+                    />
+                  </div>
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   {cat.categoryName}
                 </StyledTableCell>
                 <StyledTableCell>{cat.description}</StyledTableCell>
-                <StyledTableCell>
-                  <IconButton>
-                    <Link to={`/admin/categoryProduct/${cat._id}`}>
-                      <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                        <FontAwesomeIcon icon={faEye} />
-                      </button>
-                    </Link>
+                <StyledTableCell className="w-40 ">
+                  <IconButton component={Link} to={`/admin/categoryProduct/${cat._id}`}>
+                    <AddIcon icon={faEye} className="text-black text-lg" />
                   </IconButton>
+
                   <IconButton
                     color="primary"
                     onClick={() => handleOpen(cat)}
@@ -306,7 +306,7 @@ function Automation() {
                 <img
                   src={typeof image === "string" ? image : URL.createObjectURL(image)}
                   alt="Preview"
-                  style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: 8 }}
+                  className='h-full w-full object-fill'
                 />
               ) : (
                 <Typography variant="body2" color="textSecondary">
@@ -338,6 +338,7 @@ function Automation() {
         open={snackbar.open}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert
           onClose={handleSnackbarClose}

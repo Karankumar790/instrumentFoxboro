@@ -1,10 +1,6 @@
 import {
   Box,
-  Button,
   Card,
-  CardContent,
-  CardMedia,
-  Collapse,
   Grid2,
   Pagination,
   Stack,
@@ -15,46 +11,44 @@ import PageContainer from "../components/HOC/PageContainer";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import { getFoxboroProduct } from "./product";
+import { useDispatch, useSelector } from "react-redux";
 
 function product() {
-  const [products, setProducts] = useState([]);
+  const { productFox, pagination } = useSelector(
+    (state) => state.productPage
+  );
   const [open, setOpen] = useState(false);
 
 
   const handleToggle = () => {
     setOpen(!open);
   };
-  const images = [
-    "https://www.beckhoff.com/media/pictures/tiles/products/ipc/ipc_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/i-o/io_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/motion/motion_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/vision/vision_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/vision/vision_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/motion/motion_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/mx-system/mx-system_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/vision/vision_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/vision/vision_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/motion/motion_webp_85.webp",
-    "https://www.beckhoff.com/media/pictures/tiles/products/automation/automation_webp_85.webp",
-  ];
+
+
+  const dispatch = useDispatch();
+
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await getFoxboroProduct();
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    }
-    fetchProduct();
-  }, [])
+    dispatch(getFoxboroProduct({ page, limit: 8 }));
+  }, [dispatch, page]);
 
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  const limitWords = (text, wordLimit = 20) => {
+    if (!text) return "No description available.";
+    const words = text.split(" ");
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+  };
+
+  const limitNameWords = (text, wordLimit = 5) => {
+    if (!text) return "No Name available";
+    const words = text.split(" ");
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+  };
 
 
 
@@ -64,106 +58,80 @@ function product() {
       <PageContainer showheader="true" className="flex-1 flex flex-col">
         <Grid2 container display="flex" justifyContent="center" className='flex-1' >
           <Grid2
-            size={{ lg: 9 }}
+            size={{ lg: 8 }}
             overflow="hidden"
             mb={4}
           // border={"1px solid black"}
           >
             <Box mb={2} >
-              <Typography variant="h5" mt={2} fontWeight={"bold"} >
-                Foxboro Product
-              </Typography>
+              <p className="text-4xl mt-3 mb-5 font-bold font-noto" >
+                Foxboro Product Line
+              </p>
             </Box>
-            {/* <Box>
-              <Typography variant="h5" mt={2} mb={2} fontWeight={"bold"}>
-                Industrial Automation
-              </Typography>
-            </Box> */}
+
 
             <Grid2 container spacing={3}>
-              {products.map((product, index) => (
+              {productFox.map((product) => (
                 <Grid2
-                  bgcolor={"yellow"}
-                  key={product.id}
+                  key={product._id}
                   size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                 >
-                  <Link to="/product" style={{ textDecoration: "none" }}>
-                    <Card>
-                      <CardMedia
-                        component="img"
-                        // sx={{objectFit:"cover",objectPosition:'center'}}
-                        style={{
-                          height: "30vh",
-                          width: "40vh",
-                          objectFit: "cover",
-                          objectPosition: "left",
-                          background:
-                            "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
-                          transition: "transform 0.3s ease-in-out",
-                        }}
-                        image={product.image}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = "scale(1.1)"; // Scales the image when hovered
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = "scale(1)"; // Resets the scale when hover ends
-                        }}
-                        alt={`Image ${index}`}
-                      />
-                      <Typography
-                        variant="h6"
-                        gutterBottom
-                        sx={{ padding: "8px" }}
-                      >
-                        {product.name}
-                      </Typography>
+                  <div>
 
-                      <Typography
-                        variant="body2"
-                        mb={2}
-                        sx={{ paddingLeft: "8px", paddingRight: "8px" }}
-                      >
-                        {product.description}
-                      </Typography>
-                      <div className="w-full flex justify-end">
-                        <button className="bg-blue-600 text-white rounded-lg p-2 mb-2">Available on E-store</button>
-                      </div>
-
-                      {/* <Button
-                        onClick={handleToggle}
-                        sx={{
-                          marginLeft: "8px",
-                          marginBottom: "8px",
-                          color: "red",
-                        }}
-                      >
-                        {open ? "Show Less" : "Learn More"}
-                      </Button>
-
-                      <Collapse in={open}>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            paddingLeft: "8px",
-                            paddingRight: "8px",
-                            paddingBottom: "8px",
+                    <Link to={`/subProduct/${product._id}`}>
+                      <div className="h-72 w-full ">
+                        <img
+                          src={product?.image}
+                          alt={product.name}
+                          className="transition-transform duration-300 ease-in-out h-full w-full object-fill"
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "scale(1.1)";
                           }}
-                        >
-                          This is the additional text that appears when "Learn
-                          More" is clicked. You can put a detailed description
-                          of the image here.
-                        </Typography>
-                      </Collapse> */}
-                    </Card>
-                  </Link>
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "scale(1)";
+                          }}
+                        />
+                      </div>
+                    </Link>
+                    <p className="text-xl text-black font-bold pt-3">
+                      {limitNameWords(product?.name)}
+                    </p>
+
+                    <p className="text-base text-gray-800 pt-1 py-1">
+                      {limitWords(product?.description)}
+                    </p>
+                    <Link to={`/subProduct/${product._id}`}>
+                      <div className="w-full flex  pr-2">
+                        <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                      </div>
+                    </Link>
+                  </div>
                 </Grid2>
               ))}
             </Grid2>
-            <Stack spacing={1} alignItems={"end"} mt={2}>
-              <Pagination count={5} variant="outlined" shape="rounded" />
-            </Stack>
+            {/* {productFox.length > 0 && (
+              <Stack spacing={1} alignItems={"end"} mt={2}>
+                <Pagination count={pagination?.totalPages || 1}
+                  page={page}
+                  onChange={handlePageChange}
+                  variant="outlined"
+                  shape="rounded" />
+              </Stack>
+            )} */}
+
           </Grid2>
         </Grid2>
+        <div className="m-3">
+          {productFox.length > 0 && (
+            <Stack spacing={1} alignItems={"end"} mt={2}>
+              <Pagination count={pagination?.totalPages || 1}
+                page={page}
+                onChange={handlePageChange}
+                variant="outlined"
+                shape="rounded" />
+            </Stack>
+          )}
+        </div>
         <Footer />
       </PageContainer>
     </div>

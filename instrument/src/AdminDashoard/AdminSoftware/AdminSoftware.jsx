@@ -154,9 +154,12 @@ function Software() { // Changed to PascalCase
     <div className='p-5'>
       <div className='flex justify-between mb-4'>
         <h2 className='text-2xl font-bold'>Software Management</h2>
-        <Button variant='contained' color='primary' onClick={() => handleOpen()}>
-          Add Software
-        </Button>
+        <button
+          className="text-xl font-semibold p-2 rounded-lg text-white bg-green-700"
+          onClick={() => handleOpen()}
+        >
+          Add Software +
+        </button>
       </div>
 
       <TableContainer component={Paper}>
@@ -187,7 +190,7 @@ function Software() { // Changed to PascalCase
                 </StyledTableCell>
                 <StyledTableCell>{software?.softwareName || "N/A"}</StyledTableCell>
                 <StyledTableCell>{software?.description || "N/A"}</StyledTableCell>
-                <StyledTableCell>
+                <StyledTableCell className='w-28'>
                   <IconButton
                     color='primary'
                     onClick={() => handleOpen(software)}
@@ -240,13 +243,15 @@ function Software() { // Changed to PascalCase
               onChange={handleInputChange}
             />
 
-            <div className='w-full h-36 border rounded-lg flex items-center justify-center overflow-hidden bg-gray-100'>
+            <div className='w-full h-56 border rounded-lg flex items-center justify-center overflow-hidden bg-gray-100'>
               {image ? (
-                <img
-                  src={typeof image === "string" ? image : URL.createObjectURL(image)}
-                  alt='preview'
-                  className='h-full w-full object-cover'
-                />
+                <div className='w-full h-56'>
+                  <img
+                    src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                    alt='preview'
+                    className='h-full w-full object-fill'
+                  />
+                </div>
               ) : (
                 <Typography variant="body2" color="textSecondary">
                   No Image Selected

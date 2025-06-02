@@ -30,7 +30,7 @@ export const getSoftware = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${API_URL}/foxboroSoftware`);
-      return  response?.data?.data 
+      return response?.data?.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Error fetching software");
     }
@@ -42,7 +42,12 @@ export const deleteSoftware = createAsyncThunk(
   "software/deleteSoftware",
   async (softwareId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${API_URL}/foxboroSoftware?softwareId=${softwareId}`);
+      const response = await axios.delete(`${API_URL}/foxboroSoftware?softwareId=${softwareId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        }
+      });
       return response.data._id;
     } catch (error) {
       return rejectWithValue(
@@ -123,14 +128,14 @@ const softwareSlice = createSlice({
         state.loading = true;
         state.error = false;
       })
-      .addCase(upadateSoftware.fulfilled, (state,action) =>{
+      .addCase(upadateSoftware.fulfilled, (state, action) => {
         state.loading = false;
         state.data = state.data.map(software =>
-          software._id === action.payload.data._id ? action.payload.data : software
-        )
+          software._id === action.payload._id ? action.payload : software
+        );
         state.success = true;
       })
-      .addCase(upadateSoftware.rejected, (state,action) => {
+      .addCase(upadateSoftware.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
       })

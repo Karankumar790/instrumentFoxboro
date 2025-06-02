@@ -34,7 +34,7 @@ export const deleteProduct = createAsyncThunk(
                     Authorization: `Bearer ${token}`,
                 },
             });
-            return {response, productId };
+            return { response, productId };
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message || "Error deleting product"
@@ -60,6 +60,41 @@ export const updateProduct = createAsyncThunk(
     }
 );
 
+export const submitAdditionalDetails = createAsyncThunk(
+    "foxboro/submitAdditionalDetails",
+    async ({ id, formData }, { rejectWithValue }) => {
+        try {
+            const token = localStorage.getItem("authToken");
+            const response = await axios.post(`${API_URL}/detailsOfProduct/${id}`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Error submitting additional details"
+            );
+        }
+    }
+);
+
+export const getProductDetail = createAsyncThunk(
+    "getProductDetail",
+    async (id, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${API_URL}/detailsOfProduct/${id}`)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Error updating product"
+            );
+        }
+
+    }
+)
+
 
 const CategoryProductSlice = createSlice({
     name: "product",
@@ -73,7 +108,7 @@ const CategoryProductSlice = createSlice({
             })
             .addCase(addProduct.fulfilled, (state, action) => {
                 state.loading = false;
-                state.product.push(action.payload.data);
+                state.product.unshift(action.payload.data);
             })
             .addCase(addProduct.rejected, (state, action) => {
                 state.loading = false;
@@ -106,7 +141,33 @@ const CategoryProductSlice = createSlice({
             .addCase(updateProduct.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            })
+            .addCase(submitAdditionalDetails.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(submitAdditionalDetails.fulfilled, (state, action) => {
+                state.loading = false;
+                state.product.push(action.payload.data);
+                state.success = true;
+            })
+            .addCase(submitAdditionalDetails.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(getProductDetail.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(getProductDetail.fulfilled, (state, action) => {
+                state.loading = false;
+                state.product = action.payload;
+            })
+            .addCase(getProductDetail.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
+
     }
 })
 
