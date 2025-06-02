@@ -12,6 +12,8 @@ import {
 import PageContainer from "../../components/HOC/PageContainer";
 import { postEstimate } from "./ServiceSlice";
 import { useDispatch } from "react-redux";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer/Footer";
 
 function service() {
 
@@ -50,13 +52,13 @@ function service() {
   const handleSubmit = async () => {
     try {
       const result = await dispatch(postEstimate(formData)).unwrap();
-      
+
       setSnackbar({
         open: true,
         message: result.message || "Estimate generated successfully",
         severity: "success",
       });
-  
+
       // Reset form only on success
       setFormData({
         name: "",
@@ -79,7 +81,7 @@ function service() {
       });
     }
   };
-  
+
 
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
@@ -105,7 +107,8 @@ function service() {
   ];
 
   return (
-    <PageContainer showheader="true" showfooter="true" className=' flex flex-col overflow-hidden'>
+    <div className="min-h-screen flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+      <Header />
       <Grid2
         container
         sx={{
@@ -235,7 +238,8 @@ function service() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </PageContainer>
+      <Footer />
+    </div>
   );
 }
 export default service;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  Grid,
   Grid2,
   Menu,
   MenuItem,
@@ -84,135 +85,154 @@ function Header() {
 
   return (
     <>
-      <div className="bg-[#3C9040] text-white py-2">
-        <div className="w-[76%] mx-auto flex flex-col lg:flex-row justify-between items-center gap-4 px-4">
-          <div className="flex flex-wrap lg:text-lg md:text-md sm:text-xs gap-5 justify-center lg:justify-start"  >
-            {item.map((value, index) => (
-              <Stack direction="row" alignItems="center" key={index}>
-                {value.icon}
-                <Typography ml={1}>{value.text}</Typography>
-              </Stack>
-            ))}
-
-          </div>
-          <Grid2 className='flex w-96 '>
-            <Stack display={"flex"} flexDirection={"row"} mr={3} >
-              <a href={fetchHeader.instagramLink}>
-                <Button>
-                  <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
-                </Button>
-              </a>
-              <a href={fetchHeader.facebookLink}>
-                <Button>
-                  <FacebookIcon style={{ color: "blue", fontSize: "30px" }} />
-                </Button>
-              </a>
-              <a href={fetchHeader.youTubeLink}>
-                <Button>
-                  <IoLogoYoutube style={{ color: "red", fontSize: "30px" }} />
-                </Button>
-              </a>
-            </Stack>
-            <button className="bg-yellow-300 hover:bg-yellow-400 text-md text-white font-semibold py-1 px-4  shadow-md transition duration-300">
-              <Link to="/login" className="no-underline text-black">
-               STAFF LOGIN
-              </Link>
-            </button>
-
-          </Grid2>
-        </div>
-      </div>
-      <Grid2
-        container
-        display="flex"
-        gap={1}
-        alignItems="center"
-        color="white"
-        bgcolor={"#2b313b"}
-        p={1.5}
-        pl={30}
-      >
-        <div className=' w-32 h-16' display={"flex"} >
-          <Link to="/" style={{ textDecoration: "none" }}>
-            {/* <div className="h-20 w-20"> */}
-            <img
-              src={fetchHeader.foxboroLogo}
-              className="h-full w-full object-fill"
-            />
-            {/* </div> */}
-          </Link>
-        </div>
-        <Grid2 size={{ lg: 10 }} >
-          <Stack
-            display={"flex"}
-            flexDirection={"row"}
-            justifyContent={"space-between"}
-            width={"67.5vw"}
-          >
-
-            <Box flexDirection="row" display="flex" gap={5} ml={4}>
-              {arr.map((value, index) => (
+      <Grid2 container sx={{ backgroundColor: 'pink' }}>
+        <Grid2 size={{ lg: 12 }} className="bg-[#3C9040] flex justify-center py-2 w-full">
+          <Grid2 size={{ lg: 8, md: 6, sm: 4, xs: 2 }} className=" flex flex-col lg:flex-row justify-between items-center text-white " >
+            {/* Left side: Info items */}
+            <div className=" flex flex-wrap text-xs sm:text-sm md:text-base lg:text-lg gap-3 justify-center lg:justify-start">
+              {item.map((value, index) => (
                 <Stack direction="row" alignItems="center" key={index}>
-                  {value.text === "E-Service" ? (
-                    <>
-                      <Button
-                        sx={{ color: "white" }}
-                        endIcon={<KeyboardArrowDownIcon />}
-                        onClick={handleServiceClick}
-                      >
-                        <Typography>{value.text}</Typography>
-                      </Button>
-                      <Menu
-                        anchorEl={serviceMenu}
-                        open={Boolean(serviceMenu)}
-                        onClose={handleCloseServiceMenu}
-                      >
-                        {serviceOptions.map((option, idx) => (
-                          <MenuItem key={idx} onClick={handleCloseServiceMenu}>
-                            <Link to={option.Link} className="text-gray-700 hover:text-blue-600 w-full block">
-                              {option.text}
-                            </Link>
-                          </MenuItem>
-                        ))}
-                      </Menu>
-                    </>
-                  ) : (
-                    <Button sx={{ color: "white" }}>
-                      <Link to={value.Link} className="text-white no-underline">
-                        <Typography>{value.text}</Typography>
-                      </Link>
-                    </Button>
-                  )}
+                  {value.icon}
+                  <Typography ml={1}>{value.text}</Typography>
                 </Stack>
               ))}
-            </Box>
-            <Box display={'flex'} gap={2} mr={3}>
+            </div>
 
-              <button
-                onClick={handleOpen}
-                // sx={{ color: "white", textTransform: "none", display: "flex", alignItems: "center", gap: 1, }}
-                className="text-white flex gap-1 text-xl"
-              >
-                <EngineeringIcon className="text-white text-2xl" />
-                Work @Foxboro
-              </button>
-              <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                <MenuItem onClick={handleClose} component={Link} to="/applyIntership">
-                  Apply for Internship
-                </MenuItem>
-                <MenuItem onClick={handleClose} component={Link} to="/hiringExpert">
-                  We are Hiring Experts
-                </MenuItem>
-                <MenuItem onClick={handleClose} component={Link} to="/becomePartner">
-                  Become Service Partner
-                </MenuItem>
-              </Menu>
-            </Box>
-          </Stack>
+            {/* Right side: Social icons + Login button */}
+            <div className="flex items-center gap-4 mt-3 lg:mt-0">
+              <Stack direction="row" spacing={1}>
+                <a href={fetchHeader.instagramLink} target="_blank" rel="noopener noreferrer">
+                  <Button>
+                    <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
+                  </Button>
+                </a>
+                <a href={fetchHeader.facebookLink} target="_blank" rel="noopener noreferrer">
+                  <Button>
+                    <FacebookIcon style={{ color: "blue", fontSize: "30px" }} />
+                  </Button>
+                </a>
+                <a href={fetchHeader.youTubeLink} target="_blank" rel="noopener noreferrer">
+                  <Button>
+                    <IoLogoYoutube style={{ color: "red", fontSize: "30px" }} />
+                  </Button>
+                </a>
+              </Stack>
+              <Link to="/login" className="no-underline">
+                <button className="bg-yellow-300 hover:bg-yellow-400 text-md text-white font-semibold py-1 px-4 shadow-md transition duration-300">
+                  STAFF LOGIN
+                </button>
+              </Link>
+            </div>
+
+          </Grid2>
         </Grid2>
 
-      </Grid2>
+        <Grid
+          container
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{
+            bgcolor: "#2b313b",
+            color: "white",
+            py: 1.5,
+            width: "100%",
+            display: 'flex',
+            justifyContent: 'center',
+            overflowX: "hidden",
+          }}
+        >
+          <Grid2 size={{ lg: 8, md: 10, sm: 10, xs: 12 }}
+            sx={{
+              display: 'flex', 
+            }}
+            wrap="wrap"
+          >
+            {/* Logo Section */}
+            <Grid item xs={12} md={3} lg={2} sx={{ mb: { xs: 1, sm: 0 } }}>
+              <Box sx={{ width: 120, height: 64 }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <img
+                    src={fetchHeader.foxboroLogo}
+                    alt="Foxboro Logo"
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  />
+                </Link>
+              </Box>
+            </Grid>
 
+            {/* Navigation & Work @Foxboro */}
+            <Grid item xs={12} md={9} lg={12}>
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={2}
+                alignItems={{ xs: "flex-start", sm: "center" }}
+                justifyContent="space-between"
+                sx={{ width: "100%", flexWrap: "wrap" }}
+              >
+                {/* Navigation Links */}
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                  {arr.map((value, index) => (
+                    <Box key={index}>
+                      {value.text === "E-Service" ? (
+                        <>
+                          <Button
+                            sx={{ color: "white", textTransform: "none", fontSize: '18px' }}
+                            endIcon={<KeyboardArrowDownIcon />}
+                            onClick={handleServiceClick}
+                          >
+                            {value.text}
+                          </Button>
+                          <Menu
+                            anchorEl={serviceMenu}
+                            open={Boolean(serviceMenu)}
+                            onClose={handleCloseServiceMenu}
+                          >
+                            {serviceOptions.map((option, idx) => (
+                              <MenuItem key={idx} onClick={handleCloseServiceMenu}>
+                                <Link to={option.Link} className="text-gray-700 hover:text-blue-600 w-full block">
+                                  {option.text}
+                                </Link>
+                              </MenuItem>
+                            ))}
+                          </Menu>
+                        </>
+                      ) : (
+                        <Button sx={{ color: "white", textTransform: "none", fontSize: '18px' }}>
+                          <Link to={value.Link} className="text-white no-underline">
+                            {value.text}
+                          </Link>
+                        </Button>
+                      )}
+                    </Box>
+                  ))}
+                </Box>
+
+                {/* Work @Foxboro */}
+                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                  <Button
+                    onClick={handleOpen}
+                    sx={{ color: "white", textTransform: "none", display: "flex", alignItems: "center", gap: 1, fontSize: '18px' }}
+                  >
+                    <EngineeringIcon />
+                    Work @Foxboro
+                  </Button>
+                  <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                    <MenuItem onClick={handleClose} component={Link} to="/applyIntership">
+                      Apply for Internship
+                    </MenuItem>
+                    <MenuItem onClick={handleClose} component={Link} to="/hiringExpert">
+                      We are Hiring Experts
+                    </MenuItem>
+                    <MenuItem onClick={handleClose} component={Link} to="/becomePartner">
+                      Become Service Partner
+                    </MenuItem>
+                  </Menu>
+                </Box>
+              </Stack>
+            </Grid>
+          </Grid2>
+        </Grid>
+      </Grid2>
     </>
   );
 }
