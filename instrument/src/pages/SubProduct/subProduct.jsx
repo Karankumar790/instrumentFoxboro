@@ -687,7 +687,7 @@ function SubProduct() {
                     <button
                       // disabled={loading}
                       type="submit"
-                      className="bg-blue-500 text-lg rounded-lg font-semibold w-40 h-11 "
+                      className="bg-blue-400 text-lg rounded-lg font-semibold w-40 h-11 "
                     >
                       {/* {loading ? "Submitting..." : "Submit"} */}
                       Submit
