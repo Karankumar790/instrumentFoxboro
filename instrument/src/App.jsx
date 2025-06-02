@@ -1,6 +1,10 @@
 import React, { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import PrivacyPolicy from "./pages/needHelp/PrivacyPolicy.jsx";
+import RefundReturn from "./pages/needHelp/RefundReturn.jsx";
+import TermsConditions from "./pages/needHelp/TermsConditions.jsx";
+import ComplianToDirector from "./pages/needHelp/ComplianToDirector.jsx";
 
 const Login = lazy(() => import("./AuthCycle/Login/login.jsx"));
 const SignUp = lazy(() => import("./AuthCycle/SignUp/signUp.jsx"));
@@ -101,6 +105,10 @@ function App() {
     { path: "/becomePartner", element: <BecomePartner /> },
     { path: "/subProduct/:id", element: <SubProduct /> },
     { path: "/oneClickProDetail/:id", element: <OneClickProDetail /> },
+    { path: "/privacypolicy", element: <PrivacyPolicy /> },
+    { path: "/refundreturns", element: <RefundReturn /> },
+    { path: "/termsconditions", element: <TermsConditions /> },
+    { path: "/complaintodirector", element: <ComplianToDirector /> },
 
     {
       path: "/admin",

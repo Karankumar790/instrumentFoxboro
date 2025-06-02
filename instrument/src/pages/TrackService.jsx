@@ -1,12 +1,16 @@
-import React from 'react'
-import PageContainer from '../components/HOC/PageContainer'
-import { Card, Grid2, Typography } from '@mui/material'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import React from "react";
+import PageContainer from "../components/HOC/PageContainer";
+import { Card, Grid2, Typography } from "@mui/material";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 
 function TrackService() {
-    return (
-        <PageContainer showheader="true" showfooter="true" className='flex flex-col'>
-            {/* <div className='h-full w-full flex justify-center items-center'>
+  return (
+    <PageContainer
+      showheader="true"
+      showfooter="true"
+      className="flex flex-col"
+    >
+      {/* <div className='h-full w-full flex justify-center items-center'>
                 <div className=' w-1/2 h-2/3 border border-gray-500 rounded-lg p-3 '>
                     <div>
                         <p className='text-3xl font-bold'>Track Service Status</p>
@@ -26,38 +30,57 @@ function TrackService() {
 
             </div> */}
 
-            <Grid2 container className='flex justify-center items-center  bg-slate-200 flex-grow overflow-hidden'>
-                <Grid2 size={{ lg: 6 }} className='rounded-lg'>
-                    <Card sx={{
-                        borderRadius: "20px",
-                        display: "flex",
-                        flexDirection: "column",
-                        overflow: "hidden",
-                        // backgroundColor: "#ECECEC"
-                    }}>
-                        <Typography variant="h5" fontWeight="bold" className="border bg-green-400 px-5 h-14 p-3">
-                            Track Service Status
-                        </Typography>
-                        <div className=' flex gap-4 p-5 '>
-                            <input type="text" size='small' placeholder='Enter Service Number' className='w-96 border rounded-lg p-2 ' />
-                            <button className='w-28 p-3 text-white font-bold bg-yellow-600 rounded-lg border'>Submit</button>
-                        </div>
-                        <div className='h-96 flex justify-center items-center bg-gray-100 border rounded-lg border-gray-500 m-2'>
-                            <p className='text-2xl font-bold'>Under Development</p>
-                        </div>
-                        <div className='w-full flex justify-between p-4'>
-                            <div className='flex gap-3'>
-                                <WarningAmberIcon fontSize="large" className='text-red-700' />
-                                <p className='text-xl font-semibold'>Please Accept / Reschedule Within 24 Hours</p>
-                            </div>
-                            <button className='bg-orange-600 text-white font-semibold rounded-lg cursor-pointer w-28 p-2'>Accept</button>
-                        </div>
-                    </Card>
-                </Grid2>
-            </Grid2>
-
-        </PageContainer>
-    )
+      <Grid2
+        container
+        className="flex justify-center items-center  bg-slate-200 flex-grow overflow-hidden"
+      >
+        <Grid2 size={{ lg: 6 }} className="rounded-lg">
+          <Card
+            sx={{
+              borderRadius: "20px",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              // backgroundColor: "#ECECEC"
+            }}
+          >
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+              className="border bg-green-400 px-5 h-14 p-3"
+            >
+              Track Service Status (Self Service)
+            </Typography>
+            <div className=" flex gap-4 p-5 ">
+              <input
+                type="text"
+                size="small"
+                placeholder="Enter Service Number"
+                className="w-96 border rounded-lg p-2 "
+              />
+              <button className="w-28 p-3 text-white font-bold bg-yellow-600 rounded-lg border">
+                Submit
+              </button>
+            </div>
+            <div className="h-96 flex justify-center items-center bg-gray-100 border rounded-lg border-gray-500 m-2">
+              <p className="text-2xl font-bold">Under Development</p>
+            </div>
+            <div className="w-full flex justify-between p-4">
+              <div className="flex gap-3">
+                <WarningAmberIcon fontSize="large" className="text-red-700" />
+                <p className="text-xl font-semibold">
+                  Please Accept / Reschedule Within 24 Hours
+                </p>
+              </div>
+              <button className="bg-orange-600 text-white font-semibold rounded-lg cursor-pointer w-28 p-2">
+                Accept
+              </button>
+            </div>
+          </Card>
+        </Grid2>
+      </Grid2>
+    </PageContainer>
+  );
 }
 
-export default TrackService
+export default TrackService;
