@@ -90,29 +90,9 @@ function oneclickproduct() {
                     key={index}
                     size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                   >
-                    <Card>
-                      {/* <CardMedia
-                          component="img"
-                          style={{
-                            height: "30vh",
-                            width: "40vh",
-                            objectFit: "cover",
-                            objectPosition: "left",
-                            background:
-                              "linear-gradient(49deg, rgb(245, 244, 244), rgb(170, 170, 219) 100%) ",
-                            transition: "transform 0.3s ease-in-out",
-                          }}
-                          image={product.productImage}
-                          alt={product.productName}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = "scale(1.1)";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = "scale(1)";
-                          }}
-                        /> */}
-                      <div className="h-72 w-full">
-                        <Link to={`/oneClickProDetail/${product._id}`}>
+                    <Card className="h-full flex flex-col justify-between">
+                      <Link to={`/oneClickProDetail/${product._id}`}>
+                        <div className="h-64 w-full">
                           <img
                             src={product.productImage}
                             alt={product.productName}
@@ -124,22 +104,22 @@ function oneclickproduct() {
                               e.currentTarget.style.transform = "scale(1)";
                             }}
                           />
-                        </Link>
-                      </div>
-                      <p className="text-xl text-black font-bold pt-3">
-                        {limitNameWords(product.productName)}
-                      </p>
+                        </div>
+                      </Link>
+                      <div className="flex flex-col flex-grow px-3 py-4">
+                        <p className="text-xl text-black font-bold pt-3  line-clamp-2">
+                          {limitNameWords(product.productName)}
+                        </p>
 
-                      <p className="text-lg text-gray-800 pt-1 py-1">
-                        {limitWords(product.description)}
-                      </p>
+                        <p className="text-lg text-gray-800  font-noto flex-grow">
+                          {limitWords(product.description)}
+                        </p>
 
-                      <div className="w-full flex  pr-2">
-                        <Link to={`/oneClickProDetail/${product._id}`}>
-                          <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">
-                            Learn More ➜
-                          </p>
-                        </Link>
+                        <div className="w-full flex  pr-2">
+                          <Link to={`/oneClickProDetail/${product._id}`}>
+                            <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                          </Link>
+                        </div>
                       </div>
                     </Card>
                   </Grid2>

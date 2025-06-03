@@ -221,7 +221,7 @@ function AdminHeader() {
           <div className='flex flex-col '>
             <label>
               <h2 className='text-sm font-semibold mb-1'>Phone Number 1</h2>
-              <input type="number" name='contactNumberOne' value={formValue.contactNumberOne} onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+              <input type="number" name='contactNumberOne' defaultValue={getHeaders?.contactNumberOne}  onChange={handleFormValue} className='w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' />
               {error?.message}
             </label>
           </div>
@@ -271,7 +271,10 @@ function AdminHeader() {
           </div>
 
         </div>
-        <div className='flex items-end justify-end w-full '>
+        <div className='flex items-end justify-end w-full gap-2'>
+          <button onClick={handleUpdateSubmit} className='bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-md w-32'>
+            Update
+          </button>
           <button onClick={handleSubmit} className='bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-md w-32'>
             Submit
           </button>

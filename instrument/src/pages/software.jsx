@@ -42,27 +42,44 @@ const Software = () => {
 
 
   return (
-    <div className='min-h-screen flex flex-col'>
+    <div className='min-h-screen flex flex-col  overflow-x-hidden'>
       <Headers />
-      <div className=' py-12 flex-grow'>
-        <div className='container mx-auto px-4'>
-          <h1 className='text-4xl font-bold mb-2'>Web Based Industrial Software</h1>
-          <p className='text-xl mb-8'>Help your sales team be more productive with tools they'd love.</p>
+      <div className="py-10  flex justify-center flex-grow ">
+        <div className="container w-[70%]  px-4 sm:px-6 lg:px-8 ">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-center sm:text-left">
+            Web Based Industrial Software
+          </h1>
+          <p className="text-base sm:text-xl mb-8 text-center sm:text-left text-gray-700">
+            Unique and powerful web software applications suite to transform the way you work.
+          </p>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {softwareData.map((product, index) => (
-              <div key={index} className='bg-gray-200 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow'>
-                <div className='flex items-center mb-4'>
-                  <div className='w-36  h-24 rounded-lg bg-gray-200 flex items-center justify-center mr-4'>
-                    <img src={product.softwareImage} alt={product.softwareName} className='w-full h-full object-cover' />
+              <div
+                key={index}
+                className="bg-gray-100 rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow duration-300"
+              >
+                <div className="flex flex-col sm:flex-row items-center mb-4">
+                  <div className="w-full sm:w-36 h-32 sm:h-24 rounded-lg bg-gray-200 flex items-center justify-center mb-4 sm:mb-0 sm:mr-4">
+                    <img
+                      src={product.softwareImage}
+                      alt={product.softwareName}
+                      className="w-full h-full object-cover rounded-md"
+                    />
                   </div>
-                  <div className='h-24'>
-                    <h2 className='text-xl font-semibold'>{product.softwareName}</h2>
+                  <div className="text-center sm:text-left">
+                    <h2 className="text-lg sm:text-xl font-semibold">
+                      {product.softwareName}
+                    </h2>
                   </div>
                 </div>
-                <p className='text-gray-600 mb-6 text-lg'>{product.description}</p>
-                <div className='flex justify-end'>
-                  <button className='text-green-700 font-semibold text-lg hover:text-blue-800 transition-colors'>
+
+                <p className="text-gray-700 text-sm sm:text-base mb-6">
+                  {product.description}
+                </p>
+
+                <div className="flex justify-center sm:justify-end">
+                  <button className="text-green-700 font-semibold text-base sm:text-lg hover:text-blue-800 transition-colors">
                     TRY NOW &gt;
                   </button>
                 </div>
@@ -71,6 +88,7 @@ const Software = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );

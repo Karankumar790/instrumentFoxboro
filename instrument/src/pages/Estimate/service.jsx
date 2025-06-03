@@ -12,6 +12,8 @@ import {
 import PageContainer from "../../components/HOC/PageContainer";
 import { postEstimate } from "./ServiceSlice";
 import { useDispatch } from "react-redux";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer/Footer";
 
 function service() {
   const [snackbar, setSnackbar] = useState({
@@ -104,11 +106,8 @@ function service() {
   ];
 
   return (
-    <PageContainer
-      showheader="true"
-      showfooter="true"
-      className=" flex flex-col overflow-hidden"
-    >
+    <div className="min-h-screen flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+      <Header />
       <Grid2
         container
         sx={{
@@ -243,7 +242,8 @@ function service() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </PageContainer>
+      <Footer />
+    </div>
   );
 }
 export default service;
