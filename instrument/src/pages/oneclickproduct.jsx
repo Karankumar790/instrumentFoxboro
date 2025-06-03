@@ -1,10 +1,4 @@
-import {
-  Box,
-  Card,
-  CardMedia,
-  Grid2,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardMedia, Grid2, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import PageContainer from "../components/HOC/PageContainer";
 import { Link, useParams } from "react-router-dom";
@@ -13,7 +7,6 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { getProductById } from "./product";
 
-
 function oneclickproduct() {
   const [open, setOpen] = useState(false);
   const { categoryId, categoryName } = useParams();
@@ -21,11 +14,9 @@ function oneclickproduct() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
   const handleToggle = () => {
     setOpen(!open);
   };
-
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -53,31 +44,36 @@ function oneclickproduct() {
     fetchProduct();
   }, [categoryId]);
 
-
   const limitWords = (text, wordLimit = 20) => {
     if (!text) return "No description available.";
     const words = text.split(" ");
-    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(" ") + "..."
+      : text;
   };
 
   const limitNameWords = (text, wordLimit = 5) => {
     if (!text) return "No Name available";
     const words = text.split(" ");
-    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(" ") + "..."
+      : text;
   };
-
-
-
 
   return (
     <div className="min-h-screen flex flex-col">
       <PageContainer showheader="true" className="flex flex-1 flex-col">
-        <Grid2 container display="flex" justifyContent="center" className="flex-1">
+        <Grid2
+          container
+          display="flex"
+          justifyContent="center"
+          className="flex-1"
+        >
           <Grid2 size={{ lg: 8 }} overflow="hidden" mb={4}>
             <Box>
-              <Typography variant="h5" mt={2} mb={2} fontWeight={"bold"}>
+              <p className="text-4xl mt-10 mb-8 font-bold font-noto">
                 Industrial Automation / {decodeURIComponent(categoryName)}
-              </Typography>
+              </p>
             </Box>
 
             {loading ? (
@@ -140,17 +136,16 @@ function oneclickproduct() {
 
                       <div className="w-full flex  pr-2">
                         <Link to={`/oneClickProDetail/${product._id}`}>
-                          <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                          <p className=" text-pink-400 text-lg font-semibold rounded-lg  mb-2">
+                            Learn More ➜
+                          </p>
                         </Link>
                       </div>
                     </Card>
                   </Grid2>
                 ))}
-
               </Grid2>
             )}
-
-
           </Grid2>
         </Grid2>
         {/* Pagination at the bottom */}

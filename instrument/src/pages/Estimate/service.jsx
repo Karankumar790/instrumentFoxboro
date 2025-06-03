@@ -14,8 +14,11 @@ import { postEstimate } from "./ServiceSlice";
 import { useDispatch } from "react-redux";
 
 function service() {
-
-  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -29,16 +32,14 @@ function service() {
     country: "",
     problemDescription: "",
     serviceMethod: "",
-  })
-
-
+  });
 
   const handleChange = (field) => (event) => {
     setFormData((prev) => ({
       ...prev,
       [field]: event.target.value,
-    }))
-  }
+    }));
+  };
 
   const handleServiceChange = (value) => {
     setFormData((prev) => ({
@@ -50,13 +51,13 @@ function service() {
   const handleSubmit = async () => {
     try {
       const result = await dispatch(postEstimate(formData)).unwrap();
-      
+
       setSnackbar({
         open: true,
         message: result.message || "Estimate generated successfully",
         severity: "success",
       });
-  
+
       // Reset form only on success
       setFormData({
         name: "",
@@ -79,12 +80,10 @@ function service() {
       });
     }
   };
-  
 
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
   };
-
 
   const fields = [
     { label: "Name", key: "name" },
@@ -105,33 +104,38 @@ function service() {
   ];
 
   return (
-    <PageContainer showheader="true" showfooter="true" className=' flex flex-col overflow-hidden'>
+    <PageContainer
+      showheader="true"
+      showfooter="true"
+      className=" flex flex-col overflow-hidden"
+    >
       <Grid2
         container
         sx={{
           height: "100vh",
           display: "flex",
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        className='bg-slate-200'
-
+        className="bg-slate-200"
       >
-
-        <Grid2 size={{ lg: 6.5 }} >
+        <Grid2 size={{ lg: 6.5 }}>
           <Card
             sx={{
               borderRadius: "20px",
               display: "flex",
               flexDirection: "column",
               overflow: "hidden",
-              backgroundColor: "#ECECEC"
+              backgroundColor: "#ECECEC",
             }}
-
           >
             {/* Sticky Header */}
-            <Typography variant="h5" fontWeight="bold" className="border bg-green-400 px-5 h-10 ">
-              Generate Estimate (Service Menu)
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+              className="border bg-green-400 px-5 h-10 "
+            >
+              Generate Estimate (Self Service )
             </Typography>
             <Box
               sx={{
@@ -141,10 +145,9 @@ function service() {
                 px: 3,
                 py: 2,
                 borderBottom: "1px solid #e0e0e0",
-                backgroundColor: "#ECECEC"
+                backgroundColor: "#ECECEC",
               }}
             >
-
               <Grid2 container spacing={2}>
                 {services.map((service, idx) => (
                   <Grid2 item xs={6} key={idx}>
@@ -161,7 +164,6 @@ function service() {
                   </Grid2>
                 ))}
               </Grid2>
-
             </Box>
 
             <Box
@@ -175,7 +177,7 @@ function service() {
               <Grid2 container spacing={2}>
                 {[...fields].map((field, index) => (
                   <Grid2 item xs={12} md={6} key={index}>
-                    <Box display="flex" alignItems="center" >
+                    <Box display="flex" alignItems="center">
                       <Typography variant="h6" sx={{ minWidth: "130px" }}>
                         {field.label}
                       </Typography>
@@ -191,7 +193,7 @@ function service() {
                   </Grid2>
                 ))}
               </Grid2>
-              <div >
+              <div>
                 <Grid2 item xs={12} mt={2}>
                   <TextField
                     fullWidth
@@ -204,14 +206,20 @@ function service() {
                   />
                 </Grid2>
 
-                <Box width="100%" display="flex" justifyContent="flex-end" alignItems="end" mt={3} mb={2} >
+                <Box
+                  width="100%"
+                  display="flex"
+                  justifyContent="flex-end"
+                  alignItems="end"
+                  mt={3}
+                  mb={2}
+                >
                   <Button
                     sx={{
                       width: "20%",
                       minWidth: "150px",
                       bgcolor: "orange",
                       "&:hover": { bgcolor: "darkorange" },
-
                     }}
                     variant="contained"
                     className="font-bold"
@@ -229,7 +237,7 @@ function service() {
         open={snackbar.open}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleCloseSnackbar} severity={snackbar.severity}>
           {snackbar.message}

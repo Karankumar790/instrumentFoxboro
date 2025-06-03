@@ -18,7 +18,7 @@ export const getProduct = createAsyncThunk(
 
 export const contactProduct = createAsyncThunk(
   "ContactProduct",
-  async (formData, { rejectWithValue }) => {
+   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_URL}/productQuery`, formData);
       return response.data;
