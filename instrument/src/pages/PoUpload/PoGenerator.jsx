@@ -87,7 +87,11 @@ function PoGenerator() {
   };
 
   return (
-   <div className="min-h-screen flex flex-col">
+    <PageContainer
+      showheader="true"
+      showfooter="true"
+      className="flex flex-col overflow-hidden"
+    >
       <Grid2
         container
         className="flex justify-center items-center bg-slate-200 flex-grow overflow-hidden"
@@ -213,7 +217,7 @@ function PoGenerator() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </div>
+    </PageContainer>
   );
 }
 

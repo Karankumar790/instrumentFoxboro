@@ -6,6 +6,8 @@ import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 function TrackService() {
   return (
     <PageContainer
+      showheader="true"
+      showfooter="true"
       className="flex flex-col"
     >
       {/* <div className='h-full w-full flex justify-center items-center'>

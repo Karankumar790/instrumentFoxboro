@@ -81,7 +81,7 @@ function Support() {
         backgroundAttachment: "fixed",
       }}
     >
-      {/* <Header /> */}
+      <Header />
       <div className="w-full flex-grow flex  justify-center bg-indigo-50">
         <div className="flex flex-col items-center  w-4/5 ">
           <div className="w-full sm:w-10/12 lg:w-full  p-4 flex flex-col justify-center items-center">
@@ -309,7 +309,7 @@ function Support() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

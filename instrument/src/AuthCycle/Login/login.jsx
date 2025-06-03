@@ -49,7 +49,7 @@ function Login() {
 
   return (
     <>
-      <PageContainer  className='bg-sky-200 flex flex-col overflow-hidden'>
+      <PageContainer showheader='true' showfooter='true' className='bg-sky-200 flex flex-col overflow-hidden'>
         <div className='flex justify-center items-center bg-slate-200 flex-grow overflow-hidden'>
           <div className=" max-w-md p-8 bg-gray-100 shadow-lg rounded-lg space-y-6">
             <div className="text-center">

@@ -107,7 +107,7 @@ function service() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-      {/* <Header /> */}
+      <Header />
       <Grid2
         container
         sx={{
@@ -242,7 +242,7 @@ function service() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
