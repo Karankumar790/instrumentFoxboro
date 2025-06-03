@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Menu, MenuItem, IconButton, Avatar, Typography, Box } from "@mui/material";
+import { Menu, MenuItem, IconButton, Avatar, Typography, Box, Button } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../AuthCycle/Login/loginSlice";
+import { Link } from "react-router-dom";
 
 function AdminHeader() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -81,12 +82,15 @@ const handleLogout = async () => {
           }}
         >
           <Box className="px-4 py-2">
-            <Typography variant="subtitle1">{loginUser.username}</Typography>
-            <Typography variant="body2" color="textSecondary">
+            {/* <Typography variant="subtitle1">{loginUser.username}</Typography> */}
+            <Link to="/admin/profile"  className="text-black">
+            <MenuItem variant="subtitle1" className="text-black " >Profile</MenuItem>
+            </Link>
+            {/* <Typography variant="body2" color="textSecondary">
               {loginUser.email}
-            </Typography>
-          </Box>
+            </Typography> */}
           <MenuItem onClick={handleLogout} className="text-red-600">Logout</MenuItem>
+          </Box>
         </Menu>
       </div>
     </header>

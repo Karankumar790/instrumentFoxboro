@@ -8,6 +8,7 @@ const Forget = lazy(() => import("./AuthCycle/Forget/forget.jsx"));
 const Product = lazy(() => import("./pages/product.jsx"));
 const Content = lazy(() => import("./pages/content.jsx"));
 const AdminLayout = lazy(() => import("./AdminDashoard/AdminLayout.jsx"));
+const Profile = lazy(() => import("./AdminDashoard/Profile.jsx"));
 const Automation = lazy(() =>
   import("./AdminDashoard/Category/Automation.jsx")
 );
@@ -122,6 +123,7 @@ function App() {
         { path: "productDetail/:id", element: <ProductDetail /> },
         { path: "adminHiringExp", element: <AdminHiringExp /> },
         { path: "cpDetail/:id", element: <CpDetail /> },
+        { path: "profile", element: <Profile /> },
       ],
     },
   ]);

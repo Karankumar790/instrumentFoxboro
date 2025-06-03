@@ -222,6 +222,7 @@ function Automation() {
             {categories.map((cat) => (
               <StyledTableRow key={cat._id}>
                 <StyledTableCell>
+                   <IconButton component={Link} to={`/admin/categoryProduct/${cat._id}`}>
                   <div className="w-24 h-20">
                     <img
                       src={cat.categoryImage}
@@ -229,15 +230,17 @@ function Automation() {
                       className="w-full h-full object-fill"
                     />
                   </div>
+                  </IconButton>
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   {cat.categoryName}
                 </StyledTableCell>
                 <StyledTableCell>{cat.description}</StyledTableCell>
                 <StyledTableCell className="w-40 ">
-                  <IconButton component={Link} to={`/admin/categoryProduct/${cat._id}`}>
-                    <AddIcon icon={faEye} className="text-black text-lg" />
-                  </IconButton>
+                   {/* <IconButton component={Link} to={`/admin/categoryProduct/${cat._id}`}> */}
+                    {/* <AddIcon icon={faEye} className="text-black text-lg" /> */}
+                  {/* </IconButton> */}
+
 
                   <IconButton
                     color="primary"
