@@ -98,7 +98,7 @@ function ApplyIntership() {
    
 
     return (
-        <PageContainer showheader="true" showfooter="true">
+        <PageContainer >
             <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '100%' }} >
                 <Grid2 size={{ lg: 8, md: 10, sm: 12 }}>
                     <Card sx={{

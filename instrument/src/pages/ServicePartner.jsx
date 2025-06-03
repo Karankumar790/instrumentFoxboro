@@ -67,7 +67,7 @@ function ServicePartner() {
     }, [dispatch])
 
     return (
-        <PageContainer showheader="true" showfooter="true" className=' flex flex-col overflow-hidden'>
+        <PageContainer  className=' flex flex-col overflow-hidden'>
             <Grid2 size={{ lg: 4 }}  >
                 <div className=" flex flex-col  rounded-lg overflow-hidden">
                     {/* Sticky Header */}

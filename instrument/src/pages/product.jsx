@@ -1,29 +1,18 @@
-import {
-  Box,
-  Card,
-  Grid2,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Card, Grid2, Pagination, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Headers from '../components/Header';
+import Headers from "../components/Header";
 import Footer from "../components/Footer/Footer";
 import { getFoxboroProduct } from "./product";
 import { useDispatch, useSelector } from "react-redux";
 
 function product() {
-  const { productFox, pagination } = useSelector(
-    (state) => state.productPage
-  );
+  const { productFox, pagination } = useSelector((state) => state.productPage);
   const [open, setOpen] = useState(false);
-
 
   const handleToggle = () => {
     setOpen(!open);
   };
-
 
   const dispatch = useDispatch();
 
@@ -33,7 +22,6 @@ function product() {
     dispatch(getFoxboroProduct({ page, limit: 8 }));
   }, [dispatch, page]);
 
-
   const handlePageChange = (event, value) => {
     setPage(value);
   };
@@ -41,35 +29,35 @@ function product() {
   const limitWords = (text, wordLimit = 20) => {
     if (!text) return "No description available.";
     const words = text.split(" ");
-    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(" ") + "..."
+      : text;
   };
 
   const limitNameWords = (text, wordLimit = 5) => {
     if (!text) return "No Name available";
     const words = text.split(" ");
-    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(" ") + "..."
+      : text;
   };
-
-
-
 
   return (
     <>
-      <div className='min-h-screen flex flex-col overflow-x-hidden'>
-        <Headers />
+      <div className="min-h-screen flex flex-col overflow-x-hidden">
+        {/* <Headers /> */}
         <div className="py-10 flex-grow">
-          <Grid2 container display="flex" justifyContent="center" >
+          <Grid2 container display="flex" justifyContent="center">
             <Grid2
               size={{ lg: 8 }}
               mb={4}
-            // border={"1px solid black"}
+              // border={"1px solid black"}
             >
-              <Box mb={2} >
-                <p className="text-3xl mt-3 mb-5 font-bold font-noto" >
+              <Box mb={2}>
+                <p className="text-3xl mt-3 mb-5 font-bold font-noto">
                   Foxboro Product Line
                 </p>
               </Box>
-
 
               <Grid2 container spacing={3}>
                 {productFox.map((product) => (
@@ -103,7 +91,9 @@ function product() {
                         </p>
                         <Link to={`/subProduct/${product._id}`}>
                           <div className="w-full flex  pr-2">
-                            <p className=" text-red-600 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                            <p className=" text-red-600 text-lg font-semibold rounded-lg  mb-2">
+                              Learn More ➜
+                            </p>
                           </div>
                         </Link>
                       </div>
@@ -120,22 +110,23 @@ function product() {
                   shape="rounded" />
               </Stack>
             )} */}
-
             </Grid2>
           </Grid2>
           <div className="m-3">
             {productFox.length > 0 && (
               <Stack spacing={1} alignItems={"end"} mt={2}>
-                <Pagination count={pagination?.totalPages || 1}
+                <Pagination
+                  count={pagination?.totalPages || 1}
                   page={page}
                   onChange={handlePageChange}
                   variant="outlined"
-                  shape="rounded" />
+                  shape="rounded"
+                />
               </Stack>
             )}
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );

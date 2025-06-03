@@ -118,7 +118,7 @@ function Header() {
                 </a>
               </Stack>
               <Link to="/login" className="no-underline">
-                <button className="bg-yellow-300 hover:bg-yellow-400 text-md text-white font-semibold py-1 px-4 shadow-md transition duration-300">
+                <button className="bg-blue-400 hover:bg-blue-500 text-md text-black rounded-lg font-semibold py-1 px-4 shadow-md transition duration-300">
                   STAFF LOGIN
                 </button>
               </Link>
@@ -127,7 +127,7 @@ function Header() {
           </Grid2>
         </Grid2>
 
-        <Grid
+        <Grid2
           container
           alignItems="center"
           justifyContent="space-between"
@@ -231,7 +231,7 @@ function Header() {
               </Stack>
             </Grid>
           </Grid2>
-        </Grid>
+        </Grid2>
       </Grid2>
     </>
   );
