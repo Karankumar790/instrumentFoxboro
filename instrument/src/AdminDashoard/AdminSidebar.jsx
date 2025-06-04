@@ -39,7 +39,7 @@ export default function AdminSidebar() {
 
       <nav className="flex flex-col p-4 space-y-2">
 
-        {role === 'admin' && (
+        {/* {role === 'admin' && (
           <>
             <div
               className="flex items-center space-x-2 pl-4   cursor-pointer text-white hover:text-blue-400 transition-all duration-200"
@@ -99,10 +99,11 @@ export default function AdminSidebar() {
             </Menu>
 
           </>
-        )}
+        )} */}
 
         {role === 'admin' && (
           <>
+            <NavItem to="/admin/adminHeader" icon={<FaSlidersH />} label="Site Settings" />
             <NavItem to="/admin/automation" icon={<FaCogs />} label="Automation" />
             <NavItem to="/admin/adminProduct" icon={<FaBox />} label="Products" />
             <NavItem to="/admin/adminsoftware" icon={<FaLaptopCode />} label="Software" />

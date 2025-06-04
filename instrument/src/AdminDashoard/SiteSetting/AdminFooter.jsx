@@ -125,12 +125,22 @@ function AdminFooter() {
 
 
   return (
-    <div>
-      <div>
-
+    <div className='flex flex-col  space-y-5'>
+      <div className='flex justify-between'>
+        <p className='font-semibold text-2xl'>Footer Management</p>
+        {/* <button className='bg-green-600 font-semibold p-2 rounded-lg text-white text-lg' onClick={handleOpen}>Add Header +</button> */}
+      </div>
+      <div className='bg-white rounded-lg shadow-md p-5'>
         <form onSubmit={handleSubmit} className='space-y-8'>
+
+          <div className='space-y-2 flex justify-between '>
+            <div className='w-full'>
+              <p className='text-lg font-semibold'>Registered Office Address</p>
+              <textarea id="" rows={2} placeholder='Registered and To the next line used the ( , ) ' name='registeredOfficeAddress' value={footerData.registeredOfficeAddress} onChange={handleInput} className='w-1/2 p-2 border rounded-lg border-gray-600'></textarea>
+            </div>
+          </div>
           <div className='space-y-2'>
-            <p className='text-2xl font-bold'>Customer Support</p>
+            <p className='text-lg font-semibold'>Customer Support</p>
             <div className='flex gap-2 w-full '>
               <input type="number" placeholder='Number 1' name='salesNumber' value={footerData.salesNumber} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
               <input type="number" placeholder='Number 2' name='engineeringNumber' value={footerData.engineeringNumber} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
@@ -141,7 +151,7 @@ function AdminFooter() {
             </div>
           </div>
           <div className='space-y-2'>
-            <p className='text-2xl font-bold'>Useful Website</p>
+            <p className='text-lg font-semibold'>Useful Website</p>
             <div className='flex gap-2 w-full '>
               <input type="text" placeholder='Automation Link 1' name='link1' value={footerData.link1} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
               <input type="text" placeholder='E-store Link 2' name='link2' value={footerData.link2} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
@@ -151,16 +161,12 @@ function AdminFooter() {
             <div className='flex gap-2 w-full '>
             </div>
           </div>
-          <div className='space-y-2 flex justify-between '>
-            <div className='w-full'>
-              <p className='text-2xl font-bold'>Registered Office</p>
-              <textarea id="" rows={2} placeholder='Registered and To the next line used the ( , ) ' name='registeredOfficeAddress' value={footerData.registeredOfficeAddress} onChange={handleInput} className='w-1/2 p-2 border rounded-lg border-gray-600'></textarea>
-            </div>
+          <div className='w-full flex justify-end  pb-5'>
             <button type='submit' className=' w-28 h-10 bg-blue-600 p-2 text-white rounded-lg font-semibold' >Submit</button>
           </div>
         </form>
 
-        <TableContainer component={Paper} className="shadow-lg rounded-lg">
+        {/* <TableContainer component={Paper} className="shadow-lg rounded-lg">
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead className="bg-gray-800">
               <TableRow>
@@ -195,7 +201,7 @@ function AdminFooter() {
               </StyledTableRow>
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
       </div>
 
       <Modal
