@@ -89,17 +89,28 @@ function Header() {
         <Grid2 size={{ lg: 12 }} className="bg-[#3C9040] flex justify-center py-2 w-full">
           <Grid2 size={{ lg: 8, md: 6, sm: 4, xs: 2 }} className=" flex flex-col lg:flex-row justify-between items-center text-white " >
             {/* Left side: Info items */}
-            <div className=" flex flex-wrap text-xs sm:text-sm md:text-base lg:text-lg gap-3 justify-center lg:justify-start">
+            <Grid2
+              size={{ lg: 8, md: 9, sm: 4, xs: 2 }}
+              className=" flex flex-wrap text-xs sm:text-sm md:text-base lg:text-lg gap-3 justify-center lg:justify-normal"
+            >
               {item.map((value, index) => (
-                <Stack direction="row" alignItems="center" key={index}>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  key={index}
+                  className="whitespace-nowrap flex-nowrap items-center"
+                >
                   {value.icon}
-                  <Typography ml={1}>{value.text}</Typography>
+                  <Typography ml={1} className="whitespace-nowrap">
+                    {value.text}
+                  </Typography>
                 </Stack>
               ))}
-            </div>
+            </Grid2>
+
 
             {/* Right side: Social icons + Login button */}
-            <div className="flex items-center gap-4 mt-3 lg:mt-0">
+            <div className="flex items-center lg:gap-4 md:gap-1 sm:gap-1  mt-3 lg:mt-0">
               <Stack direction="row" spacing={1}>
                 <a href={fetchHeader.instagramLink} target="_blank" rel="noopener noreferrer">
                   <Button>
@@ -143,7 +154,7 @@ function Header() {
         >
           <Grid2 size={{ lg: 8, md: 10, sm: 10, xs: 12 }}
             sx={{
-              display: 'flex', 
+              display: 'flex',
             }}
             wrap="wrap"
           >
@@ -163,7 +174,7 @@ function Header() {
             {/* Navigation & Work @Foxboro */}
             <Grid item xs={12} md={9} lg={12}>
               <Stack
-                direction={{ xs: "column", sm: "row" }}
+                direction={{ xs: "row", sm: "row" }}
                 spacing={2}
                 alignItems={{ xs: "flex-start", sm: "center" }}
                 justifyContent="space-between"
