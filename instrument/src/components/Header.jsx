@@ -85,56 +85,55 @@ function Header() {
 
   return (
     <>
-      <Grid2 container sx={{ backgroundColor: 'pink' }}>
-        <Grid2 size={{ lg: 12 }} className="bg-[#3C9040] flex justify-center py-2 w-full">
-          <Grid2 size={{ lg: 8, md: 6, sm: 4, xs: 2 }} className=" flex flex-col lg:flex-row justify-between items-center text-white " >
+      <Grid2 container sx={{ overflowX:'hidden' }} >
+        <Grid2 size={{ lg: 12,md: 12, sm: 12, xs: 12 }} className="bg-[#3C9040] flex justify-center py-2 w-full overflow-x-hidden">
+          <Grid2 size={{ lg: 8, md: 10, sm: 10, xs: 12 }} className=" flex flex-col lg:flex-row justify-between items-center text-white " >
             {/* Left side: Info items */}
-            <Grid2
-              size={{ lg: 8, md: 9, sm: 4, xs: 2 }}
-              className=" flex flex-wrap text-xs sm:text-sm md:text-base lg:text-lg gap-3 justify-center lg:justify-normal"
-            >
-              {item.map((value, index) => (
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  key={index}
-                  className="whitespace-nowrap flex-nowrap items-center"
-                >
-                  {value.icon}
-                  <Typography ml={1} className="whitespace-nowrap">
-                    {value.text}
-                  </Typography>
-                </Stack>
-              ))}
-            </Grid2>
+
+            <Grid item xs={12} md={8} sm={12}  lg={6} gap={2} sx={{ mb: { xs: 1, sm: 0 }, display: "flex" }}>
+              <Box sx={{ width: 120, height: 64 }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <img
+                    src={fetchHeader.foxboroLogo}
+                    alt="Foxboro Logo"
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  />
+                </Link>
+              </Box>
+              <Box className='flex justify-center items-center'>
+                <p className="text-2xl font-bold">Foxboro Instrument Company</p>
+              </Box>
+            </Grid>
+
 
 
             {/* Right side: Social icons + Login button */}
-            <div className="flex items-center lg:gap-4 md:gap-1 sm:gap-1  mt-3 lg:mt-0">
-              <Stack direction="row" spacing={1}>
-                <a href={fetchHeader.instagramLink} target="_blank" rel="noopener noreferrer">
-                  <Button>
-                    <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
-                  </Button>
-                </a>
-                <a href={fetchHeader.facebookLink} target="_blank" rel="noopener noreferrer">
-                  <Button>
-                    <FacebookIcon style={{ color: "blue", fontSize: "30px" }} />
-                  </Button>
-                </a>
-                <a href={fetchHeader.youTubeLink} target="_blank" rel="noopener noreferrer">
-                  <Button>
-                    <IoLogoYoutube style={{ color: "red", fontSize: "30px" }} />
-                  </Button>
-                </a>
-              </Stack>
-              <Link to="/login" className="no-underline">
-                <button className="bg-yellow-300 hover:bg-yellow-400 text-md text-white font-semibold py-1 px-4 shadow-md transition duration-300">
-                  STAFF LOGIN
-                </button>
-              </Link>
-            </div>
-
+            <Grid2 xs={12} md={8} lg={6}  sm={12}>
+              <div className="flex items-center lg:gap-4 md:gap-1 sm:gap-1  mt-3 lg:mt-0">
+                <Stack direction="row" spacing={1}>
+                  <a href={fetchHeader.instagramLink} target="_blank" rel="noopener noreferrer">
+                    <Button>
+                      <InstagramIcon style={{ color: "red", fontSize: "30px" }} />
+                    </Button>
+                  </a>
+                  <a href={fetchHeader.facebookLink} target="_blank" rel="noopener noreferrer">
+                    <Button>
+                      <FacebookIcon style={{ color: "blue", fontSize: "30px" }} />
+                    </Button>
+                  </a>
+                  <a href={fetchHeader.youTubeLink} target="_blank" rel="noopener noreferrer">
+                    <Button>
+                      <IoLogoYoutube style={{ color: "red", fontSize: "30px" }} />
+                    </Button>
+                  </a>
+                </Stack>
+                <Link to="/login" className="no-underline">
+                  <button className="bg-yellow-300 hover:bg-yellow-400 text-md text-white font-semibold py-1 px-4 shadow-md transition duration-300">
+                    STAFF LOGIN
+                  </button>
+                </Link>
+              </div>
+            </Grid2>
           </Grid2>
         </Grid2>
 
@@ -152,32 +151,22 @@ function Header() {
             overflowX: "hidden",
           }}
         >
-          <Grid2 size={{ lg: 8, md: 10, sm: 10, xs: 12 }}
+          <Grid2 size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
             sx={{
               display: 'flex',
             }}
             wrap="wrap"
           >
             {/* Logo Section */}
-            <Grid item xs={12} md={3} lg={2} sx={{ mb: { xs: 1, sm: 0 } }}>
-              <Box sx={{ width: 120, height: 64 }}>
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  <img
-                    src={fetchHeader.foxboroLogo}
-                    alt="Foxboro Logo"
-                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
-                  />
-                </Link>
-              </Box>
-            </Grid>
+
 
             {/* Navigation & Work @Foxboro */}
-            <Grid item xs={12} md={9} lg={12}>
+            <Grid item xs={12} md={12} sm={12} lg={12} className="">
               <Stack
                 direction={{ xs: "row", sm: "row" }}
                 spacing={2}
                 alignItems={{ xs: "flex-start", sm: "center" }}
-                justifyContent="space-between"
+                // justifyContent="space-between"
                 sx={{ width: "100%", flexWrap: "wrap" }}
               >
                 {/* Navigation Links */}
@@ -243,6 +232,26 @@ function Header() {
             </Grid>
           </Grid2>
         </Grid>
+        <Grid2 container size={{ lg: 12, md: 12, sm: 12, xs: 12 }} className=' flex justify-center'>
+          <Grid2
+            size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
+            className=" flex justify-end  flex-wrap text-xs sm:text-sm md:text-base lg:text-lg gap-3 "
+          >
+            {item.map((value, index) => (
+              <Stack
+                direction="row"
+                alignItems="center"
+                key={index}
+                className="whitespace-nowrap flex-nowrap items-center"
+              >
+                {value.icon}
+                <Typography ml={1} className="whitespace-nowrap">
+                  {value.text}
+                </Typography>
+              </Stack>
+            ))}
+          </Grid2>
+        </Grid2>
       </Grid2>
     </>
   );
