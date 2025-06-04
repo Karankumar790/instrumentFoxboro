@@ -50,6 +50,24 @@ export const logout = createAsyncThunk(
   }
 );
 
+export const resendOtp = createAsyncThunk(
+  'auth/resendOtp',
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${USER_URL}/resendOtp`,
+        { email },
+        // { withCredentials: true }
+      );
+      // Cookies.set('authToken', response.data.token);
+      // localStorage.setItem('authToken', response.data.token);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "OTP Verification Failed");
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {

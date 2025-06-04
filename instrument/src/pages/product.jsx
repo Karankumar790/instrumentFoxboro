@@ -45,7 +45,7 @@ function product() {
   return (
     <>
       <div className="min-h-screen flex flex-col overflow-x-hidden">
-        {/* <Headers /> */}
+        <Headers />
         <div className="py-10 flex-grow">
           <Grid2 container display="flex" justifyContent="center">
             <Grid2
@@ -126,7 +126,7 @@ function product() {
             )}
           </div>
         </div>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </>
   );

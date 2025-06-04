@@ -43,7 +43,7 @@ const Software = () => {
 
   return (
     <div className='min-h-screen flex flex-col  overflow-x-hidden'>
-      {/* <Headers /> */}
+      <Headers />
       <div className="py-10  flex justify-center flex-grow ">
         <div className="container w-[70%]  px-4 sm:px-6 lg:px-8 ">
           <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-center sm:text-left">
@@ -89,7 +89,7 @@ const Software = () => {
         </div>
       </div>
 
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

@@ -172,7 +172,7 @@ function Header() {
             </Grid>
 
             {/* Navigation & Work @Foxboro */}
-            <Grid item xs={12} md={9} lg={12}>
+            <Grid2 item xs={12} md={9} lg={12}>
               <Stack
                 direction={{ xs: "row", sm: "row" }}
                 spacing={2}
@@ -240,7 +240,7 @@ function Header() {
                   </Menu>
                 </Box>
               </Stack>
-            </Grid>
+            </Grid2>
           </Grid2>
         </Grid2>
       </Grid2>
