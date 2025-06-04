@@ -49,7 +49,6 @@ const CpDetail = () => {
     countryOfOrigin: "",
     datasheetPdf: null,
 
-    // images: [form.image1, form.image2, form.image3]
   });
 
   const [previewImages, setPreviewImages] = useState({
@@ -374,7 +373,6 @@ const CpDetail = () => {
             </Button>
           </Box>
         </form>
-
         <Snackbar
           open={snackbar.open}
           autoHideDuration={4000}
