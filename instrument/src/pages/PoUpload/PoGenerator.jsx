@@ -90,11 +90,11 @@ function PoGenerator() {
     <PageContainer
       showheader="true"
       showfooter="true"
-      className="flex flex-col overflow-hidden"
+      className="flex flex-col "
     >
       <Grid2
         container
-        className="flex justify-center items-center bg-slate-200 flex-grow overflow-hidden"
+        className="flex justify-center h-[800px] items-center bg-gray-50 flex-grow overflow-hidden"
       >
         <Grid2 size={{ lg: 7 }}>
           <Card

@@ -8,7 +8,7 @@ function TrackService() {
     <PageContainer
       showheader="true"
       showfooter="true"
-      className="flex flex-col"
+      // className="flex flex-col"
     >
       {/* <div className='h-full w-full flex justify-center items-center'>
                 <div className=' w-1/2 h-2/3 border border-gray-500 rounded-lg p-3 '>
@@ -32,7 +32,7 @@ function TrackService() {
 
       <Grid2
         container
-        className="flex justify-center items-center  bg-slate-200 flex-grow overflow-hidden"
+        className="flex justify-center items-center  bg-gray-50 flex-grow overflow-hidden"
       >
         <Grid2 size={{ lg: 6 }} className="rounded-lg">
           <Card

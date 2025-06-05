@@ -61,7 +61,7 @@ function oneclickproduct() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <PageContainer showheader="true" className="flex flex-1 flex-col">
         <Grid2
           container
@@ -117,7 +117,7 @@ function oneclickproduct() {
 
                         <div className="w-full flex  pr-2">
                           <Link to={`/oneClickProDetail/${product._id}`}>
-                            <p className=" text-red-600 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                            <p className=" text-red-600 text-md font-semibold rounded-lg  mb-2">Learn More ➜</p>
                           </Link>
                         </div>
                       </div>

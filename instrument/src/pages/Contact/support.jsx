@@ -75,14 +75,14 @@ function Support() {
     <div
       className="flex flex-col min-h-screen"
       style={{
-        backgroundImage: `linear-gradient(to bottom right, #e0f2fe, #c7d2fe)`,
+        // backgroundImage: `linear-gradient(to bottom right, #e0f2fe, #c7d2fe)`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
       }}
     >
       <Header />
-      <div className="w-full flex-grow flex  justify-center bg-indigo-50">
+      <div className="w-full flex-grow flex  justify-center bg-gray-50 ">
         <div className="flex flex-col items-center  w-4/5 ">
           <div className="w-full sm:w-10/12 lg:w-full  p-4 flex flex-col justify-center items-center">
             <h2 className="text-5xl font-bold mb-4 text-center text-blue-950">

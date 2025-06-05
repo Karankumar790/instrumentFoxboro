@@ -44,7 +44,7 @@ function ForgotPassword() {
 
   return (
       <PageContainer showheader='true' showfooter='true' className='bg-sky-200 flex flex-col overflow-hidden'>
-    <div className='flex justify-center items-center bg-slate-200 flex-grow overflow-hidden'>
+    <div className='flex justify-center items-center bg-gray-50 flex-grow overflow-hidden'>
         <div className="bg-white p-6 rounded-lg shadow-md w-96">
           <h2 className="text-2xl font-bold mb-4 text-center">Forgot Password</h2>
           {message && <Alert severity="success">{message}</Alert>}

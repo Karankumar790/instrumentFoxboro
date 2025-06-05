@@ -42,9 +42,9 @@ const Software = () => {
 
 
   return (
-    <div className='min-h-screen flex flex-col  overflow-x-hidden'>
+    <div className='min-h-screen flex flex-col bg-gray-50 overflow-x-hidden'>
       <Headers />
-      <div className="py-10  flex justify-center flex-grow ">
+      <div className="py-10  flex justify-center flex-grow h-[900px]">
         <div className="container w-[70%]  px-4 sm:px-6 lg:px-8 ">
           <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-center sm:text-left">
             Web Based Industrial Software

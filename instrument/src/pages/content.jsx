@@ -68,7 +68,7 @@ function content() {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col justify-between overflow-x-hidden">
+      <div className="min-h-screen bg-gray-50 flex flex-col justify-between overflow-x-hidden">
         <Header />
         <Grid2 container display="flex" justifyContent="center" mt={1}>
           <Grid2 size={{ xs: 12, sm: 10, md: 9, lg: 8 }}>
@@ -192,7 +192,7 @@ function content() {
                           </p>
                           <div className="w-full flex pr-2">
                             <Link to="/software">
-                              <p className="text-red-600 text-lg font-semibold rounded-lg mb-2">
+                              <p className="text-red-600 text-md font-semibold rounded-lg mb-2">
                                 Learn More ➜
                               </p>
                             </Link>
@@ -248,7 +248,7 @@ function content() {
 
                           <div className="w-full flex  pr-2">
                             <Link to='/product'>
-                              <p className=" text-red-600 text-lg font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                              <p className=" text-red-600 text-md font-semibold rounded-lg  mb-2">Learn More ➜</p>
                             </Link>
                           </div>
                         </div>

@@ -106,17 +106,17 @@ function service() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+    <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
       <Header />
       <Grid2
         container
         sx={{
-          height: "100vh",
+          height: "800px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
-        className="bg-slate-200"
+        className="bg-gray-50"
       >
         <Grid2 size={{ lg: 6.5 }}>
           <Card
