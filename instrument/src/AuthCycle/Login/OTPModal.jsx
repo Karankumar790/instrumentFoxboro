@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button, Box } from "@mui/material";
 import OTPInput from "react-otp-input";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { otpLogin } from "./loginSlice";
+import { otpLogin, resendOtp } from "./loginSlice";
 
 const OTPModal = ({ open, onClose, email, sign, handleSignupOtpSubmit }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendMessage, setResendMessage] = useState("");
+  const [resendTimer, setResendTimer] = useState(0);
   const { error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    let timer;
+    if (resendTimer > 0) {
+      timer = setTimeout(() => setResendTimer(resendTimer - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [resendTimer]);
 
   const handleSubmitOtp = async () => {
     setLoading(true);
@@ -29,6 +39,19 @@ const OTPModal = ({ open, onClose, email, sign, handleSignupOtpSubmit }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleResendOtp = async () => {
+    if (sign) return;
+    try {
+      const response = await dispatch(resendOtp({ email })).unwrap();
+      setResendMessage(response.message || "OTP sent again!");
+      setResendTimer(30); // Start 30-second countdown
+    } catch (error) {
+      setResendMessage(error || "Failed to resend OTP");
+    }
+
+    setTimeout(() => setResendMessage(""), 3000); // Clear message after 3 seconds
   };
 
   const style = {
@@ -87,9 +110,20 @@ const OTPModal = ({ open, onClose, email, sign, handleSignupOtpSubmit }) => {
 
           {error && <p className="text-red-500">{error}</p>}
 
-          <p className="text-sm text-blue-600 cursor-pointer hover:underline">
-            Resend One-Time Password
-          </p>
+          {resendMessage && <p className="text-green-600">{resendMessage}</p>}
+
+          {resendTimer > 0 ? (
+            <p className="text-sm text-gray-500">
+              Resend available in {resendTimer}s...
+            </p>
+          ) : (
+            <p
+              className="text-sm text-blue-600 cursor-pointer hover:underline"
+              onClick={handleResendOtp}
+            >
+             {!sign && <p>Resend One-Time Password</p>} 
+            </p>
+          )}
         </div>
       </Box>
     </Modal>

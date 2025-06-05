@@ -83,6 +83,18 @@ const SignUpPage = () => {
     }
   };
 
+   const handleResendOtp = async () => {
+      try {
+        const response = await dispatch(resendOtp({ email })).unwrap();
+        setResendMessage(response.message || "OTP sent again!");
+        setResendTimer(30); // Start 30-second countdown
+      } catch (error) {
+        setResendMessage(error || "Failed to resend OTP");
+      }
+  
+      setTimeout(() => setResendMessage(""), 3000); // Clear message after 3 seconds
+    };
+
   return (
     <>
       <PageContainer showheader='true' showfooter='true' className='bg-sky-200 flex flex-col overflow-hidden'>
@@ -172,7 +184,7 @@ const SignUpPage = () => {
           onClose={() => setOpenModal(false)}
           email={formData.email}
           sign={true}
-          handleSignupOtpSubmit={handleSignupOtpSubmit} // <-- Correct prop name
+          handleSignupOtpSubmit={handleSignupOtpSubmit} 
         />
       </PageContainer >
     </>
