@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
-import AdminSidebar from './AdminSidebar'
-import { Outlet, useNavigate } from 'react-router-dom'
-import AdminHeader from './AdminHeader'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from "react";
+import AdminSidebar from "./AdminSidebar";
+import { Outlet, useNavigate } from "react-router-dom";
+import AdminHeader from "./AdminHeader";
+import { useSelector } from "react-redux";
 
 function AdminLayout() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const loginUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     if (!loginUser) {
-      navigate('/login');
+      navigate("/login");
     }
   }, [loginUser, navigate]);
   if (!loginUser) {
@@ -27,12 +27,16 @@ function AdminLayout() {
         <AdminHeader />
 
         {/* Main Page Content */}
-        <main className="flex-1 bg-gray-100 p-6">
+        <main
+          className={`flex-1 bg-gray-100 ${
+            location.pathname === "/admin/profile" ? "pl-6" : "p-6"
+          }`}
+        >
           <Outlet />
         </main>
       </div>
     </div>
-  )
+  );
 }
 
-export default AdminLayout
+export default AdminLayout;
