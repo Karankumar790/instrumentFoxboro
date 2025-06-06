@@ -12,6 +12,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
@@ -207,7 +208,8 @@ function SupportTable() {
 
       <>
         {/* Dropdown to select query type */}
-        <div className="flex justify-self-end">
+        <div className="flex justify-between">
+          <p className="text-2xl text-black font-bold">Mail Box</p>
           <FormControl sx={{ minWidth: 300 }} size="small" className="mb-4">
             <InputLabel id="query-type-label">Query Type</InputLabel>
             <Select
@@ -223,7 +225,6 @@ function SupportTable() {
               <MenuItem value="po">Po Upload</MenuItem>
               <MenuItem value="Service">Estimate</MenuItem>
               <MenuItem value="Become">Service Partner</MenuItem>
-              {/* <MenuItem value="">All</MenuItem> */}
             </Select>
           </FormControl>
         </div>

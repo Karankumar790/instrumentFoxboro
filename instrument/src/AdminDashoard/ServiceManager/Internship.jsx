@@ -15,7 +15,10 @@ import {
   DialogContent,
   IconButton,
 } from "@mui/material";
-import { deleteWork, getWork } from "../../pages/WorkFoxboro/ApplyIntership/applyIntership";
+import {
+  deleteWork,
+  getWork,
+} from "../../pages/WorkFoxboro/ApplyIntership/applyIntership";
 
 function Internship() {
   const dispatch = useDispatch();
@@ -43,7 +46,7 @@ function Internship() {
     setTimeout(() => {
       dispatch(getWork());
     }, 1000);
-  }
+  };
   return (
     <>
       <p className="text-2xl font-bold">Internship</p>
@@ -51,9 +54,9 @@ function Internship() {
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
-      <TableContainer component={Paper} className="mt-6">
+      <TableContainer component={Paper} sx={{ height: "85%" }} className="mt-6">
         <Table>
-          <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
+          {/* <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
             <TableRow>
               <TableCell sx={{ color: "white", fontWeight: "bold" }}>
                 Name
@@ -86,7 +89,7 @@ function Internship() {
                 Actions
               </TableCell>
             </TableRow>
-          </TableHead>
+          </TableHead> */}
 
           <TableBody>
             {initWork.map((row) => (

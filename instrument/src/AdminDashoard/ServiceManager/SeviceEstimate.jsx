@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
-  Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
   Pagination,
   Dialog,
   DialogTitle,
-  DialogContent
-} from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { getEstimate } from './serviceSlice';
-
-
+  DialogContent,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getEstimate } from "./serviceSlice";
 
 function SeviceEstimate() {
-
-  const { quotations, pagination } = useSelector((state) => state.serviceManager);
+  const { quotations, pagination } = useSelector(
+    (state) => state.serviceManager
+  );
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
@@ -31,11 +35,9 @@ function SeviceEstimate() {
     setPdfUrl("");
   };
 
-
   useEffect(() => {
-    dispatch(getEstimate({ page, limit: 8 }))
-  }, [dispatch, page])
-
+    dispatch(getEstimate({ page, limit: 8 }));
+  }, [dispatch, page]);
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -43,10 +45,10 @@ function SeviceEstimate() {
 
   return (
     <>
-      <p className='text-2xl font-bold'>Service Estimate</p>
-      <TableContainer component={Paper} className="mt-6">
+      <p className="text-2xl font-bold">Service Estimate</p>
+      <TableContainer component={Paper} sx={{ height: "85%" }} className="mt-6">
         <Table>
-          <TableHead sx={{ backgroundColor: '#1e3a8a' }}>
+          {/* <TableHead sx={{ backgroundColor: '#1e3a8a' }}>
             <TableRow>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Name</TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>quotationNumber</TableCell>
@@ -63,7 +65,7 @@ function SeviceEstimate() {
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>View</TableCell>
               <TableCell></TableCell>
             </TableRow>
-          </TableHead>
+          </TableHead> */}
           <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
             <DialogTitle>Po Preview</DialogTitle>
             <DialogContent dividers>
@@ -101,9 +103,7 @@ function SeviceEstimate() {
                     </button>
                   )}
                 </TableCell>
-                <TableCell>
-
-                </TableCell>
+                <TableCell></TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -120,6 +120,6 @@ function SeviceEstimate() {
       </div>
     </>
   );
-};
+}
 
 export default SeviceEstimate;

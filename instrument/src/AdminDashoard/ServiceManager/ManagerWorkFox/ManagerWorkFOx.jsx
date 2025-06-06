@@ -1,19 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  Paper, Button, CircularProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  CircularProgress,
   Dialog,
   DialogTitle,
-  DialogContent
-} from '@mui/material';
-import { getWorkFox, authorizePartner, getAuthorize, deleteWorkFox } from '../../ServiceManager/ManagerWorkFox/ManagerWorkSlice'; // adjust path
-import DeleteIcon from '@mui/icons-material/Delete';
+  DialogContent,
+} from "@mui/material";
+import {
+  getWorkFox,
+  authorizePartner,
+  getAuthorize,
+  deleteWorkFox,
+} from "../../ServiceManager/ManagerWorkFox/ManagerWorkSlice"; // adjust path
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function ManagerWorkFOx() {
   const dispatch = useDispatch();
 
-  const { workFox, authWork, loading } = useSelector((state) => state.managerFoxboro);
+  const { workFox, authWork, loading } = useSelector(
+    (state) => state.managerFoxboro
+  );
 
   const [open, setOpen] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
@@ -49,35 +63,40 @@ function ManagerWorkFOx() {
     }
   };
 
-
   return (
     <>
-      <div className='mb-80'>
-        <p className='mb-3 text-2xl font-bold'>Become Service Partner</p>
-        <TableContainer component={Paper} sx={{ maxHeight: 400, overflowY: 'auto' }}>
+      <div className="mb-80">
+        <p className="mb-3 text-2xl font-bold">Become Service Partner</p>
+        <TableContainer
+          component={Paper}
+          sx={{ height: "85%" }}
+          // sx={{ maxHeight: 400, overflowY: "auto" }}
+        >
           <Table>
-            <TableHead sx={{ backgroundColor: '#1e3a8a' }}>
+            {/* <TableHead sx={{ backgroundColor: '#1e3a8a' }}>
               <TableRow>
                 {['Name', 'Phone', 'Email', 'City', 'State', 'Country', 'Authorized', 'View', 'Action'].map((header) => (
                   <TableCell key={header} sx={{ color: 'white', fontWeight: 'bold' }}>{header}</TableCell>
                 ))}
               </TableRow>
-            </TableHead>
+            </TableHead> */}
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={8} align="center"><CircularProgress /></TableCell>
+                  <TableCell colSpan={8} align="center">
+                    <CircularProgress />
+                  </TableCell>
                 </TableRow>
               ) : (
                 workFox.map((user) => (
                   <TableRow key={user._id}>
                     <TableCell>{user.companyName}</TableCell>
-                    <TableCell>{user.phone || '-'}</TableCell>
+                    <TableCell>{user.phone || "-"}</TableCell>
                     <TableCell>{user.email}</TableCell>
                     <TableCell>{user.city}</TableCell>
                     <TableCell>{user.state}</TableCell>
                     <TableCell>{user.country}</TableCell>
-                    <TableCell>{user.authorize ? 'Yes' : 'No'}</TableCell>
+                    <TableCell>{user.authorize ? "Yes" : "No"}</TableCell>
                     <TableCell>
                       <button
                         onClick={() => handleOpenPdf(user.GSTCertificate)}
@@ -89,10 +108,10 @@ function ManagerWorkFOx() {
                     <TableCell>
                       <Button
                         variant="contained"
-                        color={user.authorize ? 'primary' : 'primary'}
+                        color={user.authorize ? "primary" : "primary"}
                         onClick={() => handleAuthorize(user._id)}
                       >
-                        {user.authorize ? 'Authorize' : ' Please Authorize'}
+                        {user.authorize ? "Authorize" : " Please Authorize"}
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -114,51 +133,70 @@ function ManagerWorkFOx() {
             />
           </DialogContent>
         </Dialog>
-
       </div>
       <div>
-        <p className='mb-3 text-2xl font-bold'>Authorize Service Partner</p>
-        <TableContainer component={Paper} sx={{ maxHeight: 400, overflowY: 'auto' }}>
+        <p className="mb-3 text-2xl font-bold">Authorize Service Partner</p>
+        <TableContainer
+          component={Paper}
+          sx={{ maxHeight: 400, overflowY: "auto" }}
+        >
           <Table>
-            <TableHead sx={{ backgroundColor: '#1e3a8a' }}>
+            <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
               <TableRow>
-                {['Name', 'Phone', 'Email', 'City', 'State', 'Country', 'Authorized', 'View', 'Action'].map((header) => (
-                  <TableCell key={header} sx={{ color: 'white', fontWeight: 'bold' }}>{header}</TableCell>
+                {[
+                  "Name",
+                  "Phone",
+                  "Email",
+                  "City",
+                  "State",
+                  "Country",
+                  "Authorized",
+                  "View",
+                  "Action",
+                ].map((header) => (
+                  <TableCell
+                    key={header}
+                    sx={{ color: "white", fontWeight: "bold" }}
+                  >
+                    {header}
+                  </TableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {
-                loading ? (
-                  <TableRow>
-                    <TableCell colSpan={8} align="center"><CircularProgress /></TableCell>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={8} align="center">
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
+              ) : (
+                authWork.map((user) => (
+                  <TableRow key={user._id}>
+                    <TableCell>{user.companyName}</TableCell>
+                    <TableCell>{user.phone || "-"}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.city}</TableCell>
+                    <TableCell>{user.state}</TableCell>
+                    <TableCell>{user.country}</TableCell>
+                    <TableCell>{user.authorize ? "Yes" : "No"}</TableCell>
+                    <TableCell>
+                      <button
+                        onClick={() => handleOpenPdf(user.GSTCertificate)}
+                        className="text-blue-600 hover:underline"
+                      >
+                        GST Certificate
+                      </button>
+                    </TableCell>
+                    <TableCell>
+                      <DeleteIcon
+                        className="text-red-700"
+                        onClick={() => handleDelete(user?._id)}
+                      />
+                    </TableCell>
                   </TableRow>
-                ) : (
-                  authWork.map((user) => (
-                    <TableRow key={user._id}>
-                      <TableCell>{user.companyName}</TableCell>
-                      <TableCell>{user.phone || '-'}</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>{user.city}</TableCell>
-                      <TableCell>{user.state}</TableCell>
-                      <TableCell>{user.country}</TableCell>
-                      <TableCell>{user.authorize ? 'Yes' : 'No'}</TableCell>
-                      <TableCell>
-                        <button
-                          onClick={() => handleOpenPdf(user.GSTCertificate)}
-                          className="text-blue-600 hover:underline"
-                        >
-                          GST Certificate
-                        </button>
-                      </TableCell>
-                      <TableCell>
-                        <DeleteIcon className='text-red-700' onClick={() => handleDelete(user?._id)} />
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )
-              }
-
+                ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>
