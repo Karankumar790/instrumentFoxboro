@@ -1,47 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 
 // export default Profile;
 import { useDispatch, useSelector } from "react-redux";
-import EditIcon from "@mui/icons-material/Edit";
 import Modal from "@mui/material/Modal";
+import { toast } from "react-toastify";
 import { updateUser } from "../AuthCycle/Login/loginSlice";
 
 function Profile() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     username: user.username,
     email: user.email,
     phone: user.phone,
     avatar: null,
   });
-  console.log(formData, "form ..........");
-  const handleSubmitPassword = async (e) => {
+const [currentPassword,setCurrentPassword] = useState("")
+const [newPassword,setNewPassword] = useState("")
+const [confirmPassword,setConfirmPassword] = useState("")
+  const handleProfileChange = async (e) => {
+    e.preventDefault();
+
+    const payload = new FormData();
+    payload.append("username", formData.username);
+    payload.append("email", formData.email);
+    payload.append("phone", formData.phone);
+    if (formData.avatar) {
+      payload.append("avatar", formData.avatar);
+    }
+
     try {
-      e.preventDefault();
-      console.log(formData);
-      const response = await dispatch(updateUser(formData));
-      console.log(response.data);
+      const response = await dispatch(updateUser(payload));
+      if (response.payload.success) {
+        toast.success(response.payload.message);
+      } else {
+        toast.error(response.payload.message);
+      }
       handleClose();
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Something went wrong!");
     }
   };
+
+  const handlePasswordChange = async (e) =>{
+    e.preventDefault();
+
+  }
 
   return (
     <div className=" bg-gray-100  w-1/1.3 m-0  ">
       <div className=" bg-white shadow-lg rounded-2xl m-2 mt-0 p-5 w-full max-w-4xl border">
-        {/* <div className="flex justify-center">
-          <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
-            User Profile
-          </h2>
-          <div className="bg-slate-400">
-            <EditIcon />
-          </div>
-        </div> */}
         <div className="relative mb-8">
           <h2 className="text-3xl font-bold  text-gray-800">User Profile</h2>
           {/* <div className="absolute top-0 right-0 cursor-pointer bg-gray-200 p-2 rounded-full hover:bg-gray-300">
@@ -146,6 +158,7 @@ function Profile() {
             <div className=" w-full flex justify-end">
               <button
                 type="button"
+                onClick={handleOpen}
                 className="bg-blue-600 text-white px-4 py-2 rounded w-40 shadow hover:bg-blue-700 transition duration-200"
               >
                 Update Profile
@@ -159,12 +172,12 @@ function Profile() {
         <h2 className="text-3xl font-bold mb-8  text-gray-800">
           Change Password
         </h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handlePasswordChange}>
           <div>
             <label>Current Password</label>
             <input
               type="text"
-              name="username"
+              name="currentPassword"
               // value={formData.username}
               // onChange={handleChange}
               className="w-full border p-2 rounded"
@@ -174,7 +187,7 @@ function Profile() {
             <label>New Password</label>
             <input
               type="password"
-              name="password"
+              name="newPassword"
               // value={formData.email}
               // onChange={handleChange}
               className="w-full border p-2 rounded"
@@ -184,7 +197,7 @@ function Profile() {
             <label>Confirm Password</label>
             <input
               type="password"
-              name="phone"
+              name="confirmPassword"
               className="w-full border p-2 rounded"
             />
           </div>
@@ -205,7 +218,7 @@ function Profile() {
               Edit Profile
             </h2>
 
-            <form onSubmit={handleSubmitPassword} className="space-y-5">
+            <form onSubmit={handleProfileChange} className="space-y-5">
               <div>
                 <label className="block mb-1 text-lg font-medium">
                   Username
