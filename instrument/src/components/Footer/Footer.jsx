@@ -14,7 +14,7 @@ function Footer() {
   }, [dispatch]);
 
   return (
-    <Box sx={{ bgcolor: "#2b313b", p: 2 }} height={'155px'}>
+    <Box sx={{ bgcolor: "#2b313b", p: 2 }} height={'170px'}>
       {fetchFooter && Object.keys(fetchFooter).length > 0 && (
         <Grid2
           container
@@ -24,7 +24,7 @@ function Footer() {
         >
 
           {/* Corporate Office */}
-          <Grid2 size={{ lg: 2.6 }}>
+          <Grid2 size={{ lg: 2.6, md:4, sm:6, xs:12 }}>
             <Box>
               <Typography variant="h5" color="white">
                 Registered Office
@@ -44,7 +44,7 @@ function Footer() {
           </Grid2>
 
           {/* Customer Support */}
-          <Grid2 size={{ lg: 3 }}>
+          <Grid2 size={{ lg: 3, md:4, sm:6, xs:12 }}>
             <Box>
               <Typography variant="h5" color="white">
                 Customer Support{" "}
@@ -65,7 +65,7 @@ function Footer() {
             </Box>
           </Grid2>
 
-          <Grid2 size={{ lg: 4 }}>
+          <Grid2 size={{ lg: 4, md:6, sm:8, xs:12 }}>
             <Box>
               <Typography variant="h5" color="white">
                 Foxboro Website{" "}
@@ -114,7 +114,7 @@ function Footer() {
           </Grid2>
 
           {/* Help & Policies */}
-          <Grid2 size={{ lg: 2 }}>
+          <Grid2 size={{ lg: 2, md:4, sm:6, xs:12 }}>
             <Box>
               <Typography variant="h5" color="white">
                 Need Help?

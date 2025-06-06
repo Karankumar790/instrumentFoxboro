@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 // export default Profile;
 import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
 import Modal from "@mui/material/Modal";
-import { updateUser } from "../AuthCycle/Login/loginSlice";
+import { updatePassword, updateUser } from "../AuthCycle/Login/loginSlice";
+import { toast } from "react-toastify";
 
 function Profile() {
   const [open, setOpen] = React.useState(false);
@@ -18,7 +19,13 @@ function Profile() {
     phone: user.phone,
     avatar: null,
   });
-  console.log(formData, "form ..........");
+  const [changePwd, setChangePwd] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  })
+
+
   const handleSubmitPassword = async (e) => {
     try {
       e.preventDefault();
@@ -30,6 +37,34 @@ function Profile() {
       console.log(error);
     }
   };
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setChangePwd((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleChangePwd = async (e) => {
+  e.preventDefault();
+
+  try {
+    const result = await dispatch(
+      updatePassword(changePwd)
+    ).unwrap();
+    toast.success(result.message || "Password updated successfully");
+
+    // Optional: Clear input fields
+    setChangePwd({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    });
+
+  } catch (error) {
+    toast.error(error || "Failed to update password");
+  }
+};
+
+
 
   return (
     <div className=" bg-gray-100  w-1/1.3 m-0  ">
@@ -135,15 +170,15 @@ function Profile() {
           </div>
 
           {/* Avatar & Button Stack */}
-          <div className="col-span-2 flex flex-col items-end space-y-6 ">
-            <div className="w-48 h-48">
+          <div className="col-span-2 flex justify-between flex-col items-end space-y-6 ">
+            <div className="w-40 h-40">
               <img
                 src={user.avatar || "https://i.pravatar.cc/150?img=12"}
                 alt="User Avatar"
-                className="w-full h-full rounded-full object-fill border-4 border-blue-300 shadow-md"
+                className="w-full h-full  object-fill border-4 border-blue-300 shadow-md"
               />
             </div>
-            <div className=" w-full flex justify-end">
+            <div className=" w-full flex  justify-end">
               <button
                 type="button"
                 className="bg-blue-600 text-white px-4 py-2 rounded w-40 shadow hover:bg-blue-700 transition duration-200"
@@ -159,32 +194,34 @@ function Profile() {
         <h2 className="text-3xl font-bold mb-8  text-gray-800">
           Change Password
         </h2>
-        <form className="space-y-4">
+        <form onSubmit={handleChangePwd} className="space-y-4">
           <div>
             <label>Current Password</label>
             <input
               type="text"
-              name="username"
-              // value={formData.username}
-              // onChange={handleChange}
+              name="currentPassword"
+              value={changePwd.currentPassword}
+              onChange={handleInput}
               className="w-full border p-2 rounded"
             />
           </div>
           <div>
             <label>New Password</label>
             <input
-              type="password"
-              name="password"
-              // value={formData.email}
-              // onChange={handleChange}
+              type="text"
+              name="newPassword"
+              value={changePwd.newPassword}
+              onChange={handleInput}
               className="w-full border p-2 rounded"
             />
           </div>
           <div>
             <label>Confirm Password</label>
             <input
-              type="password"
-              name="phone"
+              type="text"
+              name="confirmPassword"
+              onChange={handleInput}
+              value={changePwd.confirmPassword}
               className="w-full border p-2 rounded"
             />
           </div>

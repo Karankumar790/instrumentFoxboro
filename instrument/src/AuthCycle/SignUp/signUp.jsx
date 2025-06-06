@@ -97,7 +97,8 @@ const SignUpPage = () => {
 
   return (
     <>
-      <PageContainer showheader='true' showfooter='true' className='bg-sky-200 flex flex-col overflow-hidden'>
+      <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+       <Header/>
         <div className="flex justify-center items-center bg-gray-50 flex-grow overflow-hidden">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
               <div className="mb-6">
@@ -186,7 +187,8 @@ const SignUpPage = () => {
           sign={true}
           handleSignupOtpSubmit={handleSignupOtpSubmit} 
         />
-      </PageContainer >
+        <Footer/>
+      </div >
     </>
 
   );
