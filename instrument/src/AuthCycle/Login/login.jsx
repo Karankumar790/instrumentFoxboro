@@ -5,7 +5,6 @@ import Footer from '../../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, resetAuthState, clearError } from './loginSlice';
 import OTPModal from './OTPModal';
-import PageContainer from '../../components/HOC/PageContainer';
 
 function Login() {
   const dispatch = useDispatch();
@@ -49,9 +48,10 @@ function Login() {
 
   return (
     <>
-      <PageContainer showheader='true' showfooter='true' className=' flex flex-col overflow-hidden'>
-        <div className='flex justify-center items-center bg-gray-50 flex-grow overflow-hidden'>
-          <div className=" max-w-md p-8 bg-gray-100 shadow-lg rounded-lg space-y-6">
+      <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+        <Header />
+        <div className='flex justify-center items-center bg-gray-50 flex-grow overflow-hidden h-[400px]'>
+          <div className=" max-w-md p-8 bg-gray-100 shadow-lg rounded-lg space-y-6 ">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-gray-800">Foxboro Instrument Company</h2>
               <p className="text-black">Employee Login</p>
@@ -140,7 +140,8 @@ function Login() {
           }}
           email={formData.email}
         />
-      </PageContainer>
+        <Footer />
+      </div>
     </>
   );
 }
