@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import PageContainer from '../../../components/HOC/PageContainer'
+import React, {  useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { postWork } from './workFoxSlice';
 import { Card, Grid2, MenuItem, TextField, Typography, Button, Box, Snackbar, Alert } from '@mui/material';
-import Header from '../../../components/Header';
-import Footer from '../../../components/Footer/Footer';
 
 const personalData = [
     { label: "Company Name", placeholder: "Enter company name", name: "companyName", required: true },
@@ -86,7 +83,6 @@ function WorkFoxboro() {
 
     return (
         <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-            <Header />
             <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '800px' }} className="bg-gray-50" >
                 <Grid2 size={{ lg: 8, md: 10, sm: 12 }}>
                     <Card sx={{
@@ -214,7 +210,6 @@ function WorkFoxboro() {
                     {snackbar.message}
                 </Alert>
             </Snackbar>
-            <Footer />
         </div>
     );
 }

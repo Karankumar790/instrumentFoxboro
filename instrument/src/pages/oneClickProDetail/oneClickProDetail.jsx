@@ -2,13 +2,10 @@ import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SecurityIcon from "@mui/icons-material/Security";
 import MoneyIcon from "@mui/icons-material/Money";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import StoreIcon from "@mui/icons-material/Store";
 import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
 import TableProduct from "./TableProductDetail";
 import { useParams } from "react-router-dom";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer/Footer";
 import { useDispatch } from "react-redux";
 import { getProductDetail } from "../../AdminDashoard/Category/CategoryProductSlice"; // ensure this returns a promise
 import FactoryIcon from "@mui/icons-material/Factory";
@@ -64,7 +61,6 @@ function oneClickProDetail() {
 
   return (
     <div>
-      <Header />
       <div className="flex">
         <div className="w-full p-1">
           <div className="flex justify-between m-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200">
@@ -304,7 +300,6 @@ function oneClickProDetail() {
           />
         </DialogContent>
       </Dialog>
-      <Footer />
     </div>
   );
 }

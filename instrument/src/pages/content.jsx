@@ -69,7 +69,6 @@ function content() {
   return (
     <>
       <div className="min-h-screen bg-gray-50 flex flex-col justify-between overflow-x-hidden">
-        <Header />
         <Grid2 container display="flex" justifyContent="center" mt={1}>
           <Grid2 size={{ xs: 12, sm: 10, md: 9, lg: 8 }}>
             <Box
@@ -269,7 +268,6 @@ function content() {
           )}
 
         </Grid2>
-        <Footer />
       </div>
     </>
   );

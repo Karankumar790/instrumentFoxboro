@@ -63,7 +63,6 @@ function oneclickproduct() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header />
       <Grid2
         container
         display="flex"
@@ -135,7 +134,6 @@ function oneclickproduct() {
           <Pagination count={2} variant="outlined" shape="rounded" />
         </Stack>
       </Box>
-      <Footer />
     </div>
   );
 }

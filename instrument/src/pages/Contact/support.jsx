@@ -1,9 +1,6 @@
 import { useState } from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer/Footer";
 import { submitContactForm } from "./supportSlice";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { Alert, Snackbar } from "@mui/material";
 
 function Support() {
@@ -81,7 +78,6 @@ function Support() {
         backgroundAttachment: "fixed",
       }}
     >
-      <Header />
       <div className="w-full flex-grow flex  justify-center bg-gray-50 h-[800px] ">
         <div className="flex flex-col items-center  w-4/5 ">
           <div className="w-full sm:w-10/12 lg:w-full  p-4 flex flex-col justify-center items-center">
@@ -309,7 +305,6 @@ function Support() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-      <Footer />
     </div>
   );
 }

@@ -1,10 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Card, Grid2, Typography, Snackbar, Alert } from "@mui/material";
-import PageContainer from "../../components/HOC/PageContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { postEmail, postFileUpload } from "./PoSlice";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer/Footer";
 
 function PoGenerator() {
   const dispatch = useDispatch();
@@ -90,7 +87,6 @@ function PoGenerator() {
 
   return (
     <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-      <Header />
       <Grid2
         container
         className="flex justify-center h-[800px] items-center bg-gray-50 flex-grow overflow-hidden"
@@ -215,7 +211,6 @@ function PoGenerator() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-      <Footer />
     </div>
   );
 }

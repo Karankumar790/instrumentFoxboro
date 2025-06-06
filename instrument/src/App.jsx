@@ -1,10 +1,12 @@
 import React, { lazy, Suspense } from "react";
-import { useRoutes } from "react-router-dom";
+import { useLocation, useRoutes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import PrivacyPolicy from "./pages/needHelp/PrivacyPolicy.jsx";
 import RefundReturn from "./pages/needHelp/RefundReturn.jsx";
 import TermsConditions from "./pages/needHelp/TermsConditions.jsx";
 import ComplianToDirector from "./pages/needHelp/ComplianToDirector.jsx";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 
 const Login = lazy(() => import("./AuthCycle/Login/login.jsx"));
 const SignUp = lazy(() => import("./AuthCycle/SignUp/signUp.jsx"));
@@ -83,6 +85,9 @@ const OneClickProDetail = lazy(() =>
 );
 
 function App() {
+ 
+  const location = useLocation()
+  const isAdminRoute = location.pathname.startsWith("/admin");
   const route = useRoutes([
     { path: "/", element: <Content /> },
     { path: "/product", element: <Product /> },
@@ -138,8 +143,11 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<div>Loadings...</div>}>{route}</Suspense>
-
+      {!isAdminRoute && <Header />}
+      <Suspense fallback={<div>Loadings...</div>}>
+        {route}
+      </Suspense>
+      {!isAdminRoute &&<Footer />}
       <ToastContainer />
     </>
   );

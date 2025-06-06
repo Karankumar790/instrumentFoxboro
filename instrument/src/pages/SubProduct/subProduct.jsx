@@ -358,13 +358,10 @@ import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SecurityIcon from "@mui/icons-material/Security";
 import MoneyIcon from "@mui/icons-material/Money";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import StoreIcon from "@mui/icons-material/Store";
 import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
 import TableProduct from "../oneClickProDetail/TableProductDetail";
 import { useParams } from "react-router-dom";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer/Footer";
 import { useDispatch } from "react-redux";
 // import { getProductDetail } from "../../AdminDashoard/Category/CategoryProductSlice"; // ensure this returns a promise
 import { contactProduct, getProduct } from "./subProduct"; // ensure this returns a promise
@@ -452,7 +449,6 @@ function SubProduct() {
 
   return (
     <div>
-      <Header />
       <div className="flex">
         <div className="w-full p-1">
           <div className="flex justify-between m-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200">
@@ -727,7 +723,6 @@ function SubProduct() {
           />
         </DialogContent>
       </Dialog>
-      <Footer />
     </div>
   );
 }

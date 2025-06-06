@@ -8,7 +8,6 @@ import Footer from "../components/Footer/Footer";
 function TrackService() {
   return (
     <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-      <Header />
       <Grid2
         container
         className="flex justify-center items-center h-[800px] bg-gray-50 flex-grow overflow-hidden"
@@ -58,7 +57,6 @@ function TrackService() {
           </Card>
         </Grid2>
       </Grid2>
-      <Footer />
     </div>
   );
 }

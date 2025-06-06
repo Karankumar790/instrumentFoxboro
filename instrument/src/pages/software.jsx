@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import Headers from '../components/Header';
-import Footer from '../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSoftware } from '../AdminDashoard/AdminSoftware/SoftwareSlice';
 
@@ -43,7 +41,6 @@ const Software = () => {
 
   return (
     <div className='min-h-screen flex flex-col bg-gray-50 overflow-x-hidden'>
-      <Headers />
       <div className="py-10  flex justify-center flex-grow h-[900px]">
         <div className="container w-[70%]  px-4 sm:px-6 lg:px-8 ">
           <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-center sm:text-left">
@@ -89,7 +86,6 @@ const Software = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };
