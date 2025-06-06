@@ -3,6 +3,8 @@ import { Card, Grid2, Typography, Snackbar, Alert } from "@mui/material";
 import PageContainer from "../../components/HOC/PageContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { postEmail, postFileUpload } from "./PoSlice";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer/Footer";
 
 function PoGenerator() {
   const dispatch = useDispatch();
@@ -87,14 +89,11 @@ function PoGenerator() {
   };
 
   return (
-    <PageContainer
-      showheader="true"
-      showfooter="true"
-      className="flex flex-col overflow-hidden"
-    >
+    <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+      <Header />
       <Grid2
         container
-        className="flex justify-center items-center bg-slate-200 flex-grow overflow-hidden"
+        className="flex justify-center h-[800px] items-center bg-gray-50 flex-grow overflow-hidden"
       >
         <Grid2 size={{ lg: 7 }}>
           <Card
@@ -150,11 +149,10 @@ function PoGenerator() {
                 uploadPo.map((row, index) => (
                   <div key={row._id} className="w-full overflow-x-auto">
                     <div
-                      className={`min-w-[700px] flex justify-between items-center rounded-md gap-4 px-5 py-3 border-b ${
-                        selectedIndex === index
+                      className={`min-w-[700px] flex justify-between items-center rounded-md gap-4 px-5 py-3 border-b ${selectedIndex === index
                           ? "bg-yellow-100"
                           : "bg-gray-100"
-                      } hover:bg-gray-100 transition-all duration-200`}
+                        } hover:bg-gray-100 transition-all duration-200`}
                     >
                       <input
                         type="radio"
@@ -217,7 +215,8 @@ function PoGenerator() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </PageContainer>
+      <Footer />
+    </div>
   );
 }
 

@@ -10,6 +10,8 @@ import Paper from '@mui/material/Paper';
 import PageContainer from '../components/HOC/PageContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthorize, searchWorkFox } from '../AdminDashoard/ServiceManager/ManagerWorkFox/ManagerWorkSlice';
+import Header from '../components/Header';
+import Footer from '../components/Footer/Footer';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -67,8 +69,9 @@ function ServicePartner() {
     }, [dispatch])
 
     return (
-        <PageContainer showheader="true" showfooter="true" className=' flex flex-col overflow-hidden'>
-            <Grid2 size={{ lg: 4 }}  >
+        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+            <Header />
+            <Grid2 size={{ lg: 4 }} className="bg-gray-50 h-[800px]" >
                 <div className=" flex flex-col  rounded-lg overflow-hidden">
                     {/* Sticky Header */}
                     <div className='flex justify-center '>
@@ -149,7 +152,8 @@ function ServicePartner() {
 
                 </div>
             </Grid2>
-        </PageContainer>
+            <Footer />
+        </div>
     )
 }
 

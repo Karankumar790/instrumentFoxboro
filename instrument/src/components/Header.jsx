@@ -118,7 +118,7 @@ function Header() {
                 </Link>
               </Box>
               <Box className="flex justify-center items-center">
-                <p className="text-2xl font-bold">Foxboro Instrument Company</p>
+                <p className="text-3xl font-bold">Foxboro Instrument Company</p>
               </Box>
             </Grid>
 
@@ -133,7 +133,7 @@ function Header() {
                   >
                     <Button>
                       <InstagramIcon
-                        style={{ color: "red", fontSize: "30px" }}
+                        style={{ color: "red", fontSize: "35px" }}
                       />
                     </Button>
                   </a>
@@ -144,7 +144,7 @@ function Header() {
                   >
                     <Button>
                       <FacebookIcon
-                        style={{ color: "blue", fontSize: "30px" }}
+                        style={{ color: "blue", fontSize: "35px" }}
                       />
                     </Button>
                   </a>
@@ -155,13 +155,13 @@ function Header() {
                   >
                     <Button>
                       <IoLogoYoutube
-                        style={{ color: "red", fontSize: "30px" }}
+                        style={{ color: "red", fontSize: "35px" }}
                       />
                     </Button>
                   </a>
                 </Stack>
                 <Link to="/login" className="no-underline">
-                  <button className="bg-yellow-300 hover:bg-yellow-400 text-md text-white font-semibold py-1 px-4 shadow-md transition duration-300">
+                  <button className="bg-blue-700 hover:bg-yellow-400 text-md rounded-md text-black font-semibold py-2 px-5 shadow-md transition duration-300">
                     STAFF LOGIN
                   </button>
                 </Link>
@@ -194,16 +194,16 @@ function Header() {
             {/* Logo Section */}
 
             {/* Navigation & Work @Foxboro */}
-            <Grid2 item xs={12} md={12} sm={12} lg={12} className="">
+            <Grid2 item size={{ lg: 12, md: '10', sm: '12', xs: '12' }} >
               <Stack
                 direction={{ xs: "row", sm: "row" }}
                 spacing={2}
                 alignItems={{ xs: "flex-start", sm: "center" }}
-                // justifyContent="space-between"
-                sx={{ width: "100%", flexWrap: "wrap" }}
+
+                sx={{ width: "100%", flexWrap: "wrap", display: 'flex', justifyContent: 'space-between' }}
               >
                 {/* Navigation Links */}
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                   {arr.map((value, index) => (
                     <Box key={index}>
                       {value.text === "E-Service" ? (
@@ -306,27 +306,30 @@ function Header() {
         <Grid2
           container
           size={{ lg: 12, md: 12, sm: 12, xs: 12 }}
-          className=" flex justify-center"
+          className="flex justify-center mt-4 mb-3"
         >
           <Grid2
             size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
-            className=" flex justify-end  flex-wrap text-xs sm:text-sm md:text-base lg:text-lg gap-3 "
+            className="flex justify-end flex-wrap text-xs sm:text-sm md:text-base lg:text-lg gap-3"
           >
-            {item.map((value, index) => (
-              <Stack
-                direction="row"
-                alignItems="center"
-                key={index}
-                className="whitespace-nowrap flex-nowrap items-center"
-              >
-                {value.icon}
-                <Typography ml={1} className="whitespace-nowrap">
-                  {value.text}
-                </Typography>
-              </Stack>
-            ))}
+            {fetchHeader && Object.keys(fetchHeader).length > 0 &&
+              item.map((value, index) => (
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  key={index}
+                  className="whitespace-nowrap flex-nowrap items-center"
+                >
+                  {value.icon}
+                  <Typography ml={1} className="whitespace-nowrap">
+                    {value.text}
+                  </Typography>
+                </Stack>
+              ))
+            }
           </Grid2>
         </Grid2>
+
       </Grid2>
     </>
   );
