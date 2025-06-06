@@ -17,6 +17,20 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(`${USER_URL}/UserProfile`, userData, {
+        withCredentials: true,
+      });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Login Failed");
+    }
+  }
+);
+
 export const otpLogin = createAsyncThunk(
   "auth/otpLogin",
   async ({ otp, email }, { rejectWithValue }) => {
@@ -110,6 +124,21 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.message = "";
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = "";
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message;
+        state.error = null;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         state.message = "";
