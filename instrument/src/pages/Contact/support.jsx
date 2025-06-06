@@ -82,7 +82,7 @@ function Support() {
       }}
     >
       <Header />
-      <div className="w-full flex-grow flex  justify-center bg-gray-50 ">
+      <div className="w-full flex-grow flex  justify-center bg-gray-50 h-[800px] ">
         <div className="flex flex-col items-center  w-4/5 ">
           <div className="w-full sm:w-10/12 lg:w-full  p-4 flex flex-col justify-center items-center">
             <h2 className="text-5xl font-bold mb-4 text-center text-blue-950">

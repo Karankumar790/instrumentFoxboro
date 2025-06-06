@@ -5,6 +5,8 @@ import { Card, Grid2, MenuItem, TextField, Typography, Button, Box } from '@mui/
 import { postIntership } from './applyIntership';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import Footer from '../../../components/Footer/Footer';
+import Header from '../../../components/Header';
 
 const personalData = [
     { label: "Name", placeholder: "Enter your name", name: "name", required: true },
@@ -95,11 +97,12 @@ function ApplyIntership() {
         setSnackbar({ ...snackbar, open: false });
     };
 
-   
+
 
     return (
-        <PageContainer showheader="true" showfooter="true">
-            <Grid2 container  sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '100%' }} className="bg-gray-50">
+        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+            <Header />
+            <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '800px' }} className="bg-gray-50">
                 <Grid2 size={{ lg: 8, md: 10, sm: 12 }}>
                     <Card sx={{
                         borderRadius: 3,
@@ -236,7 +239,6 @@ function ApplyIntership() {
                 </Grid2>
             </Grid2>
 
-
             <Snackbar
                 open={snackbar.open}
                 autoHideDuration={6000}
@@ -247,9 +249,8 @@ function ApplyIntership() {
                     {snackbar.message}
                 </Alert>
             </Snackbar>
-
-
-        </PageContainer>
+            <Footer />
+        </div>
     );
 }
 

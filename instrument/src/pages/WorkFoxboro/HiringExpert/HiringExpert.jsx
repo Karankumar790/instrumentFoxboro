@@ -3,6 +3,8 @@ import PageContainer from '../../../components/HOC/PageContainer'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Grid2, MenuItem, TextField, Typography, Button, Box, Snackbar, Alert } from '@mui/material';
 import { postHiring } from './hiringExpert';
+import Footer from '../../../components/Footer/Footer';
+import Header from '../../../components/Header';
 
 const personalData = [
     { label: "Name", placeholder: "Enter your name", name: "name", required: true },
@@ -93,8 +95,9 @@ function HiringExpert() {
 
 
     return (
-        <PageContainer showheader="true" showfooter="true">
-            <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '100%' }} className="bg-gray-50" >
+        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+            <Header />
+            <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '800px' }} className="bg-gray-50" >
                 <Grid2 size={{ lg: 8, md: 10, sm: 12 }}>
                     <Card sx={{
                         borderRadius: 3,
@@ -244,8 +247,8 @@ function HiringExpert() {
                     {snackbar.message}
                 </Alert>
             </Snackbar>
-
-        </PageContainer>
+            <Footer />
+        </div>
     );
 }
 
