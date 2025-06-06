@@ -170,15 +170,15 @@ function Profile() {
           </div>
 
           {/* Avatar & Button Stack */}
-          <div className="col-span-2 flex flex-col items-end space-y-6 ">
-            <div className="w-48 h-48">
+          <div className="col-span-2 flex justify-between flex-col items-end space-y-6 ">
+            <div className="w-40 h-40">
               <img
                 src={user.avatar || "https://i.pravatar.cc/150?img=12"}
                 alt="User Avatar"
-                className="w-full h-full rounded-full object-fill border-4 border-blue-300 shadow-md"
+                className="w-full h-full  object-fill border-4 border-blue-300 shadow-md"
               />
             </div>
-            <div className=" w-full flex justify-end">
+            <div className=" w-full flex  justify-end">
               <button
                 type="button"
                 className="bg-blue-600 text-white px-4 py-2 rounded w-40 shadow hover:bg-blue-700 transition duration-200"
