@@ -89,6 +89,25 @@ export const resendOtp = createAsyncThunk(
   }
 );
 
+export const updatePassword = createAsyncThunk(
+  "auth/updatePassword",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `${USER_URL}/updatePassword`,
+        data,
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "OTP Verification Failed"
+      );
+    }
+  }
+);
+
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -177,7 +196,23 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.token = null;
-      });
+      })
+      .addCase(updatePassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = "";
+      })
+      .addCase(updatePassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message; // Or whatever your backend returns
+        state.error = null;
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.message = "";
+      })
+
   },
 });
 

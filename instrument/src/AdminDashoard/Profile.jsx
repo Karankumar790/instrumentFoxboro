@@ -3,8 +3,8 @@ import React, { useState } from "react";
 // export default Profile;
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
+import { updatePassword, updateUser } from "../AuthCycle/Login/loginSlice";
 import { toast } from "react-toastify";
-import { updateUser } from "../AuthCycle/Login/loginSlice";
 
 function Profile() {
   const [open, setOpen] = useState(false);
@@ -18,20 +18,14 @@ function Profile() {
     phone: user.phone,
     avatar: null,
   });
-const [currentPassword,setCurrentPassword] = useState("")
-const [newPassword,setNewPassword] = useState("")
-const [confirmPassword,setConfirmPassword] = useState("")
-  const handleProfileChange = async (e) => {
-    e.preventDefault();
+  const [changePwd, setChangePwd] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  })
 
-    const payload = new FormData();
-    payload.append("username", formData.username);
-    payload.append("email", formData.email);
-    payload.append("phone", formData.phone);
-    if (formData.avatar) {
-      payload.append("avatar", formData.avatar);
-    }
 
+  const handleSubmitPassword = async (e) => {
     try {
       const response = await dispatch(updateUser(payload));
       if (response.payload.success) {
@@ -46,10 +40,33 @@ const [confirmPassword,setConfirmPassword] = useState("")
     }
   };
 
-  const handlePasswordChange = async (e) =>{
-    e.preventDefault();
-
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setChangePwd((prev) => ({ ...prev, [name]: value }))
   }
+
+  const handleChangePwd = async (e) => {
+  e.preventDefault();
+
+  try {
+    const result = await dispatch(
+      updatePassword(changePwd)
+    ).unwrap();
+    toast.success(result.message || "Password updated successfully");
+
+    // Optional: Clear input fields
+    setChangePwd({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    });
+
+  } catch (error) {
+    toast.error(error || "Failed to update password");
+  }
+};
+
+
 
   return (
     <div className=" bg-gray-100  w-1/1.3 m-0  ">
@@ -147,15 +164,15 @@ const [confirmPassword,setConfirmPassword] = useState("")
           </div>
 
           {/* Avatar & Button Stack */}
-          <div className="col-span-2 flex flex-col items-end space-y-6 ">
-            <div className="w-48 h-48">
+          <div className="col-span-2 flex justify-between flex-col items-end space-y-6 ">
+            <div className="w-40 h-40">
               <img
                 src={user.avatar || "https://i.pravatar.cc/150?img=12"}
                 alt="User Avatar"
-                className="w-full h-full rounded-full object-fill border-4 border-blue-300 shadow-md"
+                className="w-full h-full  object-fill border-4 border-blue-300 shadow-md"
               />
             </div>
-            <div className=" w-full flex justify-end">
+            <div className=" w-full flex  justify-end">
               <button
                 type="button"
                 onClick={handleOpen}
@@ -172,32 +189,34 @@ const [confirmPassword,setConfirmPassword] = useState("")
         <h2 className="text-3xl font-bold mb-8  text-gray-800">
           Change Password
         </h2>
-        <form className="space-y-4" onSubmit={handlePasswordChange}>
+        <form onSubmit={handleChangePwd} className="space-y-4">
           <div>
             <label>Current Password</label>
             <input
               type="text"
               name="currentPassword"
-              // value={formData.username}
-              // onChange={handleChange}
+              value={changePwd.currentPassword}
+              onChange={handleInput}
               className="w-full border p-2 rounded"
             />
           </div>
           <div>
             <label>New Password</label>
             <input
-              type="password"
+              type="text"
               name="newPassword"
-              // value={formData.email}
-              // onChange={handleChange}
+              value={changePwd.newPassword}
+              onChange={handleInput}
               className="w-full border p-2 rounded"
             />
           </div>
           <div>
             <label>Confirm Password</label>
             <input
-              type="password"
+              type="text"
               name="confirmPassword"
+              onChange={handleInput}
+              value={changePwd.confirmPassword}
               className="w-full border p-2 rounded"
             />
           </div>
