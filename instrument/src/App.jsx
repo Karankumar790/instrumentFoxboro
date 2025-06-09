@@ -85,7 +85,7 @@ const OneClickProDetail = lazy(() =>
 );
 
 function App() {
- 
+
   const location = useLocation()
   const isAdminRoute = location.pathname.startsWith("/admin");
   const route = useRoutes([
@@ -143,12 +143,21 @@ function App() {
 
   return (
     <>
-      {!isAdminRoute && <Header />}
-      <Suspense fallback={<div>Loadings...</div>}>
-        {route}
-      </Suspense>
-      {!isAdminRoute &&<Footer />}
-      <ToastContainer />
+      <div className="min-h-screen flex flex-col">
+        {!isAdminRoute && <Header />}
+
+        {/* Main content expands to fill remaining space */}
+        <main className="flex-grow">
+          <Suspense fallback={<div>Loading...</div>}>
+            {route}
+          </Suspense>
+        </main>
+
+        {!isAdminRoute && <Footer />}
+
+        <ToastContainer />
+      </div>
+
     </>
   );
 }

@@ -97,22 +97,22 @@ function ApplyIntership() {
 
 
     return (
-        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden bg-gray-50">
             <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '800px' }} className="bg-gray-50">
-                <Grid2 size={{ lg: 8, md: 10, sm: 12 }}>
+                <Grid2 size={{ lg: 6.5, md: 10, sm: 12 }}>
                     <Card sx={{
                         borderRadius: 3,
                         boxShadow: 3,
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        backgroundColor: "#ECECEC",
                     }}>
                         <Box sx={{
-                            bgcolor: 'green',
                             color: 'white',
                             p: 2,
-                            textAlign: 'center'
-
-                        }}>
-                            <Typography variant="h5" fontWeight="bold">
+                            textAlign: 'center'}}
+                            className='bg-green-400'
+                            >
+                            <Typography variant="h5" fontWeight="bold" className='text-black'>
                                 APPLY FOR INTERNSHIP
                             </Typography>
                         </Box>
@@ -131,7 +131,7 @@ function ApplyIntership() {
                                             value={formValues[field.name]}
                                             onChange={handleChange}
                                             variant="outlined"
-                                            sx={{ mb: 2 }}
+                                            sx={{ mb: 2, backgroundColor:'white' }}
                                         />
                                     </Grid2>
                                 ))}
@@ -146,7 +146,7 @@ function ApplyIntership() {
                                         value={formValues.technicalQualification}
                                         onChange={handleChange}
                                         variant="outlined"
-                                        sx={{ mb: 2 }}
+                                        sx={{ mb: 2, backgroundColor:'white' }}
                                         required
                                     >
                                         {technicalOptions.map((option) => (
@@ -166,7 +166,7 @@ function ApplyIntership() {
                                         value={formValues.internshipDomain}
                                         onChange={handleChange}
                                         variant="outlined"
-                                        sx={{ mb: 2 }}
+                                        sx={{ mb: 2, backgroundColor:'white' }}
                                         required
                                     >
                                         {domainOptions.map((option) => (
@@ -189,7 +189,8 @@ function ApplyIntership() {
                                                 p: 1,
                                                 '&:hover': {
                                                     borderColor: 'rgba(0, 0, 0, 0.87)'
-                                                }
+                                                },
+                                                 backgroundColor:'white'
                                             }}
                                         >
                                             <input
@@ -200,6 +201,7 @@ function ApplyIntership() {
                                                     const file = e.target.files[0];
                                                     setFormValues({ ...formValues, candidateResume: file });
                                                 }}
+                                                className='bg-white'
                                             />
                                             <Button variant="outlined" component="span">
                                                 Upload Resume
@@ -214,19 +216,12 @@ function ApplyIntership() {
                                 </Grid2>
                                 <Grid2 item size={{ lg: 6 }} sx={{ display: 'flex', justifyContent: 'end' }}>
 
-                                    <Button
+                                    <button
                                         type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                        size="large"
-                                        sx={{
-                                            py: 1.5,
-                                            fontSize: '1.1rem',
-                                            fontWeight: 'bold'
-                                        }}
+                                        className='bg-green-400 w-[44%] p-1 rounded-md text-lg font-bold'
                                     >
                                         Submit Application
-                                    </Button>
+                                    </button>
                                 </Grid2>
 
                             </Grid2>

@@ -82,21 +82,21 @@ function WorkFoxboro() {
 
 
     return (
-        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden bg-gray-50">
             <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '800px' }} className="bg-gray-50" >
-                <Grid2 size={{ lg: 8, md: 10, sm: 12 }}>
+                <Grid2 size={{ lg: 6.5, md: 10, sm: 12 }}>
                     <Card sx={{
                         borderRadius: 3,
                         boxShadow: 3,
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        backgroundColor: "#ECECEC",
                     }}>
                         <Box sx={{
-                            bgcolor: 'green',
-                            color: 'white',
+                            color: 'black',
                             p: 2,
-                            textAlign: 'center'
-
-                        }}>
+                            textAlign: 'center'}}
+                            className='bg-green-400'
+                            >
                             <Typography variant="h5" fontWeight="bold">
                                 BECOME SERVICE PARTNER
                             </Typography>
@@ -116,7 +116,7 @@ function WorkFoxboro() {
                                             value={formValues[field.name]}
                                             onChange={handleChange}
                                             variant="outlined"
-                                            sx={{ mb: 2 }}
+                                            sx={{ mb: 2, backgroundColor:'white' }}
                                         />
                                     </Grid2>
                                 ))}
@@ -131,7 +131,7 @@ function WorkFoxboro() {
                                         value={formValues.serviceDomain}
                                         onChange={handleChange}
                                         variant="outlined"
-                                        sx={{ mb: 2 }}
+                                        sx={{ mb: 2, backgroundColor:'white' }}
                                         required
                                     >
                                         {serviceDomain.map((option) => (
@@ -148,7 +148,8 @@ function WorkFoxboro() {
                                         <Box
                                             sx={{
                                                 border: 1,
-                                                borderColor: 'rgba(0, 0, 0, 0.23)',
+                                                 borderColor: 'rgba(0, 0, 0, 0.23)',
+                                                backgroundColor:'white',
                                                 borderRadius: 1,
                                                 p: 1,
                                                 '&:hover': {
@@ -178,20 +179,12 @@ function WorkFoxboro() {
                                 </Grid2>
                                 <Grid2 item size={{ lg: 12 }}>
 
-                                    <Button
+                                     <button
                                         type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                        size="large"
-                                        fullWidth
-                                        sx={{
-                                            py: 1.5,
-                                            fontSize: '1.1rem',
-                                            fontWeight: 'bold'
-                                        }}
+                                        className='bg-green-400 w-full p-3 rounded-md text-lg font-bold'
                                     >
                                         Submit Application
-                                    </Button>
+                                    </button>
                                 </Grid2>
 
                             </Grid2>

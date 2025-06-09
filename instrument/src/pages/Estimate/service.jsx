@@ -103,7 +103,7 @@ function service() {
   ];
 
   return (
-    <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+    <div className=" flex flex-col justify-between overflow-x-hidden ">
       <Grid2
         container
         sx={{
@@ -114,7 +114,7 @@ function service() {
         }}
         className="bg-gray-50"
       >
-        <Grid2 size={{ lg: 6.5 }}>
+        <Grid2 size={{ lg: 6.5, md: 10, xs: 12 }}>
           <Card
             sx={{
               borderRadius: "20px",
@@ -128,7 +128,7 @@ function service() {
             <Typography
               variant="h5"
               fontWeight="bold"
-              className="border bg-green-400 px-5 h-10 "
+              className="border bg-green-400 px-5 h-14 p-3"
             >
               Generate Estimate (Self Service )
             </Typography>
@@ -144,21 +144,28 @@ function service() {
               }}
             >
               <Grid2 container spacing={2}>
-                {services.map((service, idx) => (
-                  <Grid2 item xs={6} key={idx}>
-                    <label className="flex items-start gap-4 mb-2">
-                      <input
-                        type="radio"
-                        name="serviceMethod"
-                        className="size-5 mt-1"
-                        checked={formData.serviceMethod === service}
-                        onChange={() => handleServiceChange(service)}
-                      />
-                      <p className="text-base font-semibold">{service}</p>
-                    </label>
-                  </Grid2>
-                ))}
+                {services.map((service, idx) => {
+                  const [title, price] = service.split(" Rs.");
+                  return (
+                    <Grid2 item xs={6} key={idx} >
+                      <label className="flex items-start gap-4 mb-2">
+                        <input
+                          type="radio"
+                          name="serviceMethod"
+                          className="size-5 mt-1"
+                          checked={formData.serviceMethod === service}
+                          onChange={() => handleServiceChange(service)}
+                        />
+                        <div className="flex flex-col">
+                          <span className="text-base font-semibold">{title}</span>
+                          <span className="text-sm text-gray-700">Rs. {price}</span>
+                        </div>
+                      </label>
+                    </Grid2>
+                  );
+                })}
               </Grid2>
+
             </Box>
 
             <Box
@@ -173,11 +180,11 @@ function service() {
                 {[...fields].map((field, index) => (
                   <Grid2 item xs={12} md={6} key={index}>
                     <Box display="flex" alignItems="center">
-                      <Typography variant="h6" sx={{ minWidth: "130px" }}>
+                      <Typography variant="h6" sx={{ minWidth: "110px", display: 'flex', justifyContent: 'end', marginRight: '25px' }}>
                         {field.label}
                       </Typography>
                       <TextField
-                        sx={{ minWidth: "350px" }}
+                        sx={{ minWidth: "340px",backgroundColor:'white' }}
                         size="small"
                         variant="outlined"
                         value={formData[field.key]}
@@ -188,18 +195,15 @@ function service() {
                   </Grid2>
                 ))}
               </Grid2>
-              <div>
-                <Grid2 item xs={12} mt={2}>
-                  <TextField
-                    fullWidth
-                    multiline
-                    rows={4}
-                    placeholder="Service Description"
-                    sx={{ width: "100%", minWidth: "470px" }}
-                    value={formData.problemDescription}
-                    onChange={handleChange("problemDescription")}
-                  />
-                </Grid2>
+              <Grid2 className='mt-5 ml-5' >
+                <TextField
+                  multiline
+                  rows={4}
+                  placeholder="Service Description"
+                  sx={{ width: "945px",backgroundColor:'white' }}
+                  value={formData.problemDescription}
+                  onChange={handleChange("problemDescription")}
+                />
 
                 <Box
                   width="100%"
@@ -208,22 +212,24 @@ function service() {
                   alignItems="end"
                   mt={3}
                   mb={2}
+                  sx={{ paddingRight: '20px' }}
                 >
-                  <Button
+                  <button
                     sx={{
                       width: "20%",
+
                       minWidth: "150px",
-                      bgcolor: "orange",
-                      "&:hover": { bgcolor: "darkorange" },
+                      // bgcolor: "green",
+                      // "&:hover": { bgcolor: "darkgreen" },
                     }}
-                    variant="contained"
-                    className="font-bold"
+                    // variant="contained"
+                    className="font-bold bg-green-400 w-[20%] p-2 rounded-md text-lg"
                     onClick={handleSubmit}
                   >
                     Generate Estimate
-                  </Button>
+                  </button>
                 </Box>
-              </div>
+              </Grid2>
             </Box>
           </Card>
         </Grid2>

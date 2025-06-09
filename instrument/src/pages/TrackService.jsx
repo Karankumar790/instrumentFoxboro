@@ -7,19 +7,19 @@ import Footer from "../components/Footer/Footer";
 
 function TrackService() {
   return (
-    <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
+    <div className=" flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
       <Grid2
         container
         className="flex justify-center items-center h-[800px] bg-gray-50 flex-grow overflow-hidden"
       >
-        <Grid2 size={{ lg: 6 }} className="rounded-lg">
+        <Grid2 size={{ lg: 6.5, md: 10, xs: 12 }} className="rounded-lg bg-gray-50">
           <Card
             sx={{
               borderRadius: "20px",
               display: "flex",
               flexDirection: "column",
               overflow: "hidden",
-              // backgroundColor: "#ECECEC"
+              backgroundColor: "#ECECEC"
             }}
           >
             <Typography
@@ -40,7 +40,7 @@ function TrackService() {
                 Submit
               </button>
             </div>
-            <div className="h-96 flex justify-center items-center bg-gray-100 border rounded-lg border-gray-500 m-2">
+            <div className="h-96 flex justify-center items-center bg-#ECECEC border rounded-lg  m-2">
               <p className="text-2xl font-bold">Under Development</p>
             </div>
             <div className="w-full flex justify-between p-4">
