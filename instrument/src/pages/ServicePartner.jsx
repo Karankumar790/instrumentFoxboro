@@ -69,8 +69,7 @@ function ServicePartner() {
     }, [dispatch])
 
     return (
-        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-            <Header />
+        <div className=" flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
             <Grid2 size={{ lg: 4 }} className="bg-gray-50 h-[800px]" >
                 <div className=" flex flex-col  rounded-lg overflow-hidden">
                     {/* Sticky Header */}
@@ -152,7 +151,6 @@ function ServicePartner() {
 
                 </div>
             </Grid2>
-            <Footer />
         </div>
     )
 }

@@ -14,17 +14,23 @@ function Footer() {
   }, [dispatch]);
 
   return (
-    <Box sx={{ bgcolor: "#2b313b", p: 2 }} height={'170px'}>
+    <Box
+      sx={{
+        bgcolor: "#2b313b",
+        px: { xs: 2, sm: 4, md: 8 },
+        py: { xs: 1, sm: 2 },
+        minHeight: { xs: "auto", md: "170px" },
+      }} >
       {fetchFooter && Object.keys(fetchFooter).length > 0 && (
         <Grid2
           container
           spacing={4}
-          ml={12}
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          
+          sx={{ display: "flex", justifyContent: "space-between", ml: {md:12,sm:6,xs:2} }}
         >
 
           {/* Corporate Office */}
-          <Grid2 size={{ lg: 2.6, md:4, sm:6, xs:12 }}>
+          <Grid2 size={{ lg: 2.6, md: 4, sm: 6, xs: 12 }}>
             <Box>
               <Typography variant="h5" color="white">
                 Registered Office
@@ -44,28 +50,28 @@ function Footer() {
           </Grid2>
 
           {/* Customer Support */}
-          <Grid2 size={{ lg: 3, md:4, sm:6, xs:12 }}>
+          <Grid2 size={{ lg: 3, md: 4, sm: 6, xs: 12 }}>
             <Box>
               <Typography variant="h5" color="white">
                 Customer Support{" "}
               </Typography>
               <Typography color="white">
-                Tel 1: {fetchFooter?.customerSupport?.salesNumber} (Sales)
+                Tel 1: {fetchFooter?.customerSupport?.salesNumber} 
               </Typography>
               <Typography color="white">
                 Tel 2: {fetchFooter?.customerSupport?.engineeringNumber}{" "}
-                (Engineering){" "}
+                {" "}
               </Typography>
               <Typography color="white">
-                Tel 3: {fetchFooter?.customerSupport?.serviceNumber} (Service)
+                Tel 3: {fetchFooter?.customerSupport?.serviceNumber} 
               </Typography>
               <Typography color="white">
-                Email: {fetchFooter?.customerSupport?.email}
+                Tel 4: {fetchFooter?.customerSupport?.email}
               </Typography>
             </Box>
           </Grid2>
 
-          <Grid2 size={{ lg: 4, md:6, sm:8, xs:12 }}>
+          <Grid2 size={{ lg: 4, md: 6, sm: 8, xs: 12 }}>
             <Box>
               <Typography variant="h5" color="white">
                 Foxboro Website{" "}
@@ -77,7 +83,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {fetchFooter?.websiteLinks?.link1} (Automation)
+                  {fetchFooter?.websiteLinks?.link1} 
                 </a>
               </Typography>
               <Typography color="white">
@@ -87,7 +93,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {fetchFooter?.websiteLinks?.link2} (E-Store)
+                  {fetchFooter?.websiteLinks?.link2} 
                 </a>
               </Typography>
               <Typography color="white">
@@ -97,7 +103,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {fetchFooter?.websiteLinks?.link3} (Industrial IoT Systems)
+                  {fetchFooter?.websiteLinks?.link3} 
                 </a>
               </Typography>
               <Typography color="white">
@@ -107,14 +113,14 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {fetchFooter?.websiteLinks?.link4} (Service)
+                  {fetchFooter?.websiteLinks?.link4}
                 </a>
               </Typography>
             </Box>
           </Grid2>
 
           {/* Help & Policies */}
-          <Grid2 size={{ lg: 2, md:4, sm:6, xs:12 }}>
+          <Grid2 size={{ lg: 2, md: 4, sm: 6, xs: 12 }}>
             <Box>
               <Typography variant="h5" color="white">
                 Need Help?

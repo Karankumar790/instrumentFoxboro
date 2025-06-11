@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import PageContainer from '../../../components/HOC/PageContainer'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { postWork } from './workFoxSlice';
 import { Card, Grid2, MenuItem, TextField, Typography, Button, Box, Snackbar, Alert } from '@mui/material';
-import Header from '../../../components/Header';
-import Footer from '../../../components/Footer/Footer';
 
 const personalData = [
     { label: "Company Name", placeholder: "Enter company name", name: "companyName", required: true },
@@ -85,22 +82,22 @@ function WorkFoxboro() {
 
 
     return (
-        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-            <Header />
+        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden bg-gray-50">
             <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '800px' }} className="bg-gray-50" >
-                <Grid2 size={{ lg: 8, md: 10, sm: 12 }}>
+                <Grid2 size={{ lg: 6.5, md: 10, sm: 12 }}>
                     <Card sx={{
                         borderRadius: 3,
                         boxShadow: 3,
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        backgroundColor: "#ECECEC",
                     }}>
                         <Box sx={{
-                            bgcolor: 'green',
-                            color: 'white',
+                            color: 'black',
                             p: 2,
                             textAlign: 'center'
-
-                        }}>
+                        }}
+                            className='bg-green-400'
+                        >
                             <Typography variant="h5" fontWeight="bold">
                                 BECOME SERVICE PARTNER
                             </Typography>
@@ -120,7 +117,7 @@ function WorkFoxboro() {
                                             value={formValues[field.name]}
                                             onChange={handleChange}
                                             variant="outlined"
-                                            sx={{ mb: 2 }}
+                                            sx={{ mb: 2, backgroundColor: 'white' }}
                                         />
                                     </Grid2>
                                 ))}
@@ -135,7 +132,7 @@ function WorkFoxboro() {
                                         value={formValues.serviceDomain}
                                         onChange={handleChange}
                                         variant="outlined"
-                                        sx={{ mb: 2 }}
+                                        sx={{ mb: 2, backgroundColor: 'white' }}
                                         required
                                     >
                                         {serviceDomain.map((option) => (
@@ -153,6 +150,7 @@ function WorkFoxboro() {
                                             sx={{
                                                 border: 1,
                                                 borderColor: 'rgba(0, 0, 0, 0.23)',
+                                                backgroundColor: 'white',
                                                 borderRadius: 1,
                                                 p: 1,
                                                 '&:hover': {
@@ -180,25 +178,16 @@ function WorkFoxboro() {
                                         </Box>
                                     </label>
                                 </Grid2>
-                                <Grid2 item size={{ lg: 12 }}>
-
-                                    <Button
+                                <Grid2 item size={{ lg: 12 }} sx={{ display: 'flex', justifyContent: 'end'}}>
+                                    <button
                                         type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                        size="large"
-                                        fullWidth
-                                        sx={{
-                                            py: 1.5,
-                                            fontSize: '1.1rem',
-                                            fontWeight: 'bold'
-                                        }}
+                                        className='bg-green-400 w-[24%] p-3 rounded-md text-lg font-bold'
                                     >
                                         Submit Application
-                                    </Button>
+                                    </button>
                                 </Grid2>
-
                             </Grid2>
+
                         </Box>
                     </Card>
                 </Grid2>
@@ -214,7 +203,6 @@ function WorkFoxboro() {
                     {snackbar.message}
                 </Alert>
             </Snackbar>
-            <Footer />
         </div>
     );
 }

@@ -15,7 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getEstimate } from "./serviceSlice";
 
-function SeviceEstimate() {
+function SeviceEstimate({showPo}) {
   const { quotations, pagination } = useSelector(
     (state) => state.serviceManager
   );
@@ -93,16 +93,20 @@ function SeviceEstimate() {
                 <TableCell>{row.serviceMethod}</TableCell>
                 <TableCell>{row.serviceNumber}</TableCell>
                 <TableCell>{row.problemDescription}</TableCell>
-                <TableCell>
-                  {row.POImagePdf && (
-                    <button
-                      onClick={() => handleOpenPdf(row.POImagePdf)}
-                      className="text-blue-600 hover:underline"
-                    >
-                      Po
-                    </button>
-                  )}
-                </TableCell>
+                {
+                  showPo &&
+                  <TableCell>
+                    {row.POImagePdf && (
+                      <button
+                        onClick={() => handleOpenPdf(row.POImagePdf)}
+                        className="text-blue-600 hover:underline"
+                      >
+                        Po
+                      </button>
+                    )}
+                  </TableCell>
+                }
+
                 <TableCell></TableCell>
               </TableRow>
             ))}

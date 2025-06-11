@@ -1,6 +1,3 @@
-import React from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer/Footer";
 
 function RefundReturn() {
   return (
@@ -12,14 +9,12 @@ function RefundReturn() {
     //   </div>
     // </div>
     <div className="min-h-screen flex flex-col  bg-slate-400">
-      <Header />
 
       <main className="flex-grow justify-center items-center flex">
         <h1 className="text-3xl font-semibold text-black">Refund and Return</h1>
         {/* Add more content here if needed */}
       </main>
 
-      <Footer />
     </div>
   );
 }

@@ -62,8 +62,7 @@ function oneclickproduct() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header />
+    <div className="min-h-screen flex flex-col overflow-x-hidden bg-gray-50">
       <Grid2
         container
         display="flex"
@@ -72,9 +71,10 @@ function oneclickproduct() {
       >
         <Grid2 size={{ lg: 8 }} height={'1000px'} overflow="hidden" mb={4}>
           <Box>
-            <p className="text-4xl mt-10 mb-8 font-bold font-noto">
+            <p className="text-3xl mt-10 mb-8 font-bold font-noto">
               Industrial Automation / {decodeURIComponent(categoryName)}
             </p>
+           
           </Box>
 
           {loading ? (
@@ -135,7 +135,6 @@ function oneclickproduct() {
           <Pagination count={2} variant="outlined" shape="rounded" />
         </Stack>
       </Box>
-      <Footer />
     </div>
   );
 }

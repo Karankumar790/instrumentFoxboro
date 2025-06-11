@@ -1,9 +1,6 @@
 import { useState } from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer/Footer";
 import { submitContactForm } from "./supportSlice";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { Alert, Snackbar } from "@mui/material";
 
 function Support() {
@@ -73,7 +70,7 @@ function Support() {
 
   return (
     <div
-      className="flex flex-col min-h-screen"
+      className="flex flex-col"
       style={{
         // backgroundImage: `linear-gradient(to bottom right, #e0f2fe, #c7d2fe)`,
         backgroundSize: "cover",
@@ -81,8 +78,7 @@ function Support() {
         backgroundAttachment: "fixed",
       }}
     >
-      <Header />
-      <div className="w-full flex-grow flex  justify-center bg-gray-50 h-[800px] ">
+      <div className="w-full flex-grow flex  justify-center bg-gray-50 ">
         <div className="flex flex-col items-center  w-4/5 ">
           <div className="w-full sm:w-10/12 lg:w-full  p-4 flex flex-col justify-center items-center">
             <h2 className="text-5xl font-bold mb-4 text-center text-blue-950">
@@ -150,7 +146,7 @@ function Support() {
               </div>
             </div>
 
-            <div className="w-full lg:w-1/2 flex flex-col m-4 space-y-4 bg-white shadow-lg rounded-xl p-6">
+            <div className="w-full h-[600px] lg:w-1/2 flex flex-col m-4 space-y-4 bg-white shadow-lg rounded-xl p-6">
               <p className="text-3xl font-semibold text-black py-2  rounded-md">
                 Contact Us
               </p>
@@ -309,7 +305,6 @@ function Support() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-      <Footer />
     </div>
   );
 }
