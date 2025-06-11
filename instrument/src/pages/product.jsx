@@ -53,7 +53,7 @@ function product() {
                 mb={4}
               // border={"1px solid black"}
               >
-                <Box mb={2}>
+                <Box mb={5}>
                   <p className="text-3xl mt-3 mb-5 font-bold font-noto">
                     Foxboro Product Line
                   </p>

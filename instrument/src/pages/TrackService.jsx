@@ -34,16 +34,16 @@ function TrackService() {
                 type="text"
                 size="small"
                 placeholder="Enter Service Number"
-                className="w-96 border rounded-lg p-2 "
+                className="w-96 border  border-gray-400 rounded-lg p-2 "
               />
               <button className="w-28 p-3 text-white font-bold bg-yellow-600 rounded-lg border">
                 Submit
               </button>
             </div>
-            <div className="h-96 flex justify-center items-center bg-#ECECEC border rounded-lg  m-2">
-              <p className="text-2xl font-bold">Under Development</p>
+            <div className="h-96 m-5 border rounded-md border-gray-400 flex justify-center items-center bg-white  ">
+              {/* <p className="text-2xl font-bold">Under Development</p> */}
             </div>
-            <div className="w-full flex justify-between p-4">
+            <div className="w-full flex justify-between p-5">
               <div className="flex gap-3">
                 <WarningAmberIcon fontSize="large" className="text-red-700" />
                 <p className="text-xl font-semibold">

@@ -106,10 +106,10 @@ function AdminFooter() {
           <div className='space-y-2'>
             <p className='text-lg font-semibold'>Customer Support</p>
             <div className='flex gap-2 w-full '>
-              <input type="number" placeholder='Number 1' name='salesNumber' disabled={!isEditable} value={updateValue.salesNumber} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
-              <input type="number" placeholder='Number 2' name='engineeringNumber' disabled={!isEditable} value={updateValue.engineeringNumber} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
-              <input type="number" placeholder='Number 3' name='serviceNumber' disabled={!isEditable} value={updateValue.serviceNumber} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
-              <input type="email" placeholder='Email' name='supportEmail' disabled={!isEditable} value={updateValue.supportEmail} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+              <input type="text" placeholder='Number 1' name='salesNumber' disabled={!isEditable} value={updateValue.salesNumber} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+              <input type="text" placeholder='Number 2' name='engineeringNumber' disabled={!isEditable} value={updateValue.engineeringNumber} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+              <input type="text" placeholder='Number 3' name='serviceNumber' disabled={!isEditable} value={updateValue.serviceNumber} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
+              <input type="text" placeholder='Email' name='supportEmail' disabled={!isEditable} value={updateValue.supportEmail} onChange={handleInput} className='w-1/2 border border-gray-600 p-2 rounded-lg' />
             </div>
 
           </div>

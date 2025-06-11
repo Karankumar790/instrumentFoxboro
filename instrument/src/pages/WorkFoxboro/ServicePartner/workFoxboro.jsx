@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { postWork } from './workFoxSlice';
 import { Card, Grid2, MenuItem, TextField, Typography, Button, Box, Snackbar, Alert } from '@mui/material';
@@ -94,9 +94,10 @@ function WorkFoxboro() {
                         <Box sx={{
                             color: 'black',
                             p: 2,
-                            textAlign: 'center'}}
+                            textAlign: 'center'
+                        }}
                             className='bg-green-400'
-                            >
+                        >
                             <Typography variant="h5" fontWeight="bold">
                                 BECOME SERVICE PARTNER
                             </Typography>
@@ -116,7 +117,7 @@ function WorkFoxboro() {
                                             value={formValues[field.name]}
                                             onChange={handleChange}
                                             variant="outlined"
-                                            sx={{ mb: 2, backgroundColor:'white' }}
+                                            sx={{ mb: 2, backgroundColor: 'white' }}
                                         />
                                     </Grid2>
                                 ))}
@@ -131,7 +132,7 @@ function WorkFoxboro() {
                                         value={formValues.serviceDomain}
                                         onChange={handleChange}
                                         variant="outlined"
-                                        sx={{ mb: 2, backgroundColor:'white' }}
+                                        sx={{ mb: 2, backgroundColor: 'white' }}
                                         required
                                     >
                                         {serviceDomain.map((option) => (
@@ -148,8 +149,8 @@ function WorkFoxboro() {
                                         <Box
                                             sx={{
                                                 border: 1,
-                                                 borderColor: 'rgba(0, 0, 0, 0.23)',
-                                                backgroundColor:'white',
+                                                borderColor: 'rgba(0, 0, 0, 0.23)',
+                                                backgroundColor: 'white',
                                                 borderRadius: 1,
                                                 p: 1,
                                                 '&:hover': {
@@ -177,17 +178,16 @@ function WorkFoxboro() {
                                         </Box>
                                     </label>
                                 </Grid2>
-                                <Grid2 item size={{ lg: 12 }}>
-
-                                     <button
+                                <Grid2 item size={{ lg: 12 }} sx={{ display: 'flex', justifyContent: 'end'}}>
+                                    <button
                                         type="submit"
-                                        className='bg-green-400 w-full p-3 rounded-md text-lg font-bold'
+                                        className='bg-green-400 w-[24%] p-3 rounded-md text-lg font-bold'
                                     >
                                         Submit Application
                                     </button>
                                 </Grid2>
-
                             </Grid2>
+
                         </Box>
                     </Card>
                 </Grid2>

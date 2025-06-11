@@ -174,7 +174,7 @@ function oneClickProDetail() {
                 <p className="font-bold pt-2">Google Reviews:</p>&nbsp;{" "}
                 <p className="pt-2"> {product?.reviews}</p>
               </div>
-              <div className="text-xl flex gap-2 ml-2">
+              <div className="text-xl flex gap-9 ml-2">
                 {product?.datasheetPdf && (
                   <button
                     onClick={() => handleOpenPdf(product?.datasheetPdf)}

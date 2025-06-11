@@ -54,9 +54,9 @@ const Software = () => {
             {softwareData.map((product, index) => (
               <div
                 key={index}
-                className="bg-gray-100 rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow duration-300"
+                className="bg-gray-300 rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="flex flex-col sm:flex-row items-center mb-4">
+                <div className="flex flex-col sm:flex-row  mb-4">
                   <div className="w-full sm:w-36 h-32 sm:h-24 rounded-lg bg-gray-200 flex items-center justify-center mb-4 sm:mb-0 sm:mr-4">
                     <img
                       src={product.softwareImage}
@@ -64,7 +64,7 @@ const Software = () => {
                       className="w-full h-full object-cover rounded-md"
                     />
                   </div>
-                  <div className="text-center sm:text-left">
+                  <div className=" sm:text-left">
                     <h2 className="text-lg sm:text-xl font-semibold">
                       {product.softwareName}
                     </h2>

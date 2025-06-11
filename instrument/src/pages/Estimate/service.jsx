@@ -103,7 +103,7 @@ function service() {
   ];
 
   return (
-    <div className=" flex flex-col justify-between overflow-x-hidden ">
+    <div className=" flex flex-col justify-between overflow-x-hidden bg-gray-50">
       <Grid2
         container
         sx={{
@@ -195,12 +195,13 @@ function service() {
                   </Grid2>
                 ))}
               </Grid2>
-              <Grid2 className='mt-5 ml-5' >
+              <Grid2 size={{lg:'12', md:'10', sm:'8', xs:'6'}} className='mt-5 ml-5  pr-4' >
                 <TextField
                   multiline
+                  fullWidth
                   rows={4}
                   placeholder="Service Description"
-                  sx={{ width: "945px",backgroundColor:'white' }}
+                  sx={{backgroundColor:'white' }}
                   value={formData.problemDescription}
                   onChange={handleChange("problemDescription")}
                 />
@@ -212,7 +213,6 @@ function service() {
                   alignItems="end"
                   mt={3}
                   mb={2}
-                  sx={{ paddingRight: '20px' }}
                 >
                   <button
                     sx={{

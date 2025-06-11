@@ -115,7 +115,7 @@ function PoGenerator() {
                 placeholder="Enter Email or Mobile"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="w-96 border rounded-lg p-2"
+                className="w-96 border border-gray-400 rounded-lg p-2"
               />
               <button
                 onClick={handleSearch}
@@ -137,7 +137,7 @@ function PoGenerator() {
                 Description
               </p>
             </div> */}
-            <div className="border  rounded-lg h-[35vh] overflow-hidden">
+            <div className=" bg-white border border-gray-400 rounded-md m-5  h-[35vh] overflow-hidden">
               {uploadPo.length === 0 ? (
                 <div className="flex justify-center items-center h-full text-gray-600 text-lg">
                   No purchase orders found.
@@ -173,7 +173,7 @@ function PoGenerator() {
               )}
             </div>
 
-            <div className="flex justify-between p-4 bg-#ECECEC">
+            <div className="flex justify-between p-5 bg-#ECECEC">
               <div>
                 <input
                   type="file"
