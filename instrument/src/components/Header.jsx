@@ -43,9 +43,9 @@ function Header() {
   ];
   // const arr = ["Product", "Software", "Services", "E-Store", "Support"];
   const arr = [
-    { text: "Automation", Link: "/" },
+    { text: "Home", Link: "/" },
     { text: "Products", Link: "/product" },
-    { text: "Software", Link: "/software" },
+    { text: "Engineering", Link: "/software" },
     { text: "E-Service", Link: null },
     { text: "Contact Us", Link: "/support" },
   ];

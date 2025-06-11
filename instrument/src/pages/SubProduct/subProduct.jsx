@@ -411,6 +411,7 @@ function SubProduct() {
     const response = await dispatch(contactProduct(formData)).unwrap();
     if (response.success) {
       toast.success(response.message);
+      handleCloseModal();
     } else {
       toast.error(response.message);
     }
