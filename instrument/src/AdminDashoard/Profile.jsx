@@ -18,6 +18,20 @@ function Profile() {
     phone: user.phone,
     avatar: null,
   });
+const [currentPassword,setCurrentPassword] = useState("")
+const [newPassword,setNewPassword] = useState("")
+const [confirmPassword,setConfirmPassword] = useState("")
+  const handleProfileChange = async (e) => {
+    e.preventDefault();
+
+    const payload = new FormData();
+    payload.append("username", formData.username);
+    payload.append("email", formData.email);
+    payload.append("phone", formData.phone);
+    if (formData.avatar) {
+      payload.append("avatar", formData.avatar);
+    }}
+
   const [changePwd, setChangePwd] = useState({
     currentPassword: '',
     newPassword: '',
@@ -39,6 +53,11 @@ function Profile() {
       toast.error("Something went wrong!");
     }
   };
+
+  const handlePasswordChange = async (e) =>{
+    e.preventDefault();
+
+  }
 
   const handleInput = (e) => {
     const { name, value } = e.target;

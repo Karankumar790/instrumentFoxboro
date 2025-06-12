@@ -117,6 +117,7 @@ function App() {
       children: [
         { path: "categoryProduct/:categoryId", element: <CategoryProduct /> },
         { path: "automation", element: <Automation /> },
+
         { path: "adminProduct", element: <AdminProduct /> },
         { path: "adminService", element: <AdminService /> },
         { path: "adminHeader", element: <AdminHeader /> },
@@ -125,6 +126,7 @@ function App() {
         { path: "adminSoftware", element: <AdminSoftware /> },
         { path: "adminRunningProject", element: <AdminRunningProject /> },
         { path: "adminNewProject", element: <AdminNewProject /> },
+        
         { path: "serviceEstimate", element: <ServiceEstimate /> },
         { path: "internship", element: <Internship /> },
         { path: "managerWorkFOx", element: <ManagerWorkFOx /> },
