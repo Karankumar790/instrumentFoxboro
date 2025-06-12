@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteBanner, getBanner, postBanner } from '../SiteSetting/SettingSlice';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteBanner,
+  getBanner,
+  postBanner,
+} from "../SiteSetting/SettingSlice";
 import {
   Table,
   TableBody,
@@ -12,21 +16,21 @@ import {
   IconButton,
   Avatar,
   Box,
-  Typography
-} from '@mui/material';
-import { Delete } from '@mui/icons-material';
+  Typography,
+} from "@mui/material";
+import { Delete } from "@mui/icons-material";
 
 const BannerUploadUI = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const dispatch = useDispatch();
-  const { loading, uploadedBanners, success, error } = useSelector((state) => state.header);
-
-  console.log("-------------", uploadedBanners)
+  const { loading, uploadedBanners } = useSelector((state) => state.header);
+  const [selectedPublicIds, setSelectedPublicIds] = useState({});
+  const [sliderDelay, setSliderDelay] = useState(""); // Add this
 
   useEffect(() => {
-    dispatch(getBanner())
-  }, [dispatch])
+    dispatch(getBanner());
+  }, [dispatch]);
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -43,24 +47,63 @@ const BannerUploadUI = () => {
     });
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (imageFiles.length === 0) {
+  //     alert("Please select at least one image.");
+  //     return;
+  //   }
+  //   dispatch(postBanner(imageFiles)).then(() => {
+  //     dispatch(getBanner());
+  //   });
+  //   setSelectedImages([]);
+  //   setImageFiles([]);
+  // };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (imageFiles.length === 0) {
-      alert('Please select at least one image.');
+      alert("Please select at least one image.");
       return;
     }
-    dispatch(postBanner(imageFiles)).then(() => {
-      dispatch(getBanner());
-    })
+    // Correctly pass object with images and sliderDelay
+    dispatch(postBanner({ images: imageFiles, sliderDelay })).then(() =>
+      dispatch(getBanner())
+    );
+
     setSelectedImages([]);
+    setImageFiles([]);
+    setSliderDelay("");
   };
 
-  const handleDelete = (id) => {
-    console.log('Delete image with id:', id);
-    dispatch(deleteBanner(id)).then(() => {
-      dispatch(getBanner())
-    })
-  }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (imageFiles.length === 0) {
+  //     alert("Please select at least one image.");
+  //     return;
+  //   }
+
+  //   // Dispatch correctly with both images and delay
+  //   dispatch(postBanner({ images: imageFiles, sliderDelay })).then(() => {
+  //     dispatch(getBanner());
+  //   });
+
+  //   // Reset local states
+  //   setSelectedImages([]);
+  //   setImageFiles([]);
+  //   setSliderDelay("");
+  // };
+
+  const handleDelete = (bannerId) => {
+    dispatch(deleteBanner({ id: bannerId })).then(() => {
+      dispatch(getBanner());
+    });
+  };
+
+  const handleDeleteSingleImage = (bannerId, publicId) => {
+    dispatch(deleteBanner({ id: bannerId, publicIds: [publicId] })).then(() => {
+      dispatch(getBanner());
+    });
+  };
 
   const handleDeletePreviewImage = (index) => {
     const updatedPreviews = [...selectedImages];
@@ -71,65 +114,72 @@ const BannerUploadUI = () => {
     setImageFiles(updatedFiles);
   };
 
-
-
   return (
     <>
-      <div className='flex justify-between'>
-        <p className='font-semibold text-2xl'>Banner Management</p>
-        {/* <button className='bg-green-600 font-semibold p-2 rounded-lg text-white text-lg' onClick={handleOpen}>Add Header +</button> */}
+      <div className="flex justify-between">
+        <p className="font-semibold text-2xl">Banner Management</p>
       </div>
-      <div className='flex flex-col bg-white rounded-md space-y-5 p-3'>
-        {/* Upload Section */}
-        <Box sx={{ mb: 4, p: 3, bgcolor: 'background.paper', borderRadius: 2 }}>
+
+      <div className="flex flex-col bg-white rounded-md space-y-5 p-3">
+        <Box sx={{ mb: 4, p: 3, bgcolor: "background.paper", borderRadius: 2 }}>
           <Typography variant="h5" gutterBottom textAlign="center">
             Upload Up to 10 Banners
           </Typography>
 
           <form onSubmit={handleSubmit}>
-            <div className='flex justify-between'>
+            <div className="flex justify-between items-center">
               <input
                 type="file"
                 accept="image/*"
                 multiple
                 onChange={handleImageChange}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 id="banner-upload"
               />
               <label htmlFor="banner-upload">
-                <IconButton
-                  color="primary"
-                  component="span"
-                  sx={{ mb: 2 }}
-                >
+                <IconButton color="primary" component="span" sx={{ mb: 2 }}>
                   <Typography>Select Images</Typography>
                 </IconButton>
               </label>
-
-              <input type="text"  name="" id="" placeholder='Time' className='h-10' />
+              {/* <input
+                type="text"
+                placeholder="Time"
+                className="h-10 border px-2 rounded"
+              /> */}
+              <input
+                type="number"
+                placeholder="Slider Delay (in seconds)"
+                className="h-10 px-3 border rounded"
+                value={sliderDelay}
+                onChange={(e) => setSliderDelay(e.target.value)}
+                min={1}
+              />
             </div>
-            {/* Preview Grid */}
-            <Box sx={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-              gap: 2,
-              mb: 2
-            }}>
+
+            {/* Preview grid */}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+                gap: 2,
+                mb: 2,
+              }}
+            >
               {selectedImages.map((img, index) => (
-                <Box key={index} sx={{ position: 'relative' }}>
+                <Box key={index} sx={{ position: "relative" }}>
                   <Avatar
                     variant="square"
                     src={img}
-                    sx={{ width: '100%', height: 120 }}
+                    sx={{ width: "100%", height: 120 }}
                   />
                   <IconButton
                     color="error"
                     onClick={() => handleDeletePreviewImage(index)}
                     sx={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 0,
                       right: 0,
-                      backgroundColor: 'rgba(255,255,255,0.7)'
+                      backgroundColor: "rgba(255,255,255,0.7)",
                     }}
                   >
                     <Delete />
@@ -143,48 +193,90 @@ const BannerUploadUI = () => {
               disabled={loading || selectedImages.length === 0}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition disabled:opacity-50"
             >
-              {loading ? 'Uploading...' : 'Upload Banners'}
+              {loading ? "Uploading..." : "Upload Banners"}
             </button>
           </form>
         </Box>
 
-        {/* Image Table with Delete Only */}
+        {/* Image Table */}
         <Typography variant="h5" gutterBottom>
           Banner Gallery
         </Typography>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
-              <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                <TableCell>Image 1</TableCell>
-                <TableCell>Image 2</TableCell>
-                <TableCell>Image 3</TableCell>
-                <TableCell>Image 4</TableCell>
-                <TableCell>Image 5</TableCell>
-                <TableCell>Image 6</TableCell>
-                <TableCell>Image </TableCell>
-                <TableCell>Image 8</TableCell>
-                <TableCell>Image 9</TableCell>
-                <TableCell>Image 10</TableCell>
-                <TableCell align="right">Action</TableCell>
+              <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
+                {Array.from({ length: 10 }, (_, i) => (
+                  <TableCell key={i}>Image {i + 1}</TableCell>
+                ))}
+                <TableCell align="right">Delete All</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {uploadedBanners.map((banner) => (
                 <TableRow key={banner._id}>
                   {banner.images.map((image) => (
-                    <TableCell key={image._id}>
+                    <TableCell
+                      key={image.public_id}
+                      sx={{ position: "relative" }}
+                    >
                       <Avatar
                         variant="square"
                         src={image.url}
                         sx={{ width: 100, height: 60 }}
                       />
+                      <input
+                        type="checkbox"
+                        className="absolute top-0 left-0 m-1"
+                        checked={
+                          selectedPublicIds[banner._id]?.includes(
+                            image.public_id
+                          ) || false
+                        }
+                        onChange={(e) => {
+                          setSelectedPublicIds((prev) => {
+                            const current = prev[banner._id] || [];
+                            const updated = e.target.checked
+                              ? [...current, image.public_id]
+                              : current.filter(
+                                  (pid) => pid !== image.public_id
+                                );
+                            return {
+                              ...prev,
+                              [banner._id]: updated,
+                            };
+                          });
+                        }}
+                      />
                     </TableCell>
                   ))}
+
+                  {/* Fill blank cells if fewer than 10 */}
+                  {Array.from({ length: 10 - banner.images.length }).map(
+                    (_, i) => (
+                      <TableCell key={`empty-${i}`}></TableCell>
+                    )
+                  )}
+
                   <TableCell align="right">
                     <IconButton
                       color="error"
-                      onClick={() => handleDelete(banner._id)}
+                      onClick={() => {
+                        const selectedIds = selectedPublicIds[banner._id] || [];
+                        if (selectedIds.length === 0) return;
+                        dispatch(
+                          deleteBanner({
+                            id: banner._id,
+                            publicIds: selectedIds,
+                          })
+                        ).then(() => {
+                          setSelectedPublicIds((prev) => ({
+                            ...prev,
+                            [banner._id]: [],
+                          }));
+                          dispatch(getBanner());
+                        });
+                      }}
                     >
                       <Delete />
                     </IconButton>
