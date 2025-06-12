@@ -38,7 +38,7 @@ function content() {
   useEffect(() => {
     if (data.length === 0) return;
 
-    const interval = setInterval(handleNext, 3000);
+    const interval = setInterval(handleNext, );
 
     return () => clearInterval(interval);
   }, [data.length]); // Re-run if banner data updates
