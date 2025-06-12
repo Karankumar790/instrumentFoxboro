@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, resetAuthState, clearError } from './loginSlice';
 import OTPModal from './OTPModal';
@@ -49,7 +47,6 @@ function Login() {
   return (
     <>
       <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-        <Header />
         <div className='flex justify-center items-center bg-gray-50 flex-grow overflow-hidden h-[400px]'>
           <div className=" max-w-md p-8 bg-gray-100 shadow-lg rounded-lg space-y-6 ">
             <div className="text-center">
@@ -140,7 +137,6 @@ function Login() {
           }}
           email={formData.email}
         />
-        <Footer />
       </div>
     </>
   );

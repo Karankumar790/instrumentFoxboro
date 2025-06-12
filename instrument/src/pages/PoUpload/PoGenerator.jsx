@@ -1,10 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Card, Grid2, Typography, Snackbar, Alert } from "@mui/material";
-import PageContainer from "../../components/HOC/PageContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { postEmail, postFileUpload } from "./PoSlice";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer/Footer";
 
 function PoGenerator() {
   const dispatch = useDispatch();
@@ -89,19 +86,19 @@ function PoGenerator() {
   };
 
   return (
-    <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-      <Header />
+    <div className=" flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
       <Grid2
         container
         className="flex justify-center h-[800px] items-center bg-gray-50 flex-grow overflow-hidden"
       >
-        <Grid2 size={{ lg: 7 }}>
+        <Grid2 size={{ lg: 6.5, md: 10, xs: 12 }} className="bg-gray-50">
           <Card
             sx={{
               borderRadius: "20px",
               display: "flex",
               flexDirection: "column",
               overflow: "hidden",
+              backgroundColor: "#ECECEC",
             }}
           >
             <Typography
@@ -111,14 +108,14 @@ function PoGenerator() {
             >
               Upload Purchase Order (Self Service)
             </Typography>
-            <div className="flex gap-4 p-5">
+            <div className="flex gap-4 p-5 bg-#ECECEC">
               <input
                 type="text"
                 size="small"
                 placeholder="Enter Email or Mobile"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="w-96 border rounded-lg p-2"
+                className="w-96 border border-gray-400 rounded-lg p-2"
               />
               <button
                 onClick={handleSearch}
@@ -129,7 +126,7 @@ function PoGenerator() {
               </button>
             </div>
 
-            <div className="flex justify-between gap-8 px-5 py-3 bg-gray-300 rounded-t-md">
+            {/* <div className="flex justify-between gap-8 px-5 py-3 bg-gray-300 rounded-t-md">
               <p className="text-xl font-semibold w-[20%] px-3 text-gray-800">
                 Estimate
               </p>
@@ -139,8 +136,8 @@ function PoGenerator() {
               <p className="text-xl font-semibold w-[100%] text-gray-800">
                 Description
               </p>
-            </div>
-            <div className="border border-gray-600 rounded-lg h-[35vh] overflow-scroll">
+            </div> */}
+            <div className=" bg-white border border-gray-400 rounded-md m-5  h-[35vh] overflow-hidden">
               {uploadPo.length === 0 ? (
                 <div className="flex justify-center items-center h-full text-gray-600 text-lg">
                   No purchase orders found.
@@ -176,7 +173,7 @@ function PoGenerator() {
               )}
             </div>
 
-            <div className="flex justify-between p-4 bg-gray-300">
+            <div className="flex justify-between p-5 bg-#ECECEC">
               <div>
                 <input
                   type="file"
@@ -215,7 +212,6 @@ function PoGenerator() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-      <Footer />
     </div>
   );
 }

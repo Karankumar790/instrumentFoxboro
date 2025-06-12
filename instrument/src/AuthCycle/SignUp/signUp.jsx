@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Button, TextField, Box } from "@mui/material";
-import Modal from "@mui/material/Modal";
 import OTPModal from "../Login/OTPModal";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { otpSignUp, register } from "./SignUpSlice";
 import { useNavigate } from "react-router-dom";
-import PageContainer from "../../components/HOC/PageContainer";
 
 const SignUpPage = () => {
 
@@ -98,7 +94,6 @@ const SignUpPage = () => {
   return (
     <>
       <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-       <Header/>
         <div className="flex justify-center items-center bg-gray-50 flex-grow overflow-hidden">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
               <div className="mb-6">
@@ -187,7 +182,6 @@ const SignUpPage = () => {
           sign={true}
           handleSignupOtpSubmit={handleSignupOtpSubmit} 
         />
-        <Footer/>
       </div >
     </>
 

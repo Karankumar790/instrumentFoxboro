@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { forget, resetPassword } from '../Forget/forgetSlice';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer/Footer';
 import { Modal, Box, TextField, Button, Alert, CircularProgress } from '@mui/material';
-import PageContainer from '../../components/HOC/PageContainer';
 
 function ForgotPassword() {
   const dispatch = useDispatch();
@@ -44,7 +41,6 @@ function ForgotPassword() {
 
   return (
     <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
-      <Header />
       <div className='flex justify-center items-center bg-gray-50 flex-grow overflow-hidden'>
         <div className="bg-white p-6 rounded-lg shadow-md w-96">
           <h2 className="text-2xl font-bold mb-4 text-center">Forgot Password</h2>
@@ -124,7 +120,6 @@ function ForgotPassword() {
           </Box>
         </Modal>
       </div>
-      <Footer />
     </div>
   );
 }

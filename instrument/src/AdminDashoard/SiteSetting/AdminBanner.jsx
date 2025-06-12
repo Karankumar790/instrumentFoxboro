@@ -87,24 +87,27 @@ const BannerUploadUI = () => {
           </Typography>
 
           <form onSubmit={handleSubmit}>
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleImageChange}
-              style={{ display: 'none' }}
-              id="banner-upload"
-            />
-            <label htmlFor="banner-upload">
-              <IconButton
-                color="primary"
-                component="span"
-                sx={{ mb: 2 }}
-              >
-                <Typography>Select Images</Typography>
-              </IconButton>
-            </label>
+            <div className='flex justify-between'>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageChange}
+                style={{ display: 'none' }}
+                id="banner-upload"
+              />
+              <label htmlFor="banner-upload">
+                <IconButton
+                  color="primary"
+                  component="span"
+                  sx={{ mb: 2 }}
+                >
+                  <Typography>Select Images</Typography>
+                </IconButton>
+              </label>
 
+              <input type="text"  name="" id="" placeholder='Time' className='h-10' />
+            </div>
             {/* Preview Grid */}
             <Box sx={{
               display: 'grid',

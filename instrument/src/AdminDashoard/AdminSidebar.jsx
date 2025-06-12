@@ -106,8 +106,8 @@ export default function AdminSidebar() {
             <NavItem to="/admin/adminHeader" icon={<FaSlidersH />} label="Site Settings" />
             <NavItem to="/admin/automation" icon={<FaCogs />} label="Automation" />
             <NavItem to="/admin/adminProduct" icon={<FaBox />} label="Products" />
-            <NavItem to="/admin/adminsoftware" icon={<FaLaptopCode />} label="Software" />
-            <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="E-Service" />
+            <NavItem to="/admin/adminsoftware" icon={<FaLaptopCode />} label="Engineering" />
+            <NavItem to="/admin/serviceEstimate" icon={<MdManageAccounts />} label="Service" />
             <NavItem to="/admin/adminService" icon={<FaTools />} label="Mail Box" />
             {/* <NavItem to="/admin/adminRunningProject" icon={<FaPlay />} label="Running Project" />
             <NavItem to="/admin/adminNewProject" icon={<FaPlus />} label="New Project" /> */}

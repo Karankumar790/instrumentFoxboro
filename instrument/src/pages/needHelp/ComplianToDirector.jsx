@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer/Footer";
-
 function ComplianToDirector() {
   const [formData, setFormData] = useState({
     name: "",
@@ -35,7 +32,6 @@ function ComplianToDirector() {
 
   return (
     <div className="bg-slate-400 w-full min-h-screen flex flex-col">
-      <Header />{" "}
       <div className="flex-grow flex items-center justify-center ">
         <div className="bg-white w-full max-w-2xl p-6 space-y-4 border shadow-lg rounded-lg border-gray-400">
           <p className="text-3xl font-semibold text-black py-2  rounded-md ">
@@ -164,7 +160,6 @@ function ComplianToDirector() {
         </div>
       </div>
       <div className="pb-0">
-        <Footer />
       </div>
     </div>
   );

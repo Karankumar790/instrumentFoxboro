@@ -69,7 +69,6 @@ function content() {
   return (
     <>
       <div className="min-h-screen bg-gray-50 flex flex-col justify-between overflow-x-hidden">
-        <Header />
         <Grid2 container display="flex" justifyContent="center" mt={1}>
           <Grid2 size={{ xs: 12, sm: 10, md: 9, lg: 8 }}>
             <Box
@@ -157,54 +156,6 @@ function content() {
                   <div>No categories available</div>
                 )}
               </Grid2>
-              <p className="text-3xl mt-10 mb-8 font-bold font-noto">
-                Web Based Industrial Software
-              </p>
-              <Grid2 container spacing={3} mt={1}>
-                {softwareData.length > 0 ? (
-                  softwareData.slice(0, 4).map((software, index) => (
-                    <Grid2
-                      size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
-                      key={software._id}
-                    >
-                      <Card className="h-full flex flex-col justify-between">
-                        <Link to="/software">
-                          <div className="h-64 w-full">
-                            <img
-                              src={software.softwareImage}
-                              alt={software.softwareName}
-                              className="transition-transform duration-300 ease-in-out h-full w-full object-fill"
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "scale(1.1)";
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = "scale(1)";
-                              }}
-                            />
-                          </div>
-                        </Link>
-                        <div className="flex flex-col flex-grow px-3 py-4">
-                          <p className="text-xl text-black font-noto font-bold pt-3 line-clamp-2 ">
-                            {limitNameWords(software.softwareName)}
-                          </p>
-                          <p className="text-lg text-gray-800 font-noto flex-grow">
-                            {limitWords(software.description)}
-                          </p>
-                          <div className="w-full flex pr-2">
-                            <Link to="/software">
-                              <p className="text-red-600 text-md font-semibold rounded-lg mb-2">
-                                Learn More ➜
-                              </p>
-                            </Link>
-                          </div>
-                        </div>
-                      </Card>
-                    </Grid2>
-                  ))
-                ) : (
-                  <div>No Software available</div>
-                )}
-              </Grid2>
 
               <Grid2 mt={3} mb={2}   >
                 <p className="text-3xl mt-10 mb-8 font-bold font-noto">Foxboro Product Line</p>
@@ -263,13 +214,63 @@ function content() {
                 )}
 
               </Grid2>
+
+              <p className="text-3xl mt-10 mb-8 font-bold font-noto">
+                Engineering Service
+              </p>
+              <Grid2 container spacing={3} mt={1} mb={3}>
+                {softwareData.length > 0 ? (
+                  softwareData.slice(0, 4).map((software, index) => (
+                    <Grid2
+                      size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
+                      key={software._id}
+                    >
+                      <Card className="h-full flex flex-col justify-between">
+                        <Link to="/software">
+                          <div className="h-64 w-full">
+                            <img
+                              src={software.softwareImage}
+                              alt={software.softwareName}
+                              className="transition-transform duration-300 ease-in-out h-full w-full object-fill"
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "scale(1.1)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "scale(1)";
+                              }}
+                            />
+                          </div>
+                        </Link>
+                        <div className="flex flex-col flex-grow px-3 py-4">
+                          <p className="text-xl text-black font-noto font-bold pt-3 line-clamp-2 ">
+                            {limitNameWords(software.softwareName)}
+                          </p>
+                          <p className="text-lg text-gray-800 font-noto flex-grow">
+                            {limitWords(software.description)}
+                          </p>
+                          <div className="w-full flex pr-2">
+                            <Link to="/software">
+                              <p className="text-red-600 text-md font-semibold rounded-lg mb-2">
+                                Learn More ➜
+                              </p>
+                            </Link>
+                          </div>
+                        </div>
+                      </Card>
+                    </Grid2>
+                  ))
+                ) : (
+                  <div>No Software available</div>
+                )}
+              </Grid2>
+
+
             </Grid2>
           ) : (
             <div></div>
           )}
 
         </Grid2>
-        <Footer />
       </div>
     </>
   );
