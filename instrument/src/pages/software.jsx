@@ -185,8 +185,8 @@ const Software = () => {
                 <input
                   type="text"
                   required
-                  name="Product Name"
-                  placeholder="Product Name"
+                  name="Department Name"
+                  placeholder="Department Name"
                   className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
                   
                 />
@@ -196,8 +196,8 @@ const Software = () => {
                 <input
                   type="text"
                   required
-                  name="Model"
-                  placeholder="Model"
+                  name="position"
+                  placeholder="Position"
                   className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
                  
                 />
