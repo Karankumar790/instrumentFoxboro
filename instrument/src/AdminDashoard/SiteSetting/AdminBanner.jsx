@@ -65,6 +65,7 @@ const BannerUploadUI = () => {
       alert("Please select at least one image.");
       return;
     }
+    console.log(sliderDelay, "sliderDelay :");
     // Correctly pass object with images and sliderDelay
     dispatch(postBanner({ images: imageFiles, sliderDelay })).then(() =>
       dispatch(getBanner())
