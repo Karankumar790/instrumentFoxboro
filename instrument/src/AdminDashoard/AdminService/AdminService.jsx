@@ -4,7 +4,6 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Paper,
   IconButton,
@@ -22,6 +21,8 @@ import HiringExpertTable from "../ServiceManager/AdminHiringExp";
 import POUploadTable from "../ServiceManager/SeviceEstimate";
 import Service from "../ServiceManager/SeviceEstimate";
 import Become from "../ServiceManager/ManagerWorkFox/ManagerWorkFOx";
+import { MdInbox, MdSend, MdDrafts,  MdStorage,  MdDelete } from "react-icons/md";
+
 
 function SupportTable() {
   // const [rows, setRows] = useState({
@@ -43,6 +44,7 @@ function SupportTable() {
 
   const rows = serviceAdm?.getServiceData || [];
   const [filterType, setFilterType] = useState("");
+  const [filterLabel, setFilterLabel] = useState("All Mail");
 
   const renderTable = () => {
     switch (filterType) {
@@ -205,24 +207,58 @@ function SupportTable() {
         </Table>
       </TableContainer> */}
 
-      
-        {/* Dropdown to select query type */}
-        <div className="flex justify-between">
-          <p className="text-2xl text-black font-bold">Mail Box</p>
-          <button className="text-2xl text-black font-bold">Inbox</button>
-          <button className="text-2xl text-black font-bold">Sent</button>
-          <button className="text-2xl text-black font-bold">Drafts</button>
-          <button className="text-2xl text-black font-bold">Trace</button>
-          <button className="text-2xl text-black font-bold">Database</button>
+
+
+
+      {/* Dropdown to select query type */}
+      <div className="flex justify-between">
+        <p className="text-2xl text-black font-bold">{filterLabel}</p>
+        <div className="flex gap-6">
+          <button className="flex items-center space-x-1 text-xl text-black font-semibold">
+            <MdInbox />
+            <span>Inbox</span>
+          </button>
+          <button className="flex items-center space-x-2 text-xl text-black font-semibold">
+            <MdSend />
+            <span>Sent</span>
+          </button>
+          <button className="flex items-center space-x-2 text-xl text-black font-semibold">
+            <MdDrafts />
+            <span>Drafts</span>
+          </button>
+          <button className="flex items-center space-x-2 text-xl text-black font-semibold">
+            <MdDelete />
+            <span>Trace</span>
+          </button>
+          <button className="flex items-center space-x-2 text-xl text-black font-semibold">
+            <MdStorage />
+            <span>Database</span>
+          </button>
           <FormControl sx={{ minWidth: 300 }} size="small" className="mb-4">
-            <InputLabel id="query-type-label">Query Type</InputLabel>
+            <InputLabel id="query-type-label">All Mail</InputLabel>
             <Select
               labelId="query-type-label"
               value={filterType}
-              label="Query Type"
-              onChange={(e) => setFilterType(e.target.value)}
+              label="All Mail"
+              onChange={(e) => {
+                const selectedValue = e.target.value;
+
+                // Match label manually based on value
+                const labelMap = {
+                  support: "Contact Us",
+                  product: "Product Queries",
+                  internship: "Internship",
+                  hiring: "Hiring Expert",
+                  po: "Po Upload",
+                  Service: "Estimate",
+                  Become: "Service Partner",
+                };
+
+                setFilterType(selectedValue);
+                setFilterLabel(labelMap[selectedValue] || "All Mail");
+              }}
             >
-              <MenuItem value="support">Contact US</MenuItem>
+              <MenuItem value="support">Contact Us</MenuItem>
               <MenuItem value="product">Product Queries</MenuItem>
               <MenuItem value="internship">Internship</MenuItem>
               <MenuItem value="hiring">Hiring Expert</MenuItem>
@@ -232,16 +268,18 @@ function SupportTable() {
             </Select>
           </FormControl>
         </div>
-        {filterType === "support" && (
-          <>
-            <p className="text-2xl font-bold">Message Box</p>
-            <TableContainer
-              component={Paper}
-              sx={{ height: "85%" }}
-              className="mt-6"
-            >
-              <Table>
-                {/* <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
+
+      </div>
+      {filterType === "support" && (
+        <>
+          <p className="text-2xl font-bold">Message Box</p>
+          <TableContainer
+            component={Paper}
+            sx={{ height: "85%" }}
+            className="mt-6"
+          >
+            <Table>
+              {/* <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
                 <TableRow>
                   {[
                     "First Name",
@@ -264,44 +302,44 @@ function SupportTable() {
                   ))}
                 </TableRow>
               </TableHead> */}
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow key={row._id}>
-                      <TableCell>{row.Firstname}</TableCell>
-                      <TableCell>{row.Lastname}</TableCell>
-                      <TableCell>{row.Mobile}</TableCell>
-                      <TableCell>{row.Email}</TableCell>
-                      <TableCell>{row.Companyname}</TableCell>
-                      <TableCell>{row.Position}</TableCell>
-                      <TableCell>{row.Country}</TableCell>
-                      <TableCell>{row.State}</TableCell>
-                      <TableCell>{row.Message}</TableCell>
-                      <TableCell>
-                        <IconButton
-                          onClick={() => handleDelete(row._id)}
-                          color="error"
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </>
-        )}
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row._id}>
+                    <TableCell>{row.Firstname}</TableCell>
+                    <TableCell>{row.Lastname}</TableCell>
+                    <TableCell>{row.Mobile}</TableCell>
+                    <TableCell>{row.Email}</TableCell>
+                    <TableCell>{row.Companyname}</TableCell>
+                    <TableCell>{row.Position}</TableCell>
+                    <TableCell>{row.Country}</TableCell>
+                    <TableCell>{row.State}</TableCell>
+                    <TableCell>{row.Message}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        onClick={() => handleDelete(row._id)}
+                        color="error"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
 
-        {filterType === "product" && (
-          <>
-            <p className="text-2xl font-bold">Product Queries</p>
-            <TableContainer
-              component={Paper}
-              sx={{ height: "85%" }}
-              className="mt-6"
-            >
-              <Table>
-                {/* <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
+      {filterType === "product" && (
+        <>
+          <p className="text-2xl font-bold">Product Queries</p>
+          <TableContainer
+            component={Paper}
+            sx={{ height: "85%" }}
+            className="mt-6"
+          >
+            <Table>
+              {/* <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
                 <TableRow>
                   {[
                     "Name",
@@ -322,34 +360,38 @@ function SupportTable() {
                   ))}
                 </TableRow>
               </TableHead> */}
-                <TableBody>
-                  {getPro?.map((row) => (
-                    <TableRow key={row._id}>
-                      <TableCell>{row?.name}</TableCell>
-                      <TableCell>{row?.mobileNumber}</TableCell>
-                      <TableCell>{row?.email}</TableCell>
-                      <TableCell>{row?.company}</TableCell>
-                      <TableCell>{row?.productName}</TableCell>
-                      <TableCell>{row?.modelNumber}</TableCell>
-                      <TableCell>{row?.message}</TableCell>
-                      <TableCell>
-                        <IconButton
-                          onClick={() => handleDeleteProduct(row._id)}
-                          color="error"
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </>
-        )}
-     
+              <TableBody>
+                {getPro?.map((row) => (
+                  <TableRow key={row._id}>
+                    <TableCell>{row?.name}</TableCell>
+                    <TableCell>{row?.mobileNumber}</TableCell>
+                    <TableCell>{row?.email}</TableCell>
+                    <TableCell>{row?.company}</TableCell>
+                    <TableCell>{row?.productName}</TableCell>
+                    <TableCell>{row?.modelNumber}</TableCell>
+                    <TableCell>{row?.message}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        onClick={() => handleDeleteProduct(row._id)}
+                        color="error"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
+
       {/* Dynamically Render the Table */}
       {renderTable()}
+
+      {/* <div className="border border-gray-500 w-full h-96 mt-4">
+
+      </div> */}
     </>
   );
 }

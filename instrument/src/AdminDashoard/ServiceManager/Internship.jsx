@@ -49,7 +49,7 @@ function Internship() {
   };
   return (
     <>
-      <p className="text-2xl font-bold">Internship</p>
+      {/* <p className="text-2xl font-bold">Internship</p> */}
 
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}

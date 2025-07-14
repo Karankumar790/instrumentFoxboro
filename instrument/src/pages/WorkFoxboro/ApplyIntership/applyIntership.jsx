@@ -97,8 +97,8 @@ function ApplyIntership() {
 
 
     return (
-        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden bg-gray-50">
-            <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '800px' }} className="bg-gray-50">
+        <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden bg-gray-50 px-4 sm:px-6 md:px-0">
+            <Grid2 container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height:{ lg:'800px', xs:'1100px'} }} className="bg-gray-50">
                 <Grid2 size={{ lg: 6.5, md: 10, sm: 12 }}>
                     <Card sx={{
                         borderRadius: 3,
@@ -214,11 +214,11 @@ function ApplyIntership() {
                                         </Box>
                                     </label>
                                 </Grid2>
-                                <Grid2 item size={{ lg: 6 }} sx={{ display: 'flex', justifyContent: 'end' }}>
+                                <Grid2 item size={{ lg: 6, md:8,sm:10,xs:12 }} sx={{ display: 'flex', justifyContent:{lg:'end'} }}>
 
                                     <button
                                         type="submit"
-                                        className='bg-green-400 w-[44%] p-1 rounded-md text-lg font-bold'
+                                        className='bg-green-400 w-full md:w-[44%]  p-1 rounded-md text-lg font-bold'
                                     >
                                         Submit Application
                                     </button>

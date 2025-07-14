@@ -48,8 +48,8 @@ function AdminHiringExp() {
   };
 
   return (
-    <div>
-      <p className="text-lg font-bold">Hiring Expert</p>
+    <>
+      {/* <p className="text-lg font-bold">Hiring Expert</p> */}
 
       <TableContainer component={Paper} sx={{ height: "85%" }} className="mt-6">
         <Table>
@@ -140,7 +140,7 @@ function AdminHiringExp() {
           />
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 }
 

@@ -8,25 +8,35 @@ import {
   MenuItem,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import MarkunreadIcon from "@mui/icons-material/Markunread";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import YouTubeIcon from "@mui/icons-material/YouTube";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getHeader } from "../AdminDashoard/SiteSetting/SettingSlice";
 import { IoLogoYoutube } from "react-icons/io";
+import DehazeIcon from '@mui/icons-material/Dehaze';
 
 function Header() {
   const fetchHeader = useSelector((state) => state.header.headerInt);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [openMob, setOpenMob] = useState(false);
+
+  const handleToggle = () => {
+    setOpenMob(!openMob);
+  };
+
+  const handleCloseMob = () => {
+    setOpenMob(false);
+  };
 
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,18 +45,23 @@ function Header() {
     setAnchorEl(null);
   };
 
+  const isMobile = useMediaQuery("(max-width:600px)");
   const item = [
     { text: fetchHeader.contactNumberOne, icon: <PhoneInTalkIcon /> },
     { text: fetchHeader.contactNumberTwo, icon: <PhoneInTalkIcon /> },
     { text: fetchHeader.whatsappNumber, icon: <WhatsAppIcon /> },
-    { text: fetchHeader.email, icon: <MarkunreadIcon /> },
-  ];
+    !isMobile && { text: fetchHeader.email, icon: <MarkunreadIcon /> },
+  ].filter(Boolean);
+
   // const arr = ["Product", "Software", "Services", "E-Store", "Support"];
   const arr = [
     { text: "Home", Link: "/" },
     { text: "Products", Link: "/product" },
+    { text: "Solutions", Link: "/solution" },
     { text: "Engineering", Link: "/software" },
-    { text: "E-Service", Link: null },
+    // { text: "E-Service", Link: null },
+    { text: "Service Partners", Link: "/servicePartner" },
+    { text: "Free Software", Link: "/headerMoblie" },
     { text: "Contact Us", Link: "/support" },
   ];
 
@@ -98,34 +113,108 @@ function Header() {
             <Grid
               item
               xs={12}
-              md={8}
               sm={12}
+              md={8}
               lg={6}
-              gap={2}
-              sx={{ mb: { xs: 1, sm: 0 }, display: "flex" }}
             >
-              <Box sx={{ width: 120, height: 64 }}>
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  <img
-                    src={fetchHeader.foxboroLogo}
-                    alt="Foxboro Logo"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", sm: "row" },
+                  alignItems: "center",
+                  justifyContent: { xs: "center", sm: "start" },
+                  gap: 2,
+                }}
+              >
+                {fetchHeader.foxboroLogo && (
+                  <Box
+                    sx={{
+                      width: 120,
+                      height: 64,
+                      display: {
+                        xs: "none",
+                        sm: "flex",
+                      },
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexShrink: 0,
                     }}
-                  />
-                </Link>
-              </Box>
-              <Box className="flex justify-center items-center">
-                <p className="text-3xl font-bold">Foxboro Instrument Company</p>
+                  >
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                      <img
+                        src={fetchHeader.foxboroLogo}
+                        alt="Foxboro Logo"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                          display: "block",
+                        }}
+                      />
+                    </Link>
+                  </Box>
+                )}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between", 
+                    // px: { xs: 2, md: 4 },
+                    // py: 2,
+                    flexDirection: { xs: "row", md: "row" },
+                    width: { xs: "400px", md: "100%" },
+                  }}
+                >
+                  {/* Mobile Dropdown Button */}
+                  <div className="block md:hidden relative">
+                    <button
+                      id="basic-button"
+                      aria-haspopup="true"
+                      aria-expanded={openMob ? "true" : undefined}
+                      onClick={handleToggle}
+                      className="p-2"
+                    >
+                      <DehazeIcon className="text-3xl" />
+                    </button>
+
+                    {openMob && (
+                      <div className="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg z-50">
+                        {arr.map((item, index) =>
+                          item.Link ? (
+                            <Link
+                              key={index}
+                              to={item.Link}
+                              className="block px-4 py-2 text-black hover:bg-gray-100"
+                              onClick={handleCloseMob}
+                            >
+                              {item.text}
+                            </Link>
+                          ) : (
+                            <span
+                              key={index}
+                              className="block px-4 py-2 text-gray-400 cursor-not-allowed"
+                            >
+                              {item.text}
+                            </span>
+                          )
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Company Name */}
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-center mx-auto md:mx-0">
+                    Foxboro Instrument Company
+                  </p>
+                </Box>
               </Box>
             </Grid>
+
 
             {/* Right side: Social icons + Login button */}
             <Grid2 xs={12} md={8} lg={6} sm={12}>
               <div className="flex items-center lg:gap-4 md:gap-1 sm:gap-1  mt-3 lg:mt-0">
-                <Stack direction="row" spacing={1}>
+                <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
                   <a
                     href={fetchHeader.instagramLink}
                     target="_blank"
@@ -160,8 +249,10 @@ function Header() {
                     </Button>
                   </a>
                 </Stack>
+
+
                 <Link to="/login" className="no-underline">
-                  <button className="bg-blue-700 hover:bg-yellow-400 text-md rounded-md text-black font-semibold py-2 px-5 shadow-md transition duration-300">
+                  <button className="bg-blue-700 hidden xs:none sm:flex  hover:bg-yellow-400 text-md rounded-md text-black font-semibold py-2 px-5 shadow-md transition duration-300">
                     STAFF LOGIN
                   </button>
                 </Link>
@@ -179,7 +270,7 @@ function Header() {
             color: "white",
             py: 1.5,
             width: "100%",
-            display: "flex",
+            display: { xs: 'none', sm: 'flex' },
             justifyContent: "center",
             overflowX: "hidden",
           }}
@@ -200,7 +291,7 @@ function Header() {
                 spacing={2}
                 alignItems={{ xs: "flex-start", sm: "center" }}
 
-                sx={{ width: "100%", flexWrap: "wrap", display: 'flex', justifyContent: 'space-between' }}
+                sx={{ width: "100%", flexWrap: "wrap", display: { xs: 'none', sm: 'flex' }, justifyContent: 'space-between' }}
               >
                 {/* Navigation Links */}
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
@@ -310,7 +401,7 @@ function Header() {
         >
           <Grid2
             size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
-            className="flex justify-end flex-wrap text-xs sm:text-sm md:text-base lg:text-lg gap-3"
+            className="flex md:justify-end justify-center flex-wrap text-xs sm:text-sm md:text-base lg:text-lg  gap-3"
           >
             {fetchHeader && Object.keys(fetchHeader).length > 0 &&
               item.map((value, index) => (

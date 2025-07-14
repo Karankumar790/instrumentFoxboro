@@ -66,7 +66,7 @@ function ManagerWorkFOx() {
   return (
     <>
       <div className="mb-80">
-        <p className="mb-3 text-2xl font-bold">Become Service Partner</p>
+        {/* <p className="mb-3 text-2xl font-bold">Become Service Partner</p> */}
         <TableContainer
           component={Paper}
           sx={{ height: "85%" }}

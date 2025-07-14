@@ -45,7 +45,7 @@ function SeviceEstimate({showPo}) {
 
   return (
     <>
-      <p className="text-2xl font-bold">Service Estimate</p>
+      {/* <p className="text-2xl font-bold">Service Estimate</p> */}
       <TableContainer component={Paper} sx={{ height: "85%" }} className="mt-6">
         <Table>
           {/* <TableHead sx={{ backgroundColor: '#1e3a8a' }}>

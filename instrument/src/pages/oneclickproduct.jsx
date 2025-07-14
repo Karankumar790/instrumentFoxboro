@@ -62,7 +62,7 @@ function oneclickproduct() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden bg-gray-50">
+    <div className="min-h-screen flex flex-col overflow-x-hidden bg-gray-50 px-4 sm:px-6 md:px-0">
       <Grid2
         container
         display="flex"
