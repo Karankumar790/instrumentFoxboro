@@ -57,7 +57,7 @@ function Header() {
   const arr = [
     { text: "Home", Link: "/" },
     { text: "Products", Link: "/product" },
-    { text: "Solutions", Link: "/solution" },
+    // { text: "Solutions", Link: "/solution" },
     { text: "Engineering", Link: "/software" },
     // { text: "E-Service", Link: null },
     { text: "Service Partners", Link: "/servicePartner" },
@@ -156,9 +156,9 @@ function Header() {
                 )}
                 <Box
                   sx={{
-                    display: "flex",
+                    // display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between", 
+                    justifyContent: "space-between",
                     // px: { xs: 2, md: 4 },
                     // py: 2,
                     flexDirection: { xs: "row", md: "row" },
@@ -166,25 +166,35 @@ function Header() {
                   }}
                 >
                   {/* Mobile Dropdown Button */}
-                  <div className="block md:hidden relative">
-                    <button
-                      id="basic-button"
-                      aria-haspopup="true"
-                      aria-expanded={openMob ? "true" : undefined}
-                      onClick={handleToggle}
-                      className="p-2"
-                    >
-                      <DehazeIcon className="text-3xl" />
-                    </button>
+                  <div className="flex">
+                    <div className="block md:hidden relative">
+                      <button
+                        id="basic-button"
+                        aria-haspopup="true"
+                        aria-expanded={openMob ? "true" : undefined}
+                        onClick={handleToggle}
+                        className="p-2"
+                      >
+                        <DehazeIcon className="text-3xl" />
+                      </button>
+                    </div>
 
-                    {openMob && (
-                      <div className="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg z-50">
-                        {arr.map((item, index) =>
+                    {/* Company Name */}
+                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-center mx-auto md:mx-0">
+                      Foxboro Instrument Company
+                    </p>
+                  </div>
+
+                  {openMob && (
+                    <div className="md:hidden w-full mt-2  rounded shadow-md z-50 flex flex-col  items-center">
+                      {/* First Row - First 4 items */}
+                      <div className="flex  w-full">
+                        {arr.slice(0, 3).map((item, index) =>
                           item.Link ? (
                             <Link
                               key={index}
                               to={item.Link}
-                              className="block px-4 py-2 text-black hover:bg-gray-100"
+                              className="block px-4 py-2 text-white font-semibold hover:bg-gray-100 w-full text-center"
                               onClick={handleCloseMob}
                             >
                               {item.text}
@@ -192,20 +202,39 @@ function Header() {
                           ) : (
                             <span
                               key={index}
-                              className="block px-4 py-2 text-gray-400 cursor-not-allowed"
+                              className="block px-4 py-2 text-gray-400 cursor-not-allowed w-full text-center"
                             >
                               {item.text}
                             </span>
                           )
                         )}
                       </div>
-                    )}
-                  </div>
 
-                  {/* Company Name */}
-                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-center mx-auto md:mx-0">
-                    Foxboro Instrument Company
-                  </p>
+                      {/* Second Row - Remaining items */}
+                      <div className="flex  w-full  ">
+                        {arr.slice(3).map((item, index) =>
+                          item.Link ? (
+                            <Link
+                              key={index}
+                              to={item.Link}
+                              className="block px-4 py-2 text-white font-semibold hover:bg-gray-100 w-full text-center"
+                              onClick={handleCloseMob}
+                            >
+                              {item.text}
+                            </Link>
+                          ) : (
+                            <span
+                              key={index}
+                              className="block px-4 py-2 text-gray-400 cursor-not-allowed w-full text-center"
+                            >
+                              {item.text}
+                            </span>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                 </Box>
               </Box>
             </Grid>
