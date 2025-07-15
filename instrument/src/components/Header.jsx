@@ -29,6 +29,7 @@ function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [openMob, setOpenMob] = useState(false);
+  const [workOpen, setWorkOpen] = useState(false);
 
   const handleToggle = () => {
     setOpenMob(!openMob);
@@ -36,6 +37,7 @@ function Header() {
 
   const handleCloseMob = () => {
     setOpenMob(false);
+     setWorkOpen(false);
   };
 
   const handleOpen = (event) => {
@@ -61,7 +63,7 @@ function Header() {
     { text: "Engineering", Link: "/software" },
     // { text: "E-Service", Link: null },
     { text: "Service Partners", Link: "/servicePartner" },
-    { text: "Free Software", Link: "/headerMoblie" },
+    // { text: "Free Software", Link: "" },
     { text: "Contact Us", Link: "/support" },
   ];
 
@@ -180,21 +182,21 @@ function Header() {
                     </div>
 
                     {/* Company Name */}
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-center mx-auto md:mx-0">
+                    <p className="text-xl sm:text-2xl md:mt-0 mt-2 md:text-3xl font-bold text-center mx-auto md:mx-0">
                       Foxboro Instrument Company
                     </p>
                   </div>
-
                   {openMob && (
-                    <div className="md:hidden w-full mt-2  rounded shadow-md z-50 flex flex-col  items-center">
-                      {/* First Row - First 4 items */}
-                      <div className="flex  w-full">
+                    <div className="md:hidden w-full mt-2 rounded shadow-md z-50 flex flex-col items-center bg-[#2B313B]">
+
+                      {/* First Row - First 3 items */}
+                      <div className="flex w-full">
                         {arr.slice(0, 3).map((item, index) =>
                           item.Link ? (
                             <Link
                               key={index}
                               to={item.Link}
-                              className="block px-4 py-2 text-white font-semibold hover:bg-gray-100 w-full text-center"
+                              className="block px-4 py-2 text-white font-semibold hover:bg-gray-700 w-full text-center"
                               onClick={handleCloseMob}
                             >
                               {item.text}
@@ -211,13 +213,13 @@ function Header() {
                       </div>
 
                       {/* Second Row - Remaining items */}
-                      <div className="flex  w-full  ">
+                      <div className="flex  w-full border-t border-gray-600">
                         {arr.slice(3).map((item, index) =>
                           item.Link ? (
                             <Link
                               key={index}
                               to={item.Link}
-                              className="block px-4 py-2 text-white font-semibold hover:bg-gray-100 w-full text-center"
+                              className="block px-4 py-2 text-white font-semibold hover:bg-gray-700 w-full text-center"
                               onClick={handleCloseMob}
                             >
                               {item.text}
@@ -232,6 +234,45 @@ function Header() {
                           )
                         )}
                       </div>
+
+                      {/* Work @ Foxboro Dropdown */}
+                      <button
+                        className="flex items-center justify-center gap-2 w-full px-4 py-2 text-white font-semibold border-t border-gray-600 focus:outline-none"
+                        onClick={() => setWorkOpen(!workOpen)}
+                      >
+                        <EngineeringIcon className="text-lg" />
+                        Work @ Foxboro
+                        <span className={`transition-transform ${workOpen ? 'rotate-180' : ''}`}>
+                          ▼
+                        </span>
+                      </button>
+
+                      {/* Submenu (Only shows if workOpen === true) */}
+                      {workOpen && (
+                        <div className="flex flex-col w-full bg-[#2B313B] border-t border-gray-600">
+                          <Link
+                            to="/applyIntership"
+                            onClick={handleCloseMob}
+                            className="block px-4 py-2 text-white hover:bg-gray-700 text-center"
+                          >
+                            Apply for Internship
+                          </Link>
+                          <Link
+                            to="/hiringExpert"
+                            onClick={handleCloseMob}
+                            className="block px-4 py-2 text-white hover:bg-gray-700 text-center"
+                          >
+                            We’re Hiring Experts
+                          </Link>
+                          <Link
+                            to="/becomePartner"
+                            onClick={handleCloseMob}
+                            className="block px-4 py-2 text-white hover:bg-gray-700 text-center"
+                          >
+                            Become Service Partner
+                          </Link>
+                        </div>
+                      )}
                     </div>
                   )}
 
