@@ -92,64 +92,10 @@ const [confirmPassword,setConfirmPassword] = useState("")
       <div className=" bg-white shadow-lg rounded-2xl m-2 mt-0 p-5 w-full max-w-4xl border">
         <div className="relative mb-8">
           <h2 className="text-3xl font-bold  text-gray-800">User Profile</h2>
-          {/* <div className="absolute top-0 right-0 cursor-pointer bg-gray-200 p-2 rounded-full hover:bg-gray-300">
-            <div onClick={handleOpen}>
-              {" "}
-              <EditIcon fontSize="large" />
-            </div>
-          </div> */}
+          
         </div>
 
-        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-         
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-600">
-                Username
-              </label>
-              <div className="mt-1 p-3 w-full bg-gray-100 border border-gray-300 rounded-lg text-gray-800">
-                {user.username}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-600">
-                Phone
-              </label>
-              <div className="mt-1 p-3 w-full bg-gray-100 border border-gray-300 rounded-lg text-gray-800">
-                {user.phone}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-600">
-                Email
-              </label>
-              <div className="mt-1 p-3 w-full bg-gray-100 border border-gray-300 rounded-lg text-gray-800">
-                {user.email}
-              </div>
-            </div>
-          </div>
-
-          
-          <div className="flex bg-slate-400 space-y-4">
-            <img
-              // src={user.avatar}
-              src="https://i.pravatar.cc/150?img=12"
-              alt="User"
-              className="w-56 h-56 rounded-full object-cover content-center border-4 border-blue-300"
-            />
-          </div>
-
-          <div className="bg-slate-400 ">
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-4 py-2 flex items-end rounded hover:bg-blue-700"
-            >
-              Change Password
-            </button>
-          </div>
-        </div> */}
+        
 
         <div className="grid grid-cols-7 gap-6 ">
           {/* User Details */}

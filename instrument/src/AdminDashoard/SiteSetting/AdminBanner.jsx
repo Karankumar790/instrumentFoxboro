@@ -62,23 +62,7 @@ const BannerUploadUI = () => {
     setSliderDelay("");
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (imageFiles.length === 0) {
-  //     alert("Please select at least one image.");
-  //     return;
-  //   }
-
-  //   // Dispatch correctly with both images and delay
-  //   dispatch(postBanner({ images: imageFiles, sliderDelay })).then(() => {
-  //     dispatch(getBanner());
-  //   });
-
-  //   // Reset local states
-  //   setSelectedImages([]);
-  //   setImageFiles([]);
-  //   setSliderDelay("");
-  // };
+ 
 
   const handleDelete = (bannerId) => {
     dispatch(deleteBanner({ id: bannerId })).then(() => {
@@ -127,14 +111,7 @@ const BannerUploadUI = () => {
           </div>
           <TableContainer >
             <Table>
-              {/* <TableHead>
-              <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                {Array.from({ length: 10 }, (_, i) => (
-                  <TableCell key={i}>Image {i + 1}</TableCell>
-                ))}
-                <TableCell align="right">Delete All</TableCell>
-              </TableRow>
-            </TableHead> */}
+             
               <TableBody>
                 {uploadedBanners.map((banner) => {
                   // Group images in chunks of 5
@@ -229,7 +206,6 @@ const BannerUploadUI = () => {
             <div>
               <button
                 type="submit"
-                // disabled={loading || selectedImages.length === 0}
                 className="w-36 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition disabled:opacity-50"
               >
                 Save Banner

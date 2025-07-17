@@ -28,6 +28,7 @@ function oneClickProDetail() {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     mobileNumber: "",
@@ -50,24 +51,34 @@ function oneClickProDetail() {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  e.preventDefault();
+  setLoading(true);
+  try {
     const response = await dispatch(contactProduct(formData)).unwrap();
+
     if (response.success) {
       toast.success(response.message);
+      handleCloseModal();
+      setFormData({
+        name: "",
+        mobileNumber: "",
+        email: "",
+        company: "",
+        productName: "",
+        modelNumber: "",
+        message: "",
+      });
     } else {
       toast.error(response.message);
     }
-    setFormData({
-      name: "",
-      mobileNumber: "",
-      email: "",
-      company: "",
-      productName: "",
-      modelNumber: "",
-      message: "",
-    });
-  };
+  } catch (error) {
+    toast.error("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   const content = [
     {
@@ -404,8 +415,7 @@ function oneClickProDetail() {
                   type="submit"
                   className="bg-blue-400 text-lg rounded-lg font-semibold w-40 h-11 "
                 >
-                  {/* {loading ? "Submitting..." : "Submit"} */}
-                  Submit
+                 {loading ? "Submitting..." : "Submit"}
                 </button>
               </div>
             </form>

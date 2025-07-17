@@ -5,7 +5,6 @@ import { Alert, Snackbar } from "@mui/material";
 
 function Support() {
   const dispatch = useDispatch();
-  // const error = useSelector((state) => state.contact.error)
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",

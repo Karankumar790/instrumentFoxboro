@@ -14,7 +14,6 @@ export const addFoxProduct = createAsyncThunk(
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            // response.data should contain the newly created product
             return response.data;
         } catch (error) {
             return rejectWithValue(

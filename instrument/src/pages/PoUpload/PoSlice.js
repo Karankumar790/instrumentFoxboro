@@ -4,9 +4,6 @@ import { SER_URL } from "../../api/Client";
 
 
 
-
-
-
 export const postEmail = createAsyncThunk(
   "search/postEmail",
   async (emailId, { rejectWithValue }) => {

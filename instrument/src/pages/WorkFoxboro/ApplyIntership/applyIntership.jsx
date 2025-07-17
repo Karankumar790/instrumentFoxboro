@@ -1,5 +1,5 @@
 import React, {  useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Card, Grid2, MenuItem, TextField, Typography, Button, Box } from '@mui/material';
 import { postIntership } from './applyIntership';
 import Snackbar from '@mui/material/Snackbar';

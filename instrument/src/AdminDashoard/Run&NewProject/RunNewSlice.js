@@ -112,8 +112,6 @@ const RunandNewSlice = createSlice({
             })
             .addCase(updateRunning.fulfilled, (state, action) => {
                 state.loading = false;
-                // state.runningInt = action.payload;
-                // state.runningInt.push(action.payload.data);
                 const updatedProject = action.payload.data;
                 const index = state.runningInt.findIndex(project => project._id === updatedProject._id);
             

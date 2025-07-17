@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogContent, DialogTitle, Grid2 } from "@mui/material";
+import {  Dialog, DialogContent, DialogTitle, Grid2 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SecurityIcon from "@mui/icons-material/Security";
 import MoneyIcon from "@mui/icons-material/Money";
@@ -7,7 +7,6 @@ import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
 import TableProduct from "../oneClickProDetail/TableProductDetail";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { getProductDetail } from "../../AdminDashoard/Category/CategoryProductSlice"; // ensure this returns a promise
 import { contactProduct, getProduct } from "./subProduct"; // ensure this returns a promise
 import { toast } from "react-toastify"; // import toast from 'react-toastify' library
 import FactoryIcon from "@mui/icons-material/Factory";
@@ -18,9 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 function SubProduct() {
   const [product, setProduct] = useState(null);
-  // const [currentImage, setCurrentImage] = useState(
-  //   product?.productId?.productImage[0] || ""
-  // );
+  
   const [currentImage, setCurrentImage] = useState(product?.images?.[0] || "");
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -56,18 +53,19 @@ function SubProduct() {
     if (response.success) {
       toast.success(response.message);
       handleCloseModal();
+      setFormData({
+        name: "",
+        mobileNumber: "",
+        email: "",
+        company: "",
+        productName: "",
+        modelNumber: "",
+        message: "",
+      });
     } else {
       toast.error(response.message);
     }
-    setFormData({
-      name: "",
-      mobileNumber: "",
-      email: "",
-      company: "",
-      productName: "",
-      modelNumber: "",
-      message: "",
-    });
+
   };
 
   const content = [

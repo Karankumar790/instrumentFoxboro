@@ -33,9 +33,11 @@ function Footer() {
           <Grid2 size={{ lg: 2.6, md: 4, sm: 6, xs: 12 }}>
             <Box>
               <Typography variant="h5" color="white" sx={{
-                textDecoration: "underline",
+                display: 'inline-block',
                 textDecorationColor: "red",
-                margin:'3px'
+                margin: '3px',
+                width: 'fit-content',
+                // borderBottom: '3px solid red',
               }}>
                 Registered Office
               </Typography>
@@ -57,9 +59,10 @@ function Footer() {
           <Grid2 size={{ lg: 3, md: 4, sm: 6, xs: 12 }}>
             <Box>
               <Typography variant="h5" color="white" sx={{
-                textDecoration: "underline",
                 textDecorationColor: "red",
-                margin:'3px'
+                margin: '3px',
+                width: 'fit-content',
+                // borderBottom: '3px solid red',
               }}>
                 Customer Support{" "}
               </Typography>
@@ -78,14 +81,15 @@ function Footer() {
               </Typography>
             </Box>
           </Grid2>
-          
+
           {/* Foxboro Website */}
-          <Grid2 size={{ lg: 4, md: 6, sm: 8, xs: 12 }} sx={{display:{xs:'none', md:'flex'}}}>
+          <Grid2 size={{ lg: 4, md: 6, sm: 8, xs: 12 }} sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Box>
               <Typography variant="h5" color="white" sx={{
-                textDecoration: "underline",
+                width: 'fit-content',
+                // borderBottom: '3px solid red',
                 textDecorationColor: "red",
-                margin:'3px'
+                margin: '3px'
               }}>
                 Foxboro Website{" "}
               </Typography>
@@ -133,12 +137,13 @@ function Footer() {
           </Grid2>
 
           {/* Help & Policies */}
-          <Grid2 size={{ lg: 2, md: 4, sm: 6, xs: 12 }} sx={{display:{xs:'none', md:'flex'}}}>
+          <Grid2 size={{ lg: 2, md: 4, sm: 6, xs: 12 }} sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Box>
               <Typography variant="h5" color="white" sx={{
-                textDecoration: "underline",
+                width: 'fit-content',
+                // borderBottom: '3px solid red',
                 textDecorationColor: "red",
-                margin:'3px'
+                margin: '3px'
               }}>
                 Need Help?
               </Typography>

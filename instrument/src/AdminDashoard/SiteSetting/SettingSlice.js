@@ -1,5 +1,4 @@
 import {
-  asyncThunkCreator,
   createAsyncThunk,
   createSlice,
 } from "@reduxjs/toolkit";
@@ -80,26 +79,6 @@ export const getFooter = createAsyncThunk(
   }
 );
 
-// export const postBanner = createAsyncThunk(
-//   "postBanner",
-//   async (images, sliderDelay, { rejectWithValue }) => {
-//     try {
-//       const formData = new FormData();
-//       images.forEach((image) => {
-//         formData.append("images", image);
-//       });
-//       formData.append("sliderDelay", sliderDelay); // 👈 Add time here
-
-//       const response = await axios.post(`${API_URL}/banner`, formData, {
-//         withCredentials: true,
-//       });
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response?.data?.message || "Error adding ");
-//     }
-//   }
-// );
-
 export const postBanner = createAsyncThunk(
   "postBanner",
   async ({ images, sliderDelay }, { rejectWithValue }) => {
@@ -132,24 +111,6 @@ export const getBanner = createAsyncThunk(
     }
   }
 );
-
-// export const deleteBanner = createAsyncThunk(
-//     "deleteBanner",
-//     async (id, { rejectWithValue }) => {
-//         try {
-//             const response = await axios.delete(`${API_URL}/deletePhoto/${id}`, {
-//                 headers: {
-//                     Authorization: `Bearer ${token}`,
-//                 }
-//             })
-//             return response.data
-//         } catch (error) {
-//             return rejectWithValue(
-//                 error.response?.data?.message || "Error adding "
-//             )
-//         }
-//     }
-// )
 
 export const deleteBanner = createAsyncThunk(
   "deleteBanner",

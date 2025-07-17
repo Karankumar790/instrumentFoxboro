@@ -66,20 +66,12 @@ function ManagerWorkFOx() {
   return (
     <>
       <div className="mb-80">
-        {/* <p className="mb-3 text-2xl font-bold">Become Service Partner</p> */}
         <TableContainer
           component={Paper}
           sx={{ height: "85%" }}
-          // sx={{ maxHeight: 400, overflowY: "auto" }}
         >
           <Table>
-            {/* <TableHead sx={{ backgroundColor: '#1e3a8a' }}>
-              <TableRow>
-                {['Name', 'Phone', 'Email', 'City', 'State', 'Country', 'Authorized', 'View', 'Action'].map((header) => (
-                  <TableCell key={header} sx={{ color: 'white', fontWeight: 'bold' }}>{header}</TableCell>
-                ))}
-              </TableRow>
-            </TableHead> */}
+            
             <TableBody>
               {loading ? (
                 <TableRow>
