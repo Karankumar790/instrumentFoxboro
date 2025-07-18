@@ -1,12 +1,9 @@
-import { Box, Card, CardMedia, Grid2, Typography } from "@mui/material";
+import { Box, Card, Grid2, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import PageContainer from "../components/HOC/PageContainer";
 import { Link, useParams } from "react-router-dom";
-import Footer from "../components/Footer/Footer";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { getProductById } from "./product";
-import Header from "../components/Header";
 
 function oneclickproduct() {
   const [open, setOpen] = useState(false);

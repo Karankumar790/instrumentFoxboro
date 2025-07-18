@@ -1,8 +1,6 @@
 import { Box, Card, Grid2, Pagination, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Headers from "../components/Header";
-import Footer from "../components/Footer/Footer";
 import { getFoxboroProduct } from "./product";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -58,9 +56,7 @@ function product() {
                   <p className="text-3xl mt-3 mb-5 font-bold font-noto">
                     Foxboro Product Line
                   </p>
-                  {/* <p className="text-base sm:text-xl mb-8 text-center sm:text-left text-gray-700">
-                    Foxboro Instrument Company is manufacturing smart sensors, wireless transmitters, loRa gateways & electronic hardware for IoT ecosystems, artificial intelligence and industrial robotics. Our expertise in design, development and Modern manufacturing facility equipped with latest technology equipment results next level high quality products.
-                  </p> */}
+                 
                 </Box>
 
                 <Grid2 container spacing={3}>
@@ -105,15 +101,7 @@ function product() {
                     </Grid2>
                   ))}
                 </Grid2>
-                {/* {productFox.length > 0 && (
-              <Stack spacing={1} alignItems={"end"} mt={2}>
-                <Pagination count={pagination?.totalPages || 1}
-                  page={page}
-                  onChange={handlePageChange}
-                  variant="outlined"
-                  shape="rounded" />
-              </Stack>
-            )} */}
+               
               </Grid2>
             </Grid2>
           </div>

@@ -35,34 +35,6 @@ const Software = () => {
     dispatch(EnquirySoftware(formValue))
   }
 
-
-  const products = [
-    {
-      name: 'RTMS',
-      description: 'Real Time Oil & Gas Well Monitoring System Monitor oil and gas wells in real-time for optimized performance',
-    },
-    {
-      name: 'EnMS',
-      description: 'Energy Management System Optimize energy usage and enhance efficiency with our advanced',
-    },
-    {
-      name: 'FoxIoT',
-      description: 'Internet of Things Connect devices seamlessly to transform operations with the Internet of Things.',
-    },
-    {
-      name: 'Vision AI',
-      description: 'Vision Artificial Intelligence Empower insights and automation with cutting-edge Vision AI technology.',
-    },
-    {
-      name: 'E-Store',
-      description: 'Foxboro E-commerce platform Revolutionize shopping with a seamless, user-friendly E-Store for instruments',
-    },
-    {
-      name: 'Sign',
-      description: 'Digital signature app for businesses.',
-    },
-  ];
-
   useEffect(() => {
     dispatch(getSoftware())
   }, [dispatch])
@@ -92,9 +64,7 @@ const Software = () => {
               <h1 className="text-2xl sm:text-3xl font-bold mb-4 text-center sm:text-left">
                 Engineering Service
               </h1>
-              {/* <p className="text-base sm:text-xl mb-8 text-center sm:text-left text-gray-700">
-              We Provide Broad Range of Engineering Services like Engineering Consultancy, Project Management, Maintenance Contract, PLC/ SCADA Programming, Embedded System Designing and Software Development Etc
-            </p> */}
+            
 
               <div className="w-full h-full  flex flex-col gap-6">
                 {softwareData.map((product, index) => (
