@@ -176,32 +176,28 @@ function service() {
                 py: 2,
               }}
             >
-              <Grid2 container spacing={2}>
+              <Grid2 size={{ lg: '6', md: '10', sm: '8', xs: '6' }} spacing={2} className='grid grid-cols-2 gap-4'>
                 {[...fields].map((field, index) => (
-                  <Grid2 item xs={12} md={6} key={index}>
-                    <Box display="flex" alignItems="center">
-                      <Typography variant="h6" sx={{ minWidth: "110px", display: 'flex', justifyContent: 'end', marginRight: '25px' }}>
-                        {field.label}
-                      </Typography>
+                  <Grid2  key={index}>
                       <TextField
-                        sx={{ minWidth: "340px",backgroundColor:'white' }}
-                        size="small"
+                        sx={{ backgroundColor: 'white' }}
                         variant="outlined"
+                        placeholder={field.label}
                         value={formData[field.key]}
                         onChange={handleChange(field.key)}
                         fullWidth
                       />
-                    </Box>
                   </Grid2>
                 ))}
               </Grid2>
-              <Grid2 size={{lg:'12', md:'10', sm:'8', xs:'6'}} className='mt-5 ml-5  pr-4' >
+
+              <Grid2 size={{ lg: '12', md: '10', sm: '8', xs: '6' }} className='mt-4' >
                 <TextField
                   multiline
                   fullWidth
                   rows={4}
                   placeholder="Service Description"
-                  sx={{backgroundColor:'white' }}
+                  sx={{ backgroundColor: 'white' }}
                   value={formData.problemDescription}
                   onChange={handleChange("problemDescription")}
                 />

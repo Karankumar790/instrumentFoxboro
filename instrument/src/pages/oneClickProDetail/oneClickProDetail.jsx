@@ -28,6 +28,7 @@ function oneClickProDetail() {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     mobileNumber: "",
@@ -50,24 +51,34 @@ function oneClickProDetail() {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  e.preventDefault();
+  setLoading(true);
+  try {
     const response = await dispatch(contactProduct(formData)).unwrap();
+
     if (response.success) {
       toast.success(response.message);
+      handleCloseModal();
+      setFormData({
+        name: "",
+        mobileNumber: "",
+        email: "",
+        company: "",
+        productName: "",
+        modelNumber: "",
+        message: "",
+      });
     } else {
       toast.error(response.message);
     }
-    setFormData({
-      name: "",
-      mobileNumber: "",
-      email: "",
-      company: "",
-      productName: "",
-      modelNumber: "",
-      message: "",
-    });
-  };
+  } catch (error) {
+    toast.error("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   const content = [
     {
@@ -78,7 +89,6 @@ function oneClickProDetail() {
       name: "12 Month Unlimited Warranty ",
       icon: <SecurityIcon className="text-orange-500 scale-150" />,
     },
-    // { name: "Secure Payments", icon: <AdminPanelSettingsIcon className="text-orange-500 scale-150" /> },
     {
       name: "24✕7 Technical Support",
       icon: <HeadsetMicIcon className="text-orange-500 scale-150" />,
@@ -98,13 +108,14 @@ function oneClickProDetail() {
   }, [dispatch, id]);
 
   return (
-    <div>
-      <div className="flex">
-        <Grid2 container className="w-full flex justify-center p-1">
-          <Grid2 size={{ xs: 12, sm: 10, md: 9, lg: 8 }} className="flex gap-3 m-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200">
-            <div className="flex h-full w-full   max-w-2xl p-6">
+    <>
+      <div className="flex px-2 sm:px-4 md:px-0">
+        <Grid2 container className="w-full flex justify-center p-1 ">
+          <Grid2 size={{ xs: 12, sm: 10, md: 9, lg: 8 }} className="md:flex sm:grid gap-3 m-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200">
+            {/* Image */}
+            <div className="flex md:h-full sm:h-80 w-full max-w-2xl p-6">
               {/* Thumbnails */}
-              <div className="flex flex-col justify-center items-center w-1/6 gap-20 mr-2">
+              <div className="flex flex-col justify-center items-center md:w-1/6 sm:w-full gap-20 mr-2">
                 {product?.images?.map((productImage, index) => (
                   <img
                     key={index}
@@ -134,7 +145,7 @@ function oneClickProDetail() {
               </div>
 
               {/* Main Image */}
-              <div className="rounded-lg w-full h-[500px]">
+              <div className="rounded-lg w-full md:h-[500px] sm:h-96">
                 <img
                   src={currentImage || product?.productId?.productImage}
                   alt="Main Slide"
@@ -144,86 +155,89 @@ function oneClickProDetail() {
             </div>
 
             {/* Product Info */}
-            <div className="flex flex-col gap-4 p-5">
-              <div className="text-3xl font-semibold text-gray-700  ">
-                <span className="text-4xl pt-2">🛍️</span> Product Name:&nbsp;{" "}
+            <div className="flex flex-col gap-4 p-4 sm:p-5 w-full">
+              {/* Product Name */}
+              <div className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-700">
+                <span className="text-3xl sm:text-4xl">🛍️</span> Product Name:&nbsp;
                 {product?.productId?.productName}
               </div>
-              <div className="text-xl flex text-gray-600 gap-2">
-                <span className="text-4xl">📦</span>
-                <p className="font-bold flex justify-center  pt-2">
-                  Model:
-                </p>{" "}
-                &nbsp;<p className="pt-2"> {product?.modelNo}</p>
+
+              {/* Model No */}
+              <div className="flex flex-wrap items-start text-gray-600 gap-x-2 text-base sm:text-lg md:text-xl">
+                <span className="text-2xl sm:text-4xl">📦</span>
+                <p className="font-bold pt-1">Model:</p>
+                <p className="pt-1">{product?.modelNo}</p>
               </div>
 
-              <div className="text-xl flex text-gray-600 gap-">
-                <span className="text-4xl  ml-2">
-                  {/* 🏭 */}
-                  <FactoryIcon fontSize="large" />
+              {/* Manufacturer */}
+              <div className="flex flex-wrap items-start text-gray-600 gap-x-2 text-base sm:text-lg md:text-xl">
+                <span className="text-2xl sm:text-4xl ml-1">
+                  <FactoryIcon fontSize="inherit" />
                 </span>
-                <p className="font-bold pt-3 ml-4"> Manufacturer: </p>&nbsp;{" "}
-                <p className="pt-2"> {product?.manufacturer}</p>
+                <p className="font-bold pt-1">Manufacturer:</p>
+                <p className="pt-1">{product?.manufacturer}</p>
               </div>
-              <div className="text-xl flex text-gray-600 gap-2">
-                <span className="text-4xl">📝</span>
-                <p className="font-bold pt-2"> Description:</p>&nbsp;
-                <p className="pt-2">
-                  {product?.productId?.description
-                    ?.split(" ")
-                    .slice(0, 9)
-                    .join(" ")}
+
+              {/* Description */}
+              <div className="text-base sm:text-lg md:text-xl flex flex-wrap items-start text-gray-600 gap-2">
+                <span className="text-2xl md:text-4xl">📝</span>
+                <p className="font-bold pt-1">Description:</p>
+                <p className="pt-1">
+                  {product?.productId?.description?.split(" ").slice(0, 9).join(" ")}
                 </p>
-                {/* <span className="ml-8">{product?.productId?.description?.split(" ").slice(9, 25).join(" ")}</span> */}
               </div>
-              <div className="text-xl flex text-gray-600 gap-2">
-                <span className="text-4xl ml-2">
-                  <SettingsApplicationsIcon fontSize="large" />
+
+              {/* Application */}
+              <div className="flex flex-wrap items-start text-gray-600 gap-x-2 text-base sm:text-lg md:text-xl">
+                <span className="text-2xl sm:text-4xl ml-1">
+                  <SettingsApplicationsIcon fontSize="inherit" />
                 </span>
-                <p className="font-bold pt-2 ml-2"> Application:</p>&nbsp;{" "}
-                <p className="pt-2"> {product?.application}</p>
+                <p className="font-bold pt-1">Application:</p>
+                <p className="pt-1">{product?.application}</p>
               </div>
-              <div className="text-xl flex text-gray-600 gap-2">
-                <span className="text-4xl  ml-2">
-                  {/* 📋 */}
-                  <AccessTimeFilledIcon fontSize="large" />
+
+              {/* Availability */}
+              <div className="flex flex-wrap items-start text-gray-600 gap-x-2 text-base sm:text-lg md:text-xl">
+                <span className="text-2xl sm:text-4xl ml-1">
+                  <AccessTimeFilledIcon fontSize="inherit" />
                 </span>
-                <p className="font-bold pt-2  ml-2"> Availability:</p>&nbsp;{" "}
-                <p className="pt-2"> {product?.availability}</p>
+                <p className="font-bold pt-1">Availability:</p>
+                <p className="pt-1">{product?.availability}</p>
               </div>
-              <div className="text-xl flex text-gray-600 gap-2">
-                <span className="text-4xl">💰</span>
-                <p className="font-bold pt-2"> Price:</p>&nbsp;
-                <p className="pt-2 font-bold">₹ {product?.price}</p>
+
+              {/* Price */}
+              <div className="flex flex-wrap items-start text-gray-600 gap-x-2 text-base sm:text-lg md:text-xl">
+                <span className="text-2xl sm:text-4xl">💰</span>
+                <p className="font-bold pt-1">Price:</p>
+                <p className="pt-1 font-bold">₹ {product?.price}</p>
               </div>
-              {/* <div className="text-xl flex text-gray-600">
-                                <span className="text-4xl">✨</span><p className="font-bold"> Key Features:</p>&nbsp; {product?.keyFeatures}
-                            </div> */}
-              <div className="text-xl flex text-gray-600 gap-2">
-                <span className="text-4xl">⭐</span>
-                <p className="font-bold pt-2">Google Reviews:</p>&nbsp;{" "}
-                <p className="pt-2"> {product?.reviews}</p>
+
+              {/* Reviews */}
+              <div className="flex flex-wrap items-start text-gray-600 gap-x-2 text-base sm:text-lg md:text-xl">
+                <span className="text-2xl sm:text-4xl">⭐</span>
+                <p className="font-bold pt-1">Google Reviews:</p>
+                <p className="pt-1">{product?.reviews}</p>
               </div>
-              <div className="text-xl flex gap-9 ml-2">
+
+              {/* Buttons */}
+              <div className="flex flex-wrap gap-4 mt-4">
                 {product?.datasheetPdf && (
                   <button
                     onClick={() => handleOpenPdf(product?.datasheetPdf)}
-                    className="bg-green-500 text-lg rounded-lg font-semibold w-40 h-11 mt-3"
+                    className="bg-green-500 text-base sm:text-lg rounded-lg font-semibold w-36 sm:w-40 h-10 sm:h-11"
                   >
                     Datasheet
                   </button>
                 )}
                 <button
-
                   onClick={handleOpenModal}
-                  className="bg-green-500 text-lg rounded-lg font-semibold w-40 h-11 mt-3"
-
+                  className="bg-green-500 text-base sm:text-lg rounded-lg font-semibold w-36 sm:w-40 h-10 sm:h-11"
                 >
                   Send Enquiry
                 </button>
-
               </div>
             </div>
+
 
 
           </Grid2>
@@ -401,8 +415,7 @@ function oneClickProDetail() {
                   type="submit"
                   className="bg-blue-400 text-lg rounded-lg font-semibold w-40 h-11 "
                 >
-                  {/* {loading ? "Submitting..." : "Submit"} */}
-                  Submit
+                 {loading ? "Submitting..." : "Submit"}
                 </button>
               </div>
             </form>
@@ -411,7 +424,7 @@ function oneClickProDetail() {
       </Modal>
 
 
-    </div >
+    </ >
   );
 }
 

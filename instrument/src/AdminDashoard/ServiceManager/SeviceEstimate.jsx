@@ -15,7 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getEstimate } from "./serviceSlice";
 
-function SeviceEstimate({showPo}) {
+function SeviceEstimate({ showPo }) {
   const { quotations, pagination } = useSelector(
     (state) => state.serviceManager
   );
@@ -45,27 +45,8 @@ function SeviceEstimate({showPo}) {
 
   return (
     <>
-      <p className="text-2xl font-bold">Service Estimate</p>
       <TableContainer component={Paper} sx={{ height: "85%" }} className="mt-6">
         <Table>
-          {/* <TableHead sx={{ backgroundColor: '#1e3a8a' }}>
-            <TableRow>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Name</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>quotationNumber</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>mobileNumber</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>email</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>position</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Company</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>City</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>State</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Country</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>serviceMethod</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>serviceNumber</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>problemDescription</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>View</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead> */}
           <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
             <DialogTitle>Po Preview</DialogTitle>
             <DialogContent dividers>

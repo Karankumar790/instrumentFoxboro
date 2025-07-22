@@ -25,14 +25,20 @@ function Footer() {
         <Grid2
           container
           spacing={4}
-          
-          sx={{ display: "flex", justifyContent: "space-between", ml: {md:12,sm:6,xs:2} }}
+
+          sx={{ display: "flex", justifyContent: "space-between", ml: { md: 12, sm: 6, xs: 2 } }}
         >
 
           {/* Corporate Office */}
           <Grid2 size={{ lg: 2.6, md: 4, sm: 6, xs: 12 }}>
             <Box>
-              <Typography variant="h5" color="white">
+              <Typography variant="h5" color="white" sx={{
+                display: 'inline-block',
+                textDecorationColor: "red",
+                margin: '3px',
+                width: 'fit-content',
+                // borderBottom: '3px solid red',
+              }}>
                 Registered Office
               </Typography>
               {fetchFooter.registeredOfficeAddress
@@ -52,18 +58,23 @@ function Footer() {
           {/* Customer Support */}
           <Grid2 size={{ lg: 3, md: 4, sm: 6, xs: 12 }}>
             <Box>
-              <Typography variant="h5" color="white">
+              <Typography variant="h5" color="white" sx={{
+                textDecorationColor: "red",
+                margin: '3px',
+                width: 'fit-content',
+                // borderBottom: '3px solid red',
+              }}>
                 Customer Support{" "}
               </Typography>
               <Typography color="white">
-                Tel 1: {fetchFooter?.customerSupport?.salesNumber} 
+                Tel 1: {fetchFooter?.customerSupport?.salesNumber}
               </Typography>
               <Typography color="white">
                 Tel 2: {fetchFooter?.customerSupport?.engineeringNumber}{" "}
                 {" "}
               </Typography>
               <Typography color="white">
-                Tel 3: {fetchFooter?.customerSupport?.serviceNumber} 
+                Tel 3: {fetchFooter?.customerSupport?.serviceNumber}
               </Typography>
               <Typography color="white">
                 Tel 4: {fetchFooter?.customerSupport?.email}
@@ -71,9 +82,15 @@ function Footer() {
             </Box>
           </Grid2>
 
-          <Grid2 size={{ lg: 4, md: 6, sm: 8, xs: 12 }}>
+          {/* Foxboro Website */}
+          <Grid2 size={{ lg: 4, md: 6, sm: 8, xs: 12 }} sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Box>
-              <Typography variant="h5" color="white">
+              <Typography variant="h5" color="white" sx={{
+                width: 'fit-content',
+                // borderBottom: '3px solid red',
+                textDecorationColor: "red",
+                margin: '3px'
+              }}>
                 Foxboro Website{" "}
               </Typography>
               <Typography color="white">
@@ -83,7 +100,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {fetchFooter?.websiteLinks?.link1} 
+                  {fetchFooter?.websiteLinks?.link1}
                 </a>
               </Typography>
               <Typography color="white">
@@ -93,7 +110,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {fetchFooter?.websiteLinks?.link2} 
+                  {fetchFooter?.websiteLinks?.link2}
                 </a>
               </Typography>
               <Typography color="white">
@@ -103,7 +120,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {fetchFooter?.websiteLinks?.link3} 
+                  {fetchFooter?.websiteLinks?.link3}
                 </a>
               </Typography>
               <Typography color="white">
@@ -120,9 +137,14 @@ function Footer() {
           </Grid2>
 
           {/* Help & Policies */}
-          <Grid2 size={{ lg: 2, md: 4, sm: 6, xs: 12 }}>
+          <Grid2 size={{ lg: 2, md: 4, sm: 6, xs: 12 }} sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Box>
-              <Typography variant="h5" color="white">
+              <Typography variant="h5" color="white" sx={{
+                width: 'fit-content',
+                // borderBottom: '3px solid red',
+                textDecorationColor: "red",
+                margin: '3px'
+              }}>
                 Need Help?
               </Typography>
               {/* <Typography color="white">Contact Us</Typography> */}

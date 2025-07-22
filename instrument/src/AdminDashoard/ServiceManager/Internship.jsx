@@ -49,48 +49,12 @@ function Internship() {
   };
   return (
     <>
-      <p className="text-2xl font-bold">Internship</p>
 
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
       <TableContainer component={Paper} sx={{ height: "85%" }} className="mt-6">
         <Table>
-          {/* <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
-            <TableRow>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                Name
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                Email ID
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                Mobile No.
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                City
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                State
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                Country
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                Technical Qualification
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                Internship Domain
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                Resume
-              </TableCell>
-               <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                Actions
-              </TableCell>
-            </TableRow>
-          </TableHead> */}
-
           <TableBody>
             {initWork.map((row) => (
               <TableRow key={row._id}>

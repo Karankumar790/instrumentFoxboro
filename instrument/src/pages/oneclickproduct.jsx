@@ -1,12 +1,9 @@
-import { Box, Card, CardMedia, Grid2, Typography } from "@mui/material";
+import { Box, Card, Grid2, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import PageContainer from "../components/HOC/PageContainer";
 import { Link, useParams } from "react-router-dom";
-import Footer from "../components/Footer/Footer";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { getProductById } from "./product";
-import Header from "../components/Header";
 
 function oneclickproduct() {
   const [open, setOpen] = useState(false);
@@ -62,7 +59,7 @@ function oneclickproduct() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden bg-gray-50">
+    <div className="min-h-screen flex flex-col overflow-x-hidden bg-gray-50 px-4 sm:px-6 md:px-0">
       <Grid2
         container
         display="flex"

@@ -8,7 +8,6 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -48,51 +47,10 @@ function AdminHiringExp() {
   };
 
   return (
-    <div>
-      <p className="text-lg font-bold">Hiring Expert</p>
+    <>
 
       <TableContainer component={Paper} sx={{ height: "85%" }} className="mt-6">
         <Table>
-          {/* <TableHead sx={{ backgroundColor: "#1e3a8a" }}>
-                        <TableRow>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                Name
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                Email ID
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                Mobile No.
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                City
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                State
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                Country
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                Professional Qualification
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                Total Experience
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                You Are ExpertIn
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                Expected Salary
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                Resume
-                            </TableCell>
-                            <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                                Actions
-                            </TableCell>
-                        </TableRow>
-                    </TableHead> */}
           <TableBody>
             {initHiring.map((row) => (
               <TableRow key={row._id}>
@@ -140,7 +98,7 @@ function AdminHiringExp() {
           />
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 }
 

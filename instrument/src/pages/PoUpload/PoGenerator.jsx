@@ -126,17 +126,7 @@ function PoGenerator() {
               </button>
             </div>
 
-            {/* <div className="flex justify-between gap-8 px-5 py-3 bg-gray-300 rounded-t-md">
-              <p className="text-xl font-semibold w-[20%] px-3 text-gray-800">
-                Estimate
-              </p>
-              <p className="text-xl font-semibold w-[20%] text-gray-800">
-                Date
-              </p>
-              <p className="text-xl font-semibold w-[100%] text-gray-800">
-                Description
-              </p>
-            </div> */}
+            
             <div className=" bg-white border border-gray-400 rounded-md m-5  h-[35vh] overflow-hidden">
               {uploadPo.length === 0 ? (
                 <div className="flex justify-center items-center h-full text-gray-600 text-lg">

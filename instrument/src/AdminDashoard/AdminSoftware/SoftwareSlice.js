@@ -25,6 +25,21 @@ export const addSoftware = createAsyncThunk(
   }
 )
 
+export const EnquirySoftware = createAsyncThunk(
+  "software/EnquirySoftware",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_URL}/softwareQuery`, formData
+       )
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Error adding "
+      )
+    }
+  }
+)
+
 export const getSoftware = createAsyncThunk(
   "software/getSoftware",
   async (_, { rejectWithValue }) => {
@@ -92,6 +107,20 @@ const softwareSlice = createSlice({
         state.success = true;
       })
       .addCase(addSoftware.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.success = false;
+      })
+      .addCase(EnquirySoftware.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(EnquirySoftware.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = [...state.data, action.payload.data];
+        state.success = true;
+      })
+      .addCase(EnquirySoftware.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         state.success = false;

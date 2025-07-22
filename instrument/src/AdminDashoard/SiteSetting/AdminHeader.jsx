@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Alert, Snackbar } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { getHeader, postheader, updateHeader } from './SettingSlice';
+import { getHeader,  updateHeader } from './SettingSlice';
 import { toast } from 'react-toastify';
 import AdminFooter from './AdminFooter';
 import AdminBanner from './AdminBanner'
@@ -18,15 +18,7 @@ function AdminHeader() {
   const getHeaders = useSelector((state) => state.header.headerInt);
   const error = useSelector((state) => state.header.error)
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
-  const [formValue, setFormValue] = useState({
-    contactNumberOne: "",
-    contactNumberTwo: "",
-    whatsappNumber: "",
-    email: "",
-    instagramLink: "",
-    facebookLink: "",
-    youTubeLink: ""
-  });
+  
   
 
   const [updateValue, setUpdateValue] = useState({
@@ -40,20 +32,6 @@ function AdminHeader() {
   })
 
   const dispatch = useDispatch();
-
-  // const handleOpen = () => {
-  //   setUpdateValue({
-  //     contactNumberOne: getHeaders.contactNumberOne,
-  //     contactNumberTwo: getHeaders.contactNumberTwo,
-  //     whatsappNumber: getHeaders.whatsappNumber,
-  //     email: getHeaders.email,
-  //     instagramLink: getHeaders.instagramLink,
-  //     facebookLink: getHeaders.facebookLink,
-  //     youTubeLink: getHeaders.youTubeLink,
-  //   })
-  //   setImage(getHeaders.foxboroLogo)
-  //   setOpen(true)
-  // };
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -70,54 +48,7 @@ function AdminHeader() {
     }));
   }
 
-  // const handleUpdateValue = (e) => {
-  //   const { name, value } = e.target;
-  //   setUpdateValue((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }))
-  // }
-
-
-  // const handleSubmit = async () => {
-  //   const submitformData = new FormData();
-  //   submitformData.append("contactNumberOne", formValue.contactNumberOne);
-  //   submitformData.append("contactNumberTwo", formValue.contactNumberTwo);
-  //   submitformData.append("whatsappNumber", formValue.whatsappNumber);
-  //   submitformData.append("email", formValue.email);
-  //   submitformData.append("instagramLink", formValue.instagramLink);
-  //   submitformData.append("facebookLink", formValue.facebookLink);
-  //   submitformData.append("youTubeLink", formValue.youTubeLink);
-
-  //   if (image) {
-  //     submitformData.append("foxboroLogo", image);
-  //   }
-
-  //   try {
-  //     const result = await dispatch(postheader(submitformData)).unwrap(); // unwrap gives you success/error directly
-  //     setSnackbar({
-  //       open: true,
-  //       message: result.message || "Header Add successfully",
-  //       severity: "success",
-  //     });
-  //     setFormValue({
-  //       contactNumberOne: "",
-  //       contactNumberTwo: "",
-  //       whatsappNumber: "",
-  //       email: "",
-  //       instagramLink: "",
-  //       facebookLink: "",
-  //       youTubeLink: "",
-  //     });
-  //     setImage(null);
-  //   } catch (error) {
-  //     setSnackbar({
-  //       open: true,
-  //       message: error || "Header Failed to Add",
-  //       severity: "error",
-  //     });
-  //   }
-  // };
+  
 
   const handleUpdateSubmit = async () => {
     const updateformData = new FormData();
@@ -180,7 +111,6 @@ function AdminHeader() {
     <div className='flex flex-col  space-y-5'>
       <div className='flex justify-between'>
         <p className='font-semibold text-2xl'>Header Management</p>
-        {/* <button className='bg-green-600 font-semibold p-2 rounded-lg text-white text-lg' onClick={handleOpen}>Add Header +</button> */}
       </div>
 
       <div className='space-y-4 bg-white rounded-lg shadow-md p-4'>
@@ -220,7 +150,6 @@ function AdminHeader() {
                   type="file"
                   name="image"
                   accept="image/*"
-                  // value={updateValue.whatsappNumber} disabled={!isEditable}
                   onChange={handleImage}
                   className="w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -286,10 +215,6 @@ function AdminHeader() {
               </>
             )}
           </div>
-
-          {/* <button className='bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-md w-32'>
-            Submit
-          </button> */}
         </div>
       </div>
 

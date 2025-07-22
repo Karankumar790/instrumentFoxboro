@@ -1,5 +1,5 @@
-import React, {  useState } from "react";
-import { Button, TextField, Box } from "@mui/material";
+import React, { useState } from "react";
+import { Button, TextField } from "@mui/material";
 import OTPModal from "../Login/OTPModal";
 import { useDispatch, useSelector } from "react-redux";
 import { otpSignUp, register } from "./SignUpSlice";
@@ -45,7 +45,6 @@ const SignUpPage = () => {
         console.log(action.payload, "Response Data from API");
         console.log(action.payload.user, "User Data");
 
-        // const token = action.payload.user; // Extract user data
         setOpenModal(true); // Open modal after successful registration
       }
     });
@@ -60,8 +59,6 @@ const SignUpPage = () => {
 
   const [openModals, setOpenModals] = useState(false);
 
-  //   const token = localStorage.getItem("authToken");
-  //   console.log("signUp token", sigupToken);
   const sigupToken = useSelector((state) => state.signUp?.token);
   const handleSignupOtpSubmit = async (otp) => {
     try {
@@ -79,100 +76,100 @@ const SignUpPage = () => {
     }
   };
 
-   const handleResendOtp = async () => {
-      try {
-        const response = await dispatch(resendOtp({ email })).unwrap();
-        setResendMessage(response.message || "OTP sent again!");
-        setResendTimer(30); // Start 30-second countdown
-      } catch (error) {
-        setResendMessage(error || "Failed to resend OTP");
-      }
-  
-      setTimeout(() => setResendMessage(""), 3000); // Clear message after 3 seconds
-    };
+  const handleResendOtp = async () => {
+    try {
+      const response = await dispatch(resendOtp({ email })).unwrap();
+      setResendMessage(response.message || "OTP sent again!");
+      setResendTimer(30); // Start 30-second countdown
+    } catch (error) {
+      setResendMessage(error || "Failed to resend OTP");
+    }
+
+    setTimeout(() => setResendMessage(""), 3000); // Clear message after 3 seconds
+  };
 
   return (
     <>
       <div className="min-h-screen  flex flex-col justify-between overflow-x-hidden overflow-y-hidden">
         <div className="flex justify-center items-center bg-gray-50 flex-grow overflow-hidden">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
-              <div className="mb-6">
-                <h2 className="text-2xl font-semibold mb-1 text-center ">
-                  Foxboro Instruments Company
-                </h2>
-                <div className="w-full flex justify-center">
-                  <p className="text-black" >Employee Registration</p>
-                </div>
+          <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+            <div className="mb-6">
+              <h2 className="text-2xl font-semibold mb-1 text-center ">
+                Foxboro Instruments Company
+              </h2>
+              <div className="w-full flex justify-center">
+                <p className="text-black" >Employee Registration</p>
               </div>
-              <h2 className="text-2xl font-semibold mb-6 ">Sign Up</h2>
-              <form onSubmit={handleSubmit}>
-                <TextField
-                  label="Name"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="username"
-                  size="small"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                />
-                <TextField
-                  label="Email"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="email"
-                  size="small"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-                <TextField
-                  label="Phone Number"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="phone"
-                  size="small"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                />
-                <TextField
-                  label="Password"
-                  variant="outlined"
-                  type="password"
-                  fullWidth
-                  margin="normal"
-                  name="password"
-                  size="small"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                />
-                <TextField
-                  variant="outlined"
-                  type="file"
-                  fullWidth
-                  margin="normal"
-                  name="avatar"
-                  size="small"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                >
-                  {loading ? "logging in" : "signup"}
-                </Button>
-                {error && <p className="text-red-500 text-center">{error}</p>}
-
-                {/* Success Message */}
-                {message && (
-                  <p className="text-green-500 text-center">{message}</p>
-                )}
-              </form>
             </div>
+            <h2 className="text-2xl font-semibold mb-6 ">Sign Up</h2>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                label="Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="username"
+                size="small"
+                value={formData.username}
+                onChange={handleInputChange}
+              />
+              <TextField
+                label="Email"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="email"
+                size="small"
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+              <TextField
+                label="Phone Number"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="phone"
+                size="small"
+                value={formData.phone}
+                onChange={handleInputChange}
+              />
+              <TextField
+                label="Password"
+                variant="outlined"
+                type="password"
+                fullWidth
+                margin="normal"
+                name="password"
+                size="small"
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+              <TextField
+                variant="outlined"
+                type="file"
+                fullWidth
+                margin="normal"
+                name="avatar"
+                size="small"
+                accept="image/*"
+                onChange={handleAvatarChange}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                {loading ? "logging in" : "signup"}
+              </Button>
+              {error && <p className="text-red-500 text-center">{error}</p>}
+
+              {/* Success Message */}
+              {message && (
+                <p className="text-green-500 text-center">{message}</p>
+              )}
+            </form>
+          </div>
         </div>
 
         <OTPModal
@@ -180,7 +177,7 @@ const SignUpPage = () => {
           onClose={() => setOpenModal(false)}
           email={formData.email}
           sign={true}
-          handleSignupOtpSubmit={handleSignupOtpSubmit} 
+          handleSignupOtpSubmit={handleSignupOtpSubmit}
         />
       </div >
     </>

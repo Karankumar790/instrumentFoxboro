@@ -94,45 +94,7 @@ const ProductDetail = () => {
     }
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const data = new FormData();
-
-  //   // Append all text fields
-  //   for (const key in formData) {
-  //     if (key !== 'image1' && key !== 'image2' && key !== 'image3') {
-  //       if (formData[key]) {
-  //         data.append(key, formData[key]);
-  //       }
-  //     }
-  //   }
-  //   // Append images using the same key 'images'
-  //   if (form.image1) data.append('images', form.image1);
-  //   if (form.image2) data.append('images', form.image2);
-  //   if (form.image3) data.append('images', form.image3);
-
-  //   dispatch(productDetail({ id, formData: data }));
-
-  //   setFormData({
-  //     manufacturer: '',
-  //     modelName: '',
-  //     keyFeatures: '',
-  //     price: '',
-  //     availability: '',
-  //     reviews: '',
-  //     typeOfProduct: '',
-  //     modelNo: '',
-  //     application: '',
-  //     material: '',
-  //     flowRate: '',
-  //     patternWidth: '',
-  //     packageContains: '',
-  //     countryOfOrigin: '',
-  //   })
-
-  // };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
