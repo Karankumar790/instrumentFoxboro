@@ -111,7 +111,7 @@ function content() {
                     >
                       <Card className="h-full flex flex-col justify-between">
                         <Link to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`} style={{ textDecoration: "none" }}>
-                          <div className="h-64 w-full">
+                          <div className="h-64 w-full bg-slate-200">
                             <img
                               src={category.categoryImage}
                               alt={category.categoryName}

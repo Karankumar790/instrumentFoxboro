@@ -166,7 +166,7 @@ function SubProduct() {
                 <span className="text-2xl md:text-4xl">📝</span>
                 <p className="font-bold pt-1">Description:</p>
                 <p className="pt-1">
-                  {product?.productId?.description?.split(" ").slice(0, 9).join(" ")}
+                  {product?.productId?.description?.split(" ").slice(0, 5).join(" ")}
                 </p>
               </div>
 
@@ -175,7 +175,7 @@ function SubProduct() {
                   <SettingsApplicationsIcon fontSize="inherit" />
                 </span>
                 <p className="font-bold pt-1">Application:</p>
-                <p className="pt-1">{product?.application}</p>
+                <p className="pt-1">{product?.application.split(" ").slice(0, 5).join(" ")}</p>
               </div>
 
               <div className="text-base sm:text-lg md:text-xl flex flex-wrap items-start text-gray-600 gap-2">

@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogContent, DialogTitle, Grid2 } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, Grid2 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SecurityIcon from "@mui/icons-material/Security";
 import MoneyIcon from "@mui/icons-material/Money";
@@ -14,6 +14,7 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import { Modal, Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { contactProduct } from "../SubProduct/subProduct";
+import { toast } from "react-toastify";
 
 
 function oneClickProDetail() {
@@ -51,32 +52,38 @@ function oneClickProDetail() {
 
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  try {
-    const response = await dispatch(contactProduct(formData)).unwrap();
+    e.preventDefault();
+    setLoading(true);
 
-    if (response.success) {
-      toast.success(response.message);
-      handleCloseModal();
-      setFormData({
-        name: "",
-        mobileNumber: "",
-        email: "",
-        company: "",
-        productName: "",
-        modelNumber: "",
-        message: "",
-      });
-    } else {
-      toast.error(response.message);
+    try {
+      const response = await dispatch(contactProduct(formData)).unwrap();
+
+      // Adjust this based on your actual response key
+      if (response.success || response.status || response.ok) {
+        toast.success(response.message || "Submitted successfully");
+
+        // Close modal and reset form
+        handleCloseModal();
+        setFormData({
+          name: "",
+          mobileNumber: "",
+          email: "",
+          company: "",
+          productName: "",
+          modelNumber: "",
+          message: "",
+        });
+      } else {
+        toast.error(response.message || "Submission failed");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    toast.error("Something went wrong. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
+
 
 
 
@@ -415,7 +422,7 @@ function oneClickProDetail() {
                   type="submit"
                   className="bg-blue-400 text-lg rounded-lg font-semibold w-40 h-11 "
                 >
-                 {loading ? "Submitting..." : "Submit"}
+                  {loading ? "Submitting..." : "Submit"}
                 </button>
               </div>
             </form>
