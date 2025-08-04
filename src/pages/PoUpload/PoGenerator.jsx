@@ -106,7 +106,7 @@ function PoGenerator() {
               fontWeight="bold"
               className="border bg-green-400 px-5 h-14 p-3"
             >
-              Upload Purchase Order (Self Service)
+              Upload Purchase Order(Self Service)
             </Typography>
             <div className="flex gap-4 p-5 bg-#ECECEC">
               <input
