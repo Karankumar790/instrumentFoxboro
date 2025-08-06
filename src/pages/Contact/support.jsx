@@ -71,7 +71,7 @@ function Support() {
     <div
       className="flex flex-col px-4 sm:px-6 md:px-0 overflow-x-hidden"
     >
-      <div className="w-full flex-grow flex  justify-center bg-gray-100 px-4 sm:px-6 md:px-0 ">
+      <div className="w-full flex-grow flex  justify-center bg-gray-100 px-4 sm:px-6 md:px-0 overflow-hidden">
         <div className="flex flex-col items-center  md:w-4/5 sm:w-full ">
           <div className="w-full sm:w-full lg:w-full  p-4 flex flex-col justify-center items-center">
             <h2 className="text-5xl font-bold mb-4 text-center text-blue-950">
