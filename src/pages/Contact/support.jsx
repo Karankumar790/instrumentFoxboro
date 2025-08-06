@@ -80,7 +80,7 @@ function Support() {
             <p className="md:text-xl sm:text-base font-semibold text-center text-indigo-950">
               At Foxboro Instrument Company, we are committed to providing
               top-tier automation solutions and industrial instrumentation
-              services tailored to your business needs. Whether you require
+              services tailored  your business needs. Whether you require
               cutting-edge process control systems, industrial IoT solutions, or
               expert consultation, our team is here to help.
             </p>
