@@ -23,4 +23,3 @@ const otpSign = async (otp,token) => {
 }
 
 otpSignUp(otp,token);
-
