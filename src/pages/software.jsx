@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { EnquirySoftware, getSoftware } from '../AdminDashoard/AdminSoftware/SoftwareSlice';
 import { Modal, Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useEffect, useState } from 'react';
 
 const Software = () => {
 
