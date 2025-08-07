@@ -68,7 +68,7 @@ const Software = () => {
 
   return (
     <div className='min-h-screen flex flex-col bg-gray-50  px-4 sm:px-6 md:px-0 pb-4'>
-      <div className="py-10 flex justify-center  w-full  md:h-[1300px] h-full ">
+      <div className="py-10 flex justify-center overflow-x-auto w-full  md:h-[1300px] h-full ">
         {softwareData.length > 0 ? (
           <div className="container md:w-[70%] sm:w-full ">
             <h1 className="text-2xl sm:text-3xl font-bold mb-4 text-center sm:text-left">
