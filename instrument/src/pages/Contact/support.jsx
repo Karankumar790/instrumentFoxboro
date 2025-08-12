@@ -5,7 +5,6 @@ import { Alert, Snackbar } from "@mui/material";
 
 function Support() {
   const dispatch = useDispatch();
-  // const error = useSelector((state) => state.contact.error)
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -70,21 +69,15 @@ function Support() {
 
   return (
     <div
-      className="flex flex-col"
-      style={{
-        // backgroundImage: `linear-gradient(to bottom right, #e0f2fe, #c7d2fe)`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
+      className="flex flex-col px-4 sm:px-6 md:px-0 overflow-x-hidden"
     >
-      <div className="w-full flex-grow flex  justify-center bg-gray-50 ">
-        <div className="flex flex-col items-center  w-4/5 ">
-          <div className="w-full sm:w-10/12 lg:w-full  p-4 flex flex-col justify-center items-center">
+      <div className="w-full flex-grow flex  justify-center bg-gray-100 px-4 sm:px-6 md:px-0 ">
+        <div className="flex flex-col items-center  md:w-4/5 sm:w-full ">
+          <div className="w-full sm:w-full lg:w-full  p-4 flex flex-col justify-center items-center">
             <h2 className="text-5xl font-bold mb-4 text-center text-blue-950">
               Contact Us
             </h2>
-            <p className="text-xl font-semibold text-center text-indigo-950">
+            <p className="md:text-xl sm:text-base font-semibold text-center text-indigo-950">
               At Foxboro Instrument Company, we are committed to providing
               top-tier automation solutions and industrial instrumentation
               services tailored to your business needs. Whether you require
@@ -93,8 +86,8 @@ function Support() {
             </p>
           </div>
 
-          <div className="w-full flex h-full ">
-            <div className=" p-6 flex flex-col  w-1/2 m-4 rounded-lg ">
+          <div className="w-full md:flex sm:grid h-full px-4 sm:px-6 md:px-0 ">
+            <div className=" p-6 flex flex-col  md:w-1/2 sm:w-full m-4 rounded-lg px-4 sm:px-8 md:px-0 ">
               <h2 className="text-3xl font-semibold mb-4">
                 Contact Information
               </h2>
@@ -146,14 +139,14 @@ function Support() {
               </div>
             </div>
 
-            <div className="w-full h-[600px] lg:w-1/2 flex flex-col m-4 space-y-4 bg-white shadow-lg rounded-xl p-6">
-              <p className="text-3xl font-semibold text-black py-2  rounded-md">
+            <div className="w-full md:h-[590px] sm:h-full lg:w-1/2 flex flex-col space-y-4 bg-gray-100 shadow-lg rounded-xl mb-3 px-4 sm:px-8 md:px-0 ">
+              <p className="text-3xl flex justify-center bg-green-400 font-semibold text-black py-2 rounded-md ">
                 Contact Us
               </p>
 
               <form
                 onSubmit={handleSubmit}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2  p-6 gap-6"
               >
                 {/* First Name */}
                 <div className="relative">
@@ -164,7 +157,7 @@ function Support() {
                     name="Firstname"
                     value={formData.Firstname}
                     onChange={handleChange}
-                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-white"
                   />
                   <i className="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
@@ -178,7 +171,7 @@ function Support() {
                     name="Lastname"
                     value={formData.Lastname}
                     onChange={handleChange}
-                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-white"
                   />
                   <i className="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
@@ -192,7 +185,7 @@ function Support() {
                     value={formData.Mobile}
                     onChange={handleChange}
                     placeholder="Mobile No."
-                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-white"
                   />
                   <i className="fas fa-phone absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
@@ -206,7 +199,7 @@ function Support() {
                     value={formData.Email}
                     onChange={handleChange}
                     placeholder="Email ID"
-                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-white"
                   />
                   <i className="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
@@ -220,7 +213,7 @@ function Support() {
                     value={formData.Companyname}
                     onChange={handleChange}
                     placeholder="Company"
-                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-white"
                   />
                   <i className="fas fa-building absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
@@ -234,7 +227,7 @@ function Support() {
                     value={formData.Position}
                     onChange={handleChange}
                     placeholder="Position"
-                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-white"
                   />
                   <i className="fas fa-briefcase absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
@@ -248,7 +241,7 @@ function Support() {
                     value={formData.Country}
                     onChange={handleChange}
                     placeholder="Country"
-                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-white"
                   />
                   <i className="fas fa-globe absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
@@ -262,7 +255,7 @@ function Support() {
                     value={formData.State}
                     onChange={handleChange}
                     placeholder="State"
-                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-white"
                   />
                   <i className="fas fa-map-marker-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
                 </div>
@@ -276,7 +269,7 @@ function Support() {
                     name="Message"
                     value={formData.Message}
                     onChange={handleChange}
-                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-blue-50"
+                    className="p-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full bg-white"
                   />
                   <i className="fas fa-comment-alt absolute left-4 top-4 text-gray-500 text-lg"></i>
                 </div>

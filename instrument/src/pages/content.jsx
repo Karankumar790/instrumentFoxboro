@@ -1,12 +1,10 @@
-import { Box, Card, Grid2, Typography } from "@mui/material";
+import { Box, Card, Grid2  } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Footer from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
 import { fetchCategories } from "../AdminDashoard/Category/CategorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getSoftware } from "../AdminDashoard/AdminSoftware/SoftwareSlice";
 import { getBanner } from "../AdminDashoard/SiteSetting/SettingSlice";
-import Header from "../components/Header";
 import { getFoxboroProduct } from "./product";
 // import product from "./product";
 
@@ -33,6 +31,7 @@ function content() {
       : 3000; 
   const [currentIndex, setCurrentIndex] = useState(0);
 
+
   // Function to handle next image
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
@@ -42,7 +41,7 @@ function content() {
   useEffect(() => {
     if (data.length === 0) return;
 
-    const interval = setInterval(handleNext, sliderDelay);
+    const interval = setInterval(handleNext,uploadedBanners?.map((time) => time.sliderDelay*1000) );
 
     return () => clearInterval(interval); // Cleanup on unmount or change
   }, [data.length, sliderDelay]);
@@ -72,8 +71,8 @@ function content() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-between overflow-x-hidden">
-        <Grid2 container display="flex" justifyContent="center" mt={1}>
+      <div className="min-h-screen bg-gray-50 flex flex-col justify-between w-full ">
+        <Grid2 container display="flex" justifyContent="center" mt={1} sx={{px:{xs:2,md:0,sm:2}}}>
           <Grid2 size={{ xs: 12, sm: 10, md: 9, lg: 8 }}>
             <Box
               display="flex"
@@ -91,21 +90,16 @@ function content() {
                 <img
                   src={data[currentIndex]}
                   alt="Carousel"
-                  style={{
-                    maxHeight: "100%",
-                    maxWidth: "100%",
-                    width: "100%",
-                    objectFit: "cover", // makes it clean and responsive
-                  }}
+                  className="h-full w-full object-fill"
                 />
               )}
             </Box>
           </Grid2>
         </Grid2>
 
-        <Grid2 container className=" flex justify-center">
+        <Grid2 container className=" flex justify-center" sx={{px:{xs:2,md:0,sm:2}}} >
           {categories.length > 0 ? (
-            <Grid2 size={{ lg: 8 }}>
+            <Grid2 size={{ lg: 8,xs: 12, sm: 10, md: 9 }}>
               <Box>
                 <p className="text-3xl mt-10 mb-8 font-bold font-noto">
                   Industrial Automation
@@ -120,13 +114,8 @@ function content() {
                       size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                     >
                       <Card className="h-full flex flex-col justify-between">
-                        <Link
-                          to={`/products/${category._id}/${encodeURIComponent(
-                            category.categoryName
-                          )}`}
-                          style={{ textDecoration: "none" }}
-                        >
-                          <div className="h-64 w-full">
+                        <Link to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`} style={{ textDecoration: "none" }}>
+                          <div className="h-64 w-full bg-slate-200">
                             <img
                               src={category.categoryImage}
                               alt={category.categoryName}
@@ -177,7 +166,8 @@ function content() {
 
               <Grid2 container spacing={3} mt={1} mb={3}>
                 {productFox.length > 0 ? (
-                  productFox.slice(0, 4).map((product) => (
+
+                  productFox.slice(0, 8).map((product) => (
                     <Grid2
                       size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                       // border={"1px solid black"}

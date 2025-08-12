@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
+import storage from "redux-persist/lib/storage";
 import { thunk } from "redux-thunk";
 
 import categoryReducer from "../AdminDashoard/Category/CategorySlice";
@@ -23,8 +23,6 @@ import applyIntership from "../pages/WorkFoxboro/ApplyIntership/applyIntership";
 import hiringExpert from "../pages/WorkFoxboro/HiringExpert/hiringExpert";
 import foxboroProductSlice from "../AdminDashoard/AdminProduct/AdminProductSlice";
 import subProduct from "../pages/SubProduct/subProduct";
-
-
 
 
 // Configuration for Redux Persist
