@@ -107,12 +107,21 @@ function Header() {
           className="bg-[#3C9040] flex justify-center  py-2 w-full overflow-x-hidden"
         >
           <Grid2
-            size={{ xs: 12, sm: 10, md: 10, lg: 8 }}
+            size={{ xs: 12, sm: 10, md: 9, lg: 8 }}
+           
             className=" flex flex-col md:flex-row lg:flex-row justify-between  items-center text-white "
           >
             {/* Left side: Info items */}
 
-            <Grid2 width={"100%"} xs={12} sm={12} md={12} lg={6}>
+            <Grid2
+              width={"100%"}
+              size={{
+                xs: 12,
+                sm: 12,
+                md: 9,
+                lg: 7,
+              }}
+            >
               <Box
                 sx={{
                   display: "flex",
@@ -128,10 +137,7 @@ function Header() {
                       width: 120,
                       height: 64,
                       padding: 1,
-                      display: {
-                        xs: "none",
-                        sm: "flex",
-                      },
+                      display: { xs: "none", sm: "block" },
                       justifyContent: "center",
                       alignItems: "center",
                       flexShrink: 0,
@@ -158,7 +164,7 @@ function Header() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    px: { xs: 0, md: 4 },
+                    px: { xs: 2, md: 4 },
                     flexDirection: { xs: "row", md: "row" },
                     width: { xs: "100%", md: "100%" },
                   }}
@@ -172,7 +178,6 @@ function Header() {
                       aria-haspopup="true"
                       aria-expanded={openMob ? "true" : undefined}
                       onClick={handleToggle}
-                      className="p-2"
                     >
                       <DehazeIcon className="text-3xl" />
                     </button>
@@ -180,7 +185,7 @@ function Header() {
 
                   {/* Company Name (Hide when menu open) */}
 
-                  <p className="text-xl  sm:text-2xl md:text-3xl font-bold text-center mx-auto md:mx-0">
+                  <p className="text-xl  sm:text-2xl md:text-3xl font-bold text-center mx-auto md:mx-0 ">
                     Foxboro Instrument Company
                   </p>
                   {/* </div> */}
@@ -197,7 +202,7 @@ function Header() {
                       {/* Sidebar - auto height & brown bg */}
                       <div className="fixed top-0 left-0 bg-green-400 text-black rounded-b-lg shadow-lg z-50 flex flex-col w-64">
                         {/* Top Row - Cross + Foxboro */}
-                        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-600">
+                        <div className="flex items-center float-end justify-between px-4 py-3 border-b border-gray-600">
                           <button
                             className="text-black text-2xl"
                             onClick={handleCloseMob}
@@ -279,12 +284,22 @@ function Header() {
             </Grid2>
 
             {/* Right side: Social icons + Login button */}
-            <Grid2 xs={12} sm={12} md={12} lg={6}>
-              <div className="flex items-center lg:gap-4 md:gap-1 sm:gap-1  mt-3 lg:mt-0">
+            <Grid2
+              width={"100%"}
+              size={{
+                xs: 12,
+                sm: 12,
+                md: 3,
+                lg: 5,
+              }}
+              className="flex justify-end items-center"
+            >
+              <div className="flex float-end items-center lg:gap-4 md:gap-1 sm:gap-1   lg:mt-0">
                 <Stack
                   direction="row"
                   spacing={1}
-                  sx={{ display: { xs: "none", sm: "flex" } }}
+                  // display={{ xs: "none", sm: "block" }}
+                  sx={{ display: { xs: "none", sm: "none", md: "flex" } }}
                 >
                   <a
                     href={fetchHeader.instagramLink}

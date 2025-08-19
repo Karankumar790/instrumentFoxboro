@@ -95,7 +95,7 @@ function content() {
 
         <Grid2 container className=" flex justify-center" sx={{px:{xs:2,md:0,sm:2}}} >
           {categories.length > 0 ? (
-            <Grid2 size={{ lg: 8,xs: 12, sm: 10, md: 9 }}>
+            <Grid2 size={{ xs: 12, sm: 10, md: 9, lg: 8 }}>
               <Box>
                 <p className="text-3xl mt-10 mb-8 font-bold font-noto">
                   Industrial Automation
