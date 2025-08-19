@@ -112,7 +112,7 @@ function Header() {
           >
             {/* Left side: Info items */}
 
-            <Grid2  item xs={12} sm={12} md={12} lg={6}>
+            <Grid2 width={"100%"} xs={12} sm={12} md={12} lg={6}>
               <Box
                 sx={{
                   display: "flex",
@@ -155,6 +155,7 @@ function Header() {
                 {/* menu baar */}
                 <Box
                   sx={{
+                    display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
                     px: { xs: 0, md: 4 },
@@ -163,26 +164,26 @@ function Header() {
                   }}
                 >
                   {/* Left side - Menu button + Company Name */}
-                  <div className="flex items-center w-full ">
-                    {/* Hamburger Button */}
-                    <div className="block md:hidden sm:hidden relative">
-                      <button
-                        id="basic-button"
-                        aria-haspopup="true"
-                        aria-expanded={openMob ? "true" : undefined}
-                        onClick={handleToggle}
-                        className="p-2"
-                      >
-                        <DehazeIcon className="text-3xl" />
-                      </button>
-                    </div>
-
-                    {/* Company Name (Hide when menu open) */}
-
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-center mx-auto md:mx-0">
-                      Foxboro Instrument Company
-                    </p>
+                  {/* <div className="flex items-center w-full "> */}
+                  {/* Hamburger Button */}
+                  <div className="block md:hidden sm:hidden relative">
+                    <button
+                      id="basic-button"
+                      aria-haspopup="true"
+                      aria-expanded={openMob ? "true" : undefined}
+                      onClick={handleToggle}
+                      className="p-2"
+                    >
+                      <DehazeIcon className="text-3xl" />
+                    </button>
                   </div>
+
+                  {/* Company Name (Hide when menu open) */}
+
+                  <p className="text-xl  sm:text-2xl md:text-3xl font-bold text-center mx-auto md:mx-0">
+                    Foxboro Instrument Company
+                  </p>
+                  {/* </div> */}
 
                   {/* ---------------- Sidebar Menu ---------------- */}
                   {openMob && (
@@ -278,7 +279,7 @@ function Header() {
             </Grid2>
 
             {/* Right side: Social icons + Login button */}
-            <Grid2  xs={12} sm={12} md={12} lg={6}>
+            <Grid2 xs={12} sm={12} md={12} lg={6}>
               <div className="flex items-center lg:gap-4 md:gap-1 sm:gap-1  mt-3 lg:mt-0">
                 <Stack
                   direction="row"
@@ -354,7 +355,7 @@ function Header() {
             }}
             wrap="wrap"
             // bgcolor={"yellow"}
-             size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
+            size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
           >
             <Stack
               direction={{ xs: "row", sm: "row" }}
@@ -377,7 +378,7 @@ function Header() {
                 }}
               >
                 {arr.map((value, index) => (
-                  <Box key={index} >
+                  <Box key={index}>
                     {value.text === "E-Service" ? (
                       <>
                         <Button
