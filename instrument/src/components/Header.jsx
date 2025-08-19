@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getHeader } from "../AdminDashoard/SiteSetting/SettingSlice";
 import { IoLogoYoutube } from "react-icons/io";
-import DehazeIcon from '@mui/icons-material/Dehaze';
+import DehazeIcon from "@mui/icons-material/Dehaze";
 
 function Header() {
   const fetchHeader = useSelector((state) => state.header.headerInt);
@@ -37,7 +37,7 @@ function Header() {
 
   const handleCloseMob = () => {
     setOpenMob(false);
-     setWorkOpen(false);
+    setWorkOpen(false);
   };
 
   const handleOpen = (event) => {
@@ -104,21 +104,15 @@ function Header() {
       <Grid2 container sx={{ overflowX: "hidden" }}>
         <Grid2
           size={{ lg: 12, md: 12, sm: 12, xs: 12 }}
-          className="bg-[#3C9040] flex justify-center py-2 w-full overflow-x-hidden"
+          className="bg-[#3C9040] flex justify-center  py-2 w-full overflow-x-hidden"
         >
           <Grid2
-            size={{ lg: 8, md: 10, sm: 10, xs: 12 }}
-            className=" flex flex-col lg:flex-row justify-between items-center text-white "
+            size={{ xs: 12, sm: 10, md: 10, lg: 8 }}
+            className=" flex flex-col md:flex-row lg:flex-row justify-between  items-center text-white "
           >
             {/* Left side: Info items */}
 
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8}
-              lg={6}
-            >
+            <Grid2  item xs={12} sm={12} md={12} lg={6}>
               <Box
                 sx={{
                   display: "flex",
@@ -133,6 +127,7 @@ function Header() {
                     sx={{
                       width: 120,
                       height: 64,
+                      padding: 1,
                       display: {
                         xs: "none",
                         sm: "flex",
@@ -140,6 +135,7 @@ function Header() {
                       justifyContent: "center",
                       alignItems: "center",
                       flexShrink: 0,
+                      // bgcolor: "blue",
                     }}
                   >
                     <Link to="/" style={{ textDecoration: "none" }}>
@@ -156,20 +152,20 @@ function Header() {
                     </Link>
                   </Box>
                 )}
+                {/* menu baar */}
                 <Box
                   sx={{
-                    // display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    // px: { xs: 2, md: 4 },
-                    // py: 2,
+                    px: { xs: 0, md: 4 },
                     flexDirection: { xs: "row", md: "row" },
-                    width: { xs: "400px", md: "100%" },
+                    width: { xs: "100%", md: "100%" },
                   }}
                 >
-                  {/* Mobile Dropdown Button */}
-                  <div className="flex">
-                    <div className="block md:hidden relative">
+                  {/* Left side - Menu button + Company Name */}
+                  <div className="flex items-center w-full ">
+                    {/* Hamburger Button */}
+                    <div className="block md:hidden sm:hidden relative">
                       <button
                         id="basic-button"
                         aria-haspopup="true"
@@ -181,110 +177,114 @@ function Header() {
                       </button>
                     </div>
 
-                    {/* Company Name */}
-                    <p className="text-xl sm:text-2xl md:mt-0 mt-2 md:text-3xl font-bold text-center mx-auto md:mx-0">
+                    {/* Company Name (Hide when menu open) */}
+
+                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-center mx-auto md:mx-0">
                       Foxboro Instrument Company
                     </p>
                   </div>
+
+                  {/* ---------------- Sidebar Menu ---------------- */}
                   {openMob && (
-                    <div className="md:hidden w-full mt-2 rounded shadow-md z-50 flex flex-col items-center bg-[#2B313B]">
+                    <>
+                      {/* Overlay */}
+                      <div
+                        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                        onClick={handleCloseMob}
+                      ></div>
 
-                      {/* First Row - First 3 items */}
-                      <div className="flex w-full">
-                        {arr.slice(0, 3).map((item, index) =>
-                          item.Link ? (
-                            <Link
-                              key={index}
-                              to={item.Link}
-                              className="block px-4 py-2 text-white font-semibold hover:bg-gray-700 w-full text-center"
-                              onClick={handleCloseMob}
-                            >
-                              {item.text}
-                            </Link>
-                          ) : (
-                            <span
-                              key={index}
-                              className="block px-4 py-2 text-gray-400 cursor-not-allowed w-full text-center"
-                            >
-                              {item.text}
-                            </span>
-                          )
-                        )}
-                      </div>
-
-                      {/* Second Row - Remaining items */}
-                      <div className="flex  w-full border-t border-gray-600">
-                        {arr.slice(3).map((item, index) =>
-                          item.Link ? (
-                            <Link
-                              key={index}
-                              to={item.Link}
-                              className="block px-4 py-2 text-white font-semibold hover:bg-gray-700 w-full text-center"
-                              onClick={handleCloseMob}
-                            >
-                              {item.text}
-                            </Link>
-                          ) : (
-                            <span
-                              key={index}
-                              className="block px-4 py-2 text-gray-400 cursor-not-allowed w-full text-center"
-                            >
-                              {item.text}
-                            </span>
-                          )
-                        )}
-                      </div>
-
-                      {/* Work @ Foxboro Dropdown */}
-                      <button
-                        className="flex items-center justify-center gap-2 w-full px-4 py-2 text-white font-semibold border-t border-gray-600 focus:outline-none"
-                        onClick={() => setWorkOpen(!workOpen)}
-                      >
-                        <EngineeringIcon className="text-lg" />
-                        Work @ Foxboro
-                        <span className={`transition-transform ${workOpen ? 'rotate-180' : ''}`}>
-                          ▼
-                        </span>
-                      </button>
-
-                      {/* Submenu (Only shows if workOpen === true) */}
-                      {workOpen && (
-                        <div className="flex flex-col w-full bg-[#2B313B] border-t border-gray-600">
-                          <Link
-                            to="/applyIntership"
+                      {/* Sidebar - auto height & brown bg */}
+                      <div className="fixed top-0 left-0 bg-green-400 text-black rounded-b-lg shadow-lg z-50 flex flex-col w-64">
+                        {/* Top Row - Cross + Foxboro */}
+                        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-600">
+                          <button
+                            className="text-black text-2xl"
                             onClick={handleCloseMob}
-                            className="block px-4 py-2 text-white hover:bg-gray-700 text-center"
                           >
-                            Apply for Internship
-                          </Link>
-                          <Link
-                            to="/hiringExpert"
-                            onClick={handleCloseMob}
-                            className="block px-4 py-2 text-white hover:bg-gray-700 text-center"
-                          >
-                            We’re Hiring Experts
-                          </Link>
-                          <Link
-                            to="/becomePartner"
-                            onClick={handleCloseMob}
-                            className="block px-4 py-2 text-white hover:bg-gray-700 text-center"
-                          >
-                            Become Service Partner
-                          </Link>
+                            ✕
+                          </button>
                         </div>
-                      )}
-                    </div>
-                  )}
 
+                        {/* Menu Items */}
+                        <div className="flex flex-col w-full">
+                          {arr.map((item, index) =>
+                            item.Link ? (
+                              <Link
+                                key={index}
+                                to={item.Link}
+                                className="block px-6 py-2  font-semibold hover:bg-[#6F3B0E] border-b border-gray-600"
+                                onClick={handleCloseMob}
+                              >
+                                {item.text}
+                              </Link>
+                            ) : (
+                              <span
+                                key={index}
+                                className="block px-6 py-2 text-gray-300 cursor-not-allowed border-b border-gray-600"
+                              >
+                                {item.text}
+                              </span>
+                            )
+                          )}
+                        </div>
+
+                        {/* Work @ Foxboro Dropdown */}
+                        <button
+                          className="flex items-center justify-between px-6 py-2  font-semibold border-t border-gray-600 focus:outline-none"
+                          onClick={() => setWorkOpen(!workOpen)}
+                        >
+                          <div className="flex items-center gap-2">
+                            <EngineeringIcon className="text-lg" />
+                            Work @ Foxboro
+                          </div>
+                          <span
+                            className={`transition-transform ${workOpen ? "rotate-180" : ""}`}
+                          >
+                            ▼
+                          </span>
+                        </button>
+
+                        {/* Submenu */}
+                        {workOpen && (
+                          <div className="flex flex-col w-full  border-t border-gray-600">
+                            <Link
+                              to="/applyIntership"
+                              onClick={handleCloseMob}
+                              className="block px-6 py-2  hover:bg-[#6F3B0E] text-center"
+                            >
+                              Apply for Internship
+                            </Link>
+                            <Link
+                              to="/hiringExpert"
+                              onClick={handleCloseMob}
+                              className="block px-6 py-2  hover:bg-[#6F3B0E] text-center"
+                            >
+                              We’re Hiring Experts
+                            </Link>
+                            <Link
+                              to="/becomePartner"
+                              onClick={handleCloseMob}
+                              className="block px-6 py-2  hover:bg-[#6F3B0E] text-center"
+                            >
+                              Become Service Partner
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </Box>
               </Box>
-            </Grid>
-
+            </Grid2>
 
             {/* Right side: Social icons + Login button */}
-            <Grid2 xs={12} md={8} lg={6} sm={12}>
+            <Grid2  xs={12} sm={12} md={12} lg={6}>
               <div className="flex items-center lg:gap-4 md:gap-1 sm:gap-1  mt-3 lg:mt-0">
-                <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{ display: { xs: "none", sm: "flex" } }}
+                >
                   <a
                     href={fetchHeader.instagramLink}
                     target="_blank"
@@ -320,7 +320,6 @@ function Header() {
                   </a>
                 </Stack>
 
-
                 <Link to="/login" className="no-underline">
                   <button className="bg-blue-700 hidden xs:none sm:flex  hover:bg-yellow-400 text-md rounded-md text-black font-semibold py-2 px-5 shadow-md transition duration-300">
                     STAFF LOGIN
@@ -337,133 +336,149 @@ function Header() {
           justifyContent="space-between"
           sx={{
             bgcolor: "#2b313b",
+            // bgcolor: "yellowgreen",
             color: "white",
             py: 1.5,
             width: "100%",
-            display: { xs: 'none', sm: 'flex' },
+            display: { xs: "none", sm: "flex" },
             justifyContent: "center",
             overflowX: "hidden",
           }}
         >
+          {/* Logo Section */}
+
+          {/* Navigation & Work @Foxboro */}
           <Grid2
-            size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
             sx={{
               display: "flex",
             }}
             wrap="wrap"
+            // bgcolor={"yellow"}
+             size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
           >
-            {/* Logo Section */}
-
-            {/* Navigation & Work @Foxboro */}
-            <Grid2 item size={{ lg: 12, md: '10', sm: '12', xs: '12' }} >
-              <Stack
-                direction={{ xs: "row", sm: "row" }}
-                spacing={2}
-                alignItems={{ xs: "flex-start", sm: "center" }}
-
-                sx={{ width: "100%", flexWrap: "wrap", display: { xs: 'none', sm: 'flex' }, justifyContent: 'space-between' }}
+            <Stack
+              direction={{ xs: "row", sm: "row" }}
+              spacing={2}
+              alignItems={{ xs: "flex-start", sm: "center" }}
+              sx={{
+                width: "100%",
+                flexWrap: "wrap",
+                display: { xs: "none", sm: "flex" },
+                justifyContent: "space-between",
+              }}
+            >
+              {/* Navigation Links */}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 4,
+                  // bgcolor: "red",
+                }}
               >
-                {/* Navigation Links */}
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-                  {arr.map((value, index) => (
-                    <Box key={index}>
-                      {value.text === "E-Service" ? (
-                        <>
-                          <Button
-                            sx={{
-                              color: "white",
-                              textTransform: "none",
-                              fontSize: "18px",
-                            }}
-                            endIcon={<KeyboardArrowDownIcon />}
-                            onClick={handleServiceClick}
-                          >
-                            {value.text}
-                          </Button>
-                          <Menu
-                            anchorEl={serviceMenu}
-                            open={Boolean(serviceMenu)}
-                            onClose={handleCloseServiceMenu}
-                          >
-                            {serviceOptions.map((option, idx) => (
-                              <MenuItem
-                                key={idx}
-                                onClick={handleCloseServiceMenu}
-                              >
-                                <Link
-                                  to={option.Link}
-                                  className="text-gray-700 hover:text-blue-600 w-full block"
-                                >
-                                  {option.text}
-                                </Link>
-                              </MenuItem>
-                            ))}
-                          </Menu>
-                        </>
-                      ) : (
+                {arr.map((value, index) => (
+                  <Box key={index} >
+                    {value.text === "E-Service" ? (
+                      <>
                         <Button
                           sx={{
                             color: "white",
                             textTransform: "none",
                             fontSize: "18px",
+                            // bgcolor: "blue",
                           }}
+                          endIcon={<KeyboardArrowDownIcon />}
+                          onClick={handleServiceClick}
                         >
-                          <Link
-                            to={value.Link}
-                            className="text-white no-underline"
-                          >
-                            {value.text}
-                          </Link>
+                          {value.text}
                         </Button>
-                      )}
-                    </Box>
-                  ))}
-                </Box>
+                        <Menu
+                          anchorEl={serviceMenu}
+                          open={Boolean(serviceMenu)}
+                          onClose={handleCloseServiceMenu}
+                        >
+                          {serviceOptions.map((option, idx) => (
+                            <MenuItem
+                              key={idx}
+                              onClick={handleCloseServiceMenu}
+                            >
+                              <Link
+                                to={option.Link}
+                                className="text-gray-700 hover:text-blue-600 w-full block"
+                              >
+                                {option.text}
+                              </Link>
+                            </MenuItem>
+                          ))}
+                        </Menu>
+                      </>
+                    ) : (
+                      <Button
+                        sx={{
+                          color: "white",
+                          textTransform: "none",
+                          fontSize: "18px",
+                        }}
+                      >
+                        <Link
+                          to={value.Link}
+                          className="text-white no-underline"
+                        >
+                          {value.text}
+                        </Link>
+                      </Button>
+                    )}
+                  </Box>
+                ))}
+              </Box>
 
-                {/* Work @Foxboro */}
-                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <Button
-                    onClick={handleOpen}
-                    sx={{
-                      color: "white",
-                      textTransform: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      fontSize: "18px",
-                    }}
+              {/* Work @Foxboro */}
+              <Box
+                // bgcolor={"black"}
+                sx={{ display: "flex", alignItems: "center", gap: 2 }}
+              >
+                <Button
+                  onClick={handleOpen}
+                  sx={{
+                    color: "white",
+                    textTransform: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                    fontSize: "18px",
+                  }}
+                >
+                  <EngineeringIcon />
+                  Work @Foxboro
+                </Button>
+                <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to="/applyIntership"
                   >
-                    <EngineeringIcon />
-                    Work @Foxboro
-                  </Button>
-                  <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                    <MenuItem
-                      onClick={handleClose}
-                      component={Link}
-                      to="/applyIntership"
-                    >
-                      Apply for Internship
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleClose}
-                      component={Link}
-                      to="/hiringExpert"
-                    >
-                      We are Hiring Experts
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleClose}
-                      component={Link}
-                      to="/becomePartner"
-                    >
-                      Become Service Partner
-                    </MenuItem>
-                  </Menu>
-                </Box>
-              </Stack>
-            </Grid2>
+                    Apply for Internship
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to="/hiringExpert"
+                  >
+                    We are Hiring Experts
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to="/becomePartner"
+                  >
+                    Become Service Partner
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </Stack>
           </Grid2>
         </Grid2>
+
         <Grid2
           container
           size={{ lg: 12, md: 12, sm: 12, xs: 12 }}
@@ -471,26 +486,30 @@ function Header() {
         >
           <Grid2
             size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
-            className="flex md:justify-end justify-center flex-wrap text-xs sm:text-sm md:text-base lg:text-lg  gap-3"
+            className="flex md:justify-end justify-center flex-wrap text-xs sm:text-sm md:text-base lg:text-lg  gap-3 pb-2  border-b-2 md:border-b-0 "
           >
-            {fetchHeader && Object.keys(fetchHeader).length > 0 &&
+            {fetchHeader &&
+              Object.keys(fetchHeader).length > 0 &&
               item.map((value, index) => (
                 <Stack
                   direction="row"
                   alignItems="center"
                   key={index}
-                  className="whitespace-nowrap flex-nowrap items-center"
+                  className=" flex flex-wrap items-center"
+                  sx={{ fontSize: { xs: "12px", sm: "14px", md: "16px" } }}
                 >
                   {value.icon}
-                  <Typography ml={1} className="whitespace-nowrap">
+                  <Typography
+                    ml={1}
+                    sx={{ fontSize: { xs: "12px", sm: "14px", md: "16px" } }}
+                    className="flex flex-wrap"
+                  >
                     {value.text}
                   </Typography>
                 </Stack>
-              ))
-            }
+              ))}
           </Grid2>
         </Grid2>
-
       </Grid2>
     </>
   );
