@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Box, Grid2, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import CallIcon from '@mui/icons-material/Call';
 import { getFooter } from "../../AdminDashoard/SiteSetting/SettingSlice";
 import { Link } from "react-router-dom";
 
@@ -37,7 +38,7 @@ function Footer() {
                 textDecorationColor: "red",
                 margin: '3px',
                 width: 'fit-content',
-                // borderBottom: '3px solid red',
+                borderBottom: '2px solid white',
               }}>
                 Registered Office
               </Typography>
@@ -62,22 +63,22 @@ function Footer() {
                 textDecorationColor: "red",
                 margin: '3px',
                 width: 'fit-content',
-                // borderBottom: '3px solid red',
+                borderBottom: '2px solid white',
               }}>
                 Customer Support{" "}
               </Typography>
               <Typography color="white">
-                Tel 1: {fetchFooter?.customerSupport?.salesNumber}
+                <CallIcon/>  {fetchFooter?.customerSupport?.salesNumber}
               </Typography>
               <Typography color="white">
-                Tel 2: {fetchFooter?.customerSupport?.engineeringNumber}{" "}
+               <CallIcon/> {fetchFooter?.customerSupport?.engineeringNumber}{" "}
                 {" "}
               </Typography>
               <Typography color="white">
-                Tel 3: {fetchFooter?.customerSupport?.serviceNumber}
+               <CallIcon/> {fetchFooter?.customerSupport?.serviceNumber}
               </Typography>
               <Typography color="white">
-                Tel 4: {fetchFooter?.customerSupport?.email}
+                <CallIcon/> {fetchFooter?.customerSupport?.email}
               </Typography>
             </Box>
           </Grid2>
@@ -87,7 +88,7 @@ function Footer() {
             <Box>
               <Typography variant="h5" color="white" sx={{
                 width: 'fit-content',
-                // borderBottom: '3px solid red',
+                borderBottom: '2px solid white',
                 textDecorationColor: "red",
                 margin: '3px'
               }}>
@@ -141,7 +142,7 @@ function Footer() {
             <Box>
               <Typography variant="h5" color="white" sx={{
                 width: 'fit-content',
-                // borderBottom: '3px solid red',
+                borderBottom: '2px solid white',
                 textDecorationColor: "red",
                 margin: '3px'
               }}>

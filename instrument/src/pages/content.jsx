@@ -1,4 +1,4 @@
-import { Box, Card, Grid2  } from "@mui/material";
+import { Box, Card, Divider, Grid2 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchCategories } from "../AdminDashoard/Category/CategorySlice";
@@ -17,7 +17,7 @@ function content() {
     error,
   } = useSelector((state) => state.software);
   const { uploadedBanners } = useSelector((state) => state.header);
-  const { productFox } = useSelector(state => state.productPage)
+  const { productFox } = useSelector((state) => state.productPage);
   const [page, setPage] = useState(1);
 
   const data =
@@ -26,7 +26,6 @@ function content() {
       : [];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
 
   // Function to handle next image
   const handleNext = () => {
@@ -37,7 +36,10 @@ function content() {
   useEffect(() => {
     if (data.length === 0) return;
 
-    const interval = setInterval(handleNext,uploadedBanners?.map((time) => time.sliderDelay*1000) );
+    const interval = setInterval(
+      handleNext,
+      uploadedBanners?.map((time) => time.sliderDelay * 1000)
+    );
 
     return () => clearInterval(interval);
   }, [data.length]); // Re-run if banner data updates
@@ -68,18 +70,24 @@ function content() {
   return (
     <>
       <div className="min-h-screen bg-gray-50 flex flex-col justify-between w-full ">
-        <Grid2 container display="flex" justifyContent="center" mt={1} sx={{px:{xs:2,md:0,sm:2}}}>
+        <Grid2
+          container
+          display="flex"
+          justifyContent="center"
+          mt={1}
+          sx={{ px: { xs: 2, md: 0, sm: 2 } }}
+        >
           <Grid2 size={{ xs: 12, sm: 10, md: 9, lg: 8 }}>
             <Box
               display="flex"
               justifyContent="center"
               sx={{
                 height: {
-                  xs: '30vh',  // smaller height on mobile
-                  sm: '35vh',
-                  md: '40vh',
-                  lg: '45vh',  // your desired default
-                }
+                  xs: "30vh", // smaller height on mobile
+                  sm: "35vh",
+                  md: "40vh",
+                  lg: "45vh", // your desired default
+                },
               }}
             >
               {data.length > 0 && (
@@ -93,13 +101,18 @@ function content() {
           </Grid2>
         </Grid2>
 
-        <Grid2 container className=" flex justify-center" sx={{px:{xs:2,md:0,sm:2}}} >
+        <Grid2
+          container
+          className=" flex justify-center"
+          sx={{ px: { xs: 2, md: 0, sm: 2 } }}
+        >
           {categories.length > 0 ? (
             <Grid2 size={{ xs: 12, sm: 10, md: 9, lg: 8 }}>
-              <Box>
-                <p className="text-3xl mt-10 mb-8 font-bold font-noto">
+              <Box display="flex" alignItems="center" mt={10} mb={8}>
+                <p className="text-3xl font-bold font-noto mr-4">
                   Industrial Automation
                 </p>
+                <Box flex={1} height="3px" bgcolor="black" />
               </Box>
               <Grid2 container spacing={3}>
                 {Array.isArray(categories) && categories.length > 0 ? (
@@ -110,7 +123,10 @@ function content() {
                       size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                     >
                       <Card className="h-full flex flex-col justify-between">
-                        <Link to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`} style={{ textDecoration: "none" }}>
+                        <Link
+                          to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`}
+                          style={{ textDecoration: "none" }}
+                        >
                           <div className="h-64 w-full bg-slate-200">
                             <img
                               src={category.categoryImage}
@@ -129,7 +145,13 @@ function content() {
                           <p className="text-xl text-black font-noto font-bold mb-2 line-clamp-2 ">
                             {limitNameWords(category.categoryName)}
                           </p>
-                          <p className="text-lg text-gray-800 font-noto flex-grow">
+                          <p
+                            className="text-lg text-gray-800 font-noto flex-grow"
+                            style={{
+                              textAlign: "justify",
+                              textJustify: "inter-word",
+                            }}
+                          >
                             {limitWords(category.description)}
                           </p>
 
@@ -138,11 +160,12 @@ function content() {
                               to={`/products/${category._id}/${encodeURIComponent(category.categoryName)}`}
                               style={{ textDecoration: "none" }}
                             >
-                              <p className="text-red-600 text-md font-semibold">Learn More ➜</p>
+                              <p className="text-red-600 text-md font-semibold">
+                                Learn More ➜
+                              </p>
                             </Link>
                           </div>
                         </div>
-
                       </Card>
                     </Grid2>
                   ))
@@ -151,22 +174,27 @@ function content() {
                 )}
               </Grid2>
 
-              <Grid2 mt={3} mb={2}   >
-                <p className="text-3xl mt-10 mb-8 font-bold font-noto">Foxboro Product Line</p>
+              <Grid2 mt={3} mb={2}>
+              
+                 <Box display="flex" alignItems="center" mt={10} mb={8}>
+                <p className="text-3xl font-bold font-noto mr-4">
+                 Foxboro Product Line
+                </p>
+                <Box flex={1} height="3px" bgcolor="black" />
+              </Box>
               </Grid2>
 
               <Grid2 container spacing={3} mt={1} mb={3}>
                 {productFox.length > 0 ? (
-
                   productFox.slice(0, 8).map((product) => (
                     <Grid2
                       size={{ lg: 3, md: 3, sm: 6, xs: 12 }}
                       // border={"1px solid black"}
                       key={product._id}
-                      sx={{ backgroundColor: 'pink' }}
+                      sx={{ backgroundColor: "pink" }}
                     >
                       <Card className="h-full flex flex-col justify-between">
-                        <Link to='/product'>
+                        <Link to="/product">
                           <div className="h-64 w-full">
                             <img
                               src={product.image}
@@ -180,38 +208,45 @@ function content() {
                               }}
                             />
                           </div>
-
                         </Link>
                         <div className="flex flex-col flex-grow px-3 py-4">
                           <p className="text-xl text-black font-noto font-bold pt-3 line-clamp-2 ">
                             {limitNameWords(product.name)}
                           </p>
 
-                          <p className="text-lg text-gray-800 font-noto flex-grow">
+                          <p
+                            className="text-lg text-gray-800 font-noto flex-grow"
+                            style={{
+                              textAlign: "justify",
+                              textJustify: "inter-word",
+                            }}
+                          >
                             {limitWords(product.description)}
                           </p>
 
                           <div className="w-full flex  pr-2">
-                            <Link to='/product'>
-                              <p className=" text-red-600 text-md font-semibold rounded-lg  mb-2">Learn More ➜</p>
+                            <Link to="/product">
+                              <p className=" text-red-600 text-md font-semibold rounded-lg  mb-2">
+                                Learn More ➜
+                              </p>
                             </Link>
                           </div>
                         </div>
                       </Card>
                     </Grid2>
                   ))
-
                 ) : (
-                  <div>
-                    No Foxboro Product
-                  </div>
+                  <div>No Foxboro Product</div>
                 )}
-
               </Grid2>
 
-              <p className="text-3xl mt-10 mb-8 font-bold font-noto">
+               <Box display="flex" alignItems="center" mt={10} mb={8}>
+                <p className="text-3xl font-bold font-noto mr-4">
                 Engineering Service
-              </p>
+                </p>
+                <Box flex={1} height="3px" bgcolor="black" />
+              </Box>
+              
               <Grid2 container spacing={3} mt={1} mb={3}>
                 {softwareData.length > 0 ? (
                   softwareData.slice(0, 4).map((software, index) => (
@@ -239,7 +274,16 @@ function content() {
                           <p className="text-xl text-black font-noto font-bold pt-3 line-clamp-2 ">
                             {limitNameWords(software.softwareName)}
                           </p>
-                          <p className="text-lg text-gray-800 font-noto flex-grow">
+                          {/* <p className="text-lg text-gray-800 font-noto flex-grow">
+                            {limitWords(software.description)}
+                          </p> */}
+                          <p
+                            className="text-lg text-gray-800 font-noto flex-grow"
+                            style={{
+                              textAlign: "justify",
+                              textJustify: "inter-word",
+                            }}
+                          >
                             {limitWords(software.description)}
                           </p>
                           <div className="w-full flex pr-2">
@@ -257,13 +301,10 @@ function content() {
                   <div>No Software available</div>
                 )}
               </Grid2>
-
-
             </Grid2>
           ) : (
             <div></div>
           )}
-
         </Grid2>
       </div>
     </>

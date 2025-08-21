@@ -59,7 +59,7 @@ function Header() {
   const arr = [
     { text: "Home", Link: "/" },
     { text: "Products", Link: "/product" },
-    // { text: "Solutions", Link: "/solution" },
+    { text: "Solutions", Link: "/solution" },
     { text: "Engineering", Link: "/software" },
     // { text: "E-Service", Link: null },
     { text: "Service Partners", Link: "/servicePartner" },
@@ -108,7 +108,6 @@ function Header() {
         >
           <Grid2
             size={{ xs: 12, sm: 10, md: 9, lg: 8 }}
-           
             className=" flex flex-col md:flex-row lg:flex-row justify-between  items-center text-white "
           >
             {/* Left side: Info items */}
@@ -361,8 +360,6 @@ function Header() {
             overflowX: "hidden",
           }}
         >
-          {/* Logo Section */}
-
           {/* Navigation & Work @Foxboro */}
           <Grid2
             sx={{
@@ -370,7 +367,7 @@ function Header() {
             }}
             wrap="wrap"
             // bgcolor={"yellow"}
-            size={{ lg: 8, md: 10, sm: 12, xs: 12 }}
+            size={{ xs: 12, sm: 10, md: 9, lg: 8 }}
           >
             <Stack
               direction={{ xs: "row", sm: "row" }}
@@ -385,15 +382,13 @@ function Header() {
             >
               {/* Navigation Links */}
               <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 4,
-                  // bgcolor: "red",
-                }}
+                display={"flex"}
+                flexWrap={"wrap"}
+                // bgcolor={'yellowgreen'}
+                gap={{ xs: 1, sm: 2, md: 3, lg: 4 }}
               >
                 {arr.map((value, index) => (
-                  <Box key={index}>
+                  <Box  key={index}>
                     {value.text === "E-Service" ? (
                       <>
                         <Button
@@ -430,7 +425,10 @@ function Header() {
                       </>
                     ) : (
                       <Button
+
+                      
                         sx={{
+                          // bgcolor:"aqua",
                           color: "white",
                           textTransform: "none",
                           fontSize: "18px",
@@ -458,8 +456,8 @@ function Header() {
                   sx={{
                     color: "white",
                     textTransform: "none",
-                    display: "flex",
-                    alignItems: "center",
+                    // display: "flex",
+                    // alignItems: "center",
                     gap: 1,
                     fontSize: "18px",
                   }}
